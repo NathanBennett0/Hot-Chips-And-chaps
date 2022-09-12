@@ -7,9 +7,8 @@ public class Recorder {
     //Add functionality to the game's GUI to load a recorded game 
     //Add the replay functionality to game's GUI: step-by-step, auto-replay, set replay speed.
 
-    //Esentially store ALL states of the game so users can replay it. Add functionality so that users can choose 
+    //Esentially store ALL states of the game. Using that data, add functionality in GUI so that users can choose 
     //the way that they replay the game
 
     
-
 }
