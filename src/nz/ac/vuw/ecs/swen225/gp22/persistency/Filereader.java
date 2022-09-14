@@ -28,7 +28,10 @@ public class Filereader {
 
     public static void main(String[] agrs) {
         Filereader fr = new Filereader();
-        fr.loadLevel("/level1.xml");
+        ArrayList<Tile> alltiles = fr.loadLevel("level1.xml");
+        for(Tile t : alltiles) {
+            System.out.println(t);
+        }
     }
 
     public Filereader() {
