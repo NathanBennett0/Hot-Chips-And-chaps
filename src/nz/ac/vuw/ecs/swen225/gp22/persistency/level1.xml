@@ -1,0 +1,185 @@
+<Level name="1">
+    <Tilelist>
+        <Tile type="Wall" walk="False" x="-5" y="6"/>
+        <Tile type="Wall" walk="False" x="-4" y="6"/>
+        <Tile type="Wall" walk="False" x="-3" y="6"/>
+        <Tile type="Wall" walk="False" x="-2" y="6"/>
+        <Tile type="Wall" walk="False" x="-1" y="6"/>
+        <Tile type="Wall" walk="False" x="1" y="6"/>
+        <Tile type="Wall" walk="False" x="2" y="6"/>
+        <Tile type="Wall" walk="False" x="3" y="6"/>
+        <Tile type="Wall" walk="False" x="4" y="6"/>
+        <Tile type="Wall" walk="False" x="5" y="6"/>
+
+        <Tile type="Wall" walk="False" x="-5" y="5"/>
+        <Tile type="Free" walk="True" x="-4" y="5"/>
+        <Tile type="Free" walk="True" x="-3" y="5"/>
+        <Tile type="Free" walk="True" x="-2" y="5"/>
+        <Tile type="Wall" walk="False" x="-1" y="5"/>
+        <Tile type="Wall" walk="False" x="0" y="5"/>
+        <Tile type="Wall" walk="False" x="1" y="5"/>
+        <Tile type="Free" walk="True" x="2" y="5"/>
+        <Tile type="Free" walk="True" x="3" y="5"/>
+        <Tile type="Free" walk="True" x="4" y="5"/>
+        <Tile type="Wall" walk="False" x="5" y="5"/>
+
+        <Tile type="Wall" walk="False" x="-5" y="4"/>
+        <Tile type="Free" walk="True" x="-4" y="4"/>
+        <Tile type="Treasure" walk="True" x="-3" y="4"/>
+        <Tile type="Free" walk="True" x="-2" y="4"/>
+        <Tile type="Wall" walk="False" x="-1" y="4"/>
+        <Tile type="Exit" walk="True" x="0" y="4"/>
+        <Tile type="Wall" walk="False" x="1" y="4"/>
+        <Tile type="Free" walk="True" x="2" y="4"/>
+        <Tile type="Treasure" walk="True" x="3" y="4"/>
+        <Tile type="Free" walk="True" x="4" y="4"/>
+        <Tile type="Wall" walk="False" x="5" y="4"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="3"/>
+        <Tile type="Wall" walk="False" x="-6" y="3"/>
+        <Tile type="Wall" walk="False" x="-5" y="3"/>
+        <Tile type="Wall" walk="False" x="-4" y="3"/>
+        <Tile type="Wall" walk="False" x="-3" y="3"/>
+        <ColouredTile type="Locked" walk="False" x="-2" y="3" colour="Yellow"/>
+        <Tile type="Wall" walk="False" x="-1" y="3"/>
+        <Tile type="ExitLock" walk="False" x="0" y="3"/>
+        <Tile type="Wall" walk="False" x="1" y="3"/>
+        <ColouredTile type="Locked" walk="False" x="2" y="3" colour="Yellow"/>
+        <Tile type="Wall" walk="False" x="3" y="3"/>
+        <Tile type="Wall" walk="False" x="4" y="3"/>
+        <Tile type="Wall" walk="False" x="5" y="3"/>
+        <Tile type="Wall" walk="False" x="6" y="3"/>
+        <Tile type="Wall" walk="False" x="7" y="3"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="2"/>
+        <Tile type="Free" walk="True" x="-6" y="2"/>
+        <ColouredTile type="Key" walk="True" x="-5" y="2" colour="Yellow"/>
+        <Tile type="Free" walk="True" x="-4" y="2"/>
+        <ColouredTile type="Locked" walk="False" x="-3" y="2" colour="Blue"/>
+        <Tile type="Free" walk="True" x="-2" y="2"/>
+        <Tile type="Free" walk="True" x="-1" y="2"/>
+        <Tile type="Free" walk="True" x="0" y="2"/>
+        <Tile type="Free" walk="True" x="1" y="2"/>
+        <Tile type="Free" walk="True" x="2" y="2"/>
+        <ColouredTile type="Locked" walk="False" x="3" y="2" colour="Orange"/>
+        <Tile type="Free" walk="True" x="4" y="2"/>
+        <ColouredTile type="Key" walk="True" x="5" y="2" colour="Yellow"/>
+        <Tile type="Free" walk="True" x="6" y="2"/>
+        <Tile type="Wall" walk="False" x="7" y="2"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="1"/>
+        <Tile type="Free" walk="True" x="-6" y="1"/>
+        <Tile type="Treasure" walk="True" x="-5" y="1"/>
+        <Tile type="Free" walk="True" x="-4" y="1"/>
+        <Tile type="Wall" walk="False" x="-3" y="1"/>
+        <ColouredTile type="Key" walk="True" x="-2" y="1" colour="Blue"/>
+        <Tile type="Free" walk="True" x="-1" y="1"/>
+        <Tile type="InfoField" walk="True" x="0" y="1"/>
+        <Tile type="Free" walk="True" x="1" y="1"/>
+        <ColouredTile type="Key" walk="True" x="2" y="1" colour="Orange"/>
+        <Tile type="Wall" walk="False" x="3" y="1"/>
+        <Tile type="Free" walk="True" x="4" y="1"/>
+        <Tile type="Treasure" walk="True" x="5" y="1"/>
+        <Tile type="Free" walk="True" x="6" y="1"/>
+        <Tile type="Wall" walk="False" x="7" y="1"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="0"/>
+        <Tile type="Wall" walk="False" x="-6" y="0"/>
+        <Tile type="Wall" walk="False" x="-5" y="0"/>
+        <Tile type="Wall" walk="False" x="-4" y="0"/>
+        <Tile type="Wall" walk="False" x="-3" y="0"/>
+        <Tile type="Treasure" walk="True" x="-2" y="0"/>
+        <Tile type="Free" walk="True" x="-1" y="0"/>
+        <Tile type="Chap" walk="True" x="0" y="0"/>
+        <Tile type="Free" walk="True" x="1" y="0"/>
+        <Tile type="Treasure" walk="True" x="2" y="0"/>
+        <Tile type="Wall" walk="False" x="3" y="0"/>
+        <Tile type="Wall" walk="False" x="4" y="0"/>
+        <Tile type="Wall" walk="False" x="5" y="0"/>
+        <Tile type="Wall" walk="False" x="6" y="0"/>
+        <Tile type="Wall" walk="False" x="7" y="0"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="-1"/>
+        <Tile type="Free" walk="True" x="-6" y="-1"/>
+        <Tile type="Free" walk="True" x="-5" y="-1"/>
+        <Tile type="Free" walk="True" x="-4" y="-1"/>
+        <Tile type="Wall" walk="False" x="-3" y="-1"/>
+        <ColouredTile type="Key" walk="True" x="-2" y="-1" colour="Blue"/>
+        <Tile type="Free" walk="True" x="-1" y="-1"/>
+        <Tile type="Free" walk="True" x="0" y="-1"/>
+        <Tile type="Free" walk="True" x="1" y="-1"/>
+        <ColouredTile type="Key" walk="True" x="2" y="-1" colour="Orange"/>
+        <Tile type="Wall" walk="False" x="3" y="-1"/>
+        <Tile type="Free" walk="True" x="4" y="-1"/>
+        <Tile type="Treasure" walk="True" x="5" y="-1"/>
+        <Tile type="Free" walk="True" x="6" y="-1"/>
+        <Tile type="Wall" walk="False" x="7" y="-1"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="-2"/>
+        <Tile type="Free" walk="True" x="-6" y="-2"/>
+        <Tile type="Treasure" walk="True" x="-5" y="-2"/>
+        <Tile type="Free" walk="True" x="-4" y="-2"/>
+        <ColouredTile type="Locked" walk="False" x="-3" y="-2" colour="Orange"/>
+        <Tile type="Free" walk="True" x="-2" y="-2"/>
+        <Tile type="Free" walk="True" x="-1" y="-2"/>
+        <Tile type="Treasure" walk="True" x="0" y="-2"/>
+        <Tile type="Free" walk="True" x="1" y="-2"/>
+        <Tile type="Free" walk="True" x="2" y="-2"/>
+        <ColouredTile type="Locked" walk="False" x="3" y="-2" colour="Blue"/>
+        <Tile type="Free" walk="True" x="4" y="-2"/>
+        <Tile type="Free" walk="True" x="5" y="-2"/>
+        <Tile type="Free" walk="True" x="6" y="-2"/>
+        <Tile type="Wall" walk="False" x="7" y="-2"/>
+
+        <Tile type="Wall" walk="False" x="-7" y="-3"/>
+        <Tile type="Wall" walk="False" x="-6" y="-3"/>
+        <Tile type="Wall" walk="False" x="-5" y="-3"/>
+        <Tile type="Wall" walk="False" x="-4" y="-3"/>
+        <Tile type="Wall" walk="False" x="-3" y="-3"/>
+        <Tile type="Wall" walk="False" x="-2" y="-3"/>
+        <ColouredTile type="Locked" walk="False" x="-1" y="-3" colour="Green"/>
+        <Tile type="Wall" walk="False" x="0" y="-3"/>
+        <ColouredTile type="Locked" walk="False" x="1" y="-3" colour="Green"/>
+        <Tile type="Wall" walk="False" x="2" y="-3"/>
+        <Tile type="Wall" walk="False" x="3" y="-3"/>
+        <Tile type="Wall" walk="False" x="4" y="-3"/>
+        <Tile type="Wall" walk="False" x="5" y="-3"/>
+        <Tile type="Wall" walk="False" x="6" y="-3"/>
+        <Tile type="Wall" walk="False" x="7" y="-3"/>
+
+        <Tile type="Wall" walk="False" x="-3" y="-4"/>
+        <Tile type="Free" walk="True" x="-2" y="-4"/>
+        <Tile type="Free" walk="True" x="-1" y="-4"/>
+        <Tile type="Wall" walk="False" x="0" y="-4"/>
+        <Tile type="Free" walk="True" x="1" y="-4"/>
+        <Tile type="Free" walk="True" x="2" y="-4"/>
+        <Tile type="Wall" walk="False" x="3" y="-4"/>
+
+        <Tile type="Wall" walk="False" x="-3" y="-5"/>
+        <Tile type="Free" walk="True" x="-2" y="-5"/>
+        <Tile type="Treasure" walk="True" x="-1" y="-5"/>
+        <Tile type="Wall" walk="False" x="0" y="-5"/>
+        <Tile type="Treasure" walk="True" x="1" y="-5"/>
+        <Tile type="Free" walk="True" x="2" y="-5"/>
+        <Tile type="Wall" walk="False" x="3" y="-5"/>
+
+        <Tile type="Wall" walk="False" x="-3" y="-6"/>
+        <Tile type="Free" walk="True" x="-2" y="-6"/>
+        <ColouredTile type="Key" walk="True" x="-1" y="-6" colour="Green"/>
+        <Tile type="Wall" walk="False" x="0" y="-6"/>
+        <ColouredTile type="Key" walk="True" x="1" y="-6" colour="Green"/>
+        <Tile type="Free" walk="True" x="2" y="-6"/>
+        <Tile type="Wall" walk="False" x="3" y="-6"/>
+
+        <Tile type="Wall" walk="False" x="-3" y="-7"/>
+        <Tile type="Wall" walk="False" x="-2" y="-7"/>
+        <Tile type="Wall" walk="False" x="-1" y="-7"/>
+        <Tile type="Wall" walk="False" x="0" y="-7"/>
+        <Tile type="Wall" walk="False" x="1" y="-7"/>
+        <Tile type="Wall" walk="False" x="2" y="-7"/>
+        <Tile type="Wall" walk="False" x="3" y="-7"/>
+
+
+    </Tilelist>
+    <Chap x="9" y="9"/>
+</Level>
