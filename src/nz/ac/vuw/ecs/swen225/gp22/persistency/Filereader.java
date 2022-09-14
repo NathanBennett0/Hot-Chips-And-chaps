@@ -1,5 +1,16 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Free;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Treasure;
+import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
+import nz.ac.vuw.ecs.swen225.gp22.domain.ExitLock;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Exit;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -10,6 +21,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.awt.Color;
 
 public class Filereader {
 
@@ -54,7 +67,7 @@ public class Filereader {
                     String x = T.getAttribute("x");
                     String y = T.getAttribute("y");
 
-                    alltiles.add(newTile(type,x,y));
+                    alltiles.add(newTile(type,Integer.parseInt(x), Integer.parseInt(y)));
 
                     System.out.println("type is " + type);
                     System.out.println("walk is " + walk);
@@ -74,7 +87,7 @@ public class Filereader {
                     String y = T.getAttribute("y");
                     String colour = T.getAttribute("colour");
 
-                    alltiles.add(newTile(type,x,y,colour));
+                    alltiles.add(newTile(type,Integer.parseInt(x), Integer.parseInt(y), colour));
 
                     System.out.println("type is " + type);
                     System.out.println("walk is " + walk);
@@ -93,26 +106,42 @@ public class Filereader {
     public Tile newTile(String name, int x, int y) {
         switch (name) {
             case "Free":
-                return new Free(true,x,y);
-            case "Wall"
-                return new Wall(false,x,y);
-            case "Treasure"
-                return new Treasure(true,x,y);
-            case "InfoField"
-                return new InfoField(true,x,y);
-            case "ExitLock"
-                return new ExitLock(true,x,y);
-            case "Exit"
-                return new Exit(false,x,y);
+                return new Free(true, new Location(x,y));
+            case "Wall":
+                return new Wall(false, new Location(x,y));
+            case "Treasure":
+                //return new Treasure(true, new Location(x,y));
+            case "InfoField":
+                //return new InfoField(true, new Location(x,y));
+            case "ExitLock":
+                return new ExitLock(true, new Location(x,y));
+            case "Exit":
+                return new Exit(false, new Location(x,y));
         }
+        return new Tile(true, new Location(0,0));
     }
 
     public Tile newTile(String name, int x, int y, String colour) {
-        switch (name) {
+        switch (name) { 
             case "Key":
-                return new Key(true,x,y,colour);
+                //return new Key(true, new Location(x,y), getcolour(colour), false);
             case "Locked":
-                return new Locked(false,x,y,colour);
+                //return new Locked(false, new Location(x,y), getcolour(colour));
         }
+        return new Tile(true, new Location(0,0));
+    }
+
+    public Color getcolour(String colour) {
+        switch (colour) {
+            case "Green":
+                return Color.GREEN;
+            case "Blue":
+                return Color.BLUE;
+            case "Yellow":
+                return Color.YELLOW;
+            case "Orange":
+                return Color.ORANGE;
+        }
+        return Color.BLACK;
     }
 }
