@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -30,12 +32,14 @@ public class App extends JFrame {
         this.setPreferredSize(new Dimension(800,800));
         this.setVisible(true);
         this.setTitle("GAME TITLE"); //come back
+
         mainMenu();
+        this.setJMenuBar(new Menu());
     }
     
     public void mainMenu(){
         newPanel.run();
-
+        
         var p = new JPanel();
         var title = new JLabel("Game title!"); //come back
         var tutorial = new JButton("Tutorial");
