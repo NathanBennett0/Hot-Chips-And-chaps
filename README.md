@@ -34,7 +34,10 @@ Fuzz Testing (package test.nz.ac.vuw.ecs.swen225.gp22.fuzz)
 - [ ] Decide next meeting time and a to-do list
 
 ### 12/09/2022 - Catch up
-- [ ] 
+- [ ] Create the initial commits for the packages
+- [ ] Form individual plans to meet up when reliant on each other
+- [ ] Pull everyones code so far so we can begin working on each others packages
+- [ ] Goal for next week: have a semi functioning game
 
 
 
