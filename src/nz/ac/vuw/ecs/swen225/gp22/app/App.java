@@ -34,7 +34,7 @@ public class App extends JFrame {
         this.setTitle("GAME TITLE"); //come back
 
         mainMenu();
-        this.setJMenuBar(new Menu());
+        this.setJMenuBar(new MenuBar());
     }
     
     public void mainMenu(){
