@@ -8,7 +8,8 @@ public class Maze {
 	public final Tile[][] grid = new Tile[16][16]; //16 set for now 
 	public ArrayList<Tile> tiles; //varies depending on the level
 	public int numItems; //needed?
-	public Chap player; 
+	public Chap player;
+	//level field 
 	
 	public Maze(ArrayList<Tile> t, int n) {
 		this.tiles = t;
