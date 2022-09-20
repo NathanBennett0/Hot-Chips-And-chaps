@@ -19,9 +19,9 @@ public class Maze {
 		this.tiles = t;
 		this.numItems = n;
 	}
-	
-	//getters and setters
-	Tile[][] getGrid(){
+
+	// getters and setters
+	Tile[][] getGrid() {
 		return grid;
 	}
 
@@ -66,5 +66,5 @@ public class Maze {
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
 		return next.CanWalkOn(player);
 	}
-	
+
 }

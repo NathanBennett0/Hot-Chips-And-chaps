@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 
 public class Viewport extends JPanel {
 
-    //public Viewport(Model model){ this.model=model; }
+	// public Viewport(Model model){ this.model=model; }
 
-    public void paintComponent(Graphics g) {
-        //rendering stuff
-    }
+	public void paintComponent(Graphics g) {
+		// rendering stuff
+	}
 }

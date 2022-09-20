@@ -1,23 +1,28 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-public class Locked extends Tile{
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+
+public class Locked extends Tile {
 	public boolean locked = true;
 	public Key.Color col;
 	
 	public Locked(Location l, Key.Color col) {
 		super(l);
 		this.col = col;
+		icon = col.getLockedIcon();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public void unlock() {
 		locked = false;
 	}
+
 	public boolean isLocked() {
 		return locked;
 	}
-	//getters and setters 
-	public Key.Color getColor(){
+
+	// getters and setters
+	public Key.Color getColor() {
 		return col;
 	}
 

@@ -1,6 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-public class Wall extends Tile{
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+
+public class Wall extends Tile {
+	public Img icon = Img.Wall;
 
 	public Wall(Location l) {
 		super(l);
