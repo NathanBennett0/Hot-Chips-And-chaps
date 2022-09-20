@@ -6,8 +6,8 @@ import javax.swing.SwingUtilities;
  * Main class
  */
 public class Main {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(App::new);
-    }
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(App::new);
+	}
 
 }

@@ -2,22 +2,52 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
-public class Key extends Tile{
+public class Key extends Tile {
 	public Color col;
 	public boolean cl = false;
-	
+
 	public Img icon;
-	
-	public enum Color{
-		YELLOW {Img getKeyIcon(){return Img.KeyYellow;}
-				Img getLockedIcon() {return Img.LockedDoorYellow;}},
-		ORANGE {Img getKeyIcon(){return Img.KeyOrange;}
-				Img getLockedIcon() {return Img.LockedDoorOrange;}},
-		GREEN  {Img getKeyIcon(){return Img.KeyGreen;}
-				Img getLockedIcon() {return Img.LockedDoorGreen;}}, 
-		BLUE   {Img getKeyIcon(){return Img.KeyBlue;}
-				Img getLockedIcon() {return Img.LockedDoorBlue;}};
+
+	public enum Color {
+		YELLOW {
+			Img getKeyIcon() {
+				return Img.KeyYellow;
+			}
+
+			Img getLockedIcon() {
+				return Img.LockedDoorYellow;
+			}
+		},
+		ORANGE {
+			Img getKeyIcon() {
+				return Img.KeyOrange;
+			}
+
+			Img getLockedIcon() {
+				return Img.LockedDoorOrange;
+			}
+		},
+		GREEN {
+			Img getKeyIcon() {
+				return Img.KeyGreen;
+			}
+
+			Img getLockedIcon() {
+				return Img.LockedDoorGreen;
+			}
+		},
+		BLUE {
+			Img getKeyIcon() {
+				return Img.KeyBlue;
+			}
+
+			Img getLockedIcon() {
+				return Img.LockedDoorBlue;
+			}
+		};
+
 		abstract Img getKeyIcon();
+
 		abstract Img getLockedIcon();
 	}
 
@@ -28,12 +58,13 @@ public class Key extends Tile{
 		this.icon = col.getKeyIcon();
 		// TODO Auto-generated constructor stub
 	}
-	
-	//getters and setters
+
+	// getters and setters
 	public Color getColor() {
 		return col;
 	}
-	public boolean isCollected() { //collected or not
+
+	public boolean isCollected() { // collected or not
 		return cl;
 	}
 }
