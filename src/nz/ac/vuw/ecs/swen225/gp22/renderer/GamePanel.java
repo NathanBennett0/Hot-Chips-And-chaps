@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Entity;
@@ -33,5 +36,15 @@ public class GamePanel extends JPanel{
 		
 		
 	}
+
+	public static JLabel getStartPanel(){
+        var backgroundImage = new JLabel();
+        backgroundImage.setIcon(new ImageIcon(Img.StartOne.image));
+        // REMINDER: 
+        // need to add in a if statement here to iterate between StartOne and StartTwo
+        // backgroundImage.setIcon(new ImageIcon(Img.StartTwo.image));
+        return backgroundImage;
+    }
+
     
 }

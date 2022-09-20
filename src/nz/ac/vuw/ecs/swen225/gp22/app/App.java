@@ -15,7 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.GamePanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 
 public class App extends JFrame {
@@ -47,9 +49,6 @@ public class App extends JFrame {
         // Added by Ella -> sets the starting image
         // Need to play around to find out how to layer the buttons on top of the image :)
         // Also I need to find out how to make it not pixelated 
-        var backgroundImage = new JLabel();
-        ImageIcon icon = new ImageIcon(Img.StartOne.image);
-        backgroundImage.setIcon(icon);
 
         tutorial.addActionListener((e)->{ tutorial();});
         start.addActionListener((e)->{ game();});
@@ -57,7 +56,7 @@ public class App extends JFrame {
         add(BorderLayout.CENTER, p);
         p.add(tutorial);
         p.add(start);
-        p.add(backgroundImage);
+        p.add(GamePanel.getStartPanel());
         newPanel = ()->{ remove(p);};
         setPreferredSize(new Dimension(900, 750));
         pack();
@@ -83,6 +82,29 @@ public class App extends JFrame {
 
     public void game(){
         System.out.println("Starting game...");
+        newPanel.run();
+
+        JFrame frame  = new JFrame("Score Board Frame");
+		frame.add(ScoreBoardPanel.getScoreBoard());
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(new Dimension(900, 700));
+		frame.setLayout(null);
+		frame.setVisible(true);
+
+        var p = new JPanel();
+        var back = new JButton("Back");
+
+        back.addActionListener((e)->{ mainMenu();});
+
+        add(BorderLayout.CENTER, p);
+
+        frame.add(back);
+        //p.add(ScoreBoardPanel.getScoreBoard());
+
+        newPanel = ()->{ remove(p);};
+
+        pack();
     }
 
 }
