@@ -7,4 +7,8 @@ public class Free extends Tile{
 		// TODO Auto-generated constructor stub
 	} //empty tile
 
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		return true;
+	}
 }

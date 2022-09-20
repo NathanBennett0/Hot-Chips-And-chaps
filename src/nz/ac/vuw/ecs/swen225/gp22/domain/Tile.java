@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-public class Tile implements Entity{ 
+public class Tile implements Entity{
     public boolean c; //can walk on 
     public Location l;
 
@@ -13,9 +13,14 @@ public class Tile implements Entity{
     public Location getLocation() {
         return l;
     }
-	@Override
+
+    @Override
+    public boolean CanWalkOn(Chap p) { //everything needs to implement it
+        return false;
+    }
+	/*@Override
 	public boolean CanWalkOn() {
 		// TODO Auto-generated method stub
 		return c;
-	}
+	}*/
 }

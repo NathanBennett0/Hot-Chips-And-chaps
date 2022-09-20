@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.ArrayList;
 
 public class Chap { //player which is not a core tile
+	//have state object, check if state object is dead or alive
 	public ArrayList<Tile> chest; 
 	public boolean won = false;
 	public Location l;

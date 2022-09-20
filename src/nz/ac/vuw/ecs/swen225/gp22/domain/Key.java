@@ -3,7 +3,16 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 public class Key extends Tile{
 	public Color col;
 	public boolean cl = false;
-	
+
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		if(isCollected()) {
+			p.addToChest(this);
+			return true;
+		}
+		return false;
+	}
+
 	public enum Color{
 		RED, GREEN, BLUE
 	}

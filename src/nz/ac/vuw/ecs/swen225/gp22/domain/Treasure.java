@@ -13,4 +13,12 @@ public class Treasure extends Tile{
 		return c;
 	}
 
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		if(isCollected()) {
+			p.addToChest(this);
+			return true;
+		}
+		return false;
+	}
 }

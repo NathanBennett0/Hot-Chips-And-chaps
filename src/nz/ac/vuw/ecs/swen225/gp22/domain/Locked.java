@@ -21,4 +21,14 @@ public class Locked extends Tile{
 		return col;
 	}
 
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		for(Tile t : p.getChest()){
+			if(t instanceof Key) {
+				p.addToChest(this);
+				return true;
+			}
+		}
+		return false;
+	}
 }
