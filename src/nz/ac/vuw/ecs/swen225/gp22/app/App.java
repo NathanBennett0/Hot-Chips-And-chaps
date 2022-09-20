@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 
 public class App extends JFrame {
 
@@ -35,22 +39,27 @@ public class App extends JFrame {
     
     public void mainMenu(){
         newPanel.run();
-
         var p = new JPanel();
-        var title = new JLabel("Game title!"); //come back
+        p.setBounds(0, 0, 900, 700);
         var tutorial = new JButton("Tutorial");
         var start = new JButton("Start!");
 
-        p.add(title);
-        p.add(tutorial);
-        p.add(start);
+        // Added by Ella -> sets the starting image
+        // Need to play around to find out how to layer the buttons on top of the image :)
+        // Also I need to find out how to make it not pixelated 
+        var backgroundImage = new JLabel();
+        ImageIcon icon = new ImageIcon(Img.StartOne.image);
+        backgroundImage.setIcon(icon);
 
         tutorial.addActionListener((e)->{ tutorial();});
         start.addActionListener((e)->{ game();});
 
         add(BorderLayout.CENTER, p);
+        p.add(tutorial);
+        p.add(start);
+        p.add(backgroundImage);
         newPanel = ()->{ remove(p);};
-
+        setPreferredSize(new Dimension(900, 750));
         pack();
     }
 

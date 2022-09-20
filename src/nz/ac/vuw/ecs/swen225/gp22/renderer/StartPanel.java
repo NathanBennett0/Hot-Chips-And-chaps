@@ -2,30 +2,23 @@ package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import javax.swing.JLabel;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
-public class StartPanel extends JPanel {
-    private BufferedImage imgOne;
-	private BufferedImage imgTwo;
+public class StartPanel extends JLabel { ///// HMMMM MIGHT NOT NEED THIS CLASS
+    private static Img imgOne = Img.StartOne;
+	private static Img imgTwo = Img.StartTwo;
 	
+	public StartPanel() {}
 	
-	public StartPanel() {
-		try {
-			imgOne = ImageIO.read(new File("StartOne.png"));
-		}catch (IOException e){}
-		
-		try {
-			imgTwo = ImageIO.read(new File("StartTwo.png"));
-		}catch(IOException e) {}
-	}
-	
-	public void paint(Graphics gr) {
+	protected void paintComponent(Graphics gr) {
 		Graphics2D g = (Graphics2D) gr; 
-		g.drawImage(imgOne, 0, 0, null);
+		System.out.println(imgOne.image.getWidth());
+		System.out.println(imgOne.image.getHeight());
+		super.paintComponent(g);
+		g.drawImage(imgOne.image, 0, 0, null);
+	}
+
+	public static Img getImageOne(){
+		return imgOne;
 	}
 }
