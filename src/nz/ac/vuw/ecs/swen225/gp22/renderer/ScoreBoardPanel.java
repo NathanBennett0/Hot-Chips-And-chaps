@@ -1,4 +1,4 @@
-package gp22.renderer;
+package nz.ac.vuw.ecs.swen225.gp22.renderer;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -38,7 +38,7 @@ public class ScoreBoardPanel extends JPanel {
 		
 		int y = 0; 
 		for(int x = 0; x < inventory.length; x++) {
-			g.drawImage(inventory[x], x * 10, y, null);
+			//g.drawImage(inventory[x], x * 10, y, null);
 		}
 		
 		
