@@ -1,26 +1,19 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+public class Tile implements Entity{
+    public Location l;
 
-public class Tile implements Entity {
-	public boolean c; // can walk on
-	public Location l;
-	public Img icon = Img.Free; // Default icon is free tile
+    public Tile(Location l) {
+        this.l = l;
+    }
+    //draw method?
+    @Override
+    public Location getLocation() {
+        return l;
+    }
 
-	public Tile(boolean c, Location l) {
-		this.c = c;
-		this.l = l;
-	}
-
-	// draw method?
-	@Override
-	public Location getLocation() {
-		return l;
-	}
-
-	@Override
-	public boolean CanWalkOn() {
-		// TODO Auto-generated method stub
-		return c;
-	}
+    @Override
+    public boolean CanWalkOn(Chap p) { //everything needs to implement it
+        return false;
+    }
 }

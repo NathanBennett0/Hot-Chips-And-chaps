@@ -6,53 +6,21 @@ public class Key extends Tile {
 	public Color col;
 	public boolean cl = false;
 
-	public Img icon;
-
-	public enum Color {
-		YELLOW {
-			Img getKeyIcon() {
-				return Img.KeyYellow;
-			}
-
-			Img getLockedIcon() {
-				return Img.LockedDoorYellow;
-			}
-		},
-		ORANGE {
-			Img getKeyIcon() {
-				return Img.KeyOrange;
-			}
-
-			Img getLockedIcon() {
-				return Img.LockedDoorOrange;
-			}
-		},
-		GREEN {
-			Img getKeyIcon() {
-				return Img.KeyGreen;
-			}
-
-			Img getLockedIcon() {
-				return Img.LockedDoorGreen;
-			}
-		},
-		BLUE {
-			Img getKeyIcon() {
-				return Img.KeyBlue;
-			}
-
-			Img getLockedIcon() {
-				return Img.LockedDoorBlue;
-			}
-		};
-
-		abstract Img getKeyIcon();
-
-		abstract Img getLockedIcon();
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		if(isCollected()) {
+			p.addToChest(this);
+			return true;
+		}
+		return false;
 	}
 
-	public Key(boolean c, Location l, Color col, boolean cl) {
-		super(c, l);
+	public enum Color{
+		RED, GREEN, BLUE
+	}
+
+	public Key(Location l, Color col, boolean cl) {
+		super(l);
 		this.col = col;
 		this.cl = cl;
 		this.icon = col.getKeyIcon();

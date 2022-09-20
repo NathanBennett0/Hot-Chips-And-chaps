@@ -7,8 +7,8 @@ public class Chap { // player which is not a core tile
 	public ArrayList<Tile> chest;
 	public boolean won = false;
 	public Location l;
-	public Img icon = Img.Chap;
-
+	public State s = new AliveState(l);//have state object, check if state object is dead or alive
+	
 	public Chap(Location l) {
 		this.l = l;
 		this.chest = new ArrayList<Tile>();
@@ -35,22 +35,26 @@ public class Chap { // player which is not a core tile
 	public void setWin() {
 		this.won = true;
 	}
-
-	// move methods (changes the location fields)
-	public void moveUp() { // when location is changed the next ping chap is redrawn in that new location
-		l = new Location(l.getX(), l.getY() - 1); // how to? Stuck!
+	
+	//move methods (changes the location fields)
+	public void moveUp() {
+		s.moveUp();
 	}
 
 	public void moveDown() {
-		l = new Location(l.getX(), l.getY() + 1);
+		s.moveDown();
 	}
 
 	public void moveRight() {
-		l = new Location(l.getX() + 1, l.getY());
+		s.moveRight();
 	}
 
 	public void moveLeft() {
-		l = new Location(l.getX() - 1, l.getY());
+		s.moveLeft();
+	}
+
+	public void changeState(State newSt){
+		this.s = newSt;
 	}
 
 	// other methods

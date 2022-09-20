@@ -5,8 +5,8 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 public class Wall extends Tile {
 	public Img icon = Img.Wall;
 
-	public Wall(boolean c, Location l) {
-		super(c, l);
+	public Wall(Location l) {
+		super(l);
 		// TODO Auto-generated constructor stub
 	}
 

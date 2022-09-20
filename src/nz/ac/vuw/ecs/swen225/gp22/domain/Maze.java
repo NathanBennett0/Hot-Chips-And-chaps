@@ -1,15 +1,20 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Maze {
-	// fields
-	public final Tile[][] grid = new Tile[16][16]; // 16 set for now
-	public ArrayList<Tile> tiles; // varies depending on the level
-	public int numItems; // needed?
+	//fields
+	public final Tile[][] grid = new Tile[16][16]; //Nath i think its u who sets this shit up?
+	public ArrayList<Tile> tiles; //varies depending on the level
+	public int numItems;
 	public Chap player;
-
+	/**
+	 * lockloc is the location of the ExitLock
+	 */
+	private Location lockLoc;
+	
 	public Maze(ArrayList<Tile> t, int n) {
 		this.tiles = t;
 		this.numItems = n;
@@ -20,85 +25,46 @@ public class Maze {
 		return grid;
 	}
 
-	// get tile image returns which image from directory
-	private BufferedImage getTileImage(Tile t) {
-		if (t instanceof Wall) {
-			// image to be returned
-		} else if (t instanceof Key) {
-			// image to be returned
-		} else if (t instanceof Locked) {
-			// image to be returned
-		} else if (t instanceof InfoField) {
-			// image to be returned
-		} else if (t instanceof Treasure) {
-			// image to be returned
-		} else if (t instanceof ExitLock) {
-			// image to be returned
-		} else if (t instanceof Exit) {
-			// image to be returned
-		} else if (t instanceof Free) {
-			// image to be returned
-		}
-		return null;
+	/**
+	 *method that checks if all the keys collected then the exitLock is replaced with free tile
+	 */
+	public void allKeyCollected(){
+		assert player.getChest().size() == numItems;
+		assert lockLoc != null;
+		//change the lock tile to being a free tile
+		grid[lockLoc.getX()][lockLoc.getY()] = new Free(lockLoc);
+		//observer pattern??? notify observers the Lock is open this is to help yall other peeps
 	}
 
-	// object interaction:
-	// check if players action is allowed
-	public boolean allowAction(Location nextLoc) { // state pattern yet to be implemented!
-		// get location of the next tile
-		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
-		// check if the tile instance is pickable item like a key or treasure if it is
-		// add to chest
-		if (next instanceof Key) {
-			Key k = (Key) next;
-			if (!k.isCollected()) {
-				player.addToChest(k);
-				return true;
-			}
-			return false;
-		} else if (next instanceof Treasure) {
-			Treasure t = (Treasure) next;
-			if (!t.isCollected()) {
-				player.addToChest(t);
-				return true;
-			}
-			return false;
-		}
-		// check if the tile instance is a Locked and if so then look through the chest
-		// for the key if found then unlock
-		if (next instanceof Locked) {
-			for (Tile t : player.getChest()) {
-				if (t instanceof Key) {
-					Key k = (Key) t;
-					Locked loc = (Locked) next;
-					if (k.getColor() == loc.getColor()) {
-						return true;
-					}
-					return false;
+	/**
+	 * Nathan needs to call this to set up the maze
+	 */
+	public void onMazeCreated() throws IOException {
+		//check for nulls in 2d array
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[row].length; col++) {
+				if(grid[row][col] == null){
+					throw new IOException("found null");
 				}
 			}
-			return false;
 		}
-		// check if the tile instance is a ExitLock and if so then check if the chest is
-		// full
-		if (next instanceof ExitLock) {
-			if (player.getChest().size() == numItems) {
-				return true;
+		//loop through 2d array to find exitlock and then assign location to field
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[row].length; col++) {
+				if(grid[row][col] instanceof ExitLock){
+					lockLoc = grid[row][col].getLocation();
+				}
 			}
-			return false;
 		}
-		// check if the tile instance is a wall and if so return false instantly
-		if (next instanceof Wall) {
-			return false;
-		}
-		// still need exit and infofeild
-		if (next instanceof Exit) {
-			// move to next level
-		}
-		if (next instanceof InfoField) {
-			// print message to UI
-		}
-		return false;
+		//check if field location is not null
+		assert lockLoc != null;
+	}
+
+	//check if players action is allowed
+	public boolean allowAction(Location nextLoc) {
+		//get location of the next tile 
+		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
+		return next.CanWalkOn(player);
 	}
 
 }
