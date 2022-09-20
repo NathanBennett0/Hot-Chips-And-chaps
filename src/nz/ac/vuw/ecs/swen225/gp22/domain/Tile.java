@@ -1,11 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 public class Tile implements Entity{
-    public boolean c; //can walk on 
     public Location l;
 
-    public Tile(boolean c, Location l) {
-        this.c = c;
+    public Tile(Location l) {
         this.l = l;
     }
     //draw method?
@@ -18,9 +16,4 @@ public class Tile implements Entity{
     public boolean CanWalkOn(Chap p) { //everything needs to implement it
         return false;
     }
-	/*@Override
-	public boolean CanWalkOn() {
-		// TODO Auto-generated method stub
-		return c;
-	}*/
 }

@@ -4,8 +4,8 @@ public class Locked extends Tile{
 	public boolean locked = true;
 	public Key.Color col;
 	
-	public Locked(boolean c, Location l, Key.Color col) {
-		super(c, l);
+	public Locked(Location l, Key.Color col) {
+		super(l);
 		this.col = col;
 		// TODO Auto-generated constructor stub
 	}

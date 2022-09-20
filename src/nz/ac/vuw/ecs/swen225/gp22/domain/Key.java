@@ -17,8 +17,8 @@ public class Key extends Tile{
 		RED, GREEN, BLUE
 	}
 
-	public Key(boolean c, Location l, Color col, boolean cl) {
-		super(c, l);
+	public Key(Location l, Color col, boolean cl) {
+		super(l);
 		this.col = col;
 		this.cl = cl;
 		// TODO Auto-generated constructor stub

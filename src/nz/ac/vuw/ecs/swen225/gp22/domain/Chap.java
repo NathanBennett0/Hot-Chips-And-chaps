@@ -3,10 +3,10 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.ArrayList;
 
 public class Chap { //player which is not a core tile
-	//have state object, check if state object is dead or alive
 	public ArrayList<Tile> chest; 
 	public boolean won = false;
 	public Location l;
+	public State s = new AliveState(l);//have state object, check if state object is dead or alive
 	
 	public Chap(Location l) {
 		this.l = l;
@@ -33,17 +33,21 @@ public class Chap { //player which is not a core tile
 	}
 	
 	//move methods (changes the location fields)
-	public void moveUp() { //when location is changed the next ping chap is redrawn in that new location
-		l = new Location(l.getX(), l.getY()-1); //how to? Stuck! 
+	public void moveUp() {
+		s.moveUp();
 	}
 	public void moveDown() {
-		l = new Location(l.getX(), l.getY()+1);
+		s.moveDown();
 	}
 	public void moveRight() {
-		l = new Location(l.getX()+1, l.getY());
+		s.moveRight();
 	}
 	public void moveLeft() {
-		l = new Location(l.getX()-1, l.getY());
+		s.moveLeft();
+	}
+
+	public void changeState(State newSt){
+		this.s = newSt;
 	}
 	
 	//other methods

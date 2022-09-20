@@ -32,8 +32,8 @@ public class Maze {
 		assert player.getChest().size() == numItems;
 		assert lockLoc != null;
 		//change the lock tile to being a free tile
-		grid[lockLoc.getX()][lockLoc.getY()] = new Free(true, lockLoc);
-		//observer pattern??? notify observers the Lock is open
+		grid[lockLoc.getX()][lockLoc.getY()] = new Free(lockLoc);
+		//observer pattern??? notify observers the Lock is open this is to help yall other peeps
 	}
 
 	/**
