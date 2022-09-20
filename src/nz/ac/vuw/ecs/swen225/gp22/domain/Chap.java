@@ -1,11 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.ArrayList;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
 public class Chap { //player which is not a core tile
 	public ArrayList<Tile> chest; 
 	public boolean won = false;
 	public Location l;
+	public Img icon = Img.Chap; 
 	
 	public Chap(Location l) {
 		this.l = l;
