@@ -1,4 +1,4 @@
-package gp22.fuzz;
+package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
