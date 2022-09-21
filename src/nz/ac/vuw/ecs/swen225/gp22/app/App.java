@@ -111,7 +111,7 @@ public class App extends JFrame {
     	
         newPanel.run();
         stopTimer = false;
-        JPanel p = new Game(lvl);
+        Game p = new Game(lvl);
        
         ActionListener countDown=new ActionListener(){
         	int timeLeft = lvl==2?180000:90000; //level 2: 3 mins, level 1: 1.5 mins
@@ -120,6 +120,7 @@ public class App extends JFrame {
 		        timeLeft -= 250;
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
 		        System.out.println(df.format(timeLeft));
+		        p.timeLeft.setText(df.format(timeLeft));
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
 		        }
