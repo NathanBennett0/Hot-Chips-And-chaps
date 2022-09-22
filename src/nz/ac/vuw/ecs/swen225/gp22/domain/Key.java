@@ -23,7 +23,7 @@ public class Key extends Tile {
 		super(l);
 		this.col = col;
 		this.cl = cl;
-		this.icon = col.getKeyIcon();
+		this.icon = col.getKeyIcon(); //what do i need to do here?
 		// TODO Auto-generated constructor stub
 	}
 

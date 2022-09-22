@@ -61,8 +61,13 @@ public class Maze {
 	}
 
 	//check if players action is allowed
+<<<<<<< Updated upstream
 	public boolean allowAction(Location nextLoc) {
 		//get location of the next tile 
+=======
+	public boolean allowAction(Location nextLoc) { //Dyyynamic Dispatch
+		//get location of the next tile
+>>>>>>> Stashed changes
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
 		return next.CanWalkOn(player);
 	}
