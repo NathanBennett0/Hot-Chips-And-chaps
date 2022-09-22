@@ -14,10 +14,12 @@ public class Locked extends Tile {
 	}
 
 	public void unlock() {
+		System.out.println("Door unlocked");
 		locked = false;
 	}
 
 	public boolean isLocked() {
+		System.out.println("Door Locked");
 		return locked;
 	}
 

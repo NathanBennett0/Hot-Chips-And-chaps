@@ -6,8 +6,8 @@ public class InfoField extends Tile {
 	public String m;
 	public Img icon = Img.Info;
 
-	public InfoField(boolean c, Location l, String m) {
-		super(c, l);
+	public InfoField(Location l, String m) {
+		super(l);
 		this.m = m;
 		// TODO Auto-generated constructor stub
 	}

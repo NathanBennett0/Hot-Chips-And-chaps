@@ -9,6 +9,7 @@ public class Key extends Tile {
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		if(isCollected()) {
+			System.out.println("key added to chest");
 			p.addToChest(this);
 			return true;
 		}
@@ -16,7 +17,16 @@ public class Key extends Tile {
 	}
 
 	public enum Color{
-		RED, GREEN, BLUE
+		YELLOW {Img getKeyIcon(){return Img.KeyYellow;}
+			Img getLockedIcon() {return Img.LockedDoorYellow;}},
+		ORANGE {Img getKeyIcon(){return Img.KeyOrange;}
+			Img getLockedIcon() {return Img.LockedDoorOrange;}},
+		GREEN  {Img getKeyIcon(){return Img.KeyGreen;}
+			Img getLockedIcon() {return Img.LockedDoorGreen;}},
+		BLUE   {Img getKeyIcon(){return Img.KeyBlue;}
+			Img getLockedIcon() {return Img.LockedDoorBlue;}};
+		abstract Img getKeyIcon();
+		abstract Img getLockedIcon();
 	}
 
 	public Key(Location l, Color col, boolean cl) {
