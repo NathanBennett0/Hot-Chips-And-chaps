@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class Maze { //SUS
 	//fields
-	public final Tile[][] grid = new Tile[16][16]; //Nath i think its u who sets this shit up?
-	//public ArrayList<Tile> tiles; //varies depending on the level
-	//public int numItems;
-	//public Chap player;
+	public final Tile[][] grid = new Tile[16][16];
 	public Level lv; //need to give me information using getters Nathan
+	public Chap player = lv.getPlayer();
+	public int numItems = lv.getnumItems();
+	public ArrayList<Tile> tiles = lv.getTiles(); //varies depending on the level
 	/**
 	 * lockloc is the location of the ExitLock
 	 */
@@ -66,8 +66,7 @@ public class Maze { //SUS
 	//check if players action is allowed
 	public boolean allowAction(Location nextLoc) { //Dyyynamic Dispatch
 		//get location of the next tile
->>>>>>> Stashed changes
-			System.out.println("next action being checked");
+		System.out.println("next action being checked");
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
 		return next.CanWalkOn(player);
 	}

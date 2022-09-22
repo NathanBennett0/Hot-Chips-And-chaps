@@ -5,7 +5,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 public class Key extends Tile {
 	public Color col;
 	public boolean cl = false;
-
+	public Img icon;
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		if(isCollected()) {
@@ -33,7 +33,7 @@ public class Key extends Tile {
 		super(l);
 		this.col = col;
 		this.cl = cl;
-		this.icon = col.getKeyIcon(); //what do i need to do here?
+		this.icon = col.getKeyIcon();
 		// TODO Auto-generated constructor stub
 	}
 
