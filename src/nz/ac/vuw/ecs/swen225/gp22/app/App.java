@@ -55,7 +55,6 @@ public class App extends JFrame {
 
         menuBar(); //adding MenuBar
         mainMenu();
-        this.setJMenuBar(new MenuBar());
     }
     
     public void mainMenu(){
