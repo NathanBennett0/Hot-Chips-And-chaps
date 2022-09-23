@@ -7,11 +7,13 @@ public class Chap { // player which is not a core tile
 	public ArrayList<Tile> chest;
 	public boolean won = false;
 	public Location l;
-	public State s = new AliveState(l);//have state object, check if state object is dead or alive
+	public Maze m;
+	public State s;//have state object, check if state object is dead or alive
 	
-	public Chap(Location l) {
+	public Chap(Location l, Maze m) {
 		this.l = l;
 		this.chest = new ArrayList<Tile>();
+		this.s = new AliveState(l, m);
 	}
 
 	// getters and setters
@@ -38,22 +40,27 @@ public class Chap { // player which is not a core tile
 	
 	//move methods (changes the location fields)
 	public void moveUp() {
+		System.out.println("Chap moving up");
 		s.moveUp();
 	}
 
 	public void moveDown() {
+		System.out.println("Chap moving down");
 		s.moveDown();
 	}
 
 	public void moveRight() {
+		System.out.println("Chap moving right");
 		s.moveRight();
 	}
 
 	public void moveLeft() {
+		System.out.println("Chap moving left");
 		s.moveLeft();
 	}
 
 	public void changeState(State newSt){
+		System.out.println("Chap changing state");
 		this.s = newSt;
 	}
 
