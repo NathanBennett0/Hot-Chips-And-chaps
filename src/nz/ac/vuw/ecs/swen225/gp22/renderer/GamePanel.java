@@ -30,7 +30,7 @@ public class GamePanel extends JPanel {
 
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[x].length; y++) {
-				g.drawImage(board[x][y].icon.image, x * dim, y * dim, null);
+				//g.drawImage(board[x][y].icon.image, x * dim, y * dim, null);
 			}
 		}
 
