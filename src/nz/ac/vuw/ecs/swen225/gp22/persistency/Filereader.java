@@ -14,6 +14,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,14 +29,21 @@ public class Filereader {
     public static void main(String[] agrs) {
         Filereader fr = new Filereader();
         Level level1 = fr.loadLevel("level1.xml");
-        
+        Filewriter fw = new Filewriter(level1);
+        fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/level1save.xml");
+        for(Tile t : level1.getTiles()) {
+            System.out.println(t);
+        }
+        System.out.println(level1.getChap());
     }
 
     public Filereader() {
     }
 
     public Level loadLevel(String filename) {
-        ArrayList<Tile> alltiles = new ArrayList<Tile>();
+        List<Tile> alltiles = new ArrayList<Tile>();
+        List<Locked> lockedtiles = new ArrayList<Locked>();
+        List<Key> keytiles = new ArrayList<Key>();
         Chap chap = new Chap(new Location(0,0));
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
@@ -67,15 +75,28 @@ public class Filereader {
                     alltiles.add(makeTile(T));          
                 }
             }
-            // coloured tiles keys, doors
-            NodeList colouredtilelist = doc.getElementsByTagName("ColouredTile");
-            for(int n = 0; n < colouredtilelist.getLength(); n++) {
+
+            // locked door tiles
+            NodeList lockedtilelist = doc.getElementsByTagName("LockedTile");
+            for(int n = 0; n < lockedtilelist.getLength(); n++) {
                 // gets the individual tile
-                Node tile = colouredtilelist.item(n);
+                Node tile = lockedtilelist.item(n);
                 if(tile.getNodeType() == Node.ELEMENT_NODE) {
                     // finds attributes and uses them to create a new tile then add to list
                     Element T = (Element)tile;
-                    alltiles.add(makeColouredTile(T));
+                    lockedtiles.add(makeLockedTile(T));
+                }
+            }
+
+            // key tiles
+            NodeList keytilelist = doc.getElementsByTagName("LockedTile");
+            for(int n = 0; n < keytilelist.getLength(); n++) {
+                // gets the individual tile
+                Node tile = keytilelist.item(n);
+                if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                    // finds attributes and uses them to create a new tile then add to list
+                    Element T = (Element)tile;
+                    keytiles.add(makeKeyTile(T));
                 }
             }
             
@@ -87,21 +108,21 @@ public class Filereader {
             chap = new Chap(new Location(Integer.parseInt(C.getAttribute("x")),Integer.parseInt(C.getAttribute("y"))));
 
             // reads the keys the chap has possession of
-            NodeList ChapTileList = doc.getElementsByTagName("ChapTile");
-            for(int n = 0; n < ChapTileList.getLength(); n++) {
+            NodeList chapTileList = doc.getElementsByTagName("ChapTile");
+            for(int n = 0; n < chapTileList.getLength(); n++) {
                 // gets the individual tile
-                Node tile = ChapTileList.item(n);
+                Node tile = chapTileList.item(n);
                 if(tile.getNodeType() == Node.ELEMENT_NODE) {
                     Element T = (Element)tile;
                     // adds tile(key) to chest
-                    chap.addToChest((makeColouredTile(T)));
+                    chap.addToChest((makeKeyTile(T)));
                 }
             }
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, chap);
+        return new Level(alltiles, lockedtiles, keytiles, chap);
     }
 
     public Tile makeTile(Element T) {
@@ -111,12 +132,18 @@ public class Filereader {
         return newTile(type,Integer.parseInt(x), Integer.parseInt(y));
     }
 
-    public Tile makeColouredTile(Element T) {
-        String type = T.getAttribute("type");
+    public Key makeKeyTile(Element T) {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
         String colour = T.getAttribute("colour");
-        return newTile(type,Integer.parseInt(x), Integer.parseInt(y), colour);
+        return new Key(true, new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour), false);
+    }
+
+    public Locked makeLockedTile(Element T) {
+        String x = T.getAttribute("x");
+        String y = T.getAttribute("y");
+        String colour = T.getAttribute("colour");
+        return new Locked(true, new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour));
     }
 
     public Tile newTile(String name, int x, int y) {
@@ -137,25 +164,15 @@ public class Filereader {
         return new Tile(true, new Location(0,0));
     }
 
-    public Tile newTile(String name, int x, int y, String colour) {
-        switch (name) { 
-            case "Key":
-                return new Key(true, new Location(x,y), getcolour(colour), false);
-            case "Locked":
-                return new Locked(false, new Location(x,y), getcolour(colour));
-        }
-        return new Tile(true, new Location(0,0));
-    }
-
     public Key.Color getcolour(String colour) {
         switch (colour) {
-            case "Green":
+            case "GREEN":
                 return Key.Color.GREEN;
-            case "Blue":
+            case "BLUE":
                 return Key.Color.BLUE;
-            case "Yellow":
+            case "YELLOW":
                 return Key.Color.YELLOW;
-            case "Orange":
+            case "ORANGE":
                 return Key.Color.ORANGE;
         }
         return Key.Color.GREEN;

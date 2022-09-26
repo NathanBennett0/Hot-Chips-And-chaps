@@ -40,11 +40,11 @@
         <Tile type="Wall" walk="False" x="-5" y="3"/>
         <Tile type="Wall" walk="False" x="-4" y="3"/>
         <Tile type="Wall" walk="False" x="-3" y="3"/>
-        <ColouredTile type="Locked" walk="False" x="-2" y="3" colour="Yellow"/>
+        <LockedTile type="Locked" walk="False" x="-2" y="3" colour="YELLOW"/>
         <Tile type="Wall" walk="False" x="-1" y="3"/>
         <Tile type="ExitLock" walk="False" x="0" y="3"/>
         <Tile type="Wall" walk="False" x="1" y="3"/>
-        <ColouredTile type="Locked" walk="False" x="2" y="3" colour="Yellow"/>
+        <LockedTile type="Locked" walk="False" x="2" y="3" colour="YELLOW"/>
         <Tile type="Wall" walk="False" x="3" y="3"/>
         <Tile type="Wall" walk="False" x="4" y="3"/>
         <Tile type="Wall" walk="False" x="5" y="3"/>
@@ -53,17 +53,17 @@
 
         <Tile type="Wall" walk="False" x="-7" y="2"/>
         <Tile type="Free" walk="True" x="-6" y="2"/>
-        <ColouredTile type="Key" walk="True" x="-5" y="2" colour="Yellow"/>
+        <KeyTile type="Key" walk="True" x="-5" y="2" colour="YELLOW"/>
         <Tile type="Free" walk="True" x="-4" y="2"/>
-        <ColouredTile type="Locked" walk="False" x="-3" y="2" colour="Blue"/>
+        <LockedTile type="Locked" walk="False" x="-3" y="2" colour="BLUE"/>
         <Tile type="Free" walk="True" x="-2" y="2"/>
         <Tile type="Free" walk="True" x="-1" y="2"/>
         <Tile type="Free" walk="True" x="0" y="2"/>
         <Tile type="Free" walk="True" x="1" y="2"/>
         <Tile type="Free" walk="True" x="2" y="2"/>
-        <ColouredTile type="Locked" walk="False" x="3" y="2" colour="Orange"/>
+        <LockedTile type="Locked" walk="False" x="3" y="2" colour="ORANGE"/>
         <Tile type="Free" walk="True" x="4" y="2"/>
-        <ColouredTile type="Key" walk="True" x="5" y="2" colour="Yellow"/>
+        <KeyTile type="Key" walk="True" x="5" y="2" colour="YELLOW"/>
         <Tile type="Free" walk="True" x="6" y="2"/>
         <Tile type="Wall" walk="False" x="7" y="2"/>
 
@@ -72,11 +72,11 @@
         <Tile type="Treasure" walk="True" x="-5" y="1"/>
         <Tile type="Free" walk="True" x="-4" y="1"/>
         <Tile type="Wall" walk="False" x="-3" y="1"/>
-        <ColouredTile type="Key" walk="True" x="-2" y="1" colour="Blue"/>
+        <KeyTile type="Key" walk="True" x="-2" y="1" colour="BLUE"/>
         <Tile type="Free" walk="True" x="-1" y="1"/>
         <Tile type="InfoField" walk="True" x="0" y="1"/>
         <Tile type="Free" walk="True" x="1" y="1"/>
-        <ColouredTile type="Key" walk="True" x="2" y="1" colour="Orange"/>
+        <KeyTile type="Key" walk="True" x="2" y="1" colour="ORANGE"/>
         <Tile type="Wall" walk="False" x="3" y="1"/>
         <Tile type="Free" walk="True" x="4" y="1"/>
         <Tile type="Treasure" walk="True" x="5" y="1"/>
@@ -104,11 +104,11 @@
         <Tile type="Free" walk="True" x="-5" y="-1"/>
         <Tile type="Free" walk="True" x="-4" y="-1"/>
         <Tile type="Wall" walk="False" x="-3" y="-1"/>
-        <ColouredTile type="Key" walk="True" x="-2" y="-1" colour="Blue"/>
+        <KeyTile type="Key" walk="True" x="-2" y="-1" colour="BLUE"/>
         <Tile type="Free" walk="True" x="-1" y="-1"/>
         <Tile type="Free" walk="True" x="0" y="-1"/>
         <Tile type="Free" walk="True" x="1" y="-1"/>
-        <ColouredTile type="Key" walk="True" x="2" y="-1" colour="Orange"/>
+        <KeyTile type="Key" walk="True" x="2" y="-1" colour="ORANGE"/>
         <Tile type="Wall" walk="False" x="3" y="-1"/>
         <Tile type="Free" walk="True" x="4" y="-1"/>
         <Tile type="Treasure" walk="True" x="5" y="-1"/>
@@ -119,13 +119,13 @@
         <Tile type="Free" walk="True" x="-6" y="-2"/>
         <Tile type="Treasure" walk="True" x="-5" y="-2"/>
         <Tile type="Free" walk="True" x="-4" y="-2"/>
-        <ColouredTile type="Locked" walk="False" x="-3" y="-2" colour="Orange"/>
+        <LockedTile type="Locked" walk="False" x="-3" y="-2" colour="ORANGE"/>
         <Tile type="Free" walk="True" x="-2" y="-2"/>
         <Tile type="Free" walk="True" x="-1" y="-2"/>
         <Tile type="Treasure" walk="True" x="0" y="-2"/>
         <Tile type="Free" walk="True" x="1" y="-2"/>
         <Tile type="Free" walk="True" x="2" y="-2"/>
-        <ColouredTile type="Locked" walk="False" x="3" y="-2" colour="Blue"/>
+        <LockedTile type="Locked" walk="False" x="3" y="-2" colour="BLUE"/>
         <Tile type="Free" walk="True" x="4" y="-2"/>
         <Tile type="Free" walk="True" x="5" y="-2"/>
         <Tile type="Free" walk="True" x="6" y="-2"/>
@@ -137,9 +137,9 @@
         <Tile type="Wall" walk="False" x="-4" y="-3"/>
         <Tile type="Wall" walk="False" x="-3" y="-3"/>
         <Tile type="Wall" walk="False" x="-2" y="-3"/>
-        <ColouredTile type="Locked" walk="False" x="-1" y="-3" colour="Green"/>
+        <LockedTile type="Locked" walk="False" x="-1" y="-3" colour="GREEN"/>
         <Tile type="Wall" walk="False" x="0" y="-3"/>
-        <ColouredTile type="Locked" walk="False" x="1" y="-3" colour="Green"/>
+        <LockedTile type="Locked" walk="False" x="1" y="-3" colour="GREEN"/>
         <Tile type="Wall" walk="False" x="2" y="-3"/>
         <Tile type="Wall" walk="False" x="3" y="-3"/>
         <Tile type="Wall" walk="False" x="4" y="-3"/>
@@ -165,9 +165,9 @@
 
         <Tile type="Wall" walk="False" x="-3" y="-6"/>
         <Tile type="Free" walk="True" x="-2" y="-6"/>
-        <ColouredTile type="Key" walk="True" x="-1" y="-6" colour="Green"/>
+        <KeyTile type="Key" walk="True" x="-1" y="-6" colour="GREEN"/>
         <Tile type="Wall" walk="False" x="0" y="-6"/>
-        <ColouredTile type="Key" walk="True" x="1" y="-6" colour="Green"/>
+        <KeyTile type="Key" walk="True" x="1" y="-6" colour="GREEN"/>
         <Tile type="Free" walk="True" x="2" y="-6"/>
         <Tile type="Wall" walk="False" x="3" y="-6"/>
 
@@ -178,8 +178,6 @@
         <Tile type="Wall" walk="False" x="1" y="-7"/>
         <Tile type="Wall" walk="False" x="2" y="-7"/>
         <Tile type="Wall" walk="False" x="3" y="-7"/>
-
-
     </Tilelist>
     <Chap x="9" y="9"/>
 </Level>
