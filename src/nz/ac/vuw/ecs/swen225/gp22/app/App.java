@@ -70,9 +70,6 @@ public class App extends JFrame {
         var start = new JButton("Start!");
         start.setBounds(400, 580, 100, 30);
 
-        // Added by Ella -> sets the starting image
-        // Need to play around to find out how to layer the buttons on top of the image :)
-        // Also I need to find out how to make it not pixelated 
         var backgroundImage = new JLabel();
         backgroundImage.setBounds(0, 0, WIDTH, HEIGHT);
         ImageIcon icon = new ImageIcon(Img.StartOne.image);
