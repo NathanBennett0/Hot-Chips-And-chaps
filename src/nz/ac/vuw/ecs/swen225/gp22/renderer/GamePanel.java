@@ -5,44 +5,53 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.Game;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Entity;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Free;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 public class GamePanel extends JPanel {
-	Entity[][] board;
-	int dim = 80;
+	Tile[][] board;
+	Tile[][] test = new Tile[9][9]; // This 2D array is for testing purposes only
+	int dim = 62;
 
-	public GamePanel(Entity[][] b) {
-		this.setPreferredSize(new Dimension(800, 800));
-		this.board = b; // could use Maze.getGrid() for this...
+	public GamePanel() {		
+		// This is just to fill the array for testing
+    	for(int x = 0; x < 9; x++) {
+    		for(int y = 0; y < 9; y++) {
+    			test[x][y] = new Free(new Location(x,y));
+    		}
+    	}
 	}
+	
+	 public void updateBoard(Tile[][] b) {
+		 this.board = b; 
+	 }
 
-	/**
-	 * Draw the image on the window
-	 */
-	public void paint(Graphics gr) {
-		Graphics2D g = (Graphics2D) gr;
-
-		for (int x = 0; x < board.length; x++) {
-			for (int y = 0; y < board[x].length; y++) {
-				//g.drawImage(board[x][y].icon.image, x * dim, y * dim, null);
-			}
-		}
-
-	}
-
-	public static JLabel getStartPanel() {
-		var backgroundImage = new JLabel();
-		backgroundImage.setIcon(new ImageIcon(Img.StartOne.image));
-		// REMINDER:
-		// need to add in a if statement here to iterate between StartOne and StartTwo
-		// backgroundImage.setIcon(new ImageIcon(Img.StartTwo.image));
-		return backgroundImage;
-	}
-
+	 public void getBoard(Game g) {
+	    	JPanel board = new JPanel(); 
+	    	board.setBounds(50,35,558,558);
+	    	board.setLayout(new GridLayout(9,9));
+	    	
+	    	g.add(board);
+	    	
+	    	for(int x = 0; x < 9; x++) {
+	    		for(int y = 0; y < 9; y++) {
+	    			 var tileLabel = new JLabel();
+	    			 ImageIcon icon = new ImageIcon(test[x][y].icon.image.getScaledInstance(dim,dim,Image.SCALE_SMOOTH));
+	    			 tileLabel.setIcon(icon);
+	    			 board.add(tileLabel);
+	    		}
+	    	}
+	    }
+	 
 }

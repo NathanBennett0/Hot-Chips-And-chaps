@@ -2,24 +2,22 @@ package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class StartPanel extends JLabel { ///// HMMMM MIGHT NOT NEED THIS CLASS
-	private static Img imgOne = Img.StartOne;
-	private static Img imgTwo = Img.StartTwo;
+import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
-	public StartPanel() {
-	}
+public class StartPanel extends JLabel {
 
-	protected void paintComponent(Graphics gr) {
-		Graphics2D g = (Graphics2D) gr;
-		System.out.println(imgOne.image.getWidth());
-		System.out.println(imgOne.image.getHeight());
-		super.paintComponent(g);
-		g.drawImage(imgOne.image, 0, 0, null);
-	}
+	public StartPanel() {}
 
-	public static Img getImageOne() {
-		return imgOne;
+	public void addStartPanel(JPanel p) {
+		 var backgroundImage = new JLabel();
+	     backgroundImage.setBounds(0, 0, App.WIDTH, App.HEIGHT);
+	     ImageIcon icon = new ImageIcon(Img.StartOne.image);
+	     backgroundImage.setIcon(icon);
+	     p.add(backgroundImage);
 	}
 }

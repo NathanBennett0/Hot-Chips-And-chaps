@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -27,8 +27,6 @@ public class Game extends JPanel {
 	JLabel currLvl = new JLabel("1");
 	JLabel itemLeft = new JLabel("1");
 	
-	Tile[][] test = new Tile[9][9]; // This 2D array is for testing purposes only
-	
 	
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
@@ -36,15 +34,10 @@ public class Game extends JPanel {
     public Game(int lvl) {
     	this.level = lvl;
     	
-    	// This is just to fill the array for testing
-    	for(int x = 0; x < 9; x++) {
-    		for(int y = 0; y < 9; y++) {
-    			test[x][y] = new Free(new Location(x,y));
-    		}
-    	}
-    	
         sidePanel();
-        gameBoard();
+       
+        GamePanel g = new GamePanel();
+        g.getBoard(this);
         
     	//Setting Background Image
         var bgImage = new JLabel();
@@ -100,23 +93,6 @@ public class Game extends JPanel {
         p.add(itemLeft);
         System.out.println("Game.java: sidePanel() called.");
         
-    }
-    
-    public void gameBoard() {
-    	JPanel board = new JPanel(); 
-    	board.setBounds(50,35,558,558);
-    	board.setLayout(new GridLayout(9,9));
-    	
-    	this.add(board);
-    	
-    	for(int x = 0; x < 9; x++) {
-    		for(int y = 0; y < 9; y++) {
-    			 var tileLabel = new JLabel();
-    			 ImageIcon icon = new ImageIcon(test[x][y].icon.image.getScaledInstance(62,62,Image.SCALE_SMOOTH));
-    			 tileLabel.setIcon(icon);
-    			 board.add(tileLabel);
-    		}
-    	}
     }
     
 	/**

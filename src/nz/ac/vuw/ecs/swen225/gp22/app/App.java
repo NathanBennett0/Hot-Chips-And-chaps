@@ -69,16 +69,12 @@ public class App extends JFrame {
         newPanel.run();
         restart.run();
         var p = new JPanel();
+        StartPanel sp = new StartPanel();
         
         var tutorial = new JButton("Tutorial");
         tutorial.setBounds(400, 550, 100, 30);
         var start = new JButton("Start!");
         start.setBounds(400, 580, 100, 30);
-
-        var backgroundImage = new JLabel();
-        backgroundImage.setBounds(0, 0, WIDTH, HEIGHT);
-        ImageIcon icon = new ImageIcon(Img.StartOne.image);
-        backgroundImage.setIcon(icon);
 
         tutorial.addActionListener((e)->{ tutorial();});
         start.addActionListener((e)->{ level(1);});
@@ -87,7 +83,8 @@ public class App extends JFrame {
         p.setLayout(null);
         p.add(tutorial);
         p.add(start);
-        p.add(backgroundImage);
+        sp.addStartPanel(p);
+        
         newPanel = ()->{ remove(p);};
         //setPreferredSize(new Dimension(900, 750));
         pack();
