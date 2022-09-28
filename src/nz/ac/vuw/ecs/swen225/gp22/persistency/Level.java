@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
+import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 public class Level {
-    public List<Tile> tiles;
-    public List<Locked> lockedtiles;
-    public List<Key> keytiles;
-    public Chap player;
-    public List<Key> inventory;
-    // add inventory
-    // seperate keys from tiles
+    private List<Tile> tiles;
+    private List<Locked> lockedtiles;
+    private List<Key> keytiles;
+    private Chap player;
+    private List<Tile> inventory;
+    private InfoField info;
 
-    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player) {
+    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info) {
         this.tiles = tiles;
         this.lockedtiles = lockedtiles;
         this.keytiles = keytiles;
         this.player = player;
-        this.inventory = new ArrayList<Key>();
+        this.info = info;
+        this.inventory = new ArrayList<Tile>();
     }
 
     public List<Tile> getTiles() {
@@ -37,11 +38,30 @@ public class Level {
         return Collections.unmodifiableList(keytiles);
     }
 
+    // return a list of all tiles, used for drawing
+    public List<Tile> getAllTiles() {
+        List<Tile> allTiles = new ArrayList<Tile>();
+        for(Tile T : tiles) {
+            allTiles.add(T);
+        }
+        for(Tile T : lockedtiles) {
+            allTiles.add(T);
+        }
+        for(Tile T : keytiles) {
+            allTiles.add(T);
+        }
+        return allTiles;
+    }
+
     public Chap getChap() {
         return player;
     }
 
-    public List<Key> getInventory() {
+    public InfoField getInfoField() {
+        return info;
+    }
+    
+    public List<Tile> getInventory() {
         return Collections.unmodifiableList(inventory);
     }
 
@@ -51,6 +71,10 @@ public class Level {
 
     public void removeLockedTile(Locked locked) {
         lockedtiles.remove(locked);
+    }
+
+    public void addTileToInventory(Tile T) {
+        inventory.add(T);
     }
 
 }

@@ -34,7 +34,15 @@ public class Filereader {
         for(Tile t : level1.getTiles()) {
             System.out.println(t);
         }
+        for(Tile t : level1.getLockedTiles()) {
+            System.out.println(t);
+        }
+        for(Tile t : level1.getKeyTiles()) {
+            System.out.println(t);
+        }
+        System.out.println(level1.getInfoField());
         System.out.println(level1.getChap());
+        System.out.println("chap " + level1.getChap().getChest());
     }
 
     public Filereader() {
@@ -44,7 +52,8 @@ public class Filereader {
         List<Tile> alltiles = new ArrayList<Tile>();
         List<Locked> lockedtiles = new ArrayList<Locked>();
         List<Key> keytiles = new ArrayList<Key>();
-        Chap chap = new Chap(new Location(0,0));
+        Chap chap = new Chap(new Location(0,0), null);
+        InfoField info = new InfoField(new Location(0,0), "");
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
 
@@ -56,13 +65,6 @@ public class Filereader {
             // this is the root node, which is the level in our xml files
             Element root = doc.getDocumentElement();
             root.normalize();
-
-            // used for testing
-            /*
-            String level = root.getAttribute("name");
-            System.out.println("Root " + root.getNodeName());
-            System.out.println("level is " + level);
-            */
 
             // gathers all of the regular tiles into a list
             NodeList tilelist = doc.getElementsByTagName("Tile");
@@ -99,30 +101,49 @@ public class Filereader {
                     keytiles.add(makeKeyTile(T));
                 }
             }
+
+            // reads the chap from file
+            NodeList InfoNodes = doc.getElementsByTagName("Chap");
+            Node InfoNode = InfoNodes.item(0);
+            Element I = (Element)InfoNode;
+            // creates new chap
+            info = makeInfoFieldTile(I);
             
             // reads the chap from file
             NodeList ChapNodes = doc.getElementsByTagName("Chap");
             Node ChapNode = ChapNodes.item(0);
             Element C = (Element)ChapNode;
             // creates new chap
-            chap = new Chap(new Location(Integer.parseInt(C.getAttribute("x")),Integer.parseInt(C.getAttribute("y"))));
+            chap = new Chap(new Location(Integer.parseInt(C.getAttribute("x")),Integer.parseInt(C.getAttribute("y"))), null);
 
             // reads the keys the chap has possession of
-            NodeList chapTileList = doc.getElementsByTagName("ChapTile");
-            for(int n = 0; n < chapTileList.getLength(); n++) {
+            NodeList chapKeyTileList = doc.getElementsByTagName("ChapKeyTile");
+            for(int n = 0; n < chapKeyTileList.getLength(); n++) {
                 // gets the individual tile
-                Node tile = chapTileList.item(n);
+                Node tile = chapKeyTileList.item(n);
                 if(tile.getNodeType() == Node.ELEMENT_NODE) {
                     Element T = (Element)tile;
                     // adds tile(key) to chest
                     chap.addToChest((makeKeyTile(T)));
                 }
             }
+
+            // reads the treasure the chap has possession of
+            NodeList chapTreasureTileList = doc.getElementsByTagName("ChapTreasureTile");
+            for(int n = 0; n < chapTreasureTileList.getLength(); n++) {
+                // gets the individual tile
+                Node tile = chapTreasureTileList.item(n);
+                if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                    Element T = (Element)tile;
+                    // adds tile(key) to chest
+                    chap.addToChest((makeTile(T)));
+                }
+            }
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, lockedtiles, keytiles, chap);
+        return new Level(alltiles, lockedtiles, keytiles, chap, info);
     }
 
     public Tile makeTile(Element T) {
@@ -136,32 +157,37 @@ public class Filereader {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
         String colour = T.getAttribute("colour");
-        return new Key(true, new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour), false);
+        return new Key(new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour), false);
     }
 
     public Locked makeLockedTile(Element T) {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
         String colour = T.getAttribute("colour");
-        return new Locked(true, new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour));
+        return new Locked(new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour));
+    }
+
+    public InfoField makeInfoFieldTile(Element T) {
+        String x = T.getAttribute("x");
+        String y = T.getAttribute("y");
+        String text = T.getAttribute("text");
+        return new InfoField(new Location(Integer.parseInt(x),Integer.parseInt(y)), text);
     }
 
     public Tile newTile(String name, int x, int y) {
         switch (name) {
             case "Free":
-                return new Free(true, new Location(x,y));
+                return new Free(new Location(x,y));
             case "Wall":
-                return new Wall(false, new Location(x,y));
+                return new Wall(new Location(x,y));
             case "Treasure":
-                //return new Treasure(true, new Location(x,y));
-            case "InfoField":
-                //return new InfoField(true, new Location(x,y));
+                return new Treasure(new Location(x,y), false);
             case "ExitLock":
-                return new ExitLock(true, new Location(x,y));
+                return new ExitLock(new Location(x,y));
             case "Exit":
-                return new Exit(false, new Location(x,y));
+                return new Exit(new Location(x,y));
         }
-        return new Tile(true, new Location(0,0));
+        return new Tile(new Location(0,0));
     }
 
     public Key.Color getcolour(String colour) {
