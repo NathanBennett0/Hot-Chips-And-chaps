@@ -47,6 +47,7 @@ public class App extends JFrame {
     }
 
     public void initialize(){
+    	System.out.println("App.java: initialize() called.");
         //this.setSize(new Dimension(600,800));
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setVisible(true);
@@ -55,9 +56,11 @@ public class App extends JFrame {
 
         menuBar(); //adding MenuBar
         mainMenu();
+        
     }
     
     public void mainMenu(){
+    	System.out.println("App.java: mainMenu() called.");
         newPanel.run();
         restart.run();
         var p = new JPanel();
@@ -89,6 +92,7 @@ public class App extends JFrame {
     }
 
     public void tutorial(){
+    	System.out.println("App.java: tutorial() called.");
         newPanel.run();
         restart.run();
         
@@ -108,7 +112,7 @@ public class App extends JFrame {
     }
 
     public void level(int lvl){
-    	
+    	System.out.println("App.java: level() called.");
         newPanel.run();
         stopTimer = false;
         Game p = new Game(lvl);
@@ -137,6 +141,7 @@ public class App extends JFrame {
     }
     
     public void menuBar() {
+    	System.out.println("App.java: menuBar() called.");
     	//DECLARE
     	JMenuBar mb=new JMenuBar();
     	JMenuItem home=new JMenuItem("Home");

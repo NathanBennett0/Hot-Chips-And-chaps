@@ -15,6 +15,7 @@ public class KeyStroke implements KeyListener {
 	//private Map<Integer,Runnable> onReleased = new HashMap<>();
 	
 	public void setAction(int keyCode, Runnable pressed) {
+		System.out.println("KeyStroke.java: setAction() called.");
 		onPressed.put(keyCode, pressed);
 		//onReleased.put(keyCode, released);
 	}
@@ -24,12 +25,14 @@ public class KeyStroke implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println("KeyStroke.java: keyPressed() called.");
 		onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		System.out.println("KeyStroke.java: keyReleased() called.");
 		//onReleased.getOrDefault(e.getKeyCode(),()->{}).run();
 	}
 

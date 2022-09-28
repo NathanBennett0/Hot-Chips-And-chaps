@@ -44,6 +44,8 @@ public class Game extends JPanel {
         this.add(bgImage);
         this.setPreferredSize(new Dimension(App.WIDTH,App.HEIGHT));
         
+        System.out.println("Game.java: Game constructor called.");
+        
     }
     
     //Import viewport
@@ -54,6 +56,7 @@ public class Game extends JPanel {
         p.setBounds(0,0,App.HEIGHT, App.HEIGHT);
         
         this.add(p);
+        System.out.println("Game.java: gameView() called.");
         
     }
     
@@ -81,6 +84,7 @@ public class Game extends JPanel {
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
         itemLeft.setBounds(16, 321, 155, 54);
         p.add(itemLeft);
+        System.out.println("Game.java: sidePanel() called.");
         
     }
     
@@ -89,6 +93,7 @@ public class Game extends JPanel {
      * @return
      */
     public int getLevel() {
+    	System.out.println("Game.java: getLevel() called.");
     	return this.level;
     }
 //    
