@@ -34,10 +34,15 @@ public class App extends JFrame {
     public final static int WIDTH = 900;
     public final static int HEIGHT = 680;
     private boolean stopTimer = true;
+    
+    //Boolean variables for fuzz testing
+    public static boolean fuzzStarted = false;
+    public static boolean initializeDone = false;
 
     Runnable restart = ()->{ stopTimer = true;};
 
-    App(){
+    public App(){
+    	System.out.println("App.java: App constructor called.");
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         initialize();
@@ -56,7 +61,7 @@ public class App extends JFrame {
 
         menuBar(); //adding MenuBar
         mainMenu();
-        
+        initializeDone = true; // For fuzz testing
     }
     
     public void mainMenu(){
@@ -120,7 +125,7 @@ public class App extends JFrame {
 		    public void actionPerformed(ActionEvent e){
 		        timeLeft -= 250;
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
-		        System.out.println(df.format(timeLeft));
+		        //System.out.println(df.format(timeLeft));
 		        p.timeLeft.setText(df.format(timeLeft));
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
@@ -135,6 +140,7 @@ public class App extends JFrame {
 
         pack();
         timer.start();
+        fuzzStarted = true; // For fuzz testing
     }
     
     public void menuBar() {
