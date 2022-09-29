@@ -5,6 +5,7 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Maze { //SUS
 	//fields
