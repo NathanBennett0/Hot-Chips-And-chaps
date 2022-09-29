@@ -53,7 +53,7 @@ public class FuzzTest {
 			    while(App.fuzzStarted) {
 			    	// Begins once the start button is pressed
 			    	int direction = getRandomDirection();
-			    	//KeyStroke.keyPressed(direction);
+			    	KeyStroke.keyPressed(direction);
 			        if(System.currentTimeMillis() > timer) break; // Breaks test loop
 			    }
 			    if(System.currentTimeMillis() > timer) {
@@ -79,16 +79,16 @@ public class FuzzTest {
 		int random = 1 + r.nextInt(4); // Generates a random number 1-4
 		switch(random) {
 			case 1:
-		    	System.out.println("Fuzz.java: random direction is UP.");
+		    	//System.out.println("Fuzz.java: random direction is UP.");
 		    	return KeyEvent.VK_W; // Keystroke constant that represents W
 		    case 2:
-		    	System.out.println("Fuzz.java: random direction is DOWN.");
+		    	//System.out.println("Fuzz.java: random direction is DOWN.");
 		    	return KeyEvent.VK_S; // Keystroke constant that represents S
 		    case 3:
-		    	System.out.println("Fuzz.java: random direction is LEFT.");
+		    	//System.out.println("Fuzz.java: random direction is LEFT.");
 		    	return KeyEvent.VK_A; // Keystroke constant that represents A
 		    case 4:
-		    	System.out.println("Fuzz.java: random direction is RIGHT.");
+		    	//System.out.println("Fuzz.java: random direction is RIGHT.");
 		    	return KeyEvent.VK_D; // Keystroke constant that represents D
 		    default:
 		    	System.out.println("Random number failed");

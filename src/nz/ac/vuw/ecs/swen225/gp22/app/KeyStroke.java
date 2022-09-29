@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
 public class KeyStroke implements KeyListener {
-	private Map<Integer,Runnable> onPressed = new HashMap<>();
+	private static Map<Integer,Runnable> onPressed = new HashMap<>();
 	//private Map<Integer,Runnable> onReleased = new HashMap<>();
 	
 	public void setAction(int keyCode, Runnable pressed) {
@@ -34,6 +34,14 @@ public class KeyStroke implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		System.out.println("KeyStroke.java: keyReleased() called.");
 		//onReleased.getOrDefault(e.getKeyCode(),()->{}).run();
+	}
+
+	/**
+	 * Fuzz: keyPressed method for calling with manual keycode
+	 * @param keycode constant representing a key
+	 */
+	public static void keyPressed(int keycode) {
+		onPressed.getOrDefault(keycode,()->{}).run();
 	}
 
 }

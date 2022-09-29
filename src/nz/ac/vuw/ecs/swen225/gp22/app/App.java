@@ -43,7 +43,7 @@ public class App extends JFrame {
 
     public App(){
     	System.out.println("App.java: App constructor called.");
-        assert SwingUtilities.isEventDispatchThread();
+        //assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         initialize();
         this.addWindowListener(new WindowAdapter(){
