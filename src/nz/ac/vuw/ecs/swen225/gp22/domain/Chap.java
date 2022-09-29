@@ -3,7 +3,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
-public class Chap { // player which is not a core tile
+//Chap now extends Tile Ella 
+public class Chap extends Tile{ // player which is not a core tile
 	public ArrayList<Tile> chest;
 	public boolean won = false;
 	public Location l;
@@ -68,4 +69,9 @@ public class Chap { // player which is not a core tile
 	public void addToChest(Tile t) {
 		chest.add(t);
 	}
+
+	//Nathan told me to add this 
+	public void setMaze(Maze maze) {
+        m = maze;
+    }
 }
