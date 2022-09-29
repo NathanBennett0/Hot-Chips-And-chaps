@@ -1,10 +1,10 @@
-
+package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class RecordSaver {
+public class RecordLoad {
     private ArrayList<Move> moves;
 
     public RecordSaver(ArrayList<Move> moves) {
