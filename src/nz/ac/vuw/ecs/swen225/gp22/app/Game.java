@@ -37,7 +37,7 @@ public class Game extends JPanel {
         sidePanel();
        
         GamePanel g = new GamePanel();
-        g.getBoard(this);
+        this.add(g);
         
     	//Setting Background Image
         var bgImage = new JLabel();

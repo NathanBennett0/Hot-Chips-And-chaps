@@ -83,7 +83,7 @@ public class App extends JFrame {
         p.setLayout(null);
         p.add(tutorial);
         p.add(start);
-        sp.addStartPanel(p);
+        p.add(sp);
         
         newPanel = ()->{ remove(p);};
         //setPreferredSize(new Dimension(900, 750));
