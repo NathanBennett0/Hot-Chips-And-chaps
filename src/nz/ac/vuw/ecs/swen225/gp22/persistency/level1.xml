@@ -74,7 +74,7 @@
         <Tile type="Wall" walk="False" x="-3" y="1"/>
         <KeyTile type="Key" walk="True" x="-2" y="1" colour="BLUE"/>
         <Tile type="Free" walk="True" x="-1" y="1"/>
-        <Tile type="InfoField" walk="True" x="0" y="1"/>
+        <InfoTile type="InfoField" walk="True" x="0" y="1" text="play the game"/>
         <Tile type="Free" walk="True" x="1" y="1"/>
         <KeyTile type="Key" walk="True" x="2" y="1" colour="ORANGE"/>
         <Tile type="Wall" walk="False" x="3" y="1"/>
@@ -180,4 +180,8 @@
         <Tile type="Wall" walk="False" x="3" y="-7"/>
     </Tilelist>
     <Chap x="9" y="9"/>
+    <ChapKeyTile type="Key" walk="True" x="1" y="-6" colour="GREEN"/>
+    <ChapKeyTile type="Key" walk="True" x="2" y="-6" colour="YELLOW"/>
+    <ChapTreasureTile type="Key" walk="True" x="2" y="-8"/>
+    <ChapTreasureTile type="Key" walk="True" x="0" y="-8"/>
 </Level>

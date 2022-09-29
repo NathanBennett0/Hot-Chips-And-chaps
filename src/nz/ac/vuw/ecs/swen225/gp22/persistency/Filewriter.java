@@ -16,6 +16,8 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
+import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
@@ -36,6 +38,31 @@ public class Filewriter {
             // root element for tilelist
             Element Tilelist = doc.createElement("Tilelist");
             doc.appendChild(Tilelist);
+
+            // chap
+            Element Chap = doc.createElement("Chap");
+            Chap = makeChap(Chap, doc, level.getChap());
+            Tilelist.appendChild(Chap);
+
+            // chap inventory
+            for(Tile T : level.getChap().getChest()) {
+                // create tile
+                if(T instanceof Key) {
+                    Key K = (Key)T;
+                    Element newTile = doc.createElement("ChapKeyTile");
+                    newTile = makeTileElement(newTile, doc, K);
+                    newTile = makeKeyTile(newTile, doc, K);
+                    // add tile to tilelist
+                    Tilelist.appendChild(newTile);
+                } else {
+                    Element newTile = doc.createElement("ChapTreasureTile");
+                    newTile = makeTileElement(newTile, doc, T);
+                    // add tile to tilelist
+                    Tilelist.appendChild(newTile);
+                }
+                // do the rest of the inventory
+                
+            }
 
             // iterate through every tile
             for(Tile T : level.getTiles()) {
@@ -64,7 +91,14 @@ public class Filewriter {
                 newTile = makeKeyTile(newTile, doc, K);
                 // add tile to tilelist
                 Tilelist.appendChild(newTile);
+                System.out.println("added a new tile");
             }
+
+            // info tile
+            Element infoFieldTile = doc.createElement("InfoTile");
+            infoFieldTile = makeTileElement(infoFieldTile, doc, level.getInfoField());
+            infoFieldTile = makeInfoFieldTile(infoFieldTile, doc, level.getInfoField());
+            Tilelist.appendChild(infoFieldTile);
 
             // add everything to new xml file
             TransformerFactory transformerfactory = TransformerFactory.newInstance();
@@ -85,7 +119,7 @@ public class Filewriter {
     public Element makeTileElement(Element newTile, Document doc, Tile T) {
         // tile type
         Attr type = doc.createAttribute("type");
-        type.setValue(T.getClass().getSimpleName());
+        type.setValue(T.getClass().getSimpleName());   
         newTile.setAttributeNode(type);
         // tile x
         Attr x = doc.createAttribute("x");
@@ -110,6 +144,24 @@ public class Filewriter {
         Attr colour = doc.createAttribute("colour");
         colour.setValue(L.getColor().name());
         newTile.setAttributeNode(colour);
+        return newTile;
+    }
+
+    public Element makeInfoFieldTile(Element newTile, Document doc, InfoField I) {
+        Attr message = doc.createAttribute("text");
+        message.setValue(I.getMessage());
+        newTile.setAttributeNode(message);
+        return newTile;
+    }
+
+    public Element makeChap(Element newTile, Document doc, Chap C) {
+        Attr x = doc.createAttribute("x");
+        x.setValue(String.valueOf(C.getLocation().getX()));
+        newTile.setAttributeNode(x);
+        // tile y
+        Attr y = doc.createAttribute("y");
+        y.setValue(String.valueOf(C.getLocation().getY()));
+        newTile.setAttributeNode(y);
         return newTile;
     }
 

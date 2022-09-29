@@ -143,7 +143,7 @@ public class Filereader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, lockedtiles, keytiles, chap);
+        return new Level(alltiles, lockedtiles, keytiles, chap, info);
     }
 
     public Tile makeTile(Element T) {
