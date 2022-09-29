@@ -43,9 +43,9 @@ public class FuzzTest {
 		while(App.initializeDone == false) System.out.print(""); // While the main menu is booting, wait
 		System.out.println("Initializing of window done. Timed fuzz test begins now.");
 		
-		assertTimeout(Duration.ofSeconds(8), () -> {
+		assertTimeout(Duration.ofSeconds(60), () -> {
 			// Timer to stop while loop
-			long timer = System.currentTimeMillis() + 8 * 1000; 
+			long timer = System.currentTimeMillis() + 60 * 1000; 
 			
 			while(true) {
 				// Constantly try to start the code below
