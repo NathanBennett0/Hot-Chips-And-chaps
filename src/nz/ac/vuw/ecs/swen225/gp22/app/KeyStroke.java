@@ -41,6 +41,7 @@ public class KeyStroke implements KeyListener {
 	 * @param keycode constant representing a key
 	 */
 	public static void keyPressed(int keycode) {
+		System.out.println(keycode);
 		onPressed.getOrDefault(keycode,()->{}).run();
 	}
 
