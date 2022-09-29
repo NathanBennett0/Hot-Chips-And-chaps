@@ -52,5 +52,8 @@ public class Level {
     public void removeLockedTile(Locked locked) {
         lockedtiles.remove(locked);
     }
+    public String getInfoField() {
+    	return "InfoField";
+    }
 
 }
