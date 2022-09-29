@@ -39,4 +39,9 @@ public class Locked extends Tile {
 		}
 		return false;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 }

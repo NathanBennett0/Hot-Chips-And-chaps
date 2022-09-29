@@ -45,4 +45,9 @@ public class Key extends Tile {
 	public boolean isCollected() { // collected or not
 		return cl;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 }

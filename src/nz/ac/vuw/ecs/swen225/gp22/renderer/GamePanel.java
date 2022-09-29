@@ -17,10 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.Game;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Entity;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Free;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 public class GamePanel extends JPanel implements ActionListener{
 	final int IMAGE_DIM = 62;
@@ -39,6 +36,11 @@ public class GamePanel extends JPanel implements ActionListener{
     		}
     	}
     	
+    	// For testing purposes
+    	test[3][3] = new Wall(new Location(3,3));
+    	test[7][6] = new Treasure(new Location(3,3), false);
+    	test[4][4] = new Chap(new Location(3,3), null);
+    	
     	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
     	timer = new Timer(100, this); // Timer works in milliseconds
@@ -52,7 +54,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			Image i = test[x][y].icon.image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
+    			Image i = test[x][y].getImg().image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
     			g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
     		}
     	}
@@ -62,7 +64,21 @@ public class GamePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// get the board
+		
+		/**
+		for(Tile[] t: test) {
+			for(Tile tile: t) {
+				if(tile instanceof Chap) {
+					
+					
+				}
+			}
+			
+		}
+		*/ 
+		
 		repaint(); 
+		
 		
 	}
 	

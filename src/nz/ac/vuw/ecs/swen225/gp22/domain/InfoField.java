@@ -16,5 +16,10 @@ public class InfoField extends Tile {
 	public String getMessage() {
 		return m;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 
 }

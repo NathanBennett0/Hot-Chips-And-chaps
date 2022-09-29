@@ -24,4 +24,9 @@ public class Treasure extends Tile {
 		}
 		return false;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 }

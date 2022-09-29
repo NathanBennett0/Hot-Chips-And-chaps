@@ -3,21 +3,28 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
-//Chap now extends Tile Ella 
 public class Chap extends Tile{ // player which is not a core tile
 	public ArrayList<Tile> chest;
 	public boolean won = false;
 	public Location l;
 	public Maze m;
 	public State s;//have state object, check if state object is dead or alive
+	public Img icon = Img.Chap;
 	
 	public Chap(Location l, Maze m) {
+		super(l);
 		this.l = l;
 		this.chest = new ArrayList<Tile>();
 		this.s = new AliveState(l, m);
 	}
 
 	// getters and setters
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
+
+	
 	public ArrayList<Tile> getChest() {
 		return chest;
 	}
