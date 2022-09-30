@@ -10,10 +10,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.domain.*;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -24,13 +27,17 @@ public class Game extends JPanel {
 	JLabel currLvl = new JLabel("1");
 	JLabel itemLeft = new JLabel("1");
 	
+	
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
 	 */
-    public Game(int lvl) {
+    public Game(int lvl, Maze m) {
     	this.level = lvl;
     	
         sidePanel();
+       
+        GamePanel g = new GamePanel(m);
+        this.add(g);
         
     	//Setting Background Image
         var bgImage = new JLabel();
@@ -44,6 +51,8 @@ public class Game extends JPanel {
         this.add(bgImage);
         this.setPreferredSize(new Dimension(App.WIDTH,App.HEIGHT));
         
+        System.out.println("Game.java: Game constructor called.");
+        
     }
     
     //Import viewport
@@ -54,6 +63,7 @@ public class Game extends JPanel {
         p.setBounds(0,0,App.HEIGHT, App.HEIGHT);
         
         this.add(p);
+        System.out.println("Game.java: gameView() called.");
         
     }
     
@@ -81,6 +91,7 @@ public class Game extends JPanel {
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
         itemLeft.setBounds(16, 321, 155, 54);
         p.add(itemLeft);
+        System.out.println("Game.java: sidePanel() called.");
         
     }
     
@@ -89,6 +100,7 @@ public class Game extends JPanel {
      * @return
      */
     public int getLevel() {
+    	System.out.println("Game.java: getLevel() called.");
     	return this.level;
     }
 //    

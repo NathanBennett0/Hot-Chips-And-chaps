@@ -22,6 +22,10 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
@@ -34,11 +38,20 @@ public class App extends JFrame {
     public final static int WIDTH = 900;
     public final static int HEIGHT = 680;
     private boolean stopTimer = true;
+    
+    //Boolean variables for fuzz testing
+    public static boolean fuzzStarted = false;
+    public static boolean initializeDone = false;
+
+
+    public Maze maze = null;
+
 
     Runnable restart = ()->{ stopTimer = true;};
 
-    App(){
-        assert SwingUtilities.isEventDispatchThread();
+    public App(){
+    	System.out.println("App.java: App constructor called.");
+        //assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         initialize();
         this.addWindowListener(new WindowAdapter(){
@@ -47,6 +60,7 @@ public class App extends JFrame {
     }
 
     public void initialize(){
+    	System.out.println("App.java: initialize() called.");
         //this.setSize(new Dimension(600,800));
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setVisible(true);
@@ -55,41 +69,38 @@ public class App extends JFrame {
 
         menuBar(); //adding MenuBar
         mainMenu();
-        this.setJMenuBar(new MenuBar());
+        initializeDone = true; // For fuzz testing
     }
     
     public void mainMenu(){
+    	System.out.println("App.java: mainMenu() called.");
         newPanel.run();
         restart.run();
         var p = new JPanel();
+        StartPanel sp = new StartPanel();
         
         var tutorial = new JButton("Tutorial");
         tutorial.setBounds(400, 550, 100, 30);
         var start = new JButton("Start!");
         start.setBounds(400, 580, 100, 30);
 
-        // Added by Ella -> sets the starting image
-        // Need to play around to find out how to layer the buttons on top of the image :)
-        // Also I need to find out how to make it not pixelated 
-        var backgroundImage = new JLabel();
-        backgroundImage.setBounds(0, 0, WIDTH, HEIGHT);
-        ImageIcon icon = new ImageIcon(Img.StartOne.image);
-        backgroundImage.setIcon(icon);
-
         tutorial.addActionListener((e)->{ tutorial();});
-        start.addActionListener((e)->{ level(1);});
+        //start.addActionListener((e)->{ level(1, maze);});
+        
 
         getContentPane().add(BorderLayout.CENTER, p);
         p.setLayout(null);
         p.add(tutorial);
         p.add(start);
-        p.add(backgroundImage);
+        p.add(sp);
+        
         newPanel = ()->{ remove(p);};
         //setPreferredSize(new Dimension(900, 750));
         pack();
     }
 
     public void tutorial(){
+    	System.out.println("App.java: tutorial() called.");
         newPanel.run();
         restart.run();
         
@@ -108,11 +119,11 @@ public class App extends JFrame {
         pack();
     }
 
-    public void level(int lvl){
-    	
+    public void level(int lvl, Maze m){
+    	System.out.println("App.java: level() called.");
         newPanel.run();
         stopTimer = false;
-        Game p = new Game(lvl);
+        Game p = new Game(lvl, m);
        
         ActionListener countDown=new ActionListener(){
         	int timeLeft = lvl==2?180000:90000; //level 2: 3 mins, level 1: 1.5 mins
@@ -120,7 +131,7 @@ public class App extends JFrame {
 		    public void actionPerformed(ActionEvent e){
 		        timeLeft -= 250;
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
-		        System.out.println(df.format(timeLeft));
+		        //System.out.println(df.format(timeLeft));
 		        p.timeLeft.setText(df.format(timeLeft));
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
@@ -135,9 +146,11 @@ public class App extends JFrame {
 
         pack();
         timer.start();
+        fuzzStarted = true; // For fuzz testing
     }
     
     public void menuBar() {
+    	System.out.println("App.java: menuBar() called.");
     	//DECLARE
     	JMenuBar mb=new JMenuBar();
     	JMenuItem home=new JMenuItem("Home");
@@ -151,6 +164,7 @@ public class App extends JFrame {
     	home.addActionListener((e)->mainMenu()); //connect to the main menu pane
     	exit.addActionListener((e)->System.exit(0));
     	pause.addActionListener((e)->System.out.println("Pause"));
+        lvl1.addActionListener((e)->loadlevel("level1save", 1));
     	
     	//ADD TO GUI
     	mb.add(home);
@@ -161,4 +175,24 @@ public class App extends JFrame {
     	mb.add(exit);
     	this.setJMenuBar(mb);
     }
+
+    public void loadlevel(String levelname, int num) {
+        System.out.println("loading lvl 1");
+        Level lvl = new Filereader().loadLevel(levelname + ".xml");
+        Maze m = new Maze(lvl);
+        lvl.getChap().setMaze(maze);
+        // now have the maze object
+        maze = m;
+        level(num, maze);
+    }
+
+    public void savelevel(Level level, String levelname) {
+        Filewriter fw = new Filewriter(level);
+        fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + levelname + ".xml");
+    }
+
+    public Maze getMaze() {
+        return maze;
+    }
+
 }
