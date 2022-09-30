@@ -11,13 +11,9 @@ public class Maze { //SUS
 	//fields
 	public final Tile[][] grid = new Tile[16][16];
 	public Level lv; //need to give me information using getters Nathan
-	
-	public Chap player;
-	//= lv.getChap();
-	public int numItems;
-	// = lv.getInventory().size();
-	public List<Tile> tiles;
-	//= lv.getTiles(); //varies depending on the level
+	public Chap player = lv.getChap();
+	public int numItems =lv.getInventory().size();
+	//public List<Tile> tiles = lv.getTiles(); //varies depending on the level
 	
 	/**
 	 * lockloc is the location of the ExitLock
@@ -40,7 +36,7 @@ public class Maze { //SUS
 	}
 
 	// getters and setters
-	Tile[][] getGrid() {
+	public Tile[][] getGrid() {
 		return grid;
 	}
 
