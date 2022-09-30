@@ -32,7 +32,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 import java.awt.Color;
 
 public class App extends JFrame {
-
+	
     //Initializing Variables
     Runnable newPanel = ()->{};
     public final static int WIDTH = 900;
@@ -40,8 +40,8 @@ public class App extends JFrame {
     private boolean stopTimer = true;
     
     //Boolean variables for fuzz testing
-    public static boolean fuzzStarted = false;
-    public static boolean initializeDone = false;
+    private boolean fuzzStarted = false;
+    private boolean initializeDone = false;
 
 
     public Maze maze = null;
@@ -185,6 +185,7 @@ public class App extends JFrame {
         maze = m;
         level(num, maze);
     }
+    
 
     public void savelevel(Level level, String levelname) {
         Filewriter fw = new Filewriter(level);
@@ -194,5 +195,16 @@ public class App extends JFrame {
     public Maze getMaze() {
         return maze;
     }
+    
+ // GETTERS AND SETTERS FOR FUZZ BOOLEANS
+
+    public boolean fuzzStarted() { return fuzzStarted; }
+    public boolean initializeDone() { return initializeDone; }
+
+    public void setFuzzStarted(boolean b) { this.fuzzStarted = b; }
+
+    public void setInitializeDone(boolean b) { this.initializeDone = b; }
+
+
 
 }
