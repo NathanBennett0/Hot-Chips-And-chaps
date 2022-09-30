@@ -28,11 +28,12 @@ public class GamePanel extends JPanel implements ActionListener{
 	Timer timer; 
 	
 
-	public GamePanel() {		
+	public GamePanel(Maze m) {		
 		// This is just to fill the array for testing
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			test[x][y] = new Free(new Location(x,y));
+    			//test[x][y] = new Free(new Location(x,y));
+				test[x][y] = m.grid[x+3][y+3];
     		}
     	}
     	

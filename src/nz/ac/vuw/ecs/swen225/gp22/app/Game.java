@@ -31,12 +31,12 @@ public class Game extends JPanel {
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
 	 */
-    public Game(int lvl) {
+    public Game(int lvl, Maze m) {
     	this.level = lvl;
     	
         sidePanel();
        
-        GamePanel g = new GamePanel();
+        GamePanel g = new GamePanel(m);
         this.add(g);
         
     	//Setting Background Image

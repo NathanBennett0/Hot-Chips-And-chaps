@@ -22,6 +22,10 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
@@ -38,6 +42,10 @@ public class App extends JFrame {
     //Boolean variables for fuzz testing
     public static boolean fuzzStarted = false;
     public static boolean initializeDone = false;
+
+
+    public Maze maze = null;
+
 
     Runnable restart = ()->{ stopTimer = true;};
 
@@ -77,7 +85,8 @@ public class App extends JFrame {
         start.setBounds(400, 580, 100, 30);
 
         tutorial.addActionListener((e)->{ tutorial();});
-        start.addActionListener((e)->{ level(1);});
+        //start.addActionListener((e)->{ level(1, maze);});
+        
 
         getContentPane().add(BorderLayout.CENTER, p);
         p.setLayout(null);
@@ -110,11 +119,11 @@ public class App extends JFrame {
         pack();
     }
 
-    public void level(int lvl){
+    public void level(int lvl, Maze m){
     	System.out.println("App.java: level() called.");
         newPanel.run();
         stopTimer = false;
-        Game p = new Game(lvl);
+        Game p = new Game(lvl, m);
        
         ActionListener countDown=new ActionListener(){
         	int timeLeft = lvl==2?180000:90000; //level 2: 3 mins, level 1: 1.5 mins
@@ -155,6 +164,7 @@ public class App extends JFrame {
     	home.addActionListener((e)->mainMenu()); //connect to the main menu pane
     	exit.addActionListener((e)->System.exit(0));
     	pause.addActionListener((e)->System.out.println("Pause"));
+        lvl1.addActionListener((e)->loadlevel("level1save", 1));
     	
     	//ADD TO GUI
     	mb.add(home);
@@ -165,4 +175,24 @@ public class App extends JFrame {
     	mb.add(exit);
     	this.setJMenuBar(mb);
     }
+
+    public void loadlevel(String levelname, int num) {
+        System.out.println("loading lvl 1");
+        Level lvl = new Filereader().loadLevel(levelname + ".xml");
+        Maze m = new Maze(lvl);
+        lvl.getChap().setMaze(maze);
+        // now have the maze object
+        maze = m;
+        level(num, maze);
+    }
+
+    public void savelevel(Level level, String levelname) {
+        Filewriter fw = new Filewriter(level);
+        fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + levelname + ".xml");
+    }
+
+    public Maze getMaze() {
+        return maze;
+    }
+
 }
