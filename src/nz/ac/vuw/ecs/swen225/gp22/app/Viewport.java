@@ -11,6 +11,7 @@ public class Viewport extends JPanel {
 	// public Viewport(Model model){ this.model=model; }
 
 	public void paintComponent(Graphics g) {
+		System.out.println("Viewport.java: paintComponent() called.");
 		// rendering stuff
 	}
 }

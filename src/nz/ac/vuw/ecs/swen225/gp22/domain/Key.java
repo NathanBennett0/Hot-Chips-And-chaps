@@ -5,10 +5,11 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 public class Key extends Tile {
 	public Color col;
 	public boolean cl = false;
-
+	public Img icon;
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		if(isCollected()) {
+			System.out.println("key added to chest");
 			p.addToChest(this);
 			return true;
 		}
@@ -16,7 +17,16 @@ public class Key extends Tile {
 	}
 
 	public enum Color{
-		RED, GREEN, BLUE
+		YELLOW {Img getKeyIcon(){return Img.KeyYellow;}
+			Img getLockedIcon() {return Img.LockedDoorYellow;}},
+		ORANGE {Img getKeyIcon(){return Img.KeyOrange;}
+			Img getLockedIcon() {return Img.LockedDoorOrange;}},
+		GREEN  {Img getKeyIcon(){return Img.KeyGreen;}
+			Img getLockedIcon() {return Img.LockedDoorGreen;}},
+		BLUE   {Img getKeyIcon(){return Img.KeyBlue;}
+			Img getLockedIcon() {return Img.LockedDoorBlue;}};
+		abstract Img getKeyIcon();
+		abstract Img getLockedIcon();
 	}
 
 	public Key(Location l, Color col, boolean cl) {
@@ -35,4 +45,9 @@ public class Key extends Tile {
 	public boolean isCollected() { // collected or not
 		return cl;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 }

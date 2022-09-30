@@ -5,9 +5,14 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 public class Exit extends Tile {
 	public Img icon = Img.Exit;
 
-	public Exit(boolean c, Location l) {
-		super(c, l);
+	public Exit(Location l) {
+		super(l);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 
 }

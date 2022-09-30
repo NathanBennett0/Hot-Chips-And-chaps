@@ -14,4 +14,9 @@ public class Free extends Tile {
 	public boolean CanWalkOn(Chap p) {
 		return true;
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 }

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public enum Img {
 	Box, Chap, Exit, ExitLock, Free, GameBackground, Info, KeyBlue, KeyGreen, KeyOrange, KeyYellow, LockedDoorBlue,
 	LockedDoorGreen, LockedDoorOrange, LockedDoorYellow, StartOne, StartTwo, TreasureOne, TreasureTwo, TreasureThree,
-	TreasureFour, TreasureFive, Wall, Water;
+	TreasureFour, TreasureFive, Tutorial, Wall, Water;
 
 	// Note: the bellow code was inspired by the Img.Java class from assignment one
 	public final BufferedImage image;

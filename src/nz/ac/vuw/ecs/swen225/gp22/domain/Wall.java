@@ -9,5 +9,10 @@ public class Wall extends Tile {
 		super(l);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
 
 }
