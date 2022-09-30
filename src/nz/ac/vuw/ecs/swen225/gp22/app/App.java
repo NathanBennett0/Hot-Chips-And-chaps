@@ -164,7 +164,7 @@ public class App extends JFrame {
     	home.addActionListener((e)->mainMenu()); //connect to the main menu pane
     	exit.addActionListener((e)->System.exit(0));
     	pause.addActionListener((e)->System.out.println("Pause"));
-        lvl1.addActionListener((e)->loadlevel("level1save", 1));
+        lvl1.addActionListener((e)->loadlevel("level1", 1));
     	
     	//ADD TO GUI
     	mb.add(home);
