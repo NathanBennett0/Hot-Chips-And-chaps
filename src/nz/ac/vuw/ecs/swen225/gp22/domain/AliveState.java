@@ -10,37 +10,41 @@ public class AliveState implements State{
 
     @Override
     public void moveUp() {
-        Location templ = new Location(l.getX(), l.getY()-1);
-        if(!m.allowAction(templ)){
+    	Location next = new Location(l.getX(), l.getY()-1);
+        if(!m.allowAction(next)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
-        l = templ;
+        m.setChapLoc(next);
+        l = next;
     }
 
     @Override
     public void moveDown() {
-        Location templ = new Location(l.getX(), l.getY()+1);
-        if(!m.allowAction(templ)){
+    	Location next = new Location(l.getX(), l.getY()+1);
+        if(!m.allowAction(next)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
-        l = templ;
+        m.setChapLoc(next);
+        l = next;
     }
 
     @Override
     public void moveRight() {
-        Location templ = new Location(l.getX()+1, l.getY());
-        if(!m.allowAction(templ)){
+    	Location next = new Location(l.getX()+1, l.getY());
+        if(!m.allowAction(next)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
-        l = templ;
+        m.setChapLoc(next);
+        l = next;
     }
 
     @Override
     public void moveLeft() {
-        Location templ = new Location(l.getX()-1, l.getY());
-        if(!m.allowAction(templ)){
+    	Location next = new Location(l.getX()-1, l.getY());
+        if(!m.allowAction(next)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
-        l = templ;
+        m.setChapLoc(next);
+        l = next;
     }
 }
