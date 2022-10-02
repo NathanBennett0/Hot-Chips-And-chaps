@@ -13,9 +13,11 @@ public class Chap extends Tile{ // player which is not a core tile
 	
 	public Chap(Location l, Maze m) {
 		super(l);
+		System.out.println("making chap"); //testing
 		this.l = l;
 		this.chest = new ArrayList<Tile>();
-		this.s = new AliveState(l, m);
+		assert m!=null:"maze is null\n\n";
+		
 	}
 
 	// getters and setters
@@ -79,6 +81,8 @@ public class Chap extends Tile{ // player which is not a core tile
 
 	//Nathan told me to add this 
 	public void setMaze(Maze maze) {
+		System.out.println("setting maze");
         m = maze;
+        this.s = new AliveState(l, m);
     }
 }
