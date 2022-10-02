@@ -9,13 +9,46 @@ public class Actor {
     //eats: kills chap (calls change state)
     //robs: takes things from chaps chest (chest must be public to be robbed)
     public Chap c; //needs to have knowledge of chap to do shit to him
-    public Actor(Chap c){
+    public Location l;
+    public Actor(Location l, Chap c){
         this.c = c;
+        this.l = l;
     }
-    public void killChap(){
+    public void eatChap(){
         c.changeState(new DeadState());
     }
     public void robChap(){
+        c.removeFromChest(); //removes first index in the chest
+    }
+    /**
+     * if chap is within a certain radius then kill him 
+     */
+    public void explode() {
+        int x1 = this.l.getX();
+        int y1 = this.l.getY();
+        int x2 = c.getLocation().getX();
+        int y2 = c.getLocation().getY();
+        double dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //euclidean distance 
+        if(dist < 3) {
+            eatChap(); //same as killing chap 
+        }
+    }
+    /**
+     * method should be called in every ping 
+     * uses Math random to pick a random direction in left, right, top, bottom and move there
+     */
+    public void moveRandomly() { 
+        int newDirX = (int) ((Math.random() * (1 - 4)) + 1); //4 directions 
+        int newDirY = (int) ((Math.random() * (1 - 4)) + 1); //might be able to move diagonally
+        int currX = this.l.getX();
+        int currY = this.l.getY();
+        int bool = (int) ((Math.random() * (1 - 2)) + 1); //number 1 or 2 
+        if(bool == 1) {
+            this.l = new Location(currX+newDirX, currY+newDirY); 
+        } else {
+            this.l = new Location(currX-newDirX, currY-newDirY); 
+        }
+        //now refresh
     }
 
 }
