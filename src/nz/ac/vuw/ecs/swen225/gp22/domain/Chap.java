@@ -38,6 +38,10 @@ public class Chap extends Tile{ // player which is not a core tile
 	public void setLocation(Location l) {
 		this.l = l;
 	}
+	
+	public void removeFromChest() {
+        chest.remove(0);
+    }
 
 	// winning methods
 	public boolean won() {
