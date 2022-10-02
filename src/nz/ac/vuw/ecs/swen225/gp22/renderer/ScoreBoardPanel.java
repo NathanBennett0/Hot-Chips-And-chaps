@@ -4,9 +4,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -14,70 +19,55 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import java.awt.Color;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Entity;
+import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
-public class ScoreBoardPanel extends JPanel {
-	private Img background = Img.GameBackground;
-	private static int levelNum = 1;
-	private static String timeVal = "0:00";
-	private static int treasuresLeft = 8;
-	private Entity[] inventory;
+public class ScoreBoardPanel extends JPanel implements ActionListener{
+    final int IMAGE_DIM = 62;
 
-	public ScoreBoardPanel() {
-	}
+    public Chap chap;
+    private Timer timer; 
 
-	// NOTE TO SELF, MAKE ONE OF THESE FOR START PANEL AND GAME PANEL ASWELL!!
-	public static JLayeredPane getScoreBoard() {
-		// var p = new JPanel();
-		// p.setLayout(null); // Layout must be null in order to set coord for labels
 
-		var backgroundImage = new JLabel(new ImageIcon(Img.GameBackground.image));
-		var level = new JLabel(String.valueOf(levelNum));
-		var time = new JLabel(timeVal);
-		var treasures = new JLabel(String.valueOf(treasuresLeft));
+    public ScoreBoardPanel(Maze m) {
+        this.setBounds(710,407,133,190);
+        this.setLayout(new GridLayout(2,3));
+        this.setBackground(new Color(186,212,186));
+        chap = (Chap) m.getGrid()[4][4]; // chap will always start in the middle tile
+        timer = new Timer(100, this); // Timer works in milliseconds
+        timer.start();
+    }
 
-		var x1 = new JLabel("i");
-		var x2 = new JLabel("i");
 
-		x1.setBounds(40, 0, 100, 100);
-		x2.setBounds(40, 600, 100, 100);
+    // Getters and Setters
+    public void setChap(Chap c) {
+        this.chap = c; 
+    }
 
-		// NOTE
-		// 40 - 640 for the x coord
-		// y = 0 - 600
 
-		backgroundImage.setBounds(0, 0, 900, 700);
-		level.setBounds(766, 71, 100, 100);
-		time.setBounds(740, 203, 100, 100);
-		treasures.setBounds(766, 337, 100, 100); // try the set location instead...
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
 
-		level.setFont(new Font("Monospaced", Font.PLAIN, 30));
-		time.setFont(new Font("Monospaced", Font.PLAIN, 30));
-		treasures.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        ArrayList<Tile> chest = chap.getChest();
 
-		level.setForeground(new Color(74, 100, 70));
-		time.setForeground(new Color(74, 100, 70));
-		treasures.setForeground(new Color(74, 100, 70));
+        int x = 0; 
+        int y = -1; 
+        for(int i = 0; i < chest.size(); i++) {
+            if(i % 2 == 0) {y++;}
+            Image img = Img.TreasureOne.image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
+            g2d.drawImage(img, IMAGE_DIM * x, IMAGE_DIM * y, null);
+            x = (x == 0 ? 1 : 0);
+        }
+    }
 
-		var p = new JLayeredPane();
-		p.setBounds(0, 0, 900, 700);
 
-		p.add(x1);
-		p.add(x2);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
+    }
 
-		p.add(level);
-		p.add(time);
-		p.add(treasures);
-		p.add(backgroundImage);
-
-		/**
-		 * level.setLocation(500, 100); time.setLocation(500, 300);
-		 * treasures.setLocation(500, 500);
-		 */
-
-		return p;
-	}
 
 }
