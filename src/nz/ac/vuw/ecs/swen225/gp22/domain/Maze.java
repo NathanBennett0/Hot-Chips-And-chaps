@@ -41,6 +41,17 @@ public class Maze { //SUS
 	public Tile[][] getGrid() {
 		return grid;
 	}
+	
+	//remove old location, make new one. 
+    public void setChapLoc(Location l) {
+        grid[player.getLocation().getX()][player.getLocation().getY()] = new Free(player.getLocation()); 
+        grid[l.getX()][l.getY()] = player;
+    }
+    
+    public void removeTile(Location l) {
+        grid[l.getX()][l.getY()] = new Free(l);
+        
+    }
 
 	/**
 	 *method that checks if all the keys collected then the exitLock is replaced with free tile
