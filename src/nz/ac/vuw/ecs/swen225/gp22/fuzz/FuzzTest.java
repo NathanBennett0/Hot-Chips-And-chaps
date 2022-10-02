@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.swing.SwingUtilities;
@@ -20,19 +21,24 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Game;
 import nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke;
 import nz.ac.vuw.ecs.swen225.gp22.app.Main;
+import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 
 /**
- * Class that runs the two fuzz tests for the Chips&Chaps game. Generates random
- * inputs and logs any crashes onto git.
+ * Class that runs the two fuzz tests for the Chips&Chaps game. 
+ * Generates random inputs.
+ * Logs any crashes onto git.
  * 
  * @author anniecho 300575457
  * 
  */
 public class FuzzTest {
 
+	// Private variables for determining the next move
 	private ArrayList<Integer>[][] strategy = makeStrategyBoard(); 
 	private int currentX, currentY;
 
+	
 	/**
 	 * Test for level one
 	 */
@@ -43,23 +49,34 @@ public class FuzzTest {
 		makeStrategyBoard();
 		App app = new App();
 		
-		while(App.initializeDone == false) System.out.print(""); // While the main menu is booting, wait
+		while(!app.initializeDone()) System.out.print(""); // While the main menu is booting, wait
 		System.out.println("Initializing of window done. Timed fuzz test begins now.");
 		
-		// Timer to stop while loop
-		long timer = System.currentTimeMillis() + 60 * 1000; 
 		
-		while(true) {					
-			System.out.print("");
-			while(App.fuzzStarted) {
-				// Begins once the start button is pressed
-				pause(app,500);
-				int direction = getRandomDirection();
-				//KeyStroke.keyPressed(direction);
-				if(checkTimer(timer)) break; // Breaks test loop
-			}
+		long timer = System.currentTimeMillis() + 10 * 1000; // Timer to stop while loop
+		app.levelOne(); // This will change fuzzStarted to true
+		
+
+		while(app.fuzzStarted()) {
+			
+			// Get the values needed to find next direction
+			pause(app,500);
+			Controller c = app.getGame().phase().controller();
+			Maze m = app.getGame().phase().maze();
+			updateLocation(m);
+			
+			// Use intelligence to find the next direction
+			int direction = getRandomDirection();
+			
+			
+			// Execute the next direction
+			c.keyPressed(direction);
+			
+			
+			// Checks if the timer has exceeded
 			if(checkTimer(timer)) break;
 		}
+
 	}
 	
 	
@@ -67,7 +84,7 @@ public class FuzzTest {
 	 * Test for level two
 	 */
 	@Test
-	public static void FuzzTest2() {}
+	public void FuzzTest2() { }
 	
 	
 	/*----- HELPER METHODS ------------------------------------------------------------- */
@@ -153,13 +170,13 @@ public class FuzzTest {
 		int random = 1 + r.nextInt(4); // Generates a random number 1-4
 		switch(random) {
 			case 1:
-		    	return KeyEvent.VK_W; // Keystroke constant that represents W
+		    	return KeyEvent.VK_W; // Constant representing W
 		    case 2:
-		    	return KeyEvent.VK_S; // Keystroke constant that represents S
+		    	return KeyEvent.VK_S; // Constant representing S
 		    case 3:
-		    	return KeyEvent.VK_A; // Keystroke constant that represents A
+		    	return KeyEvent.VK_A; // Constant representing A
 		    case 4:
-		    	return KeyEvent.VK_D; // Keystroke constant that represents D
+		    	return KeyEvent.VK_D; // Constant representing D
 		    default:
 		    	System.out.println("Random number failed");
 		    	return 0; // Should never reach this point
