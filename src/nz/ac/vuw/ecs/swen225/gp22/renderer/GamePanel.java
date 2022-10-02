@@ -38,14 +38,14 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
     	
     	// For testing purposes
-    	test[3][3] = new Wall(new Location(3,3));
-    	test[7][6] = new Treasure(new Location(3,3), false);
-    	test[4][4] = new Chap(new Location(3,3), null);
+//    	test[3][3] = new Wall(new Location(3,3));
+//    	test[7][6] = new Treasure(new Location(3,3), false);
+//    	test[4][4] = new Chap(new Location(3,3), null);
     	
     	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
-    	timer = new Timer(100, this); // Timer works in milliseconds
-		timer.start();
+//    	timer = new Timer(100, this); // Timer works in milliseconds
+//		timer.start();
 	}
 	
 	/**

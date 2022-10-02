@@ -11,8 +11,8 @@ public class Maze { //SUS
 	//fields
 	public final Tile[][] grid = new Tile[16][16];
 	public Level lv; //need to give me information using getters Nathan
-	public Chap player = lv.getChap();
-	public int numItems =lv.getInventory().size();
+	public Chap player;
+	public int numItems;
 	//public List<Tile> tiles = lv.getTiles(); //varies depending on the level
 	
 	/**
@@ -22,6 +22,8 @@ public class Maze { //SUS
 	
 	public Maze(Level lv) {
 		this.lv = lv;
+		player = lv.getChap();
+		numItems =lv.getInventory().size();
 		for(int x = 0; x < 16; x++) {
     		for(int y = 0; y < 16; y++) {
     			grid[x][y] = new Free(new Location(x,y));

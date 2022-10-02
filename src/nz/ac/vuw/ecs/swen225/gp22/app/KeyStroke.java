@@ -17,7 +17,6 @@ public class KeyStroke implements KeyListener {
 	public void setAction(int keyCode, Runnable pressed) {
 		System.out.println("KeyStroke.java: setAction() called.");
 		onPressed.put(keyCode, pressed);
-		//onReleased.put(keyCode, released);
 	}
 	
 	@Override

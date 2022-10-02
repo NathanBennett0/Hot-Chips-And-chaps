@@ -31,13 +31,15 @@ public class Game extends JPanel {
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
 	 */
-    public Game(int lvl, Maze m) {
-    	this.level = lvl;
+    public Game(Phase p) {
+    	this.level = p.level();
     	
         sidePanel();
        
-        GamePanel g = new GamePanel(m);
+        GamePanel g = new GamePanel(p.maze());
+        
         this.add(g);
+        //this.setFocusable(true);
         
     	//Setting Background Image
         var bgImage = new JLabel();
