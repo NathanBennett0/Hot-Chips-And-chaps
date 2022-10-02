@@ -11,7 +11,7 @@ public class AliveState implements State{
     @Override
     public void moveUp() {
         Location templ = new Location(l.getX(), l.getY()-1);
-        if(!m.allowAction(l)){
+        if(!m.allowAction(templ)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
         l = templ;
@@ -20,7 +20,7 @@ public class AliveState implements State{
     @Override
     public void moveDown() {
         Location templ = new Location(l.getX(), l.getY()+1);
-        if(!m.allowAction(l)){
+        if(!m.allowAction(templ)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
         l = templ;
@@ -29,7 +29,7 @@ public class AliveState implements State{
     @Override
     public void moveRight() {
         Location templ = new Location(l.getX()+1, l.getY());
-        if(!m.allowAction(l)){
+        if(!m.allowAction(templ)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
         l = templ;
@@ -38,7 +38,7 @@ public class AliveState implements State{
     @Override
     public void moveLeft() {
         Location templ = new Location(l.getX()-1, l.getY());
-        if(!m.allowAction(l)){
+        if(!m.allowAction(templ)){
             throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
         }
         l = templ;

@@ -21,25 +21,28 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class Game extends JPanel {
-	private static int level;
+	private Phase phase;
+	private GamePanel game;
 	
-	JLabel timeLeft = new JLabel("01:30");
-	JLabel currLvl = new JLabel("1");
-	JLabel itemLeft = new JLabel("1");
+	
+	JLabel tLeft = new JLabel("00:00");
+	JLabel currLvl = new JLabel();
+	JLabel itemLeft = new JLabel();
 	
 	
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
 	 */
     public Game(Phase p) {
-    	this.level = p.level();
+    	this.phase = p;
     	
         sidePanel();
-       
-        GamePanel g = new GamePanel(p.maze());
+        ScoreBoardPanel scp = new ScoreBoardPanel();
         
-        this.add(g);
-        //this.setFocusable(true);
+        
+        game = new GamePanel(p.maze());
+        this.add(scp);
+        this.add(game);
         
     	//Setting Background Image
         var bgImage = new JLabel();
@@ -79,15 +82,16 @@ public class Game extends JPanel {
         
         this.add(p);
         
+        currLvl.setText(Integer.toString(phase.level()));
         currLvl.setHorizontalAlignment(SwingConstants.CENTER);
         currLvl.setFont(new Font("Arial Black", Font.BOLD, 30));
         currLvl.setBounds(16, 71, 155, 54);
         p.add(currLvl);
         
-        timeLeft.setHorizontalAlignment(SwingConstants.CENTER);
-        timeLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
-        timeLeft.setBounds(16, 193, 155, 54);
-        p.add(timeLeft);
+        tLeft.setHorizontalAlignment(SwingConstants.CENTER);
+        tLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
+        tLeft.setBounds(16, 193, 155, 54);
+        p.add(tLeft);
         
         itemLeft.setHorizontalAlignment(SwingConstants.CENTER);
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
@@ -103,11 +107,14 @@ public class Game extends JPanel {
      */
     public int getLevel() {
     	System.out.println("Game.java: getLevel() called.");
-    	return this.level;
+    	return phase.level();
     }
-//    
-//    public Timer getTimer() {
-//    	return this.timer;
-//    }
     
+    public Phase phase() {
+    	return phase;
+    }
+    
+    public GamePanel GamePanel() {
+    	return game;
+    }
 }

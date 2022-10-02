@@ -36,6 +36,7 @@ public class App extends JFrame {
     //Initializing Variables
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
+	Game game;
     Runnable newPanel = ()->{};
     
     private boolean stopTimer = true;
@@ -43,7 +44,6 @@ public class App extends JFrame {
     //Boolean variables for fuzz testing
     private boolean fuzzStarted = false;
     private boolean initializeDone = false;
-    public Maze maze = null;
     Runnable restart = ()->{ stopTimer = true;};
 
     public App(){
@@ -126,12 +126,20 @@ public class App extends JFrame {
     	//DECLARE
     	JMenuBar mb=new JMenuBar();
     	JMenuItem home=new JMenuItem("Home");
-    	JMenuItem exit=new JMenuItem("Exit");  
     	JMenu start=new JMenu("Go to");
     	JMenuItem lvl1=new JMenuItem("Level 1");
     	JMenuItem lvl2=new JMenuItem("Level 2");
     	JMenuItem load=new JMenuItem("Load Game");
     	JMenuItem pause=new JMenuItem("Pause");
+    	JMenuItem save=new JMenuItem("Save");  
+    	JMenuItem exit=new JMenuItem("Exit");  
+    	
+    	home.setPreferredSize(new Dimension(180, home.getPreferredSize().height));
+    	start.setPreferredSize(new Dimension(180, start.getPreferredSize().height));
+    	pause.setPreferredSize(new Dimension(180, pause.getPreferredSize().height));
+    	save.setPreferredSize(new Dimension(180, save.getPreferredSize().height));
+    	exit.setPreferredSize(new Dimension(180, exit.getPreferredSize().height));
+    	lvl1.setPreferredSize(new Dimension(180, lvl1.getPreferredSize().height));
     	
     	//FUNCTIONS
     	home.addActionListener((e)->mainMenu()); //connect to the main menu pane - pop up window asking what to do
@@ -147,6 +155,7 @@ public class App extends JFrame {
     	start.add(load);
     	mb.add(start);
     	mb.add(pause);
+    	mb.add(save);
     	mb.add(exit);
     	this.setJMenuBar(mb);
     }
@@ -157,9 +166,9 @@ public class App extends JFrame {
     	System.out.println("App.java: setPhase() called.");
         newPanel.run();
         stopTimer = false;
-        Game p = new Game(phase);
-        p.addKeyListener(phase.controller());
-        p.setFocusable(true);
+        game = new Game(phase);
+        game.addKeyListener(phase.controller());
+        game.setFocusable(true);
        
         ActionListener countDown = new ActionListener(){
         	int timeLeft = phase.level()==2?180000:90000; //level 2: 3 mins, level 1: 1.5 mins
@@ -167,8 +176,8 @@ public class App extends JFrame {
 		    public void actionPerformed(ActionEvent e){
 		        timeLeft -= 250;
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
-		        //System.out.println(df.format(timeLeft));
-		        p.timeLeft.setText(df.format(timeLeft));
+		        game.tLeft.setText(df.format(timeLeft));
+		        game.repaint();
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
 		        }
@@ -176,9 +185,9 @@ public class App extends JFrame {
 		};
 		
 		Timer timer=new Timer(250, countDown);
-        getContentPane().add(BorderLayout.CENTER, p);
+        getContentPane().add(BorderLayout.CENTER, game);
                 
-        newPanel = ()->{ remove(p);};
+        newPanel = ()->{ remove(game);};
 
         pack();
         timer.start();
@@ -197,7 +206,7 @@ public class App extends JFrame {
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
-        setPhase(new Phase(m, new Controller(lvl.getChap()), 1));
+        setPhase(new Phase(m, new Controller(this, lvl.getChap()), 1));
     }
     
     /**
@@ -212,23 +221,24 @@ public class App extends JFrame {
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
-        setPhase(new Phase(m, new Controller(lvl.getChap()), 2));
+        setPhase(new Phase(m, new Controller(this, lvl.getChap()), 2));
     }
 
     /**
-     * Saves the level into an xml file
-     * @param level
-     * @param levelname
+     * Saves game into an xml file
      */
-    public void savelevel(Level level, String levelname) {
-        Filewriter fw = new Filewriter(level);
+    public void saveGame() {
+    	String levelname = game.getLevel()==2?"level2":"level1";
+    	Level lvl = new Filereader().loadLevel(levelname);
+        Filewriter fw = new Filewriter(lvl);
         fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + levelname + ".xml");
     }
-
     
-    public Maze getMaze() {
-        return maze;
+    public Game getGame() {
+    	return this.game;
     }
+    
+    
     
     /*--- FOR TESTING -------------------------------------------------------*/
     
