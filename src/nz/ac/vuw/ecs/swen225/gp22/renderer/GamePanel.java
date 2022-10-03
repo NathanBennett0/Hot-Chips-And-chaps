@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements ActionListener{
     	
     	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
-    	timer = new Timer(30, this); // Timer works in milliseconds
+    	timer = new Timer(100, this); // Timer works in milliseconds
 		timer.start();
 	}
 	
@@ -58,51 +58,20 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
 	}
 
-
+	/**
+	 * Every 100 milli seconds, update the gui (repaint)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// get the board
-		/**
-		board = app.getGame().phase().maze().getGrid();
-		
-		Controller c = app.getGame().phase().controller();
-		c.keyPressed(KeyEvent.VK_A);
-		
-		for(int x = 0; x < board.length; x++) {
-    		for(int y = 0; y < board.length; y++) {
-				if(board[x][y] instanceof Chap) {
-					System.out.println(x);
-					System.out.println(y);
-					System.out.println("");
-					System.out.println(board[x][y].getLocation().getX());
-					System.out.println(board[x][y].getLocation().getY());
-				}
-    		}
-    	}
-		
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		
-		
-		
-		*/
-		// ----------------
-		//Controller c = app.getGame().phase().controller();
-		//c.keyPressed(KeyEvent.VK_A);
-		
 		Tile[][] temp = app.getGame().phase().maze().getGrid();
 		for(int x = 0; x < temp.length; x++) {
     		for(int y = 0; y < temp.length; y++) {
     			if(temp[x][y] instanceof Chap) {
     				updateCamera(x,y,temp);
     			}
-    			
 			}
 		}
-		
 		repaint(); 
-		
 	}
 	
 	/**
