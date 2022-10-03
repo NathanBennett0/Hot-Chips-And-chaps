@@ -9,42 +9,50 @@ public class AliveState implements State{
     }
 
     @Override
-    public void moveUp() {
-    	Location next = new Location(l.getX(), l.getY()-1);
+    public Location moveUp() {
+        Location next = new Location(l.getX(), l.getY()-1);
         if(!m.allowAction(next)){
-            throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
+            System.out.println("Chap cannot move here!");//pre condition check
+            return l; // Return the same position and do not move to next
         }
         m.setChapLoc(next);
-        l = next;
+        l = next; // Move the location to the next
+        return next;
     }
 
     @Override
-    public void moveDown() {
-    	Location next = new Location(l.getX(), l.getY()+1);
+    public Location moveDown() {
+        Location next = new Location(l.getX(), l.getY()+1);
         if(!m.allowAction(next)){
-            throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
+            System.out.println("Chap cannot move here!");//pre condition check
+            return l;
         }
         m.setChapLoc(next);
         l = next;
+        return next;
     }
 
     @Override
-    public void moveRight() {
-    	Location next = new Location(l.getX()+1, l.getY());
+    public Location moveRight() {
+        Location next = new Location(l.getX()+1, l.getY());
         if(!m.allowAction(next)){
-            throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
+            System.out.println("Chap cannot move here!");//pre condition check
+            return l;
         }
         m.setChapLoc(next);
         l = next;
+        return next;
     }
 
     @Override
-    public void moveLeft() {
-    	Location next = new Location(l.getX()-1, l.getY());
+    public Location moveLeft() {
+        Location next = new Location(l.getX()-1, l.getY());
         if(!m.allowAction(next)){
-            throw new IllegalArgumentException("Chap cannot move here!"); //pre condition check
+            System.out.println("Chap cannot move here!");//pre condition check
+            return l;
         }
         m.setChapLoc(next);
         l = next;
+        return next;
     }
 }

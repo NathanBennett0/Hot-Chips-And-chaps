@@ -2,22 +2,22 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 public class DeadState implements State{
     @Override
-    public void moveUp() {
-        return;
+    public Location moveUp() {
+        return null;
     }
 
     @Override
-    public void moveDown() {
-        return;
+    public Location moveDown() {
+        return null;
     }
 
     @Override
-    public void moveRight() {
-        return;
+    public Location moveRight() {
+        return null;
     }
 
     @Override
-    public void moveLeft() {
-        return;
+    public Location moveLeft() {
+        return null;
     }
 }
