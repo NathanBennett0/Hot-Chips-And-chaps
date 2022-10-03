@@ -166,7 +166,7 @@ public class App extends JFrame {
     	System.out.println("App.java: setPhase() called.");
         newPanel.run();
         stopTimer = false;
-        game = new Game(phase);
+        game = new Game(phase, this);
         game.addKeyListener(phase.controller());
         game.setFocusable(true);
        
