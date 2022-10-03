@@ -22,7 +22,9 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Game;
 import nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke;
 import nz.ac.vuw.ecs.swen225.gp22.app.Main;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 /**
  * Class that runs the two fuzz tests for the Chips&Chaps game. 
@@ -54,7 +56,7 @@ public class FuzzTest {
 		
 		
 		long timer = System.currentTimeMillis() + 10 * 1000; // Timer to stop while loop
-		app.levelOne(); // This will change fuzzStarted to true
+		app.levelOne(); // This will change fuzzStarted to true and load L1
 		
 
 		while(app.fuzzStarted()) {
@@ -63,10 +65,17 @@ public class FuzzTest {
 			pause(app,500);
 			Controller c = app.getGame().phase().controller();
 			Maze m = app.getGame().phase().maze();
+			
+			
+			// Check the location of the chap
 			updateLocation(m);
+			Tile[][] grid = m.getGrid();
+			System.out.println("Location: " + currentX + "," + currentY);
+			assert grid[currentX][currentY] instanceof Chap;
+			
 			
 			// Use intelligence to find the next direction
-			int direction = getRandomDirection();
+			int direction = pickDirection();
 			
 			
 			// Execute the next direction
@@ -110,16 +119,16 @@ public class FuzzTest {
 		return temp;	
 	}
 	
+	
 	/**
-	 * Locates the chap on the maze
-	 * IS THIS ALLOWED?
-	 * @param m
-	 * @return
+	 * Locates the chap on the maze and updates the current position
+	 * @param m Maze object found from App.java
 	 */
 	public void updateLocation(Maze m) {
 		currentX = m.player.l.getX();
 		currentY = m.player.l.getY();
 	}
+	
 	
 	/**
 	* Beginning intelligence
@@ -127,10 +136,11 @@ public class FuzzTest {
 	public int pickDirection() {
 		ArrayList<Integer> currentPos = strategy[currentX][currentY];
 		int least = Collections.min(currentPos); // The least moves
+		
 		// The direction that has the lowest moves, direction is an index
 		int direction = currentPos.indexOf(least);
 		currentPos.set(direction, least + 1);
-		return direction;
+		return generateKeycode(direction);
 	}
 	
 	
@@ -147,7 +157,8 @@ public class FuzzTest {
 	        	e.printStackTrace(); 
 	        }
     	}
-	}
+	}	
+	
 	
 	/**
 	 * Checks the timer of the running test
@@ -159,6 +170,35 @@ public class FuzzTest {
 		return false;
 	}
 
+	
+	
+	/**
+	 * Method that generates the keycode based on the index of an Arraylist
+	 * @return Keystroke constant, each representing a direction
+	 * 0 = up, 1 = down, 2 = left, 3 = right
+	 * Can return either WASD or arrow values
+	 */
+	public int generateKeycode(int index) {
+		Random r = new Random();
+		int random = r.nextInt(2); // Random number 0 or 1
+		switch(index) {
+			case 0:
+				if(random == 0) return KeyEvent.VK_W;
+				else return KeyEvent.VK_UP;
+		    case 1:
+		    	if(random == 0) return KeyEvent.VK_S; 
+		    	else return KeyEvent.VK_DOWN;
+		    case 2:
+		    	if(random == 0) return KeyEvent.VK_A;
+		    	else return KeyEvent.VK_LEFT;
+		    case 3:
+		    	if(random == 0) return KeyEvent.VK_D; 
+		    	else return KeyEvent.VK_DOWN;
+		    default:
+		    	System.out.println("Random number failed");
+		    	return 0; // Should never reach this point
+		}
+	}
 
 	
 	/**
