@@ -18,8 +18,10 @@ public class Treasure extends Tile {
 
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		if(isCollected()) {
-			p.addToChest(this);
+		if(!isCollected()) {
+			p.addToChest(this); //add to chaps chest 
+            cl = true; //make that key collected 
+            p.m.removeTile(l);//remove from maze 
 			return true;
 		}
 		return false;

@@ -8,7 +8,7 @@ public class Key extends Tile {
 	public Img icon;
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		if(isCollected()) {
+		if(!isCollected()) {
 			System.out.println("key added to chest");
 			p.addToChest(this); //add to chaps chest 
             cl = true; //make that key collected 
