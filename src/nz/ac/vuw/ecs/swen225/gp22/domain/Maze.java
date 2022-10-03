@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maze { //SUS
+public class Maze { //SUS Testing Git Shit
 	//fields
 	public final Tile[][] grid = new Tile[16][16];
 	public Level lv; //need to give me information using getters Nathan
