@@ -37,11 +37,9 @@ public class Game extends JPanel {
     	this.phase = p;
     	
         sidePanel();
-        ScoreBoardPanel scp = new ScoreBoardPanel();
         
         
         game = new GamePanel(p.maze(), a);
-        this.add(scp);
         this.add(game);
         
     	//Setting Background Image
