@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.app = a; 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-				board[x][y] = m.grid[x][y];
+				board[x][y] = m.grid[x + 3][y + 3];
     		}
     	}
     	
@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			Image i = board[x][y].getImg().image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
+    			Image i = board[x][y].getImg().image;
     			g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
     		}
     	}
@@ -100,8 +100,7 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
 	 }
 
-	 
-	 
+	  
 	 /**
 	  * Place this Game Panel onto the game 
 	  * 
