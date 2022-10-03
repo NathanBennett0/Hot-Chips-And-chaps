@@ -91,7 +91,7 @@ public class Filereader {
             }
 
             // key tiles
-            NodeList keytilelist = doc.getElementsByTagName("LockedTile");
+            NodeList keytilelist = doc.getElementsByTagName("KeyTile");
             for(int n = 0; n < keytilelist.getLength(); n++) {
                 // gets the individual tile
                 Node tile = keytilelist.item(n);
