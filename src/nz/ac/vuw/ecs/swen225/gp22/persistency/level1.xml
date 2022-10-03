@@ -90,7 +90,6 @@
         <Tile type="Wall" walk="False" x="-3" y="0"/>
         <Tile type="Treasure" walk="True" x="-2" y="0"/>
         <Tile type="Free" walk="True" x="-1" y="0"/>
-        <Tile type="Chap" walk="True" x="0" y="0"/>
         <Tile type="Free" walk="True" x="1" y="0"/>
         <Tile type="Treasure" walk="True" x="2" y="0"/>
         <Tile type="Wall" walk="False" x="3" y="0"/>
@@ -179,7 +178,7 @@
         <Tile type="Wall" walk="False" x="2" y="-7"/>
         <Tile type="Wall" walk="False" x="3" y="-7"/>
     </Tilelist>
-    <Chap x="9" y="9"/>
+    <Chap x="10" y="10"/>
     <ChapKeyTile type="Key" walk="True" x="1" y="-6" colour="GREEN"/>
     <ChapKeyTile type="Key" walk="True" x="2" y="-6" colour="YELLOW"/>
     <ChapTreasureTile type="Key" walk="True" x="2" y="-8"/>
