@@ -33,14 +33,14 @@ public class Game extends JPanel {
 	/**
 	 * JPanel for when the Game runs. Contains viewport and scoreboard.
 	 */
-    public Game(Phase p) {
+    public Game(Phase p, App a) {
     	this.phase = p;
     	
         sidePanel();
         ScoreBoardPanel scp = new ScoreBoardPanel();
         
         
-        game = new GamePanel(p.maze());
+        game = new GamePanel(p.maze(), a);
         this.add(scp);
         this.add(game);
         

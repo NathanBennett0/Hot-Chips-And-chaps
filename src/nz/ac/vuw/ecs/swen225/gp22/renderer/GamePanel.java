@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Game;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	Timer timer; 
 	
 
-	public GamePanel(Maze m) {		
+	public GamePanel(Maze m, App a) {		
 		// This is just to fill the array for testing
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
