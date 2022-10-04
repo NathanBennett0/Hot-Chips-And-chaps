@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Maze { //SUS Testing Git Shit
 	//fields
-	public final Tile[][] grid = new Tile[16][16];
+	public final Tile[][] grid = new Tile[32][32];
 	public Level lv; //need to give me information using getters Nathan
 	public Chap player;
 	public int numItems;
@@ -50,7 +50,6 @@ public class Maze { //SUS Testing Git Shit
     
     public void removeTile(Location l) {
         grid[l.getX()][l.getY()] = new Free(l);
-        
     }
 
 	/**

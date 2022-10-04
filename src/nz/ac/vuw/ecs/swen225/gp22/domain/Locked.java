@@ -32,9 +32,12 @@ public class Locked extends Tile {
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		for(Tile t : p.getChest()){
-			if(t instanceof Key) {
-				p.addToChest(this);
-				return true;
+			if(t instanceof Key) { //if we have found a key 
+				Key k = (Key)t;
+				if(k.getColor().equals(this.col)){ //if its the right color 
+					p.m.removeTile(this.l);
+					return true;
+				}
 			}
 		}
 		return false;
