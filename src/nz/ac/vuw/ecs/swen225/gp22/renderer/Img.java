@@ -6,23 +6,24 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public enum Img {
-	Box, CatDown1, CatLeft1, CatRight1, CatUp1, Chap, EndBackground, Exit, ExitLock, Free, GameBackground, Info, KeyBlue, KeyGreen, KeyOrange, KeyYellow, LawnmowerDown, LawnmowerLeft, LawnMowerRight, LockedDoorBlue,
-	LockedDoorGreen, LockedDoorOrange, LockedDoorYellow, StartOne, StartTwo, TreasureOne, TreasureTwo, TreasureThree,
-	TreasureFour, TreasureFive, Tutorial, Wall, Water;
+    Box, CatDown1, CatLeft1, CatRight1, CatUp1, Chap, EndBackground, EndCat1, EndCat2, EndCat3, EndCat4, EndCat5, Exit, ExitLock, Free, GameOver, GameBackground, 
+    Info, KeyBlue, KeyGreen, KeyOrange, KeyYellow, LawnmowerDown, LawnmowerLeft, LawnMowerRight, LockedDoorBlue,
+    LockedDoorGreen, LockedDoorOrange, LockedDoorYellow, StartOne, StartTwo, TreasureOne, TreasureTwo, TreasureThree,
+    TreasureFour, TreasureFive, Tutorial, Wall, Water;
 
-	// Note: the bellow code was inspired by the Img.Java class from assignment one
-	public final BufferedImage image;
+    // Note: the bellow code was inspired by the Img.Java class from assignment one
+    public final BufferedImage image;
 
-	Img() {
-		image = loadImage(this.name());
-	}
+    Img() {
+        image = loadImage(this.name());
+    }
 
-	static private BufferedImage loadImage(String name) {
-		URL imagePath = Img.class.getResource(name + ".png");
-		try {
-			return ImageIO.read(imagePath);
-		} catch (IOException e) {
-			throw new Error(e);
-		}
-	}
+    static private BufferedImage loadImage(String name) {
+        URL imagePath = Img.class.getResource(name + ".png");
+        try {
+            return ImageIO.read(imagePath);
+        } catch (IOException e) {
+            throw new Error(e);
+        }
+    }
 }
