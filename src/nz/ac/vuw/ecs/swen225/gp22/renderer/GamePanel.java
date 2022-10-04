@@ -29,12 +29,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	Maze maze;
 	App app; 
 	Location prevLoc; 
+	CatImage currChap;
 	
 
 	public GamePanel(Maze m, App a) {	
 		this.maze = m;
 		this.app = a; 
 		this.prevLoc = maze.player.getLocation();
+		this.currChap = new NormalImage(); 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
 				board[x][y] = m.grid[x + 3][y + 3];
@@ -43,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener{
     	
     	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
-    	timer = new Timer(250, this); // Timer works in milliseconds
+    	timer = new Timer(150, this); // Timer works in milliseconds
 		timer.start();
 	}
 	
@@ -55,10 +57,12 @@ public class GamePanel extends JPanel implements ActionListener{
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
     			if(board[x][y] instanceof Chap) {
-    				Image i = setImgState(maze.player.getLocation());
+    				if(currChap.done()) {
+    					setImgState(board[x][y].getLocation());
+    				}
+    				Image i = currChap.getCurrImg().image;
     				prevLoc = maze.player.getLocation();
     				g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
-    				
     			}else {
     				Image i = board[x][y].getImg().image;
         			g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
@@ -104,19 +108,19 @@ public class GamePanel extends JPanel implements ActionListener{
 	 }
 	 
 	 
-	 public Image setImgState(Location l) {
+	 public void setImgState(Location l) {
 		 System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
 		 System.out.println("Curr: " + l.getX() + " " + l.getY());
 		 if(l.getX() < prevLoc.getX()) {
-			 return Img.CatLeft1.image; 
+			 currChap = new LeftImage();
 		 }else if(l.getX() > prevLoc.getY()) {
-			 return Img.CatRight1.image;
+			 currChap = new RightImage();
 		 }else if(l.getY() < prevLoc.getY()) {
-			 return Img.CatUp1.image;
+			 currChap = new UpImage();
 		 }else if(l.getY() > prevLoc.getY()){
-			 return Img.CatDown1.image;
+			 currChap = new DownImage();
 		 }else {
-			 return Img.Chap.image;
+			 currChap = new NormalImage();
 		 }
 	 }
 
