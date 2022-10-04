@@ -2,7 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
 public class LeftImage implements CatImage{
 	public Img currImg = Img.CatLeft1; // Default fields are normal chap
-	public Img[] animation = {Img.CatLeft1};
+	public Img[] animation = {Img.CatLeft1, Img.CatLeft2, Img.CatLeft3};
 	public boolean done = false; 
 
 	@Override

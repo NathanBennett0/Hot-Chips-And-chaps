@@ -6,7 +6,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public enum Img {
-    Box, CatDown1, CatLeft1, CatRight1, CatUp1, Chap, EndBackground, EndCat1, EndCat2, EndCat3, EndCat4, EndCat5, Exit, ExitLock, Free, GameOver, GameBackground, 
+    Box, CatDown1, CatDown2, CatDown3, CatLeft1, CatLeft2, CatLeft3, CatRight1, CatRight2, CatRight3, CatUp1, CatUp2, CatUp3,
+    Chap, EndBackground, EndCat1, EndCat2, EndCat3, EndCat4, EndCat5, Exit, ExitLock, Free, GameOver, GameBackground, 
     Info, KeyBlue, KeyGreen, KeyOrange, KeyYellow, LawnmowerDown, LawnmowerLeft, LawnMowerRight, LockedDoorBlue,
     LockedDoorGreen, LockedDoorOrange, LockedDoorYellow, StartOne, StartTwo, TreasureOne, TreasureTwo, TreasureThree,
     TreasureFour, TreasureFive, Tutorial, Wall, Water;
