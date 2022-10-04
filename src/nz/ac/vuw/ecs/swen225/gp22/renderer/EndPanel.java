@@ -26,7 +26,7 @@ public class EndPanel extends JLabel implements ActionListener{
 
     public EndPanel() {
         this.setBounds(0,0, App.WIDTH, App.HEIGHT);
-        timer = new Timer(100, this);
+        timer = new Timer(200, this);
         timer.start();
     }
 
