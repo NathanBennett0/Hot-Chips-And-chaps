@@ -5,9 +5,17 @@ import java.awt.event.KeyEvent;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
 public class Controller extends KeyStroke {
-	Chap chap;
-	Controller(App app, Chap c){
-		chap = c;
+	App app;
+	Controller(App app){
+		this.app = app;
+		setCtrlKey();
+	}
+
+	Controller(App app, Chap chap){
+		this.app = app;
+
+		setCtrlKey();
+		
 		//Moves chap across the maze
 		setAction(KeyEvent.VK_W, ()->chap.moveUp(), false); 
 		setAction(KeyEvent.VK_A, ()->chap.moveLeft(), false);
@@ -22,6 +30,9 @@ public class Controller extends KeyStroke {
 		setAction(KeyEvent.VK_SPACE, null, false); //pause game
 		setAction(KeyEvent.VK_ESCAPE, null, false); //resume paused game
 		
+	}
+
+	public void setCtrlKey(){
 		//Control Keys
 		setAction(KeyEvent.VK_X, ()->System.exit(0), true); //exit
 		setAction(KeyEvent.VK_S, ()->app.saveGame(), true); //save
@@ -29,5 +40,6 @@ public class Controller extends KeyStroke {
 		setAction(KeyEvent.VK_1, ()->app.levelOne(), true); //start level 1
 		setAction(KeyEvent.VK_2, ()->app.levelTwo(), true); //start level 2
 	}
+
 	
 }
