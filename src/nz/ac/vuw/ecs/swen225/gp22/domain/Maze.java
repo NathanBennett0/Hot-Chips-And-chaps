@@ -97,4 +97,8 @@ public class Maze { //SUS Testing Git Shit
 		return next.CanWalkOn(player);
 	}
 
+	public Level getLevel() {
+        return lv;
+    }
+
 }
