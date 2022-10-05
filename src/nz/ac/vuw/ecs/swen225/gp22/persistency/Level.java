@@ -16,14 +16,16 @@ public class Level {
     private Chap player;
     private List<Tile> inventory;
     private InfoField info;
+    private int time;
 
-    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info) {
+    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info, int time) {
         this.tiles = tiles;
         this.lockedtiles = lockedtiles;
         this.keytiles = keytiles;
         this.player = player;
         this.info = info;
         this.inventory = new ArrayList<Tile>();
+        this.time = time;
     }
 
     public List<Tile> getTiles() {
@@ -59,6 +61,10 @@ public class Level {
 
     public InfoField getInfoField() {
         return info;
+    }
+
+    public int getTime() {
+        return time;
     }
     
     public List<Tile> getInventory() {
