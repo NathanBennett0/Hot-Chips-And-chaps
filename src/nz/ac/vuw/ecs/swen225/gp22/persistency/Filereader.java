@@ -29,7 +29,7 @@ public class Filereader {
     public static void main(String[] agrs) {
         Filereader fr = new Filereader();
         Level level1 = fr.loadLevel("level1.xml");
-        Filewriter fw = new Filewriter(level1);
+        Filewriter fw = new Filewriter(level1, 90000);
         fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/level1save.xml");
         for(Tile t : level1.getTiles()) {
             System.out.println(t);
@@ -54,6 +54,7 @@ public class Filereader {
         List<Key> keytiles = new ArrayList<Key>();
         Chap chap = new Chap(new Location(0,0), null);
         InfoField info = new InfoField(new Location(0,0), "");
+        int time = 0;
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
 
@@ -103,7 +104,7 @@ public class Filereader {
             }
 
             // reads the chap from file
-            NodeList InfoNodes = doc.getElementsByTagName("Chap");
+            NodeList InfoNodes = doc.getElementsByTagName("InfoTile");
             Node InfoNode = InfoNodes.item(0);
             Element I = (Element)InfoNode;
             // creates new chap
@@ -139,11 +140,19 @@ public class Filereader {
                     chap.addToChest((makeTile(T)));
                 }
             }
+
+            // reads the chap from file
+            NodeList TimeNodes = doc.getElementsByTagName("Time");
+            Node TimeNode = TimeNodes.item(0);
+            Element timeE = (Element)TimeNode;
+            // creates new chap
+            time = Integer.parseInt(timeE.getAttribute("timeleft"));
+            System.out.println("time read is " + time);
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, lockedtiles, keytiles, chap, info);
+        return new Level(alltiles, lockedtiles, keytiles, chap, info, time);
     }
 
     public Tile makeTile(Element T) {
@@ -164,6 +173,7 @@ public class Filereader {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
         String colour = T.getAttribute("colour");
+        System.out.println("making new locked x " + x + " y " + y);
         return new Locked(new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour));
     }
 
