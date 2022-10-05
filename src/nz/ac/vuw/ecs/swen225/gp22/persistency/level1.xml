@@ -178,6 +178,6 @@
         <Tile type="Wall" walk="False" x="2" y="-7"/>
         <Tile type="Wall" walk="False" x="3" y="-7"/>
     </Tilelist>
-    <Chap x="0" y="0"/>
+    <Chap x="7" y="7"/>
     <Time timeleft="90000"/>
 </Level>
