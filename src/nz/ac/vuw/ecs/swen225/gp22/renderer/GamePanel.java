@@ -17,12 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-<<<<<<< HEAD
-import nz.ac.vuw.ecs.swen225.gp22.app.App;
-import nz.ac.vuw.ecs.swen225.gp22.app.Game;
-=======
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
->>>>>>> 80c6be8 (Fixing the camera so that the chap is always focused)
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 public class GamePanel extends JPanel implements ActionListener{
@@ -110,8 +105,8 @@ public class GamePanel extends JPanel implements ActionListener{
 	 
 	 
 	 public Image setImgState(Location l) {
-		 System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
-		 System.out.println("Curr: " + l.getX() + " " + l.getY());
+		//  System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
+		//  System.out.println("Curr: " + l.getX() + " " + l.getY());
 		 if(l.getX() < prevLoc.getX()) {
 			 return Img.CatLeft1.image; 
 		 }else if(l.getX() > prevLoc.getY()) {
