@@ -24,8 +24,10 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 public class Filewriter {
     Level level;
-    public Filewriter(Level level) {
+    int time;
+    public Filewriter(Level level, int time) {
         this.level = level;
+        this.time = time;
     }
 
     public void saveToXML(String filename) {
@@ -35,14 +37,25 @@ public class Filewriter {
             DocumentBuilder docbuilder = docbuilderfactory.newDocumentBuilder();
             Document doc = docbuilder.newDocument();
 
-            // root element for tilelist
-            Element Tilelist = doc.createElement("Tilelist");
-            doc.appendChild(Tilelist);
+            // root element for Level
+            Element Level = doc.createElement("Level");
+            Attr levelname = doc.createAttribute("name");
+            levelname.setValue(filename);   
+            Level.setAttributeNode(levelname);
+            doc.appendChild(Level);
+
+            filename = "src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + filename + ".xml";
 
             // chap
+            Element TimeE = doc.createElement("Time");
+            Attr timeleft = doc.createAttribute("timeleft");
+            timeleft.setValue(String.valueOf(time));
+            TimeE.setAttributeNode(timeleft);
+            Level.appendChild(TimeE);
+
             Element Chap = doc.createElement("Chap");
             Chap = makeChap(Chap, doc, level.getChap());
-            Tilelist.appendChild(Chap);
+            Level.appendChild(Chap);
 
             // chap inventory
             for(Tile T : level.getChap().getChest()) {
@@ -52,13 +65,13 @@ public class Filewriter {
                     Element newTile = doc.createElement("ChapKeyTile");
                     newTile = makeTileElement(newTile, doc, K);
                     newTile = makeKeyTile(newTile, doc, K);
-                    // add tile to tilelist
-                    Tilelist.appendChild(newTile);
+                    // add tile to Level
+                    Chap.appendChild(newTile);
                 } else {
                     Element newTile = doc.createElement("ChapTreasureTile");
                     newTile = makeTileElement(newTile, doc, T);
-                    // add tile to tilelist
-                    Tilelist.appendChild(newTile);
+                    // add tile to Level
+                    Chap.appendChild(newTile);
                 }
                 // do the rest of the inventory
                 
@@ -69,8 +82,8 @@ public class Filewriter {
                 // create tile
                 Element newTile = doc.createElement("Tile");
                 newTile = makeTileElement(newTile, doc, T);
-                // add tile to tilelist
-                Tilelist.appendChild(newTile);
+                // add tile to Level
+                Level.appendChild(newTile);
             }
 
             // iterate through every locked tile
@@ -79,8 +92,8 @@ public class Filewriter {
                 Element newTile = doc.createElement("LockedTile");
                 newTile = makeTileElement(newTile, doc, L);
                 newTile = makeLockedTile(newTile, doc, L);
-                // add tile to tilelist
-                Tilelist.appendChild(newTile);
+                // add tile to Level
+                Level.appendChild(newTile);
             }
 
             // iterate through every key tile
@@ -89,16 +102,15 @@ public class Filewriter {
                 Element newTile = doc.createElement("KeyTile");
                 newTile = makeTileElement(newTile, doc, K);
                 newTile = makeKeyTile(newTile, doc, K);
-                // add tile to tilelist
-                Tilelist.appendChild(newTile);
-                System.out.println("added a new tile");
+                // add tile to Level
+                Level.appendChild(newTile);
             }
 
             // info tile
             Element infoFieldTile = doc.createElement("InfoTile");
             infoFieldTile = makeTileElement(infoFieldTile, doc, level.getInfoField());
             infoFieldTile = makeInfoFieldTile(infoFieldTile, doc, level.getInfoField());
-            Tilelist.appendChild(infoFieldTile);
+            Level.appendChild(infoFieldTile);
 
             // add everything to new xml file
             TransformerFactory transformerfactory = TransformerFactory.newInstance();

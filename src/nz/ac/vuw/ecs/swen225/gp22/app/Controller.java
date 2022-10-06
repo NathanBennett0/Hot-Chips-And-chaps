@@ -47,5 +47,6 @@ public class Controller extends KeyStroke {
 		setAction(KeyEvent.VK_RIGHT, ()->chap.moveRight(), false);
 		setAction(KeyEvent.VK_DOWN, ()->chap.moveDown(), false);
 	}
+
 	
 }
