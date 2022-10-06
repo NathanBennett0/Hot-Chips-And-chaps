@@ -24,12 +24,17 @@ public class KeyStroke implements KeyListener {
 		}
 	}
 	
+	public void clearKeyBind(){
+		onPressed.clear();
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("KeyStroke.java: keyPressed() called.");
+		System.out.println("size: "+onPressed.size());
 		if (e.isControlDown()) {
 			System.out.println("Running ctrl");
 			onCtrlPressed.getOrDefault(e.getKeyCode(),()->{}).run();
@@ -40,14 +45,5 @@ public class KeyStroke implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
-
-	/**
-	 * Fuzz: keyPressed method for calling with manual keycode
-	 * @param keycode constant representing a key
-	 */
-	public static void keyPressed(int keycode) {
-		System.out.println(keycode);
-		onPressed.getOrDefault(keycode,()->{}).run();
-	}
 
 }
