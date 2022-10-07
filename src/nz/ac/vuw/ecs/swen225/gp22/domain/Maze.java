@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Maze { //SUS Testing Git Shit
 	//fields
-	public final Tile[][] grid = new Tile[16][16];
+	public final Tile[][] grid = new Tile[22][22];
 	public Level lv; //need to give me information using getters Nathan
 	public Chap player;
 	public int numItems;
@@ -24,15 +24,15 @@ public class Maze { //SUS Testing Git Shit
 		this.lv = lv;
 		player = lv.getChap();
 		numItems =lv.getInventory().size();
-		for(int x = 0; x < 16; x++) {
-    		for(int y = 0; y < 16; y++) {
+		for(int x = 0; x < 22; x++) {
+    		for(int y = 0; y < 22; y++) {
     			grid[x][y] = new Free(new Location(x,y));
     		}
     	}
 		for(Tile t : lv.getAllTiles()) {
 			int x = t.getLocation().getX();
 			int y = t.getLocation().getY();
-			grid[x+7][y+7] = t;
+			grid[x][y] = t;
 		}
 		grid[lv.getChap().getLocation().getX()][lv.getChap().getLocation().getX()] = lv.getChap();
 	}
