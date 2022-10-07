@@ -48,7 +48,7 @@ public class Filewriter {
 
             // chap
             Element TimeE = doc.createElement("Time");
-            Attr timeleft = doc.createAttribute("text");
+            Attr timeleft = doc.createAttribute("timeleft");
             timeleft.setValue(String.valueOf(time));
             TimeE.setAttributeNode(timeleft);
             Level.appendChild(TimeE);
