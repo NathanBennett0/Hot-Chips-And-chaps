@@ -34,7 +34,7 @@ public class Maze { //SUS Testing Git Shit
 			int y = t.getLocation().getY();
 			grid[x][y] = t;
 		}
-		grid[lv.getChap().getLocation().getX()][lv.getChap().getLocation().getX()] = lv.getChap();
+		//grid[lv.getChap().getLocation().getX()][lv.getChap().getLocation().getX()] = lv.getChap();
 	}
 
 	// getters and setters
