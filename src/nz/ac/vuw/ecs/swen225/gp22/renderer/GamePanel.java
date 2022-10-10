@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	  * @param y
 	  * @param temp
 	  */
-	 public void updateCamera(int x, int y, Tile[][] temp){
+	 private void updateCamera(int x, int y, Tile[][] temp){
 		 int shiftX = x - 4; 
 		 int shiftY = y - 4;
 		 
