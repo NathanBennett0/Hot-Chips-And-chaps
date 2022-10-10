@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.currChap = new NormalImage(); 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-				board[x][y] = m.grid[x + 3][y + 3];
+				board[x][y] = m.grid[x + 6][y + 5];
     		}
     	}
     	
@@ -109,11 +109,9 @@ public class GamePanel extends JPanel implements ActionListener{
 	 
 	 
 	 public void setImgState(Location l) {
-		 //System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
-		 //System.out.println("Curr: " + l.getX() + " " + l.getY());
 		 if(l.getX() < prevLoc.getX()) {
 			 currChap = new LeftImage();
-		 }else if(l.getX() > prevLoc.getY()) {
+		 }else if(l.getX() > prevLoc.getX()) {
 			 currChap = new RightImage();
 		 }else if(l.getY() < prevLoc.getY()) {
 			 currChap = new UpImage();
