@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	Maze maze;
 	App app; 
 	Location prevLoc; 
-	CatImage currChap;
+	CatImage currChap = new NormalImage();
 	
 
 	public GamePanel(Maze m, App a) {	
