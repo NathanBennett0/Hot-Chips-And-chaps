@@ -31,12 +31,12 @@ public class SoundEffects {
      * Start playing the start music clip
      */
     public void playStart() {
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         backgroundMusic.start();
-        do {
-            try {Thread.sleep(50);}
-            catch(InterruptedException ie) {ie.printStackTrace();}
-        }while( backgroundMusic.isActive());
+        //do {
+           // try {Thread.sleep(50);}
+           // catch(InterruptedException ie) {ie.printStackTrace();}
+        //}while( backgroundMusic.isActive());
 
         //  backgroundMusic.setMicrosecondPosition(0); to reset the clip 
     }

@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.currChap = new NormalImage(); 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-				board[x][y] = m.grid[x + 3][y + 3];
+				board[x][y] = m.grid[x + 6][y + 5];
     		}
     	}
     	
@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(app.getGame() == null) {return;}
 		Tile[][] temp = app.getGame().phase().maze().getGrid();
 		for(int x = 0; x < temp.length; x++) {
     		for(int y = 0; y < temp.length; y++) {
