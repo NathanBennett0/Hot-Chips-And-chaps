@@ -18,7 +18,7 @@ public class Treasure extends Tile {
 
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		if(isCollected()) {
+		if(!isCollected()) {
 			p.addToChest(this);
 			return true;
 		}

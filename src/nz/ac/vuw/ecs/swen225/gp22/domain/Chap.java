@@ -80,6 +80,7 @@ public class Chap extends Tile{ // player which is not a core tile
     // other methods
     public void addToChest(Tile t) {
         chest.add(t);
+        System.out.println("Added to chest: "+chest);
     }
 
     //Nathan told me to add this 

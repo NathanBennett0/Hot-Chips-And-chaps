@@ -9,9 +9,12 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -33,18 +36,55 @@ import java.awt.Color;
 
 public class App extends JFrame {
 	
-    //Initializing Variables
+    //Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
-	Game game;
-    Runnable newPanel = ()->{};
-    
-    private boolean stopTimer = true;
-    
+    public final static int TIMELIMIT_ONE = 90000;
+    public final static int TIMELIMIT_TWO = 180000;
+
+    //Game variables
+	private Game game;
+    private Timer timer;
+    private JPanel currentPanel;
+    private int timeLeft;  //timeleft
+    private Controller mainController = new Controller(this);
+    private Controller gameController;
+
+    //Menu Items - do these need to stay here? //TODO
+    private JMenuBar mb=new JMenuBar();
+    private JMenuItem home=new JMenuItem("Home");
+    private JMenu start=new JMenu("Go to");
+    private JMenuItem lvl1=new JMenuItem("Level 1");
+    private JMenuItem lvl2=new JMenuItem("Level 2");
+    private JMenuItem load=new JMenuItem("Load Game");
+    private JMenuItem pause=new JMenuItem("Pause");
+    private JMenuItem save=new JMenuItem("Save");  
+    private JMenuItem exit=new JMenuItem("Exit");  
+
     //Boolean variables for fuzz testing
     private boolean fuzzStarted = false;
     private boolean initializeDone = false;
+
+    private boolean stopTimer = true;
+    private boolean pauseTimer = false;
+
     Runnable restart = ()->{ stopTimer = true;};
+    Runnable newPanel = ()->{};
+
+    //TODO: possibly run panels
+    Runnable pauseGame = ()->{ 
+        pauseTimer = true; 
+        pause.setText("Resume");
+        mainController.clearKeyBind();
+        mainController.setPauseKey();
+        changeKeyListener(mainController);
+    };  
+    Runnable resumeGame = ()->{ 
+        pauseTimer = false; 
+        pause.setText("Pause");
+        gameController.setChapKey();
+        changeKeyListener(gameController);
+    };
 
     public App(){
     	System.out.println("App.java: App constructor called.");
@@ -77,6 +117,7 @@ public class App extends JFrame {
     
     public void mainMenu(){
     	System.out.println("App.java: mainMenu() called.");
+
         newPanel.run();
         restart.run();
         var p = new JPanel();
@@ -97,8 +138,12 @@ public class App extends JFrame {
         p.add(play);
         p.add(sp);
         
+        currentPanel = p;
+        mainController.clearKeyBind();
+        changeKeyListener(mainController);
         newPanel = ()->{ remove(p);};
         pack();
+        currentPanel.requestFocus(); //TODO add these in new panel runnable
     }
 
     public void tutorial(){
@@ -117,22 +162,13 @@ public class App extends JFrame {
 
         getContentPane().add(BorderLayout.CENTER, p);
         newPanel = ()->{ remove(p);};
+        currentPanel = p;
 
         pack();
     }
     
     public void menuBar() {
     	System.out.println("App.java: menuBar() called.");
-    	//DECLARE
-    	JMenuBar mb=new JMenuBar();
-    	JMenuItem home=new JMenuItem("Home");
-    	JMenu start=new JMenu("Go to");
-    	JMenuItem lvl1=new JMenuItem("Level 1");
-    	JMenuItem lvl2=new JMenuItem("Level 2");
-    	JMenuItem load=new JMenuItem("Load Game");
-    	JMenuItem pause=new JMenuItem("Pause");
-    	JMenuItem save=new JMenuItem("Save");  
-    	JMenuItem exit=new JMenuItem("Exit");  
     	
     	home.setPreferredSize(new Dimension(180, home.getPreferredSize().height));
     	start.setPreferredSize(new Dimension(180, start.getPreferredSize().height));
@@ -143,7 +179,11 @@ public class App extends JFrame {
     	
     	//FUNCTIONS
     	home.addActionListener((e)->mainMenu()); //connect to the main menu pane - pop up window asking what to do
-    	pause.addActionListener((e)->System.out.println("Pause")); //pop up window and pause timer and disable every action (change focus)
+    	pause.addActionListener((e)->{
+            if(!fuzzStarted)return;
+            if(pauseTimer){resumeGame.run();}
+            else{pauseGame.run();}
+        }); //pop up window and pause timer and disable every action (change focus)
         lvl1.addActionListener((e)->levelOne());
         lvl2.addActionListener((e)->levelTwo());
         exit.addActionListener((e)->System.exit(0));
@@ -159,46 +199,51 @@ public class App extends JFrame {
     	mb.add(exit);
     	this.setJMenuBar(mb);
     }
+
     
     /*---- GAME MECHANICS ---------------------------------------------------*/
     
-    void setPhase(Phase phase){
+    void setPhase(Phase phase, int time){
     	System.out.println("App.java: setPhase() called.");
         newPanel.run();
         stopTimer = false;
         game = new Game(phase, this);
-        game.addKeyListener(phase.controller());
+        
         game.setFocusable(true);
+        timeLeft = time;
        
         ActionListener countDown = new ActionListener(){
-        	int timeLeft = phase.level()==2?180000:90000; //level 2: 3 mins, level 1: 1.5 mins
-        	
 		    public void actionPerformed(ActionEvent e){
-		        timeLeft -= 250;
-		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+                SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+
+                if(!pauseTimer) timeLeft -= 250;
+
 		        game.tLeft.setText(df.format(timeLeft));
 		        game.repaint();
+
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
 		        }
 		    }
 		};
 		
-		Timer timer=new Timer(250, countDown);
+		timer=new Timer(250, countDown);
         getContentPane().add(BorderLayout.CENTER, game);
-                
-        newPanel = ()->{ remove(game);};
+        
+        currentPanel = game;
+        changeKeyListener(phase.controller());
+        
+        newPanel = ()->{ remove(game); timer.stop();};
 
         pack();
+        currentPanel.requestFocus();
         timer.start();
         fuzzStarted = true; // For fuzz testing
     }
-    
+
+    //TODO: can improve the coding here - reduce redundancy
     /**
      * Loads the level 1 of the game and creates the Maze accordingly
-     * 
-     * @param levelname
-     * @param num - level
      */
     public void levelOne() {
         System.out.println("loading lvl 1");
@@ -206,14 +251,13 @@ public class App extends JFrame {
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
-        setPhase(new Phase(m, new Controller(this, lvl.getChap()), 1));
+        gameController = new Controller(this, lvl.getChap());
+        setPhase(new Phase(m, gameController, 1), TIMELIMIT_ONE);
     }
     
     /**
      * Loads the level 1 of the game and creates the Maze accordingly
      * 
-     * @param levelname
-     * @param num - level
      */
     public void levelTwo() {
         System.out.println("loading lvl 2");
@@ -221,23 +265,51 @@ public class App extends JFrame {
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
-        setPhase(new Phase(m, new Controller(this, lvl.getChap()), 2));
+        gameController = new Controller(this, lvl.getChap());
+        setPhase(new Phase(m, gameController, 2), TIMELIMIT_TWO);
     }
 
     /**
      * Saves game into an xml file
      */
     public void saveGame() {
-    	String levelname = game.getLevel()==2?"level2":"level1";
-    	Level lvl = new Filereader().loadLevel(levelname);
-        Filewriter fw = new Filewriter(lvl);
-        fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + levelname + ".xml");
+        System.out.println("saving game");
+        System.out.println("time is " + timeLeft);
+        String levelname = game.getLevel()==2?"level2":"level1";
+     //   Filewriter fw = new Filewriter(game.phase().maze().getLevel(), timeLeft); //TODO: undo after pull
+      //  fw.saveToXML(levelname + "save");
+    }
+
+    public void loadSavedGame(JFileChooser jfc) {
+        System.out.println("loading saved game");
+        int j = jfc.showOpenDialog(null);
+        //check user opened a file
+        String filename = "";
+        if(j == JFileChooser.APPROVE_OPTION) {
+            filename = jfc.getSelectedFile().getName();
+            System.out.println("loading " + filename);
+        }
+
+        Level lvl = new Filereader().loadLevel(filename);
+        Maze m = new Maze(lvl);
+        lvl.getChap().setMaze(m); 
+        // now have the maze object
+        gameController = new Controller(this, lvl.getChap());
+      //  setPhase(new Phase(m, gameController, 1), lvl.getTime()); //TODO: undo after pull
     }
     
     public Game getGame() {
     	return this.game;
     }
     
+    public void changeKeyListener(KeyListener keyListener) {
+        System.out.println("changing key listener to..."+ keyListener);
+        if (currentPanel.getKeyListeners().length > 0) {
+            currentPanel.removeKeyListener(currentPanel.getKeyListeners()[0]);
+        }
+        currentPanel.addKeyListener(keyListener);
+        currentPanel.setFocusable(true);
+    }
     
     
     /*--- FOR TESTING -------------------------------------------------------*/
