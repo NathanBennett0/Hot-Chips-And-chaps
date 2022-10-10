@@ -43,6 +43,15 @@ public class KeyStroke implements KeyListener {
 		}
 	}
 
+	/**
+	 * Fuzz: keyPressed method for calling with manual keycode
+	 * @param keycode constant representing a key
+	 */
+	public void keyPressed(int keycode) {
+		onPressed.getOrDefault(keycode,()->{}).run();
+	}
+
+
 	@Override
 	public void keyReleased(KeyEvent e) {}
 

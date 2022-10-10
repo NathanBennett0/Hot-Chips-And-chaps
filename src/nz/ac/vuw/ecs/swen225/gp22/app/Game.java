@@ -23,6 +23,7 @@ import javax.swing.Timer;
 public class Game extends JPanel {
 	private Phase phase;
 	private GamePanel game;
+    private App app;
 	
 	
 	JLabel tLeft = new JLabel("00:00");
@@ -35,6 +36,7 @@ public class Game extends JPanel {
 	 */
     public Game(Phase p, App a) {
     	this.phase = p;
+        this.app = a;
     	
         sidePanel();
         
@@ -44,10 +46,10 @@ public class Game extends JPanel {
         
     	//Setting Background Image
         var bgImage = new JLabel();
-        bgImage.setBounds(0, 0, 900, 630);
+        bgImage.setBounds(0, 0, App.WIDTH, App.HEIGHT-45);
         
         //Scaling Image
-        Image scaledImage = Img.GameBackground.image.getScaledInstance(App.WIDTH,App.HEIGHT-50,Image.SCALE_SMOOTH);
+        Image scaledImage = Img.GameBackground.image.getScaledInstance(App.WIDTH,App.HEIGHT-45,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
         setLayout(null);
         bgImage.setIcon(icon);
@@ -80,7 +82,7 @@ public class Game extends JPanel {
         
         this.add(p);
         
-        currLvl.setText(Integer.toString(phase.level()));
+        currLvl.setText(Integer.toString(app.getStatus())); //change later
         currLvl.setHorizontalAlignment(SwingConstants.CENTER);
         currLvl.setFont(new Font("Arial Black", Font.BOLD, 30));
         currLvl.setBounds(16, 71, 155, 54);
@@ -97,15 +99,6 @@ public class Game extends JPanel {
         p.add(itemLeft);
         System.out.println("Game.java: sidePanel() called.");
         
-    }
-    
-	/**
-     * Getters for level
-     * @return
-     */
-    public int getLevel() {
-    	System.out.println("Game.java: getLevel() called.");
-    	return phase.level();
     }
     
     public Phase phase() {
