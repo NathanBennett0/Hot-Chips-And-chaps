@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	 }
 	 
 	 
-	 public Image setImgState(Location l) {
+	 public void setImgState(Location l) {
 		 //System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
 		 //System.out.println("Curr: " + l.getX() + " " + l.getY());
 		 if(l.getX() < prevLoc.getX()) {
