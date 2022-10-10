@@ -25,10 +25,12 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.EndPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
@@ -39,8 +41,8 @@ public class App extends JFrame {
     //Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
-    public final static int TIMELIMIT_ONE = 90000;
-    public final static int TIMELIMIT_TWO = 180000;
+    public final static int TIMELIMIT_ONE = 10000; //90000 = 1min 30s
+    public final static int TIMELIMIT_TWO = 180000; //180000 = 
 
     //Game variables
 	private Game game;
@@ -49,6 +51,7 @@ public class App extends JFrame {
     private int timeLeft;  //timeleft
     private Controller mainController = new Controller(this);
     private Controller gameController;
+    private int status = 0; //0 = menu, -1 = endgame
 
     //Menu Items - do these need to stay here? //TODO
     private JMenuBar mb=new JMenuBar();
@@ -120,6 +123,8 @@ public class App extends JFrame {
 
         newPanel.run();
         restart.run();
+        status = 0;
+
         var p = new JPanel();
         StartPanel sp = new StartPanel();
         
@@ -223,6 +228,7 @@ public class App extends JFrame {
 
 		        if(timeLeft<=0 || stopTimer){
 		        	((Timer)e.getSource()).stop();
+                    endPhase(phase);
 		        }
 		    }
 		};
@@ -241,18 +247,46 @@ public class App extends JFrame {
         fuzzStarted = true; // For fuzz testing
     }
 
+    void endPhase(Phase phase){
+        newPanel.run();
+        restart.run();
+        status = -1;
+
+        phase.level().getChap().changeState(new DeadState()); //dead chap
+
+        var p = new JPanel();
+        EndPanel ep = new EndPanel();
+
+        var play = new JButton("Restart");
+        play.setBounds(400, 580, 100, 30);
+        play.addActionListener((e)->{ levelOne();});
+
+        getContentPane().add(BorderLayout.CENTER, p);
+        p.setLayout(null);
+        p.add(play);
+        p.add(ep);
+
+        currentPanel = p;
+        mainController.clearKeyBind();
+        changeKeyListener(mainController);
+        newPanel = ()->{remove(p);};
+        pack();
+        currentPanel.requestFocus();
+    }
+
     //TODO: can improve the coding here - reduce redundancy
     /**
      * Loads the level 1 of the game and creates the Maze accordingly
      */
     public void levelOne() {
         System.out.println("loading lvl 1");
+        status = 1;
         Level lvl = new Filereader().loadLevel("level1.xml");
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, 1), TIMELIMIT_ONE);
+        setPhase(new Phase(m, gameController, lvl), TIMELIMIT_ONE);
     }
     
     /**
@@ -261,12 +295,13 @@ public class App extends JFrame {
      */
     public void levelTwo() {
         System.out.println("loading lvl 2");
+        status = 2;
         Level lvl = new Filereader().loadLevel("level2.xml");
         Maze m = new Maze(lvl);
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, 2), TIMELIMIT_TWO);
+        setPhase(new Phase(m, gameController, lvl), TIMELIMIT_TWO);
     }
 
     /**
@@ -275,9 +310,9 @@ public class App extends JFrame {
     public void saveGame() {
         System.out.println("saving game");
         System.out.println("time is " + timeLeft);
-        String levelname = game.getLevel()==2?"level2":"level1";
-     //   Filewriter fw = new Filewriter(game.phase().maze().getLevel(), timeLeft); //TODO: undo after pull
-      //  fw.saveToXML(levelname + "save");
+        String levelname = status==2?"level2":"level1";
+        Filewriter fw = new Filewriter(game.phase().maze().getLevel(), timeLeft); //TODO: undo after pull
+        fw.saveToXML(levelname + "save");
     }
 
     public void loadSavedGame(JFileChooser jfc) {
@@ -300,6 +335,14 @@ public class App extends JFrame {
     
     public Game getGame() {
     	return this.game;
+    }
+
+    public Timer getTimer(){
+        return this.timer;
+    }
+
+    public int getStatus(){
+        return this.status;
     }
     
     public void changeKeyListener(KeyListener keyListener) {
