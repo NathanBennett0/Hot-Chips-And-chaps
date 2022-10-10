@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.swing.SwingUtilities;
@@ -20,19 +21,26 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Game;
 import nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke;
 import nz.ac.vuw.ecs.swen225.gp22.app.Main;
+import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 /**
- * Class that runs the two fuzz tests for the Chips&Chaps game. Generates random
- * inputs and logs any crashes onto git.
+ * Class that runs the two fuzz tests for the Chips&Chaps game. 
+ * Generates random inputs.
+ * Logs any crashes onto git.
  * 
  * @author anniecho 300575457
  * 
  */
 public class FuzzTest {
 
+	// Private variables for determining the next move
 	private ArrayList<Integer>[][] strategy = makeStrategyBoard(); 
 	private int currentX, currentY;
 
+	
 	/**
 	 * Test for level one
 	 */
@@ -43,23 +51,41 @@ public class FuzzTest {
 		makeStrategyBoard();
 		App app = new App();
 		
-		while(App.initializeDone == false) System.out.print(""); // While the main menu is booting, wait
+		while(!app.initializeDone()) System.out.print(""); // While the main menu is booting, wait
 		System.out.println("Initializing of window done. Timed fuzz test begins now.");
 		
-		// Timer to stop while loop
-		long timer = System.currentTimeMillis() + 60 * 1000; 
 		
-		while(true) {					
-			System.out.print("");
-			while(App.fuzzStarted) {
-				// Begins once the start button is pressed
-				pause(app,500);
-				int direction = getRandomDirection();
-				//KeyStroke.keyPressed(direction);
-				if(checkTimer(timer)) break; // Breaks test loop
-			}
+		long timer = System.currentTimeMillis() + 10 * 1000; // Timer to stop while loop
+		app.levelOne(); // This will change fuzzStarted to true and load L1
+		
+
+		while(app.fuzzStarted()) {
+			
+			// Get the values needed to find next direction
+			pause(app,500);
+			Controller c = app.getGame().phase().controller();
+			Maze m = app.getGame().phase().maze();
+			
+			
+			// Check the location of the chap
+			updateLocation(m);
+			Tile[][] grid = m.getGrid();
+			System.out.println("Location: " + currentX + "," + currentY);
+			assert grid[currentX][currentY] instanceof Chap;
+			
+			
+			// Use intelligence to find the next direction
+			int direction = pickDirection();
+			
+			
+			// Execute the next direction
+			c.keyPressed(direction);
+			
+			
+			// Checks if the timer has exceeded
 			if(checkTimer(timer)) break;
 		}
+
 	}
 	
 	
@@ -67,7 +93,7 @@ public class FuzzTest {
 	 * Test for level two
 	 */
 	@Test
-	public static void FuzzTest2() {}
+	public void FuzzTest2() { }
 	
 	
 	/*----- HELPER METHODS ------------------------------------------------------------- */
@@ -93,16 +119,16 @@ public class FuzzTest {
 		return temp;	
 	}
 	
+	
 	/**
-	 * Locates the chap on the maze
-	 * IS THIS ALLOWED?
-	 * @param m
-	 * @return
+	 * Locates the chap on the maze and updates the current position
+	 * @param m Maze object found from App.java
 	 */
 	public void updateLocation(Maze m) {
 		currentX = m.player.l.getX();
 		currentY = m.player.l.getY();
 	}
+	
 	
 	/**
 	* Beginning intelligence
@@ -110,10 +136,11 @@ public class FuzzTest {
 	public int pickDirection() {
 		ArrayList<Integer> currentPos = strategy[currentX][currentY];
 		int least = Collections.min(currentPos); // The least moves
+		
 		// The direction that has the lowest moves, direction is an index
 		int direction = currentPos.indexOf(least);
 		currentPos.set(direction, least + 1);
-		return direction;
+		return generateKeycode(direction);
 	}
 	
 	
@@ -130,7 +157,8 @@ public class FuzzTest {
 	        	e.printStackTrace(); 
 	        }
     	}
-	}
+	}	
+	
 	
 	/**
 	 * Checks the timer of the running test
@@ -142,6 +170,35 @@ public class FuzzTest {
 		return false;
 	}
 
+	
+	
+	/**
+	 * Method that generates the keycode based on the index of an Arraylist
+	 * @return Keystroke constant, each representing a direction
+	 * 0 = up, 1 = down, 2 = left, 3 = right
+	 * Can return either WASD or arrow values
+	 */
+	public int generateKeycode(int index) {
+		Random r = new Random();
+		int random = r.nextInt(2); // Random number 0 or 1
+		switch(index) {
+			case 0:
+				if(random == 0) return KeyEvent.VK_W;
+				else return KeyEvent.VK_UP;
+		    case 1:
+		    	if(random == 0) return KeyEvent.VK_S; 
+		    	else return KeyEvent.VK_DOWN;
+		    case 2:
+		    	if(random == 0) return KeyEvent.VK_A;
+		    	else return KeyEvent.VK_LEFT;
+		    case 3:
+		    	if(random == 0) return KeyEvent.VK_D; 
+		    	else return KeyEvent.VK_DOWN;
+		    default:
+		    	System.out.println("Random number failed");
+		    	return 0; // Should never reach this point
+		}
+	}
 
 	
 	/**
@@ -153,13 +210,13 @@ public class FuzzTest {
 		int random = 1 + r.nextInt(4); // Generates a random number 1-4
 		switch(random) {
 			case 1:
-		    	return KeyEvent.VK_W; // Keystroke constant that represents W
+		    	return KeyEvent.VK_W; // Constant representing W
 		    case 2:
-		    	return KeyEvent.VK_S; // Keystroke constant that represents S
+		    	return KeyEvent.VK_S; // Constant representing S
 		    case 3:
-		    	return KeyEvent.VK_A; // Keystroke constant that represents A
+		    	return KeyEvent.VK_A; // Constant representing A
 		    case 4:
-		    	return KeyEvent.VK_D; // Keystroke constant that represents D
+		    	return KeyEvent.VK_D; // Constant representing D
 		    default:
 		    	System.out.println("Random number failed");
 		    	return 0; // Should never reach this point
