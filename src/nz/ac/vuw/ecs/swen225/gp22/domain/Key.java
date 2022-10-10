@@ -52,4 +52,8 @@ public class Key extends Tile {
 	public Img getImg() {
     	return icon;
     }
+
+	public String toString(){
+		return "Key "+this.col;
+	}
 }

@@ -63,7 +63,7 @@
         <Tile type="Free" x="12" y="7"/>
         <LockedTile type="Locked" x="13" y="7" colour="ORANGE"/>
         <Tile type="Free" x="14" y="7"/>
-        <KeyTile type="Key" x="15" y="7" colour="YELLOW"/>
+        <KeyTile type="Key" x="15" y="7" colour="GREEN"/>
         <Tile type="Free" x="16" y="7"/>
         <Tile type="Wall" x="17" y="7"/>
 
@@ -166,7 +166,7 @@
         <Tile type="Free" x="8" y="15"/>
         <KeyTile type="Key" x="9" y="15" colour="GREEN"/>
         <Tile type="Wall" x="10" y="15"/>
-        <KeyTile type="Key" x="11" y="15" colour="GREEN"/>
+        <KeyTile type="Key" x="11" y="15" colour="YELLOW"/>
         <Tile type="Free" x="12" y="15"/>
         <Tile type="Wall" x="13" y="15"/>
 

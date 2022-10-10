@@ -34,8 +34,8 @@ public class Locked extends Tile {
 		for(Tile t : p.getChest()){
 			if(t instanceof Key) {
 				Key k = (Key)t;
-				if(k.getColor().equals(col)){
-					//System.out.println("FUCK YOU");
+				if(k.getColor().equals(this.col)){
+					p.m.removeTile(l);
 					p.removeKey(k);
 					return true;
 				}

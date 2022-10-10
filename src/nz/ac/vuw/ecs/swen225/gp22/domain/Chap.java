@@ -41,6 +41,17 @@ public class Chap extends Tile{ // player which is not a core tile
     public void removeFromChest() {
         chest.remove(0);
     }
+    public void removeKey(Key k){
+        for(Tile t : chest){
+            if(t instanceof Key){
+                Key kk = (Key)t;
+                if(kk.getColor().equals(k.getColor())){
+                    chest.remove(k); //sus, maybe counted for loop???
+                    k.toString();
+                }
+            }
+        }
+    }
 
     public void removeKey(Key k){
         if(chest.contains(k)) {
