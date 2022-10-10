@@ -21,21 +21,21 @@ public class StartPanel extends JLabel implements ActionListener {
 		this.setBounds(0,0, App.WIDTH, App.HEIGHT);
 		ImageIcon icon = new ImageIcon(currImg.image);
 		this.setIcon(icon);
-		timer = new Timer(600, this); // Timer works in milliseconds
+		timer = new Timer(600, this); // Image will change every 600 milliseconds
 		timer.start();
 	}
 	
+	/**
+	 * Paint the starting image onto the JLabel
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(currImg.image, 0, 0, null);
 	}
 	
-
-	public void addStartPanel(JPanel p) {
-		 p.add(this);
-	}
-	
-	
+	/**
+	 * Iterate between the two starting images for the animation
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(currImg.equals(Img.StartOne)) {

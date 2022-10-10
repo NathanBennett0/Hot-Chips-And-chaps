@@ -7,14 +7,17 @@ import java.util.Scanner;
 import javax.sound.sampled.*;
 
 public class SoundEffects {
-    Clip startClip; 
+    Clip backgroundMusic;
+    Clip walkSound; 
+    Clip treasureSound;
+    Clip completeLevel; 
 
     public SoundEffects() {
         File startSound = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/StartSound.wav");
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(startSound);
-            startClip = AudioSystem.getClip();
-            startClip.open(audioStream);
+            backgroundMusic = AudioSystem.getClip();
+            backgroundMusic.open(audioStream);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -24,19 +27,25 @@ public class SoundEffects {
         }
     }
 
+    /**
+     * Start playing the start music clip
+     */
     public void playStart() {
         Scanner scanner = new Scanner(System.in);
-        startClip.start();
+        backgroundMusic.start();
         do {
             try {Thread.sleep(50);}
             catch(InterruptedException ie) {ie.printStackTrace();}
-        }while( startClip.isActive());
+        }while( backgroundMusic.isActive());
 
-        //  startClip.setMicrosecondPosition(0); to reset the clip 
+        //  backgroundMusic.setMicrosecondPosition(0); to reset the clip 
     }
 
+    /**
+     * Stop playing the start music clip
+     */
     public void stopStart() {
-        startClip.stop(); 
+        backgroundMusic.stop(); 
     }
 
 }

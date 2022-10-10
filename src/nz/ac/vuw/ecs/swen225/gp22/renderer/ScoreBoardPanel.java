@@ -36,18 +36,14 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
         this.setBounds(710,407,133,190);
         this.setLayout(new GridLayout(2,3));
         this.setBackground(new Color(186,212,186));
-        chap = (Chap) m.getGrid()[4][4]; // chap will always start in the middle tile
-        timer = new Timer(100, this); // Timer works in milliseconds
+        chap = m.player; 
+        timer = new Timer(200, this); // Update the score board every 200 milliseconds
         timer.start();
     }
 
-
-    // Getters and Setters
-    public void setChap(Chap c) {
-        this.chap = c; 
-    }
-
-
+    /**
+     * Paint the score board onto the JPanel
+     */
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -63,7 +59,9 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
         }
     }
 
-
+    /**
+     * Repaint every 200 milliseconds 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();

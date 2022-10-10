@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			if(board[x][y] instanceof Chap) {
+    			if(board[x][y] instanceof Chap) { // For the animation of the chapx
     				if(currChap.done()) {
     					setImgState(board[x][y].getLocation());
     				}
@@ -107,7 +107,13 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
 	 }
 	 
-	 
+	 /**
+	  * This method is used for the animation of the chap.
+	  * It compares its current and previous location and 
+	  * assigns the chap state accordingly. 
+	  * 
+	  * @param l = current location of the chap
+	  */
 	 public void setImgState(Location l) {
 		 //System.out.println("Prev: " + prevLoc.getX() + " " + prevLoc.getY());
 		 //System.out.println("Curr: " + l.getX() + " " + l.getY());

@@ -5,6 +5,11 @@ public class LeftImage implements CatImage{
 	public Img[] animation = {Img.CatLeft1, Img.CatLeft2, Img.CatLeft3, Img.CatLeft4};
 	public boolean done = false; 
 
+	/**
+	 * Get the current image of the chap. 
+	 * This method will iterate through the four
+	 * images for the animation. 
+	 */
 	@Override
 	public Img getCurrImg() {
 		if(currImg.equals(Img.CatLeft1)) {
@@ -21,6 +26,9 @@ public class LeftImage implements CatImage{
 		return currImg; 
 	}
 
+	/**
+	 * If the animation is done.
+	 */
 	@Override
 	public boolean done() {
 		return done;

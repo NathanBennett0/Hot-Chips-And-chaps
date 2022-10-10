@@ -5,9 +5,16 @@ public class NormalImage implements CatImage{
 	public Img[] animation = {Img.Chap};
 	public boolean done = false; 
 	
+	/**
+	 * Get the current image of the chap
+	 */
 	public Img getCurrImg() {
 		return currImg; 
 	}
+	
+	/**
+	 * If the chap has finished the cycle of the animation
+	 */
 	public boolean done() {
 		return true;
 	}
