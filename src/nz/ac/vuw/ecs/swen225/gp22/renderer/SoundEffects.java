@@ -10,7 +10,7 @@ public class SoundEffects {
     Clip startClip; 
 
     public SoundEffects() {
-        File startSound = new File("StartSound.wav");
+        File startSound = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/StartSound.wav");
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(startSound);
             startClip = AudioSystem.getClip();
