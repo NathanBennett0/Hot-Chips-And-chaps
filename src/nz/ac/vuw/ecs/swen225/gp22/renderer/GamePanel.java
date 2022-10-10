@@ -113,7 +113,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		 System.out.println("Curr: " + l.getX() + " " + l.getY());
 		 if(l.getX() < prevLoc.getX()) {
 			 currChap = new LeftImage();
-		 }else if(l.getX() > prevLoc.getY()) {
+		 }else if(l.getX() > prevLoc.getX()) {
 			 currChap = new RightImage();
 		 }else if(l.getY() < prevLoc.getY()) {
 			 currChap = new UpImage();
