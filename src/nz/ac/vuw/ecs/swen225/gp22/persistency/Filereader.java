@@ -45,9 +45,18 @@ public class Filereader {
         System.out.println("chap " + level1.getChap().getChest());
     }
 
-    public Filereader() {
+    /**
+     * Filereader
+     */
+    public Filereader() { 
     }
 
+    /**
+     * Reads a given file and returns a level object
+     * with all of the data given by the file
+     * @param filename
+     * @return Level
+     */
     public Level loadLevel(String filename) {
         List<Tile> alltiles = new ArrayList<Tile>();
         List<Locked> lockedtiles = new ArrayList<Locked>();
@@ -155,6 +164,11 @@ public class Filereader {
         return new Level(alltiles, lockedtiles, keytiles, chap, info, time);
     }
 
+    /**
+     * Makes a regular tile
+     * @param T
+     * @return Tile
+     */
     public Tile makeTile(Element T) {
         String type = T.getAttribute("type");
         String x = T.getAttribute("x");
@@ -162,6 +176,11 @@ public class Filereader {
         return newTile(type,Integer.parseInt(x), Integer.parseInt(y));
     }
 
+    /**
+     * Makes a key tile
+     * @param T
+     * @return Key
+     */
     public Key makeKeyTile(Element T) {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
@@ -169,14 +188,23 @@ public class Filereader {
         return new Key(new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour), false);
     }
 
+    /**
+     * Makes a locked tile
+     * @param T
+     * @return Locked
+     */
     public Locked makeLockedTile(Element T) {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
         String colour = T.getAttribute("colour");
-        System.out.println("making new locked x " + x + " y " + y);
         return new Locked(new Location(Integer.parseInt(x),Integer.parseInt(y)), getcolour(colour));
     }
 
+    /**
+     * Makes the InfoField
+     * @param T
+     * @return InfoField
+     */
     public InfoField makeInfoFieldTile(Element T) {
         String x = T.getAttribute("x");
         String y = T.getAttribute("y");
@@ -184,6 +212,13 @@ public class Filereader {
         return new InfoField(new Location(Integer.parseInt(x),Integer.parseInt(y)), text);
     }
 
+    /**
+     * Finds the tile type then creates it
+     * @param name
+     * @param x
+     * @param y
+     * @return Tile
+     */
     public Tile newTile(String name, int x, int y) {
         switch (name) {
             case "Free":
@@ -200,6 +235,11 @@ public class Filereader {
         return new Tile(new Location(0,0));
     }
 
+    /**
+     * Returns the corresponding color enum 
+     * @param colour
+     * @return Key.Color
+     */
     public Key.Color getcolour(String colour) {
         switch (colour) {
             case "GREEN":
