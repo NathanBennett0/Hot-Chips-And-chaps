@@ -66,7 +66,7 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
         		 Image img = chest.get(i).getImg().image.getScaledInstance(SMALL_IMG_DIM,SMALL_IMG_DIM,Image.SCALE_SMOOTH);
                  g2d.drawImage(img, SMALL_IMG_DIM * x, SMALL_IMG_DIM * y, null);
                  x++;
-        		
+ 
         	}
             
         }
