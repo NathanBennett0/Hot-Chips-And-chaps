@@ -9,4 +9,5 @@
 	<classpathentry excluding="nz/ac/vuw/ecs/swen225/gp22" kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="nz.ac.vuw.ecs.swen225.gpp"/>
 	<classpathentry kind="output" path="bin"/>
+	<classpathentry exported="true" kind="lib" path="lib/dom4j-2.1.3.jar"/>
 </classpath>
