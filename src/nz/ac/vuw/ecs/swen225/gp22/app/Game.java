@@ -46,7 +46,7 @@ public class Game extends JPanel {
         
     	//Setting Background Image
         var bgImage = new JLabel();
-        bgImage.setBounds(0, 0, App.WIDTH, App.HEIGHT-45);
+        bgImage.setBounds(0, 20, App.WIDTH, App.HEIGHT-45);
         
         //Scaling Image
         Image scaledImage = Img.GameBackground.image.getScaledInstance(App.WIDTH,App.HEIGHT-45,Image.SCALE_SMOOTH);
@@ -60,23 +60,11 @@ public class Game extends JPanel {
         
     }
     
-    //Import viewport
-    public void gameView() {
-        setLayout(null);
-        JPanel p = new JPanel();
-        p.setBackground(new Color(216, 191, 216));
-        p.setBounds(0,0,App.HEIGHT, App.HEIGHT);
-        
-        this.add(p);
-        System.out.println("Game.java: gameView() called.");
-        
-    }
-    
     public void sidePanel() {
 		
         JPanel p = new JPanel();
         
-        p.setBounds(App.HEIGHT, 0, App.WIDTH-App.HEIGHT, App.HEIGHT);
+        p.setBounds(App.HEIGHT, 20, App.WIDTH-App.HEIGHT, App.HEIGHT);
         p.setOpaque(false); //Transparent Panel
         p.setLayout(null);
         
@@ -93,8 +81,6 @@ public class Game extends JPanel {
         tLeft.setBounds(16, 193, 155, 54);
         p.add(tLeft);
         
-
-        itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
         itemLeft.setHorizontalAlignment(SwingConstants.CENTER);
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
         itemLeft.setBounds(16, 321, 155, 54);
@@ -103,9 +89,6 @@ public class Game extends JPanel {
         ScoreBoardPanel sp = new ScoreBoardPanel(phase.maze());
         sp.setBounds(20,410,155,200);
         p.add(sp);
-
-        System.out.println("Game.java: sidePanel() called.");
-        
     }
     
     public Phase phase() {
