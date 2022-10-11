@@ -7,7 +7,6 @@ public class Free extends Tile {
 
 	public Free(Location l) {
 		super(l);
-		// TODO Auto-generated constructor stub
 	} // empty tile
 
 	@Override
@@ -19,4 +18,8 @@ public class Free extends Tile {
 	public Img getImg() {
     	return icon;
     }
+
+	public String toString(){
+		return "Free";
+	}
 }

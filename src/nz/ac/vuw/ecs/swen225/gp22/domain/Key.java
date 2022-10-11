@@ -1,22 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.io.IOException;
+
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
 public class Key extends Tile {
 	public Key.Color col;
-	public boolean cl = false;
 	public Img icon;
-	@Override
-	public boolean CanWalkOn(Chap p) {
-		if(!isCollected()) {
-			System.out.println("key added to chest");
-			p.addToChest(this); //add to chaps chest 
-            cl = true; //make that key collected 
-            p.m.removeTile(l);//remove from maze 
-			return true;
-		}
-		return false;
-	}
 
 	public enum Color{
 		YELLOW {Img getKeyIcon(){return Img.KeyYellow;}
@@ -34,18 +24,22 @@ public class Key extends Tile {
 	public Key(Location l, Color col, boolean cl) {
 		super(l);
 		this.col = col;
-		this.cl = cl;
 		this.icon = col.getKeyIcon();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		try {p.addToChest(this);} catch (IOException e1) {} //add to chaps chest 
+		try {p.m.removeTile(l);} catch (IOException e) {} //this is determining that the key is collected 
+		System.out.println("key added to chest");
+		//remove from maze 
+		return true;
 	}
 
 	// getters and setters
 	public Color getColor() {
 		return col;
-	}
-
-	public boolean isCollected() { // collected or not
-		return cl;
 	}
 	
 	@Override
