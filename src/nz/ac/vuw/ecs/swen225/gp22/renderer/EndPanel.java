@@ -62,7 +62,7 @@ public class EndPanel extends JLabel implements ActionListener{
                 currCat = catImages[0];
             }
 
-            x = x - 8; 
+            x = x - 10; 
         }else { // If cat has reached the house, sit cat
             currCat = catImages[4];
         }
