@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener{
     		}
     	}
     	
-    	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
+    	this.setBounds(62,55,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
     	timer = new Timer(150, this); // Timer works in milliseconds
 		timer.start();
