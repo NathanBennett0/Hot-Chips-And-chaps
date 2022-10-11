@@ -93,10 +93,17 @@ public class Game extends JPanel {
         tLeft.setBounds(16, 193, 155, 54);
         p.add(tLeft);
         
+
+        itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
         itemLeft.setHorizontalAlignment(SwingConstants.CENTER);
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
         itemLeft.setBounds(16, 321, 155, 54);
         p.add(itemLeft);
+
+        ScoreBoardPanel sp = new ScoreBoardPanel(phase.maze());
+        sp.setBounds(20,410,155,200);
+        p.add(sp);
+
         System.out.println("Game.java: sidePanel() called.");
         
     }
@@ -105,7 +112,4 @@ public class Game extends JPanel {
     	return phase;
     }
     
-    public GamePanel GamePanel() {
-    	return game;
-    }
 }
