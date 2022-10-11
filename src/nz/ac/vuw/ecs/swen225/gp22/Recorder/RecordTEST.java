@@ -1,4 +1,4 @@
-package recorder.java;
+package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 import java.io.File;
 
 import org.dom4j.Document;
