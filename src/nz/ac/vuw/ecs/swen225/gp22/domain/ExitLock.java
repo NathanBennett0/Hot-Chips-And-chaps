@@ -12,4 +12,15 @@ public class ExitLock extends Tile{
 	public Img getImg() {
     	return icon;
     }
+
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		//return true;
+		if(p.m.numOfTreasures()==0){ //assume that chap has them all 
+			System.out.println("Exitlock unlocked");
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
