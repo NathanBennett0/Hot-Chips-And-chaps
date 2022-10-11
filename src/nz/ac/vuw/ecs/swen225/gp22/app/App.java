@@ -411,6 +411,7 @@ public class App extends JFrame {
         Level lvl = new Filereader().loadLevel(filename);
         Maze m = new Maze(lvl, 22, 22); //TODO: have to change, consult nathan
         lvl.getChap().setMaze(m); 
+        status = 1; //TODO: level
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
         setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
