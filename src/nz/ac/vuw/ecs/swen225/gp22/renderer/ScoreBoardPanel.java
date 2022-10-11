@@ -35,7 +35,7 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
     public ScoreBoardPanel(Maze m) {
         this.setBounds(710,407,133,190);
         this.setLayout(new GridLayout(2,3));
-        this.setBackground(new Color(186,212,186));
+        this.setOpaque(false);
         chap = m.player; 
         timer = new Timer(200, this); // Update the score board every 200 milliseconds
         timer.start();
@@ -53,7 +53,7 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
         int y = -1; 
         for(int i = 0; i < chest.size(); i++) {
             if(i % 2 == 0) {y++;}
-            Image img = Img.TreasureOne.image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
+            Image img = chest.get(i).getImg().image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
             g2d.drawImage(img, IMAGE_DIM * x, IMAGE_DIM * y, null);
             x = (x == 0 ? 1 : 0);
         }
