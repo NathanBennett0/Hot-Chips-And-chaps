@@ -93,8 +93,6 @@ public class Game extends JPanel {
         tLeft.setBounds(16, 193, 155, 54);
         p.add(tLeft);
         
-
-        itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
         itemLeft.setHorizontalAlignment(SwingConstants.CENTER);
         itemLeft.setFont(new Font("Arial Black", Font.BOLD, 30));
         itemLeft.setBounds(16, 321, 155, 54);

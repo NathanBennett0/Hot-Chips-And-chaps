@@ -42,8 +42,8 @@ public class App extends JFrame {
     //Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
-    public final static int TIMELIMIT_ONE = 90000; //90000 = 1min 30s
-    public final static int TIMELIMIT_TWO = 180000; //180000 = 2min 30s
+    public final static int TIMELIMIT_ONE = 60000; //60000 = 1min
+    public final static int TIMELIMIT_TWO = 120000; //180000 = 2min
 
     //Game variables
 	private Game game;
@@ -182,7 +182,8 @@ public class App extends JFrame {
     
     public void menuBar() {
     	System.out.println("App.java: menuBar() called.");
-    	
+    	JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/");
+
     	home.setPreferredSize(new Dimension(180, home.getPreferredSize().height));
     	start.setPreferredSize(new Dimension(180, start.getPreferredSize().height));
     	pause.setPreferredSize(new Dimension(180, pause.getPreferredSize().height));
@@ -199,6 +200,8 @@ public class App extends JFrame {
         }); //pop up window and pause timer and disable every action (change focus)
         lvl1.addActionListener((e)->levelOne());
         lvl2.addActionListener((e)->levelTwo());
+        save.addActionListener((e)->saveGame());
+        load.addActionListener((e)->loadSavedGame(loadsave));
         exit.addActionListener((e)->System.exit(0));
     	
     	//ADD TO GUI
@@ -232,6 +235,7 @@ public class App extends JFrame {
                 if(!pauseTimer) timeLeft -= 250;
 
 		        game.tLeft.setText(df.format(timeLeft));
+                game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
 		        game.repaint();
 
 		        if(timeLeft<=0 || stopTimer){
@@ -342,7 +346,7 @@ public class App extends JFrame {
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
-      //  setPhase(new Phase(m, gameController, 1), lvl.getTime()); //TODO: undo after pull
+        setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
     }
     
     public Game getGame() {
