@@ -33,6 +33,7 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.EndPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 import java.awt.Color;
 
@@ -50,6 +51,7 @@ public class App extends JFrame {
     private JPanel currentPanel;
     private int timeLeft;  //timeleft
     private Controller mainController = new Controller(this);
+    private SoundEffects sound = new SoundEffects();
     private Controller gameController;
     private int status = 0; //0 = menu, -1 = endgame
 
@@ -146,8 +148,12 @@ public class App extends JFrame {
         currentPanel = p;
         mainController.clearKeyBind();
         changeKeyListener(mainController);
-        newPanel = ()->{ remove(p);};
+        newPanel = ()->{ 
+            remove(p); 
+            sound.stopStart(); 
+        };
         pack();
+        sound.playStart();
         currentPanel.requestFocus(); //TODO add these in new panel runnable
     }
 
@@ -166,9 +172,11 @@ public class App extends JFrame {
         back.addActionListener((e)->{ mainMenu();});
 
         getContentPane().add(BorderLayout.CENTER, p);
-        newPanel = ()->{ remove(p);};
+        newPanel = ()->{
+            remove(p);
+            sound.stopStart();
+        };
         currentPanel = p;
-
         pack();
     }
     
@@ -239,9 +247,13 @@ public class App extends JFrame {
         currentPanel = game;
         changeKeyListener(phase.controller());
         
-        newPanel = ()->{ remove(game); timer.stop();};
-
+        newPanel = ()->{
+            remove(game);
+            timer.stop();
+            sound.stopGameMusic();
+        };
         pack();
+        sound.playGameMusic();
         currentPanel.requestFocus();
         timer.start();
         fuzzStarted = true; // For fuzz testing
