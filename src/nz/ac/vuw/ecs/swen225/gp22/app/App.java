@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -321,7 +322,9 @@ public class App extends JFrame {
                 if(!pauseTimer) timeLeft -= 250;
 
 		        game.tLeft.setText(df.format(timeLeft));
-                game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
+                try {
+                    game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
+                } catch (IOException e1) { e1.printStackTrace();}
 		        game.repaint();
 
 		        if(timeLeft<=0 || stopTimer){
@@ -359,11 +362,14 @@ public class App extends JFrame {
         System.out.println("loading lvl 1");
         status = 1;
         Level lvl = new Filereader().loadLevel("level1.xml");
-        Maze m = new Maze(lvl, 22, 22);
-        lvl.getChap().setMaze(m); 
-        // now have the maze object
-        gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, lvl), TIMELIMIT_ONE);
+        Maze m;
+        try {
+            m = new Maze(lvl, 22, 22);
+            lvl.getChap().setMaze(m); 
+            // now have the maze object
+            gameController = new Controller(this, lvl.getChap());
+            setPhase(new Phase(m, gameController, lvl), TIMELIMIT_ONE);
+        } catch (IOException e) {  e.printStackTrace(); }
     }
     
     /**
@@ -374,11 +380,15 @@ public class App extends JFrame {
         System.out.println("loading lvl 2");
         status = 2;
         Level lvl = new Filereader().loadLevel("level2.xml");
-        Maze m = new Maze(lvl, 66, 66);
-        lvl.getChap().setMaze(m); 
-        // now have the maze object
-        gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, lvl), TIMELIMIT_TWO);
+        Maze m;
+        try {
+            m = new Maze(lvl, 66, 66);
+            lvl.getChap().setMaze(m); 
+            // now have the maze object
+            gameController = new Controller(this, lvl.getChap());
+            setPhase(new Phase(m, gameController, lvl), TIMELIMIT_TWO);
+        } catch (IOException e) { e.printStackTrace(); }
+        
     }
 
     /**
@@ -392,11 +402,14 @@ public class App extends JFrame {
 
     public void resumeGame() {
         Level lvl = new Filereader().loadLevel("lastSaved.xml");
-        Maze m = new Maze(lvl, 22, 22); //TODO: have to change, consult nathan
-        lvl.getChap().setMaze(m); 
-        // now have the maze object
-        gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
+        Maze m;
+        try {
+            m = new Maze(lvl, 22, 22);
+            lvl.getChap().setMaze(m); 
+            // now have the maze object
+            gameController = new Controller(this, lvl.getChap());
+            setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
+        } catch (IOException e) { e.printStackTrace(); } //TODO: have to change, consult nathan
     }
 
     public void loadSavedGame(JFileChooser jfc) {
@@ -409,12 +422,15 @@ public class App extends JFrame {
         }
 
         Level lvl = new Filereader().loadLevel(filename);
-        Maze m = new Maze(lvl, 22, 22); //TODO: have to change, consult nathan
-        lvl.getChap().setMaze(m); 
-        status = 1; //TODO: level
-        // now have the maze object
-        gameController = new Controller(this, lvl.getChap());
-        setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
+        Maze m;
+        try {
+            m = new Maze(lvl, 22, 22);
+            lvl.getChap().setMaze(m); 
+            status = 1; //TODO: level
+            // now have the maze object
+            gameController = new Controller(this, lvl.getChap());
+            setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
+        } catch (IOException e) { e.printStackTrace();} //TODO: have to change, consult nathan
     }
     
     public Game getGame() {
