@@ -1,4 +1,4 @@
-<Level name="1">
+<Level name="2">
     <Tilelist>
         <Tile type="Wall" x="5" y="3"/>
         <Tile type="Wall" x="6" y="3"/>
