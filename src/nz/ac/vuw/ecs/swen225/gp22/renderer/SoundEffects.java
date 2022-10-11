@@ -7,17 +7,23 @@ import java.util.Scanner;
 import javax.sound.sampled.*;
 
 public class SoundEffects {
-    Clip backgroundMusic;
+    Clip startMusic;
+    Clip backgroundMusic; 
     Clip walkSound; 
     Clip treasureSound;
     Clip completeLevel; 
 
     public SoundEffects() {
-        File startSound = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/StartSound.wav");
+        File startFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/StartSound.wav");
+        File backgroundFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/BackgroundSound.wav");
         try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(startSound);
+            AudioInputStream audioStreamStart = AudioSystem.getAudioInputStream(startFile);
+            startMusic = AudioSystem.getClip();
+            startMusic.open(audioStreamStart);
+            
+            AudioInputStream audioStreamBackground = AudioSystem.getAudioInputStream(backgroundFile);
             backgroundMusic = AudioSystem.getClip();
-            backgroundMusic.open(audioStream);
+            backgroundMusic.open(audioStreamBackground);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -31,21 +37,24 @@ public class SoundEffects {
      * Start playing the start music clip
      */
     public void playStart() {
-        //Scanner scanner = new Scanner(System.in);
-        backgroundMusic.start();
-        //do {
-           // try {Thread.sleep(50);}
-           // catch(InterruptedException ie) {ie.printStackTrace();}
-        //}while( backgroundMusic.isActive());
-
-        //  backgroundMusic.setMicrosecondPosition(0); to reset the clip 
+        startMusic.start();
+        //  startMusic.setMicrosecondPosition(0); to reset the clip 
     }
 
     /**
      * Stop playing the start music clip
      */
     public void stopStart() {
-        backgroundMusic.stop(); 
+        startMusic.stop(); 
+    }
+    
+    
+    public void playGameMusic() {
+    	backgroundMusic.start();
+    }
+    
+    public void stopGameMusic() {
+    	backgroundMusic.stop();
     }
 
 }
