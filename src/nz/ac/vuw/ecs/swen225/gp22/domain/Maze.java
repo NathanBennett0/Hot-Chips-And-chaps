@@ -58,7 +58,6 @@ public class Maze { //SUS Testing Git Shit, Fuck you
     
     public void removeTile(Location l) {
         grid[l.getX()][l.getY()] = new Free(l);
-        
     }
 
 	/**

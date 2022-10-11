@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
 public class Key extends Tile {
-	public Color col;
+	public Key.Color col;
 	public boolean cl = false;
 	public Img icon;
 	@Override
