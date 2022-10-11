@@ -15,4 +15,10 @@ public class Exit extends Tile {
     	return icon;
     }
 
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		//move to next level 
+		return true; 
+	}
+
 }

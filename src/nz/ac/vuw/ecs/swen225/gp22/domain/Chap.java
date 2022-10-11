@@ -42,6 +42,12 @@ public class Chap extends Tile{ // player which is not a core tile
         chest.remove(0);
     }
 
+    public void removeKey(Key k){
+        if(chest.contains(k)) {
+            chest.remove(k);
+        }
+    }
+
     // winning methods
     public boolean won() {
         return this.won;

@@ -33,8 +33,12 @@ public class Locked extends Tile {
 	public boolean CanWalkOn(Chap p) {
 		for(Tile t : p.getChest()){
 			if(t instanceof Key) {
-				p.addToChest(this);
-				return true;
+				Key k = (Key)t;
+				if(k.getColor().equals(col)){
+					//System.out.println("FUCK YOU");
+					p.removeKey(k);
+					return true;
+				}
 			}
 		}
 		return false;

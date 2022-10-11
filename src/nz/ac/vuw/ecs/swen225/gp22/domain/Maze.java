@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Maze { //SUS Testing Git Shit
 	//fields
-	public final Tile[][] grid = new Tile[22][22];
+	public final Tile[][] grid; //= new Tile[22][22];
 	public Level lv; //need to give me information using getters Nathan
 	public Chap player;
 	public int numItems;
@@ -20,12 +20,13 @@ public class Maze { //SUS Testing Git Shit
 	 */
 	private Location lockLoc;
 	
-	public Maze(Level lv) {
+	public Maze(Level lv, int xx, int yy) {
 		this.lv = lv;
 		player = lv.getChap();
 		numItems =lv.getInventory().size();
-		for(int x = 0; x < 22; x++) {
-    		for(int y = 0; y < 22; y++) {
+		grid = new Tile[xx][yy];
+		for(int x = 0; x < xx; x++) {
+    		for(int y = 0; y < yy; y++) {
     			grid[x][y] = new Free(new Location(x,y));
     		}
     	}
@@ -40,6 +41,13 @@ public class Maze { //SUS Testing Git Shit
 	// getters and setters
 	public Tile[][] getGrid() {
 		return grid;
+	}
+	public Tile getTile(Location l){
+		return grid[l.getX()][l.getY()];
+	}
+	//set new location for a given tile
+	public void setBoxLocation(Location l){
+		grid[l.getX()][l.getX()] = new Box(l);
 	}
 	
 	//remove old location, make new one. 
@@ -99,6 +107,18 @@ public class Maze { //SUS Testing Git Shit
 
 	public Level getLevel(){
 		return this.lv;
+	}
+
+	public int numOfTreasures(){
+		int count = 0;
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[row].length; col++) {
+				if(grid[row][col] instanceof Treasure){
+					count = count + 1;
+				}
+			}
+		}
+		return count;
 	}
 
 }
