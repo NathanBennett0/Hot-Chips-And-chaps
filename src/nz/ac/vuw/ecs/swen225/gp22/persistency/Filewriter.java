@@ -30,6 +30,10 @@ public class Filewriter {
         this.time = time;
     }
 
+    /**
+     * Takes a level object and writes all of the data to a file
+     * @param filename
+     */
     public void saveToXML(String filename) {
 
         try {
@@ -128,6 +132,13 @@ public class Filewriter {
         }
     }
 
+    /**
+     * Adds the type, x, and y attributes to the element
+     * @param newTile
+     * @param doc
+     * @param T
+     * @return Element
+     */
     public Element makeTileElement(Element newTile, Document doc, Tile T) {
         // tile type
         Attr type = doc.createAttribute("type");
@@ -145,6 +156,13 @@ public class Filewriter {
         return newTile;
     }
 
+    /**
+     * Adds the colour attribute to the element
+     * @param newTile
+     * @param doc
+     * @param K
+     * @return Element
+     */
     public Element makeKeyTile(Element newTile, Document doc, Key K) {
         Attr colour = doc.createAttribute("colour");
         colour.setValue(K.getColor().name());
@@ -152,6 +170,13 @@ public class Filewriter {
         return newTile;
     }
 
+    /**
+     * Adds the colour attribute to the element
+     * @param newTile
+     * @param doc
+     * @param L
+     * @return Element
+     */
     public Element makeLockedTile(Element newTile, Document doc, Locked L) {
         Attr colour = doc.createAttribute("colour");
         colour.setValue(L.getColor().name());
@@ -159,6 +184,13 @@ public class Filewriter {
         return newTile;
     }
 
+    /**
+     * Adds the text attribute to the element
+     * @param newTile
+     * @param doc
+     * @param I
+     * @return Element
+     */
     public Element makeInfoFieldTile(Element newTile, Document doc, InfoField I) {
         Attr message = doc.createAttribute("text");
         message.setValue(I.getMessage());
@@ -166,6 +198,13 @@ public class Filewriter {
         return newTile;
     }
 
+    /**
+     * Makes the chap element
+     * @param newTile
+     * @param doc
+     * @param C
+     * @return Element
+     */
     public Element makeChap(Element newTile, Document doc, Chap C) {
         Attr x = doc.createAttribute("x");
         x.setValue(String.valueOf(C.getLocation().getX()));
