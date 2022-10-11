@@ -30,23 +30,28 @@ public class EndPanel extends JLabel implements ActionListener{
         timer.start();
     }
 
-
+    /**
+     * Draw the animation onto the JLabel
+     */
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(backgroundImg.image, 0, 0, null);
-        g2d.drawImage(text.image, 0, textY, null);
-        g2d.drawImage(currCat.image, x, y, null);
+        g2d.drawImage(backgroundImg.image, 0, 0, null); // Background image
+        g2d.drawImage(text.image, 0, textY, null); // Game over text
+        g2d.drawImage(currCat.image, x, y, null); // The chap
     }
 
-
+    /**
+     * Change the coordinates and image of text and chap every 200 milliseconds.
+     * This will create the animation itself. 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         textCounter++;
-        if(textCounter % 6 == 0) {
+        if(textCounter % 6 == 0) { // Every six cycles, change cord of text
             textY = (textY == 0 ? 15 : 0);
         }
 
-        if(x > 300) {
+        if(x > 300) { // Iterate through the cat animation images
             if(currCat.equals(Img.EndCat1)) {
                 currCat = catImages[1];
             }else if(currCat.equals(Img.EndCat2)) {
@@ -58,7 +63,7 @@ public class EndPanel extends JLabel implements ActionListener{
             }
 
             x = x - 8; 
-        }else {
+        }else { // If cat has reached the house, sit cat
             currCat = catImages[4];
         }
 
