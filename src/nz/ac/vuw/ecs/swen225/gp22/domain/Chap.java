@@ -50,9 +50,10 @@ public class Chap extends Tile{ // player which is not a core tile
         this.l = l;
     }
 
-    /*
-     * removes the given key from the chest 
-     */
+    public void removeFromChest() {
+        chest.remove(0);
+    }
+
     public void removeKey(Key k){
         if(chest.contains(k)) {
             chest.remove(k);

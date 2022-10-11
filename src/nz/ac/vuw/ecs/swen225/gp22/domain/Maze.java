@@ -36,7 +36,8 @@ public class Maze {
 			int y = t.getLocation().getY();
 			grid[x][y] = t;
 		}
-		safeGrid(); //post 
+		setChapLoc(lv.getChap().getLocation());
+		//grid[lv.getChap().getLocation().getX()][lv.getChap().getLocation().getX()] = lv.getChap();
 	}
     
 	/*

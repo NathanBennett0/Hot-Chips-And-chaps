@@ -19,6 +19,11 @@ public enum Img {
         image = loadImage(this.name());
     }
 
+    /**
+     * Return the image that is linked to a certain image
+     * @param name
+     * @return
+     */
     static private BufferedImage loadImage(String name) {
         URL imagePath = Img.class.getResource(name + ".png");
         try {

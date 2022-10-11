@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener{
     		}
     	}
     	
-    	this.setBounds(62,35,BOARD_DIM,BOARD_DIM);
+    	this.setBounds(62,55,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
     	timer = new Timer(150, this); // Timer works in milliseconds
 		timer.start();
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			if(board[x][y] instanceof Chap) {
+    			if(board[x][y] instanceof Chap) { // For the animation of the chapx
     				if(currChap.done()) {
     					setImgState(board[x][y].getLocation());
     				}
@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(app.getGame() == null) {return;}
 		Tile[][] temp = app.getGame().phase().maze().getGrid();
 		for(int x = 0; x < temp.length; x++) {
     		for(int y = 0; y < temp.length; y++) {
@@ -107,7 +108,13 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
 	 }
 	 
-	 
+	 /**
+	  * This method is used for the animation of the chap.
+	  * It compares its current and previous location and 
+	  * assigns the chap state accordingly. 
+	  * 
+	  * @param l = current location of the chap
+	  */
 	 public void setImgState(Location l) {
 		 if(l.getX() < prevLoc.getX()) {
 			 currChap = new LeftImage();

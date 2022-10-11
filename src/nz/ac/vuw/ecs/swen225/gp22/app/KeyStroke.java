@@ -33,13 +33,15 @@ public class KeyStroke implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("KeyStroke.java: keyPressed() called.");
-		System.out.println("size: "+onPressed.size());
 		if (e.isControlDown()) {
-			System.out.println("Running ctrl");
 			onCtrlPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 		}else {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
+
+			// if(onPressed.containsKey(e.getKeyCode())){ //and no pause
+			// 	recorder.history.add(e.getKeyCode());
+			// }
+			
 		}
 	}
 

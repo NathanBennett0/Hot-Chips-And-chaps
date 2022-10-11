@@ -7,14 +7,38 @@ import java.util.Scanner;
 import javax.sound.sampled.*;
 
 public class SoundEffects {
-    Clip startClip; 
+    Clip startMusic;
+    Clip backgroundMusic; 
+    Clip collectSound;
+    Clip unlockSound;
+    Clip completeLevel; 
 
     public SoundEffects() {
-        File startSound = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/StartSound.wav");
+        File startFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/StartSound.wav");
+        File backgroundFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/BackgroundSound.wav");
+        File completeLevelFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/GameOverSound.wav");
+        File unlockSoundFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/UnlockSound.wav");
+        File collectSoundFile = new File("src/nz/ac/vuw/ecs/swen225/gp22/renderer/Sound/CollectSound.wav");
         try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(startSound);
-            startClip = AudioSystem.getClip();
-            startClip.open(audioStream);
+            AudioInputStream audioStreamStart = AudioSystem.getAudioInputStream(startFile);
+            startMusic = AudioSystem.getClip();
+            startMusic.open(audioStreamStart);
+            
+            AudioInputStream audioStreamBackground = AudioSystem.getAudioInputStream(backgroundFile);
+            backgroundMusic = AudioSystem.getClip();
+            backgroundMusic.open(audioStreamBackground);
+            
+            AudioInputStream audioStreamCompleteLevel = AudioSystem.getAudioInputStream(completeLevelFile);
+            completeLevel = AudioSystem.getClip();
+            completeLevel.open(audioStreamCompleteLevel);
+            
+            AudioInputStream audioStreamCollect = AudioSystem.getAudioInputStream(collectSoundFile);
+            collectSound = AudioSystem.getClip();
+            collectSound.open(audioStreamCollect);
+            
+            AudioInputStream audioStreamUnlock = AudioSystem.getAudioInputStream(unlockSoundFile);
+            unlockSound = AudioSystem.getClip();
+            unlockSound.open(audioStreamUnlock);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -24,19 +48,59 @@ public class SoundEffects {
         }
     }
 
+    /**
+     * Start playing the start music clip
+     */
     public void playStart() {
-        Scanner scanner = new Scanner(System.in);
-        startClip.start();
-        do {
-            try {Thread.sleep(50);}
-            catch(InterruptedException ie) {ie.printStackTrace();}
-        }while( startClip.isActive());
-
-        //  startClip.setMicrosecondPosition(0); to reset the clip 
+        startMusic.start();
     }
 
+    /**
+     * Stop playing the start music clip
+     */
     public void stopStart() {
-        startClip.stop(); 
+        startMusic.stop(); 
+    }
+    
+    /**
+     * Start playing the background music for the game
+     */
+    public void playGameMusic() {
+    	completeLevel.setMicrosecondPosition(0);
+    	backgroundMusic.start();
+    }
+    
+    /**
+     * Stop playing the background music for the game
+     */
+    public void stopGameMusic() {
+    	backgroundMusic.stop();
+    }
+    
+    /**
+     * Play the congrats music once level has been completed
+     */
+    public void playCongratsMusic() {
+    	completeLevel.setMicrosecondPosition(0);
+    	completeLevel.start(); 
+    }
+    
+    /**
+     * When a treasure or key has been picked up, 
+     * play collect sound effect
+     */
+    public void playCollectMusic() {
+    	collectSound.setMicrosecondPosition(0);
+    	collectSound.start(); 
+    }
+    
+    /**
+     * When a bush has been unlocked, 
+     * play unlock sound effect
+     */
+    public void playUnlockMusic() {
+    	unlockSound.setMicrosecondPosition(0);
+    	unlockSound.start();
     }
 
 }
