@@ -8,6 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Treasure;
 
 public class Level {
     private List<Tile> tiles;
@@ -17,8 +18,9 @@ public class Level {
     private List<Tile> inventory;
     private InfoField info;
     private int time;
+    private int levelnum;
 
-    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info, int time) {
+    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info, int time, int levelnum) {
         this.tiles = tiles;
         this.lockedtiles = lockedtiles;
         this.keytiles = keytiles;
@@ -26,6 +28,11 @@ public class Level {
         this.info = info;
         this.inventory = new ArrayList<Tile>();
         this.time = time;
+        this.levelnum = levelnum;
+    }
+
+    public int getLevel() {
+        return levelnum;
     }
 
     public List<Tile> getTiles() {
@@ -77,6 +84,10 @@ public class Level {
 
     public void removeLockedTile(Locked locked) {
         lockedtiles.remove(locked);
+    }
+
+    public void removeTreasureTile(Treasure treasure) {
+        tiles.remove(treasure);
     }
 
     public void addTileToInventory(Tile T) {
