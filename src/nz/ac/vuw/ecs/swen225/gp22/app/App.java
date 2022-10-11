@@ -41,8 +41,8 @@ public class App extends JFrame {
     //Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
-    public final static int TIMELIMIT_ONE = 10000; //90000 = 1min 30s
-    public final static int TIMELIMIT_TWO = 180000; //180000 = 
+    public final static int TIMELIMIT_ONE = 90000; //90000 = 1min 30s
+    public final static int TIMELIMIT_TWO = 180000; //180000 = 2min 30s
 
     //Game variables
 	private Game game;
