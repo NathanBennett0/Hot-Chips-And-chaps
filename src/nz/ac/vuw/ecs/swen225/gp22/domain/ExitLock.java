@@ -15,11 +15,12 @@ public class ExitLock extends Tile{
 
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		if(p.m.numOfTreasures() == 0){
+		//return true;
+		if(p.m.numOfTreasures()==0){ //assume that chap has them all 
+			System.out.println("Exitlock unlocked");
 			return true;
 		} else {
 			return false;
 		}
 	}
-
 }
