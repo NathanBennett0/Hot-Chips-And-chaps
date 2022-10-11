@@ -26,14 +26,15 @@ import java.awt.Color;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 public class ScoreBoardPanel extends JPanel implements ActionListener{
-    final int IMAGE_DIM = 62;
+    final int BIG_IMG_DIM = 62;
+    final int SMALL_IMG_DIM = 45; 
 
     public Chap chap;
     private Timer timer; 
 
 
     public ScoreBoardPanel(Maze m) {
-        this.setBounds(710,407,133,190);
+        this.setBounds(708,407,133,190);
         this.setLayout(new GridLayout(2,3));
         this.setOpaque(false);
         chap = m.player; 
@@ -52,10 +53,22 @@ public class ScoreBoardPanel extends JPanel implements ActionListener{
         int x = 0; 
         int y = -1; 
         for(int i = 0; i < chest.size(); i++) {
-            if(i % 2 == 0) {y++;}
-            Image img = chest.get(i).getImg().image.getScaledInstance(IMAGE_DIM,IMAGE_DIM,Image.SCALE_SMOOTH);
-            g2d.drawImage(img, IMAGE_DIM * x, IMAGE_DIM * y, null);
-            x = (x == 0 ? 1 : 0);
+        	if(chest.size() < 7) {
+        		if(i % 2 == 0) {y++;}
+                Image img = chest.get(i).getImg().image.getScaledInstance(BIG_IMG_DIM,BIG_IMG_DIM,Image.SCALE_SMOOTH);
+                g2d.drawImage(img, BIG_IMG_DIM * x, BIG_IMG_DIM * y, null);
+                x = (x == 0 ? 1 : 0);
+        	}else {
+        		if(i % 3 == 0) {
+        			y++;
+        			x = 0; 
+        		}
+        		 Image img = chest.get(i).getImg().image.getScaledInstance(SMALL_IMG_DIM,SMALL_IMG_DIM,Image.SCALE_SMOOTH);
+                 g2d.drawImage(img, SMALL_IMG_DIM * x, SMALL_IMG_DIM * y, null);
+                 x++;
+        		
+        	}
+            
         }
     }
 
