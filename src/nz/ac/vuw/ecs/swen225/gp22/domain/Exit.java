@@ -7,18 +7,21 @@ public class Exit extends Tile {
 
 	public Exit(Location l) {
 		super(l);
-		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public Img getImg() {
-    	return icon;
-    }
 
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		//move to next level 
 		return true; 
+	}
+
+	@Override
+	public Img getImg() {
+    	return icon;
+    }
+
+	public String toString(){
+		return "Exit";
 	}
 
 }

@@ -1,7 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 
 public class Chap extends Tile{ // player which is not a core tile
     public ArrayList<Tile> chest;
@@ -10,100 +12,143 @@ public class Chap extends Tile{ // player which is not a core tile
     public Maze m;
     public State s;//have state object, check if state object is dead or alive
     public Img icon = Img.Chap;
+    private SoundEffects sound = new SoundEffects();
 
     public Chap(Location l, Maze m) {
         super(l);
-        System.out.println("making chap"); //testing
         this.l = l;
         this.chest = new ArrayList<Tile>();
-
+        this.s = new AliveState(l, m);
     }
 
     // getters and setters
-    @Override
+    /*
+     * returns the image of Chap
+     */
     public Img getImg() {
         return icon;
     }
 
-
+    /*
+     * returns Chaps chest 
+     */
     public ArrayList<Tile> getChest() {
         return chest;
     }
 
+    /*
+     * returns chaps location 
+     */
     public Location getLocation() {
         return l;
     }
 
+    /*
+     * sets chaps location 
+     */
     public void setLocation(Location l) {
         this.l = l;
     }
 
-    public void removeFromChest() {
-        chest.remove(0);
-    }
-    public void removeKey(Key k){
-        for(Tile t : chest){
-            if(t instanceof Key){
-                Key kk = (Key)t;
-                if(kk.getColor().equals(k.getColor())){
-                    chest.remove(k); //sus, maybe counted for loop???
-                    k.toString();
-                }
-            }
-        }
-    }
-
+    /*
+     * removes the given key from the chest 
+     */
     public void removeKey(Key k){
         if(chest.contains(k)) {
             chest.remove(k);
+            k.toString();
         }
     }
 
-    // winning methods
+    /*
+     * returns if chap has won or not 
+     */
     public boolean won() {
         return this.won;
     }
 
+    /*
+     * make chap win 
+     */
     public void setWin() {
         this.won = true;
     }
 
+    /*
+     * sets chaps knowledge of the maze 
+     */
+    public void setMaze(Maze maze) {
+        m = maze;
+        this.s = new AliveState(l, m);
+        System.out.println("Set maze");
+    }
+
     //move methods (changes the location fields)
+    /*
+     * Moves chaps location up 
+     */
     public void moveUp() {
-        System.out.println("Chap moving up");
         l = s.moveUp();
+        System.out.println("Chap moving up");
     }
 
+    /*
+     * moves chaps location down 
+     */
     public void moveDown() {
-        System.out.println("Chap moving down");
         l = s.moveDown();
+        System.out.println("Chap moving down");
     }
 
+    /*
+     * moves chaps location right 
+     */
     public void moveRight() {
-        System.out.println("Chap moving right");
         l = s.moveRight();
+        System.out.println("Chap moving right");
     }
 
+    /*
+     * moves chaps location left 
+     */
     public void moveLeft() {
-        System.out.println("Chap moving left");
         l = s.moveLeft();
+        System.out.println("Chap moving left");
     }
 
+    /*
+     * changes chaps current state 
+     */
     public void changeState(State newSt){
-        System.out.println("Chap changing state");
         this.s = newSt;
+        System.out.println("Chap changing state");
     }
 
-    // other methods
-    public void addToChest(Tile t) {
+    /*
+     * adds an item to chaps chest 
+     */
+    public void addToChest(Tile t) throws IOException{
+        if(!(t instanceof Treasure)&&!(t instanceof Key)){ 
+            throw new IOException("Chap cannot pick this up"); //pre
+        }
         chest.add(t);
+        //sound.playCollectMusic();
+        assert(chest.contains(t)); //post 
         System.out.println("Added to chest: "+chest);
     }
 
-    //Nathan told me to add this 
-    public void setMaze(Maze maze) {
-        System.out.println("setting maze");
-        m = maze;
-        this.s = new AliveState(l, m);
+    /*
+     * removes the first item in chaps chest, this is used by the actor when he robs chap. 
+     */
+    public void removeFromChest() {
+        chest.remove(0);
     }
+
+    /*
+     * Stringifies Chap 
+     */
+    public String toString(){
+		return "Chap";
+	}
+
 }

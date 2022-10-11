@@ -8,7 +8,7 @@ public class Actor extends Tile{
     //explodes: kills chap (calls change state)
     //eats: kills chap (calls change state)
     //robs: takes things from chaps chest (chest must be public to be robbed)
-    public Chap c; //needs to have knowledge of chap to do shit to him
+    public Chap c; 
     public Location l;
     public Actor(Location l, Chap c){
     	super(l);
@@ -51,5 +51,9 @@ public class Actor extends Tile{
         }
         //now refresh
     }
+
+    public String toString(){
+		return "Actor"; 
+	}
 
 }

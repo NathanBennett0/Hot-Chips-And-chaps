@@ -7,7 +7,6 @@ public class Water extends Tile{
 
     public Water(Location l) {
         super(l);
-        //TODO Auto-generated constructor stub
     }
     
     @Override
@@ -20,5 +19,9 @@ public class Water extends Tile{
 	public Img getImg() {
     	return icon;
     }
+
+    public String toString(){
+		return "Water"; 
+	}
 
 }
