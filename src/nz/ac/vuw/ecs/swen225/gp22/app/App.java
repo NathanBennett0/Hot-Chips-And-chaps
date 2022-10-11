@@ -91,7 +91,7 @@ public class App extends JFrame {
 
     public App(){
     	System.out.println("App.java: App constructor called.");
-        assert SwingUtilities.isEventDispatchThread();
+        //assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         initialize();
         this.addWindowListener(new WindowAdapter(){  //check
@@ -282,7 +282,7 @@ public class App extends JFrame {
         System.out.println("loading lvl 1");
         status = 1;
         Level lvl = new Filereader().loadLevel("level1.xml");
-        Maze m = new Maze(lvl);
+        Maze m = new Maze(lvl, 22, 22);
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
@@ -297,7 +297,7 @@ public class App extends JFrame {
         System.out.println("loading lvl 2");
         status = 2;
         Level lvl = new Filereader().loadLevel("level2.xml");
-        Maze m = new Maze(lvl);
+        Maze m = new Maze(lvl, 66, 66);
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
@@ -326,7 +326,7 @@ public class App extends JFrame {
         }
 
         Level lvl = new Filereader().loadLevel(filename);
-        Maze m = new Maze(lvl);
+        Maze m = new Maze(lvl, 22, 22); //TODO: have to change, consult nathan
         lvl.getChap().setMaze(m); 
         // now have the maze object
         gameController = new Controller(this, lvl.getChap());
