@@ -45,16 +45,27 @@ public class RecordLoad {
     private Move loadMove(Element e){
         switch(e.getName()){
             case "move" -> {
-                String dir = e.attributeValue("direction");
+                String dir = e.attributeValue("dir");
+                int code = Integer.parseInt(e.attributeValue("moveKeyCode"));
+                return new directionMove(null, dir, code); //need to find a way to get App
+            }
+            case "key" -> {
+                String key = e.attributeValue("keyItem");
+                String color = e.attributeValue("color");
                 int x = Integer.parseInt(e.attributeValue("x"));
                 int y = Integer.parseInt(e.attributeValue("y"));
-
+                return new keyMove(key, color, x, y);
             }
+            case "door" ->{
+                String door = e.attributeValue("doorItem");
+                String color = e.attributeValue("color");
+                int x = Integer.parseInt(e.attributeValue("x"));
+                int y = Integer.parseInt(e.attributeValue("y"));
+                return new doorMove(door, color, x, y);
+            }
+            default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
         }
-
-        return null;
     }
-
      /**
      * Gets the level of the file
      */
