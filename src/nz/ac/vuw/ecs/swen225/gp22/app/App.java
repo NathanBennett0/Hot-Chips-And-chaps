@@ -119,8 +119,6 @@ public class App extends JFrame {
     };
 
     private App(){
-    	System.out.println("App.java: App constructor called.");
-        assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         initialize();
