@@ -1,10 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.BorderLayout;
 
@@ -22,11 +24,13 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 public class recorderPanel extends JPanel {
     
     private JPanel panel;
+    private static final int maxSpeed = 4;
     private JButton loadRecord = new JButton("Load Record");
     private JButton moveBack = new JButton("Step-by-Step");
     private JButton autoReplay = new JButton("Auto Replay");
     private JButton setRepSpeed = new JButton("Set Replay Speed");
     private JButton loadButton = new JButton("Load");
+    private JButton pause = new JButton("Pause");
     private JSlider steps; //scrubber
     App app;
     
@@ -34,6 +38,7 @@ public class recorderPanel extends JPanel {
     private int currMove =0;
 
     private boolean playing = false;
+    private int speed = 1;
 
     //button dimensions
     private static final Dimension BUTTON_SIZE = new Dimension(50, 20);
@@ -81,7 +86,8 @@ public class recorderPanel extends JPanel {
 
            JButton play = new JButton("Play Record");
            play.setSize(70,20);
-           setPlayButton();
+           playRecorder();
+           
 
            JButton setSpeed = new JButton("Set Speed");
            setSpeed.setSize(BUTTON_SIZE.width*2, BUTTON_SIZE.height);
@@ -91,6 +97,7 @@ public class recorderPanel extends JPanel {
            this.add(panel);
            this.add(moveBack);
            this.add(steps);
+           this.add(pause);
            this.add(moveStraight);
            add(mainMenu);
 
@@ -98,9 +105,67 @@ public class recorderPanel extends JPanel {
            setBackground(Color.CYAN);
     }
 
-    public void load(){ }
-    public void setPlayButton(){ }
-    public void setSpeedButton(){ }
+
+
+    public void playRecorder(){ 
+        playing = true;
+        new Thread(() -> {
+            for(int i = currMove; i< moves.size(); i++){
+                if(!playing){break;} 
+                moves.get(i).move();
+                if(status(playing, i)){break;}
+            }
+            playing = false;
+            pause.setText("Play");
+            }).start();
+    }
+
+    /**
+     * status
+     */
+    public boolean status(boolean statusMoving, int currMoveInt){
+        currMove = currMoveInt < moves.size() ? currMoveInt : moves.size() -1;
+        steps.setValue(currMoveInt);
+        try{
+            Thread.sleep(1000/speed);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        } return !statusMoving;
+    }
+    public void load(){
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user") + "/resources/Recorder");
+        fileChooser.setDialogTitle("Select recording to load");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("load file (xml)", "xml");
+        fileChooser.setFileFilter(fileFilter);
+        fileChooser.showOpenDialog(fileChooser); //COME BACK TO THIS
+
+        if(fileChooser.getSelectedFile() != null){
+            RecordLoad record = new RecordLoad(fileChooser.getSelectedFile());
+            this.moves = record.getMoves();
+
+            //loads levels from app
+            if(record.level()==1){
+                app.levelOne();
+            } else if(record.level() == 2){
+                app.levelTwo();
+            }
+
+            if(steps != null){
+                steps.setMaximum(moves.size()-1);
+                currMove = 0;
+                steps.setValue(0);
+                panel.repaint();
+            }
+        }
+    }
+
+
+    public void setSpeedButton(){
+        speed = speed == maxSpeed ? 1 : speed + 1;
+        System.out.println(speed);
+        setRepSpeed.setText("speed");
+     }
 
     /**
      * 
