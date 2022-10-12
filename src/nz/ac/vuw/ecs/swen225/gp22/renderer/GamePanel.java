@@ -30,7 +30,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	App app; 
 	Location prevLoc; 
 	CatImage currChap = new NormalImage();
-	
 
 	public GamePanel(Maze m, App a) {	
 		this.maze = m;
@@ -39,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.currChap = new NormalImage(); 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-				board[x][y] = m.grid[x + 6][y + 5];
+				board[x][y] = m.getGrid()[x + 6][y + 5];
     		}
     	}
     	
@@ -47,6 +46,7 @@ public class GamePanel extends JPanel implements ActionListener{
     	this.setLayout(new GridLayout(9,9));
     	timer = new Timer(150, this); // Timer works in milliseconds
 		timer.start();
+		
 	}
 	
 	/**
@@ -69,6 +69,7 @@ public class GamePanel extends JPanel implements ActionListener{
     			}
     		}
     	}
+		
 	}
 	
 
