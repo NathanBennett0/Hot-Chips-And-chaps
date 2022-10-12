@@ -3,7 +3,10 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import javax.swing.SwingUtilities;
 
 /**
- * Main class
+ * Main class for Chap's Challenge
+ * 
+ * @author Naomi Parte
+ * 
  */
 public class Main {
 	public static void main(String[] args) {
