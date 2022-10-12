@@ -6,7 +6,6 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 
 public class Locked extends Tile {
-	private boolean locked = true;
 	private Key.Color col;
 	public Img icon;
 	private SoundEffects sound = new SoundEffects();
@@ -29,6 +28,7 @@ public class Locked extends Tile {
 			if(t instanceof Key) {
 				Key k = (Key)t;
 				if(k.getColor().equals(this.col)){
+					sound.playUnlockMusic();
 					try {p.m.removeTile(l);} catch (IOException e) {}
 					p.removeKey(k);
 					return true;

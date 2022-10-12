@@ -20,11 +20,9 @@ public class ExitLock extends Tile{
 				//System.out.println(p.getLocation().getX()+" "+p.getLocation().getY());
 				p.m.removeTile(l);
 				return true;
-			} else {
-				return false;
-			}
+			} 
 		} catch (IOException e) {}
-		return false; 
+		return true; 
 	}
 
 	@Override
