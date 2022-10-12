@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.Random;
+
 /**
  * Name: Felix Ng
  * Student ID: 300570943
@@ -30,7 +32,7 @@ public class Actor extends Tile{
         int x2 = c.getLocation().getX();
         int y2 = c.getLocation().getY();
         double dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //euclidean distance
-        if(dist < 3) {
+        if(dist < 10) {
             eatChap(); //same as killing chap
         }
     }
@@ -43,8 +45,10 @@ public class Actor extends Tile{
         int newDirY = (int) ((Math.random() * (1 - 4)) + 1); //might be able to move diagonally
         int currX = this.l.getX();
         int currY = this.l.getY();
-        int bool = (int) ((Math.random() * (1 - 2)) + 1); //number 1 or 2
-        if(bool == 1) {
+        //int bool = (int) ((Math.random() * (1 - 2)) + 1); //number 1 or 2
+        Random rd = new Random(); 
+        boolean bool = rd.nextBoolean();
+        if(bool) {
             this.l = new Location(currX+newDirX, currY+newDirY);
         } else {
             this.l = new Location(currX-newDirX, currY-newDirY);

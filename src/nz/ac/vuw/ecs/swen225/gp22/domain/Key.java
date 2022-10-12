@@ -32,7 +32,7 @@ public class Key extends Tile {
 	public boolean CanWalkOn(Chap p) {
 		try {p.addToChest(this);} catch (IOException e1) {} //add to chaps chest 
 		try {p.m.removeTile(l);} catch (IOException e) {} //this is determining that the key is collected 
-		System.out.println("key added to chest");
+		//System.out.println("key added to chest");
 		//remove from maze 
 		return true;
 	}

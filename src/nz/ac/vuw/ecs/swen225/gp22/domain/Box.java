@@ -4,7 +4,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
 import java.io.Serializable;
 
-public class Box extends Tile implements Serializable{ //test if its serializable first
+public class Box extends Tile { //test if its serializable first
     public Img icon = Img.Free;
 
     public Box(Location l) { //behaves like a wall tile 

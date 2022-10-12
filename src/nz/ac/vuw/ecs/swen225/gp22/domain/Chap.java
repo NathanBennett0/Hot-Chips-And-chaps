@@ -50,10 +50,6 @@ public class Chap extends Tile{ // player which is not a core tile
         this.l = l;
     }
 
-    public void removeFromChest() {
-        chest.remove(0);
-    }
-
     public void removeKey(Key k){
         if(chest.contains(k)) {
             chest.remove(k);
@@ -90,7 +86,7 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveUp() {
         l = s.moveUp();
-        System.out.println("Chap moving up");
+        System.out.println("c.keyPressed(KeyEvent.VK_W);");
     }
 
     /*
@@ -98,7 +94,7 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveDown() {
         l = s.moveDown();
-        System.out.println("Chap moving down");
+        System.out.println("c.keyPressed(KeyEvent.VK_S);");
     }
 
     /*
@@ -106,7 +102,7 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveRight() {
         l = s.moveRight();
-        System.out.println("Chap moving right");
+        System.out.println("c.keyPressed(KeyEvent.VK_D);");
     }
 
     /*
@@ -114,7 +110,7 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveLeft() {
         l = s.moveLeft();
-        System.out.println("Chap moving left");
+        System.out.println("c.keyPressed(KeyEvent.VK_A);");
     }
 
     /*
@@ -135,7 +131,7 @@ public class Chap extends Tile{ // player which is not a core tile
         chest.add(t);
         //sound.playCollectMusic();
         assert(chest.contains(t)); //post 
-        System.out.println("Added to chest: "+chest);
+        //System.out.println("Added to chest: "+chest);
     }
 
     /*
