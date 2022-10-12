@@ -7,7 +7,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 
 public class Locked extends Tile {
 	private boolean locked = true;
-	public Key.Color col;
+	private Key.Color col;
 	public Img icon;
 	private SoundEffects sound = new SoundEffects();
 	
@@ -16,23 +16,6 @@ public class Locked extends Tile {
 		this.col = col;
 		this.icon = col.getLockedIcon();
 		// TODO Auto-generated constructor stub
-	}
-
-	/*
-	 * unlocks the door by changing the field 
-	 */
-	public void unlock() {
-		//sound.playUnlockMusic();
-		locked = false;
-		System.out.println("Door unlocked");
-	}
-
-	/* 
-	 * returns if the door is locked or not 
-	 */
-	public boolean isLocked() {
-		System.out.println("Door Locked");
-		return locked;
 	}
 
 	// getters and setters

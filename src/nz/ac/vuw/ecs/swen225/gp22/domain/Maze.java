@@ -13,19 +13,15 @@ public class Maze {
 	public Level lv; 
 	public Chap player;
 	public int numItems;
-	private int width;
-	private int height;
 	
 	public Maze(Level lv, int xx, int yy) throws IOException{
-		if(lv == null && xx <= 0 && yy <= 0){
+		if(lv == null || xx <= 0 || yy <= 0){
 			throw new IOException("Maze cannot be created"); //pre 
 		}
 		this.lv = lv;
 		player = lv.getChap();
 		numItems =lv.getInventory().size();
 		grid = new Tile[xx][yy];
-		width = xx;
-		height = yy;
 		for(int x = 0; x < xx; x++) {
     		for(int y = 0; y < yy; y++) {
     			grid[x][y] = new Free(new Location(x,y));
@@ -79,7 +75,7 @@ public class Maze {
 	public boolean allowAction(Location nextLoc) { //dynamic 
 		//get location of the next tile
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
-		System.out.println("next action being checked");
+		//System.out.println("next action being checked");
 		return next.CanWalkOn(player);
 	}
 
@@ -96,7 +92,6 @@ public class Maze {
 				}
 			}
 		}
-		assert(count >= 0); //post 
 		return count;
 	}
 
@@ -116,13 +111,13 @@ public class Maze {
 	/*
 	 * set new location for a box when chap moves it 
 	 */
-	public void setBoxLocation(Location l) throws IOException{
-		if(!(grid[l.getX()][l.getY()] instanceof Free)){
-			throw new IOException("Box cannot be Moved"); //pre
-		}
-		grid[l.getX()][l.getX()] = new Box(l);
-		assert(grid[l.getX()][l.getX()] instanceof Box);
-	}
+//	public void setBoxLocation(Location l) throws IOException{
+//		if(!(grid[l.getX()][l.getY()] instanceof Free)){
+//			throw new IOException("Box cannot be Moved"); //pre
+//		}
+//		grid[l.getX()][l.getX()] = new Box(l);
+//		assert(grid[l.getX()][l.getX()] instanceof Box);
+//	}
 	
 	/*
 	 * remove old location of chap then makes a new one for him to be in
@@ -133,7 +128,7 @@ public class Maze {
 		}
         grid[player.getLocation().getX()][player.getLocation().getY()] = new Free(player.getLocation()); 
         grid[l.getX()][l.getY()] = player;
-		assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
+		//assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
     }
 
 	/*
@@ -144,24 +139,31 @@ public class Maze {
 	}
 
 	/*
+	 * returns chap 
+	 */
+	public Chap getChap(){
+		return this.player;
+	}
+
+	/*
 	 * Shows layout of grid
 	 */
 	@Override
 	public String toString() { 
-		String r = "";
-		for(int row=width;row!=0;row--) {
-			r += row + "|";
-			for(int col=1;col<=height;col++) {
-				Tile t = grid[row][col];
-				if(t != null) {
-					r += t + "|";
-				} else {
-					r += "_|";
-				}
-			}
-			r += "\n";
-		}
-		return r + "  a b c d e f g h";
+	    String r = "";
+	    for (int row = 0; row < grid.length; row++) {
+	        r += row + "|";
+            for (int col = 0; col < grid[row].length; col++) {
+                Tile t = grid[row][col];
+                if(t != null) {
+                    r += t + "|";
+                } else {
+                    r += "_|";
+                }
+            }
+            r += "\n";
+	    }
+	    return r + "  a b c d e f g h";
 	}
 
 }

@@ -16,13 +16,15 @@ public class ExitLock extends Tile{
 		//return true;
 		try {
 			if(p.m.numOfTreasures()==0){ //assume that chap has them all 
-				System.out.println("Exitlock unlocked");
+				//System.out.println("Exitlock unlocked");
+				//System.out.println(p.getLocation().getX()+" "+p.getLocation().getY());
+				p.m.removeTile(l);
 				return true;
 			} else {
 				return false;
 			}
 		} catch (IOException e) {}
-		return false;
+		return false; 
 	}
 
 	@Override

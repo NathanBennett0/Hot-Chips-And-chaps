@@ -12,7 +12,7 @@ public class InfoField extends Tile {
 	}
 
 	// getters and setters
-	public String getMessage() {
+	public String getMessage() { 
 		return m;
 	}
 	
