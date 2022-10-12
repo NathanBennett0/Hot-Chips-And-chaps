@@ -16,6 +16,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
@@ -58,7 +59,7 @@ public class Filewriter {
             Level.appendChild(TimeE);
 
             Element Chap = doc.createElement("Chap");
-            Chap = makeChap(Chap, doc, level.getChap());
+            Chap = makeCharTile(Chap, doc, level.getChap());
             Level.appendChild(Chap);
 
             // chap inventory
@@ -77,9 +78,12 @@ public class Filewriter {
                     // add tile to Level
                     Chap.appendChild(newTile);
                 }
-                // do the rest of the inventory
                 
             }
+
+            Element Actor = doc.createElement("Actor");
+            Actor = makeCharTile(Actor, doc, level.getActor());
+            Level.appendChild(Actor);
 
             // iterate through every tile
             for(Tile T : level.getTiles()) {
@@ -199,19 +203,19 @@ public class Filewriter {
     }
 
     /**
-     * Makes the chap element
+     * Makes the chap, or actor element
      * @param newTile
      * @param doc
      * @param C
      * @return Element
      */
-    public Element makeChap(Element newTile, Document doc, Chap C) {
+    public Element makeCharTile(Element newTile, Document doc, Tile T) {
         Attr x = doc.createAttribute("x");
-        x.setValue(String.valueOf(C.getLocation().getX()));
+        x.setValue(String.valueOf(T.getLocation().getX()));
         newTile.setAttributeNode(x);
         // tile y
         Attr y = doc.createAttribute("y");
-        y.setValue(String.valueOf(C.getLocation().getY()));
+        y.setValue(String.valueOf(T.getLocation().getY()));
         newTile.setAttributeNode(y);
         return newTile;
     }

@@ -23,8 +23,12 @@ import java.nio.file.*;
 import static org.junit.Assert.*;  
 import org.w3c.dom.Document;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
+
 public class PersistencyTest {
     
+    private static final Object Tile = null;
+
     public static void main(String args[]) {
         // loads the xml file specified then create a document object
         PersistencyTest pt = new PersistencyTest();
@@ -60,12 +64,10 @@ public class PersistencyTest {
     @Before
     public void setUp() {
         try {
-            file1 = folder.newFile( "testfile1.txt" );
+            file1 = folder.newFile("testfile1.xml");
         }
         catch( IOException ioe ) {
-            System.err.println( 
-                "error creating temporary test file in " +
-                this.getClass().getSimpleName() );
+            System.err.println(ioe);
         }
     }
 
@@ -90,10 +92,27 @@ public class PersistencyTest {
 
         }
         catch( IOException ioe ) {
-            System.err.println( 
-                "error creating temporary test file in " +
-                this.getClass().getSimpleName() );
+            System.err.println(ioe);
         }
+        Filereader fr = new Filereader();
+        System.out.println();
+        Level level = fr.loadLevel("Testfile.xml");   
+        
+        //level variables
+        assertEquals(level.getLevel(), 1);
+        assertEquals(level.getTime(), 90000);
+
+        // tiles
+        assertTrue(level.getAllTiles().get(0) instanceof Wall);
+        assertFalse(level.getTiles().isEmpty());
+
+        // chap tests
+        assertFalse(level.getChap().getChest().isEmpty());
+        assertEquals(level.getChap().toString(), "Chap");
+
+
+
+
 
         assertTrue( file1.exists() );
         assertTrue( file1.isFile() );

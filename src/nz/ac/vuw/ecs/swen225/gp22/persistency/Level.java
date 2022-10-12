@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
@@ -19,8 +20,9 @@ public class Level {
     private InfoField info;
     private int time;
     private int levelnum;
+    private Actor actor;
 
-    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info, int time, int levelnum) {
+    public Level(List<Tile> tiles, List<Locked> lockedtiles, List<Key> keytiles, Chap player, InfoField info, int time, int levelnum, Actor actor) {
         this.tiles = tiles;
         this.lockedtiles = lockedtiles;
         this.keytiles = keytiles;
@@ -29,6 +31,7 @@ public class Level {
         this.inventory = new ArrayList<Tile>();
         this.time = time;
         this.levelnum = levelnum;
+        this.actor = actor;
     }
 
     public int getLevel() {
@@ -64,6 +67,10 @@ public class Level {
 
     public Chap getChap() {
         return player;
+    }
+
+    public Actor getActor() {
+        return actor;
     }
 
     public InfoField getInfoField() {
