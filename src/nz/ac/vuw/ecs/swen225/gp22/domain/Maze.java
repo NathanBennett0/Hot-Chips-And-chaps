@@ -75,7 +75,7 @@ public class Maze {
 	public boolean allowAction(Location nextLoc) { //dynamic 
 		//get location of the next tile
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
-		//System.out.println("next action being checked");
+		System.out.println("This shitstick: "+next.toString()+", "+next.CanWalkOn(player));
 		return next.CanWalkOn(player);
 	}
 

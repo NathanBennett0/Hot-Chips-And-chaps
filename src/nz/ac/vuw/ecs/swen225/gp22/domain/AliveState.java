@@ -112,4 +112,8 @@ public class AliveState implements State{
         l = next;
         return next;
     }
+
+    public String toString(){
+        return "Alive";
+    }
 }

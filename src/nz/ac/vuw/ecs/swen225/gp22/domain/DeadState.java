@@ -32,4 +32,8 @@ public class DeadState implements State{
     public Location moveLeft() {
         return null;
     }
+
+    public String toString(){
+        return "Dead";
+    }
 }

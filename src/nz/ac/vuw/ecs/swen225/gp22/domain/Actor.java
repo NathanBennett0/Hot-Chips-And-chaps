@@ -40,7 +40,7 @@ public class Actor extends Tile{
      * method should be called in every ping
      * uses Math random to pick a random direction in left, right, top, bottom and move there
      */
-    public void moveRandomly() {
+    public void moveRandomly() { //adds restrictions 
         int newDirX = (int) ((Math.random() * (1 - 4)) + 1); //4 directions
         int newDirY = (int) ((Math.random() * (1 - 4)) + 1); //might be able to move diagonally
         int currX = this.l.getX();
