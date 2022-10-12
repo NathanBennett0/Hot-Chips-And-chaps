@@ -39,7 +39,7 @@ public class Maze {
 	/*
 	 * removes a tile on the grid at the given location
 	 */
-    public void removeTile(Location l) throws IOException {
+    public void removeTile(Location l) throws IOException { //setTile too?
 		if(grid[l.getX()][l.getY()] == null){
 			throw new IOException("Cannot remove null tile"); //pre 
 		}
@@ -52,7 +52,7 @@ public class Maze {
         }
         grid[l.getX()][l.getY()] = new Free(l);
 		safeGrid(); //post 
-    }
+    } 
 
 	/**
 	 * helper method for post and pre condition checks on the grid to prevent null errors 
