@@ -5,10 +5,16 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import nz.ac.vuw.ecs.swen225.gp22.Recorder.directionMove;
+
 public class KeyStroke implements KeyListener {
 	private static Map<Integer,Runnable> onPressed = new HashMap<>();
 	private static Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
-	
+	protected App app;
+
+	KeyStroke(App app){
+		this.app = app;
+	}
 /**
  * A function for keybinding - Maps a keycode with given action.
  * @param keyCode
@@ -22,7 +28,7 @@ public class KeyStroke implements KeyListener {
 			onPressed.put(keyCode, action);
 		}
 	}
-	
+
 	/**
 	 * Clears the keybinding for chap
 	 */
@@ -39,7 +45,10 @@ public class KeyStroke implements KeyListener {
 			onCtrlPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 		}else {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
-			System.out.println("size: "+onPressed.size());
+			//for recorder
+			if(onPressed.containsKey(e.getKeyCode())){
+				app.recorder.addMove(new directionMove(app, e.getKeyCode()));
+			}
 		}
 	}
 

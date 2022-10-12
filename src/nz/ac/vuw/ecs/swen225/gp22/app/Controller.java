@@ -5,15 +5,14 @@ import java.awt.event.KeyEvent;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
 public class Controller extends KeyStroke {
-	App app;
 	Chap chap;
 	Controller(App app){
-		this.app = app;
+		super(app);
 		setCtrlKey();
 	}
 
 	Controller(App app, Chap chap){
-		this.app = app;
+		super(app);
 		this.chap = chap;
 		setCtrlKey();
 		setPauseKey();
