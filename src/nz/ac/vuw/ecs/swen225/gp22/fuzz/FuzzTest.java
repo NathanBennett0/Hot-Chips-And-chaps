@@ -2,11 +2,6 @@ package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 import javax.swing.SwingUtilities;
 import java.awt.event.KeyEvent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-
-import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +15,6 @@ import java.util.Set;
 import javax.swing.SwingUtilities;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Game;
@@ -30,6 +24,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
 
 /**
  * Class that runs the two fuzz tests for the Chips&Chaps game. 
@@ -42,11 +37,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 public class FuzzTest {
 
 	// Private variables for determining the next move 
-	private HashMap<String, Integer>[][] strategyNew = makeStrategyBoardNew();
-	
-	
-	
-	
+	private HashMap<String, Integer>[][] strategy = makeStrategyBoard();
 	private int currentX, currentY;
 	private int prevX, prevY;
 	private String prevDirection = "";
@@ -59,7 +50,7 @@ public class FuzzTest {
 	public void FuzzTest1() {
 		
 		System.out.println("FuzzTest 1 is called.");
-		makeStrategyBoardNew();
+		makeStrategyBoard();
 		App app = new App();
 		
 		while(!app.initializeDone()) System.out.print(""); // While the main menu is booting, wait
@@ -73,9 +64,7 @@ public class FuzzTest {
 
 		while(app.fuzzStarted()) {
 			
-			// Get the values needed to find next direction
-			pause(app,1000);
-			
+			pause(app,95);
 			Controller c = app.getGame().phase().controller();
 			Maze m = app.getGame().phase().maze();
 			assert c != null && m != null;
@@ -88,14 +77,22 @@ public class FuzzTest {
 			
 			// Check the location of the chap
 			updateLocation(m);
-			if(prevX == currentX && prevY == currentY) {
-				// We just tried to walk into a wall
-				HashMap<String, Integer> currentPos = strategyNew[currentX][currentY];
-				currentPos.put(prevDirection, 1000);
-			}
 			System.out.println("Prev Location: " + prevX + "," + prevY);
-			System.out.println("Location: " + currentX + "," + currentY);
-			//assert grid[currentX][currentY] instanceof Chap;
+			System.out.println("Curr Location: " + currentX + "," + currentY);
+			
+			
+			
+			// Use intelligence so the wall does not get tried again
+			if(prevX == currentX && prevY == currentY) {
+				int wallX = findWallX(prevDirection); // Find x of the next tile over (where we wanted to go)
+				int wallY = findWallY(prevDirection); // Find y of the next tile over (where we wanted to go)
+				
+				if(m.getGrid()[wallX][wallY] instanceof Wall) {
+					System.out.println("WE JUST HIT A WALL at " + wallX + "," + wallY);
+					HashMap<String, Integer> position = strategy[currentX][currentY];
+					position.put(prevDirection, 1000); // So we do not try it again
+				}
+			}
 			
 			
 			// Checks if the timer has exceeded
@@ -112,10 +109,7 @@ public class FuzzTest {
 	public void FuzzTest2() { }
 	
 	
-	
-	
 	/*----- HELPER METHODS ------------------------------------------------------------- */
-	
 	
 	
 	/**
@@ -124,10 +118,9 @@ public class FuzzTest {
 	 * The hashmap has 4 values, key as a direction, val as number of times explored
 	 * u = up, d = down, l = left, r = right
 	 */
-	public HashMap<String, Integer>[][] makeStrategyBoardNew() {
+	public HashMap<String, Integer>[][] makeStrategyBoard() {
 		
 		HashMap<String,Integer>[][] temp = new HashMap[22][22];
-		
 		for(int i = 0; i < 22; i++) {
 			for(int j = 0; j < 22; j++) {
 				temp[i][j] = new HashMap<String,Integer>();
@@ -141,10 +134,6 @@ public class FuzzTest {
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * Locates the chap on the maze and updates the current position
 	 * @param m Maze object found from App.java
@@ -155,87 +144,99 @@ public class FuzzTest {
 	}
 	
 	
+	/**
+	 * Locates the X coordinate of a wall
+	 */
+	public int findWallX(String dir) {
+		switch(dir) {
+			case "u": return currentX;
+			case "d": return currentX;
+			case "l": return currentX - 1;
+			case "r": return currentX + 1;
+			default: return 0; // Should not be called
+		}
+	}
+	
 	
 	/**
-	* Beginning intelligence
-	* THINGS I WANT TO DO
-	* GO WHERE HAS NOT BEEN EXPLORED
-	* IF THEY HAVE ALL BEEN EXPLORED, GO WhERE least explored!!!
-	* DO NOT MOVE BACK INTO OLD PLACE!!!!!
-	*/
-	public int pickDirection() {
-		
-		// Grab the current direction inside the strategy board
-		HashMap<String, Integer> currentPos = strategyNew[currentX][currentY];
-		
-		// All the directions that I c
+	 * Locates the Y coordinate of a wall
+	 */
+	public int findWallY(String dir) {
+		switch(dir) {
+			case "u": return currentY - 1;
+			case "d": return currentY + 1;
+			case "l": return currentY;
+			case "r": return currentY;
+			default: return 0; // Should not be called
+		}
+	}
+	
+	
+	/**
+	 * The chap should not move back into the spot it just came from
+	 * @return ArrayList of possible directions the chap can move
+	 */
+	public ArrayList<String> possibleDirections(){
 		ArrayList<String> directions = new ArrayList<>();
 		directions.add("u");
 		directions.add("d");
 		directions.add("l");
 		directions.add("r");
-		
-		// Keep trying to find a direction until found
-		while (true) {
-			
-			Random r = new Random();
-			int random = 1 + r.nextInt(6); // Every one in six moves pick something completely random
-			if(random == 3) {
-				System.out.println("PICKED A RANDOM DIRECTION!");
-				return getRandomDirection();
-			}
-			
-			Collections.shuffle(directions); // List of directions is random
-			String direction = directions.get(0); // Grab a random direction
-			
-			
-			// Otherwise, check that we do not go backwards
-			// If we do restart the loop and try another direction
-	    	if(direction.equals("u") && prevDirection.equals("d")) continue;
-	    	if(direction.equals("d") && prevDirection.equals("u")) continue;
-	    	if(direction.equals("l") && prevDirection.equals("r")) continue;
-	    	if(direction.equals("r") && prevDirection.equals("l")) continue;
-
-		   
-	    	
-		    // Otherwise go where we have least explored
-		    // Randomly iterating (Map iterator is still somewhat ordered)
+		if(prevDirection.equals("u")) directions.remove("d");
+		if(prevDirection.equals("d")) directions.remove("u");
+		if(prevDirection.equals("l")) directions.remove("r");
+		if(prevDirection.equals("r")) directions.remove("l");
+		return directions;
+	}
 	
-		    int numExplored = Integer.MAX_VALUE;
-		    String dirExplored = direction;
-		    
-		    for(int i = 0; i < directions.size(); i++) {
-		    	System.out.println("Direction: " + directions.get(i) + "   Times: " + currentPos.get(directions.get(i)));
-		    	if(currentPos.get(directions.get(i)) <= numExplored) {
-		    		numExplored = currentPos.get(directions.get(i));
-		    		dirExplored = directions.get(i);
-		    	}
-		    }
-		    
-		    
-		    System.out.println("Picked: " + dirExplored);
-		    System.out.println();
-		    System.out.println();
-		    
-		    
-		    // Bump up its exploration and go that direction
-		    currentPos.put(dirExplored, currentPos.get(dirExplored) + 1);
-		    strategyNew[currentX][currentY] = currentPos;
-		    prevX = currentX;
-		    prevY = currentY;
-			prevDirection = dirExplored;
-			return generateKeycode(dirExplored);
-		}
+	
+	
+	/**
+	* Beginning intelligence
+	* THINGS I WANT TO DO
+	* IF THEY HAVE ALL BEEN EXPLORED, GO WhERE least explored!!!
+	* DO NOT MOVE BACK INTO OLD PLACE!!!!!
+	*/
+	public int pickDirection() {
 		
+		// Grab the current position inside the strategy board
+		HashMap<String, Integer> currentPos = strategy[currentX][currentY];
+		
+		
+		// All the directions that I can explore (not backwards)
+		ArrayList<String> directions = possibleDirections();
+		Collections.shuffle(directions); // List of directions is random
+		String direction = directions.get(0); // Grab a random direction
+	
+    	
+	    // Otherwise go where we have least explored
+	    // Randomly iterating (Map iterator is still somewhat ordered, so used shuffle instead)
+	    int numExplored = Integer.MAX_VALUE;
+	    String dirExplored = direction;
+	    
+	    for(int i = 0; i < directions.size(); i++) {
+	    	System.out.println("Direction: " + directions.get(i) + "   Times: " + currentPos.get(directions.get(i)));
+	    	if(currentPos.get(directions.get(i)) <= numExplored) {
+	    		numExplored = currentPos.get(directions.get(i));
+	    		dirExplored = directions.get(i);
+	    	}
+	    }
+	    
+	    System.out.println("Picked: " + dirExplored);
+	    System.out.println();
+	    System.out.println();
+	    
+	    
+	    // Bump up that direction's exploration and go that direction
+	    currentPos.put(dirExplored, currentPos.get(dirExplored) + 1);
+	    strategy[currentX][currentY] = currentPos;
+		prevX = currentX;
+		prevY = currentY;
+		prevDirection = dirExplored;
+		return generateKeycode(dirExplored);
 	}
 
-	
-	
-	
-	
-	
-	
-	
+		
 	/**
 	 * Synchronizes the threads so the game can wait if when called
 	 * @param a App instance running the game thread
@@ -263,7 +264,6 @@ public class FuzzTest {
 	}
 
 	
-	
 	/**
 	 * Method that generates the keycode based on the index of an Arraylist
 	 * @return Keystroke constant, each representing a direction
@@ -285,51 +285,7 @@ public class FuzzTest {
 		    	else return KeyEvent.VK_LEFT;
 		    case "r":
 		    	if(random == 0) return KeyEvent.VK_D; 
-		    	else return KeyEvent.VK_DOWN;
-		    default:
-		    	System.out.println("Random number failed");
-		    	return 0; // Should never reach this point
-		}
-	}
-
-	
-	/**
-	 * Method that gets a random direction for Chap to move
-	 * @return Keystroke constant, each representing a direction
-	 */
-	public int getRandomDirection() {
-		Random r = new Random();
-		int random = 1 + r.nextInt(4); // Generates a random number 1-4
-		HashMap<String, Integer> currentPos = strategyNew[currentX][currentY];
-		switch(random) {
-			case 1:
-				currentPos.put("u", currentPos.get("u") + 1);
-				prevDirection = "u";
-			    prevX = currentX;
-			    prevY = currentY;
-				strategyNew[currentX][currentY] = currentPos;
-		    	return KeyEvent.VK_W; // Constant representing W
-		    case 2:
-		    	currentPos.put("d", currentPos.get("d") + 1);
-		    	prevDirection = "d";
-			    prevX = currentX;
-			    prevY = currentY;
-		    	strategyNew[currentX][currentY] = currentPos;
-		    	return KeyEvent.VK_S; // Constant representing S
-		    case 3:
-		    	currentPos.put("l", currentPos.get("l") + 1);
-		    	prevDirection = "l";
-			    prevX = currentX;
-			    prevY = currentY;
-		    	strategyNew[currentX][currentY] = currentPos;
-		    	return KeyEvent.VK_A; // Constant representing A
-		    case 4:
-		    	currentPos.put("r", currentPos.get("r") + 1);
-		    	prevDirection = "r";
-			    prevX = currentX;
-			    prevY = currentY;
-		    	strategyNew[currentX][currentY] = currentPos;
-		    	return KeyEvent.VK_D; // Constant representing D
+		    	else return KeyEvent.VK_RIGHT;
 		    default:
 		    	System.out.println("Random number failed");
 		    	return 0; // Should never reach this point
