@@ -33,7 +33,7 @@ public class Maze {
 			grid[x][y] = t;
 		}
 		setChapLoc(lv.getChap().getLocation());
-		//grid[lv.getChap().getLocation().getX()][lv.getChap().getLocation().getX()] = lv.getChap();
+		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
 	}
     
 	/*
@@ -130,6 +130,14 @@ public class Maze {
         grid[l.getX()][l.getY()] = player;
 		//assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
     }
+
+	/*
+	 * sets the actors new location 
+	 */
+	public void setActorLocation(Location l, Location old) {
+		grid[old.getX()][old.getY()] = new Free(old);
+		grid[l.getX()][l.getY()] = lv.getActor();
+	}
 
 	/*
 	 * returns level the game is in 
