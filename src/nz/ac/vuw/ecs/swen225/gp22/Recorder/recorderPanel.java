@@ -92,15 +92,6 @@ public class recorderPanel extends JPanel {
         setPreferredSize(new Dimension(700, 490));
         setBackground(new Color(51, 153, 255) );
 
-        // anonymous classes to handle button click
-
-        // loadRecord.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // load();
-        // // if steps..
-        // }
-        // });
 
         // set Action Listeners
         loadRecord.addActionListener((e) -> {
@@ -128,20 +119,6 @@ public class recorderPanel extends JPanel {
          *           });
          */
 
-        // play.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // playRecorder();
-        // }
-        // });
-
-        // setRepSpeed.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // setSpeedButton();
-        // // if steps..
-        // }
-        // });
     }
 
     public void playRecorder() {
