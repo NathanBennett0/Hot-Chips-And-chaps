@@ -179,13 +179,15 @@ public class Filereader {
             }
 
             // reads the chap from file
-            NodeList ActorNodes = doc.getElementsByTagName("Actor");
-            if(ActorNodes != null) {
-                Node ActorNode = ActorNodes.item(0);
-                Element A = (Element)ActorNode;
-                // creates new actor
-                actor = new Actor(new Location(Integer.parseInt(A.getAttribute("x")), Integer.parseInt(A.getAttribute("y"))), chap);
-                System.out.println("actor x " + actor.getLocation().getX());
+            if(levelnum > 1) {
+                NodeList ActorNodes = doc.getElementsByTagName("Actor");
+                if(ActorNodes != null) {
+                    Node ActorNode = ActorNodes.item(0);
+                    Element A = (Element)ActorNode;
+                    // creates new actor
+                    actor = new Actor(new Location(Integer.parseInt(A.getAttribute("x")), Integer.parseInt(A.getAttribute("y"))), chap);
+                    System.out.println("actor x " + actor.getLocation().getX());
+                }
             }
            
         } catch (Exception e) {
