@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.currChap = new NormalImage(); 
     	for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-				board[x][y] = m.grid[x + 6][y + 5];
+				board[x][y] = m.getGrid()[x + 6][y + 5];
     		}
     	}
     	
