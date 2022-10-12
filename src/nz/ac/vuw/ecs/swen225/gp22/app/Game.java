@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 public class Game extends JPanel {
 	private Phase phase;
 	private GamePanel game;
-    private App app;
 	
 	
 	JLabel tLeft = new JLabel("00:00");
@@ -25,7 +24,6 @@ public class Game extends JPanel {
 	 */
     public Game(Phase p, App a) {
     	this.phase = p;
-        this.app = a;
     	
         sidePanel();
         
@@ -59,7 +57,7 @@ public class Game extends JPanel {
         
         this.add(p);
         
-        currLvl.setText(Integer.toString(app.getStatus())); //change later
+        currLvl.setText(Integer.toString(phase.level().getLevel())); 
         currLvl.setHorizontalAlignment(SwingConstants.CENTER);
         currLvl.setFont(new Font("Arial Black", Font.BOLD, 30));
         currLvl.setBounds(16, 71, 155, 54);

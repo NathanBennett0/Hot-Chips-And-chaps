@@ -23,10 +23,10 @@ public class Controller extends KeyStroke {
 	public void setCtrlKey(){
 		//Control Keys
 		setAction(KeyEvent.VK_X, ()->app.exitGame.run(), true); //exit
-		setAction(KeyEvent.VK_S, ()->{app.saveGame(); System.exit(0);}, true); //save
+		setAction(KeyEvent.VK_S, ()->{app.saveGame(); app.exitGame.run();}, true); //save
 		setAction(KeyEvent.VK_R, ()->app.loadSavedGame(app.loadsave), true); //resume saved game
-		setAction(KeyEvent.VK_1, ()->app.levelOne(), true); //start level 1
-		setAction(KeyEvent.VK_2, ()->app.levelTwo(), true); //start level 2
+		setAction(KeyEvent.VK_1, ()->app.phaseOne(), true); //start level 1
+		setAction(KeyEvent.VK_2, ()->app.phaseTwo(), true); //start level 2
 		
 	}
 
