@@ -1,24 +1,19 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -26,72 +21,71 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.recorderPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.EndPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.ScoreBoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 import java.awt.Color;
 
+/**
+ * The main GUI for Chap's Challenge.
+ * 
+ * @author Naomi Parte
+ * 
+ */
 public class App extends JFrame {
+
+    // One instance of app
 	private static App singleton;
 
-
-    //Initializing Constants
+    // Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
-    public final static int TIMELIMIT_ONE = 60000; //60000 = 1min
-    public final static int TIMELIMIT_TWO = 120000; //180000 = 2min
+    public final static int TIMELIMIT_ONE = 60000; // 60000 = 1min
+    public final static int TIMELIMIT_TWO = 120000; // 120000 = 2min
 
-    //Game variables
+    // Game variables
 	private Game game;
     private Timer timer;
     private JPanel currentPanel;
-    private int timeLeft;  //timeleft
+    private int timeLeft;  
     private Controller mainController = new Controller(this);
-    private SoundEffects sound = new SoundEffects();
     private Controller gameController;
-    private int status = 0; //0 = menu, -1 = endgame
+    private SoundEffects sound = new SoundEffects();
 
-    //Menu Items - do these need to stay here? //TODO
+    // MenuBar variables
     private JMenuBar menuBar=new JMenuBar();
     private JMenu start=new JMenu("Start");
-    private JMenuItem lvl1=new JMenuItem("Level 1");
-    private JMenuItem lvl2=new JMenuItem("Level 2");
-    private JMenuItem load=new JMenuItem("Load Game");
-    private JMenuItem resume=new JMenuItem("Resume Game");
-    private JMenuItem pause=new JMenuItem("Pause");
-    private JMenuItem save=new JMenuItem("Save");  
-    private JMenuItem exit=new JMenuItem("Exit");  
+    private JMenuItem lvl1, lvl2, load, resume, pause, save, exit;
     private JDialog dialogWindow =  new JDialog(this, "Menu");
 
-    //Boolean variables for fuzz testing
+    // Boolean variables for fuzz testing
     private boolean fuzzStarted = false;
     private boolean initializeDone = false;
 
+    // Boolean variables for game
     private boolean stopTimer = true;
     private boolean pauseTimer = false;
-    private boolean replayMode = false;
+    private boolean replayMode = false; // for recorder
+ 
 
+    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); //TODO check the thing
 
-    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/");
+    // Runnable variables 
     Runnable restart = ()->{ stopTimer = true; pauseTimer = false; replayMode=false; };
     Runnable newPanel = ()->{};
 
-    //TODO: possibly run panels
     Runnable pauseGame = ()->{ 
         dialogWindow.setVisible(true);
         dialogWindow.setFocusable(true);
@@ -104,6 +98,7 @@ public class App extends JFrame {
         pause.setText("Resume");
         changeKeyListener(null);
     };  
+
     Runnable resumeGame = ()->{ 
         currentPanel.setFocusable(true);
         dialogWindow.setVisible(false);
@@ -113,16 +108,17 @@ public class App extends JFrame {
         gameController.setChapKey();
         changeKeyListener(gameController);
     };
+
     Runnable exitGame = ()->{
         restart.run();
         System.exit(0);
     };
 
     private App(){
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         initialize();
-        this.addWindowListener(new WindowAdapter(){  //check
+        this.addWindowListener(new WindowAdapter(){ 
             public void windowClosed(WindowEvent e){exitGame.run();}
         });
     }
@@ -133,42 +129,25 @@ public class App extends JFrame {
     }
 
     /**
-     * Initializing the game variables
+     * Initializing the game variables.
+     * 
      */
     public void initialize(){
-    	
-    	//this.setSize(new Dimension(600,800));
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setVisible(true);
         this.setResizable(false);
         this.setTitle("Hot Chips and Chaps");
        
-        menuItemActions();
+        menuItems();
         prepareDialogWindow();
         home();
         initializeDone = true; // For fuzz testing
     }
-    
-    /*-----	GUI	-------------------------------------------------------------*/
-    
-    public void menuItemActions(){
-         //MENU BAR FUNCTIONS
-         pause.addActionListener((e)->{
-             if(!fuzzStarted)return;
-             if(pauseTimer){resumeGame.run();}
-             else{pauseGame.run();} 
-         }); 
-         lvl1.addActionListener((e)->phaseOne());
-         lvl2.addActionListener((e)->phaseTwo());
-         save.addActionListener((e)->saveGame());
-         load.addActionListener((e)->loadSavedGame(loadsave));
-         resume.addActionListener((e)->resumeGame());
-         exit.addActionListener((e)->exitGame.run());
-         start.add(lvl1);
-         start.add(lvl2);
-         menuBar.setBounds(0,0,WIDTH,20);
-    }
 
+    /**
+     * GUI - Initializing the dialog window for pause.
+     * 
+     */
     public void prepareDialogWindow(){
         dialogWindow.setPreferredSize(new Dimension(240,310));
 		dialogWindow.getContentPane().setBackground(new Color(13, 59, 94));
@@ -197,6 +176,14 @@ public class App extends JFrame {
         dialogWindow.pack();
     }
 
+    /**
+     * GUI - Helper method for prepareDialogWindow - adds buttons.
+     * 
+     * @param text
+     * @param function
+     * @param i
+     * @param container
+     */
     public void addAButton(String text, Runnable function, int i, JDialog container){
         JButton button = new JButton(text);
         button.addActionListener((e)->{function.run(); container.setVisible(false);});
@@ -204,6 +191,42 @@ public class App extends JFrame {
         container.add(button);
     }
     
+    /**
+     * GUI - Initialzing menu item initilizations and actions.
+     * 
+     */
+    public void menuItems(){
+        // MENU BAR DISPLAY
+        lvl1 = new JMenuItem("Level 1");
+        lvl2 = new JMenuItem("Level 2");
+        load = new JMenuItem("Load Game");
+        resume = new JMenuItem("Resume Game");
+        pause = new JMenuItem("Pause");
+        save = new JMenuItem("Save");  
+        exit = new JMenuItem("Exit");  
+
+        // MENU BAR FUNCTIONS
+        pause.addActionListener((e)->{
+            if(pauseTimer){resumeGame.run();}
+            else{pauseGame.run();} 
+        }); 
+        lvl1.addActionListener((e)->phaseOne());
+        lvl2.addActionListener((e)->phaseTwo());
+        save.addActionListener((e)->saveGame());
+        load.addActionListener((e)->loadSavedGame(loadsave));
+        resume.addActionListener((e)->resumeGame());
+        exit.addActionListener((e)->exitGame.run());
+        start.add(lvl1);
+        start.add(lvl2);
+        menuBar.setBounds(0,0,WIDTH,20);
+    }
+    
+    /**
+     * GUI - The main menubar.
+     * 
+     * @return menu bar
+     *  
+     */
     public JMenuBar mainMenu(){
         menuBar.removeAll();
         start.setPreferredSize(new Dimension(WIDTH/4, start.getPreferredSize().height));
@@ -219,6 +242,12 @@ public class App extends JFrame {
         return menuBar;
     }
 
+    /**
+     * GUI - MenuBar for when the game is running.
+     * 
+     * @return menu bar
+     * 
+     */
     public JMenuBar gameMenu(){
         menuBar.removeAll();
     	start.setPreferredSize(new Dimension(WIDTH/4, start.getPreferredSize().height));
@@ -234,10 +263,13 @@ public class App extends JFrame {
         return menuBar;
     }
 
+    /**
+     * GUI - The home panel.
+     * 
+     */
     public void home(){
         newPanel.run();
         restart.run();
-        status = 0;
 
         var p = new JPanel();
         StartPanel sp = new StartPanel();
@@ -266,15 +298,21 @@ public class App extends JFrame {
         currentPanel = p;
         mainController.clearKeyBind();
         changeKeyListener(mainController);
+
         newPanel = ()->{ 
             remove(p); 
             sound.stopStart(); 
         };
+
         pack();
         sound.playStart();
-        currentPanel.requestFocus(); //TODO add these in new panel runnable
+        currentPanel.requestFocus();
     }
 
+    /**
+     * GUI - The help/tutorial panel.
+     * 
+     */
     public void tutorial(){
         newPanel.run();
         restart.run();
@@ -299,6 +337,7 @@ public class App extends JFrame {
         back.addActionListener((e)->{ home();});
 
         getContentPane().add(BorderLayout.CENTER, p);
+
         newPanel = ()->{
             remove(p);
             sound.stopStart();
@@ -307,10 +346,15 @@ public class App extends JFrame {
         pack();
     }
 
+    /**
+     * GUI - Ending phase panel - appears when chap dies.
+     * 
+     * @param phase 
+     * 
+     */
     void endPhase(Runnable phase){
         newPanel.run();
         restart.run();
-        status = -1;
 
         var p = new JPanel();
         EndPanel ep = new EndPanel();
@@ -321,7 +365,7 @@ public class App extends JFrame {
         var home = new JButton("Home");
         home.setBounds(400, 550, 100, 30);
 
-        play.addActionListener((e)->{ phase.run();});
+        play.addActionListener((e)->{ phase.run();}); // restarts the last level
         home.addActionListener((e)->{ home();});
 
         getContentPane().add(BorderLayout.CENTER, p);
@@ -339,14 +383,16 @@ public class App extends JFrame {
         currentPanel.requestFocus();
     }
 
+    /**
+     * GUI - Recorder Panel.
+     * 
+     */
     public void replay(){
         newPanel.run();
         restart.run();
         this.setBounds(0,0, App.WIDTH, App.HEIGHT);
 
         recorderPanel rp = new recorderPanel(this);
-    //    rp.setLayout(null);
-       
         getContentPane().add(BorderLayout.CENTER, rp);
 
         rp.setVisible(true);
@@ -358,9 +404,14 @@ public class App extends JFrame {
         pack();
         rp.requestFocus();
     }
-    
-    /*---- GAME MECHANICS ---------------------------------------------------*/
-    
+
+    /**
+     * Sets the phase and starts the levels.
+     * 
+     * @param phase
+     * @param time - time left
+     * 
+     */
     public void setPhase(Phase phase, int time){
         newPanel.run();
         stopTimer = false;
@@ -370,6 +421,7 @@ public class App extends JFrame {
         game.setFocusable(true);
         timeLeft = time;
        
+        // Timer Action
         ActionListener countDown = new ActionListener(){
 		    public void actionPerformed(ActionEvent e){
                 SimpleDateFormat df=new SimpleDateFormat("mm:ss");
@@ -380,14 +432,16 @@ public class App extends JFrame {
                 catch (IOException e1) { e1.printStackTrace();}
 		        game.repaint();
 
-                //Win
+                // Win
                 if(phase.level().getChap().won()){
+                    Phase.recorder.saveMove();
                     Phase.next.run();
                 }
-                //Lose
+                // Lose
 		        if(timeLeft<=0 || stopTimer){
-                    phase.level().getChap().changeState(new DeadState()); //dead chap
+                    phase.level().getChap().changeState(new DeadState()); // dead chap
                     Phase.first.run();
+                    Phase.recorder.saveMove();
                     ((Timer)e.getSource()).stop();
 		        }
 		    }
@@ -404,8 +458,8 @@ public class App extends JFrame {
             timer.stop();
             sound.stopGameMusic();
         };
-        gameMenu();
-        game.add(menuBar);
+
+        game.add(gameMenu());
         pack();
         sound.playGameMusic();
         currentPanel.requestFocus();
@@ -414,28 +468,33 @@ public class App extends JFrame {
     }
 
     /**
-     * Setting phase one/ level 1 of the game
+     * Setting phase one/ level 1 of the game.
+     * 
      */
     public void phaseOne() {
-        status = 1;
         setPhase(Phase.levelOne(()->phaseTwo(), ()->endPhase(()->phaseOne())), TIMELIMIT_ONE); 
     }
     
     /**
-     *Setting phase two/ level 2 of the game
+     * Setting phase two/ level 2 of the game.
      * 
      */
     public void phaseTwo() {
-        status = 2;
         setPhase(Phase.levelTwo(()->winPhase(), ()->endPhase(()->phaseTwo())), TIMELIMIT_TWO); 
     }
 
+    /**
+     * Winning phase.
+     * 
+     */
     public void winPhase(){
-
+        System.out.println("YOU WIN!");
+        home();
     }
 
     /**
-     * Saves game into an xml file
+     * Saves game into an xml file.
+     * 
      */
     public void saveGame() {
         System.out.println("saving game");
@@ -443,18 +502,28 @@ public class App extends JFrame {
         fw.saveToXML("lastSaved");
     }
 
+    /**
+     * Resumes the lastest saved game.
+     * 
+     */
     public void resumeGame() {
         Level lvl = new Filereader().loadLevel("lastSaved.xml");
         if(lvl == null) return;
         Maze m;
         try {
-            m = new Maze(lvl, 22, 22);
+            int size = lvl.getLevel()>=2?66:22;
+            m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m); 
-            status = lvl.getLevel();
             setPhase(new Phase(m, new Controller(this, lvl.getChap()), lvl), lvl.getTime());
         } catch (IOException e) { e.printStackTrace(); } 
     }
 
+    /**
+     * Loads a chosen saved game.
+     * 
+     * @param jfc - filechooser
+     * 
+     */
     public void loadSavedGame(JFileChooser jfc) {
         int j = jfc.showOpenDialog(null);
         //check user opened a file
@@ -468,22 +537,41 @@ public class App extends JFrame {
         Level lvl = new Filereader().loadLevel(filename);
         Maze m;
         try {
-            m = new Maze(lvl, 22, 22);
+            int size = lvl.getLevel()>=2?66:22;
+            m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m); 
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
             setPhase(new Phase(m, gameController, lvl), lvl.getTime());
         } catch (IOException e) { e.printStackTrace();} 
     }
-    
+
+    /**
+     * Getter for game.
+     * 
+     * @return game 
+     * 
+     */
     public Game getGame() {
     	return this.game;
     }
 
+    /**
+     * Getter for timer.
+     * 
+     * @return timer
+     * 
+     */
     public Timer getTimer(){
         return this.timer;
     }
     
+    /**
+     * Changes key Listener.
+     * 
+     * @param keyListener
+     * 
+     */
     public void changeKeyListener(KeyListener keyListener) {
         if (currentPanel.getKeyListeners().length > 0) {
             currentPanel.removeKeyListener(currentPanel.getKeyListeners()[0]);
@@ -492,14 +580,45 @@ public class App extends JFrame {
         currentPanel.setFocusable(true);
     }
     
-    
-    /*--- FOR TESTING -------------------------------------------------------*/
-    
     // GETTERS AND SETTERS FOR FUZZ BOOLEANS
     public boolean fuzzStarted() { return fuzzStarted; }
     public boolean initializeDone() { return initializeDone; }
-    public void setFuzzStarted(boolean b) { this.fuzzStarted = b; }
-    public void setInitializeDone(boolean b) { this.initializeDone = b; }
+    
+    /**
+     * Locates the chap on the maze and updates the current position.
+     * 
+     * @param m Maze object found from App.java
+     * 
+     */
+    public int updateLocationX() {
+        Maze m = getGame().phase().maze();
+        return m.player.l.getX();
+    }
+
+    /**
+     * Locates the chap on the maze and updates the current position.
+     * 
+     * @param m Maze object found from App.java
+     * 
+     */
+    public int updateLocationY() {
+        Maze m = getGame().phase().maze();
+        return m.player.l.getY();
+    }
+
+    /**
+     * checks if it is wall.
+     * 
+     * @param wallX
+     * @param wallY
+     * @return boolean
+     * 
+     */
+    public boolean isWall(int wallX, int wallY) {
+        Maze m = getGame().phase().maze();
+        if(m.getGrid()[wallX][wallY] instanceof Wall) return true;
+        return false;
+    }
 
 
 

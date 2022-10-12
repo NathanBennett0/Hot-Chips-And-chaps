@@ -23,19 +23,14 @@ import java.nio.file.*;
 import static org.junit.Assert.*;  
 import org.w3c.dom.Document;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Treasure;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
 
 public class PersistencyTest {
-    
-    private static final Object Tile = null;
-
-    public static void main(String args[]) {
-        // loads the xml file specified then create a document object
-        PersistencyTest pt = new PersistencyTest();
-    }
-
-    public PersistencyTest() {
-    }
     
 
     /* HOW TO TEST
@@ -75,7 +70,7 @@ public class PersistencyTest {
      *  .
      */
     @Test
-    public void test2TempFiles() {
+    public void persistencyTest() {
 
         //write out data to the test files
         try {
@@ -99,63 +94,29 @@ public class PersistencyTest {
         Level level = fr.loadLevel("Testfile.xml");   
         
         //level variables
-        assertEquals(level.getLevel(), 1);
-        assertEquals(level.getTime(), 90000);
+        assertEquals(level.getLevel(), 2);
+        assertFalse(level.getTiles().isEmpty());
+        assertFalse(level.getLockedTiles().isEmpty());
+        assertFalse(level.getKeyTiles().isEmpty());
+        assertTrue(level.getInfoField() instanceof InfoField);
+        assertEquals(level.getTime(), 41250);
+        assertEquals("[Key GREEN, Treasure]", level.getChap().getChest().toString());
+        assertTrue(level.getChap().getChest().size() > 0);
+        level.removeTreasureTile((Treasure)level.getTiles().get(1));
+        level.removeLockedTile((Locked)level.getLockedTiles().get(0));
+        level.removeKeyTile((Key) level.getKeyTiles().get(0));
+        level.addTileToInventory(new Treasure(new Location(9,3), false));
 
         // tiles
         assertTrue(level.getAllTiles().get(0) instanceof Wall);
-        assertFalse(level.getTiles().isEmpty());
 
         // chap tests
-        assertFalse(level.getChap().getChest().isEmpty());
         assertEquals(level.getChap().toString(), "Chap");
 
+        // actor tests
+        assertFalse(level.getActor().c == null);
 
-
-
-
-        assertTrue( file1.exists() );
-        assertTrue( file1.isFile() );
-    
+        Filewriter fw = new Filewriter(level, level.getTime());
 
     }
-        
-        
-        /*
-        try { 
-            FileWriter fw1 = new FileWriter( file1 );
-            BufferedWriter bw1 = new BufferedWriter( fw1 );
-            bw1.write("<Level name=\"1\">");
-            bw1.write("<Tilelist>");
-            bw1.write("<Tile type=\"Wall\" x=\"5\" y=\"3\"/>");
-            bw1.write("</Tilelist>");
-            bw1.write("<Chap x=\"10\" y=\"10\"/>");
-            bw1.write("<Time timeleft=\"90000\"/>");
-            bw1.write("</Level>");
-                   
-
-            //System.out.println(bw1);
-            bw1.close();
-
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        assertTrue( file1.exists() );
-
-        /*
-
-        try {
-        InputStream inputstream = getClass().getResourceAsStream("level1.xml");
-        DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docbuilder = docbuilderfactory.newDocumentBuilder();
-        Document doc = docbuilder.parse(inputstream);
-        //assertEquals("1", doc.getLength());
-        System.out.println(doc.getBaseURI());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        */
-
 }

@@ -1,16 +1,31 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.KeyEvent;
-
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
+/**
+ * Controller class for key binding with the app and chap.
+ * 
+ * @author	Naomi Parte
+ */
 public class Controller extends KeyStroke {
 	Chap chap;
+
+	/**
+	 * Main game controller constructor.
+	 * @param app
+	 */
 	Controller(App app){
 		super(app);
 		setCtrlKey();
 	}
 
+	/**
+	 * Chap controller constructor.
+	 * 
+	 * @param app
+	 * @param chap
+	 */
 	Controller(App app, Chap chap){
 		super(app);
 		this.chap = chap;
@@ -20,6 +35,10 @@ public class Controller extends KeyStroke {
 		
 	}
 
+	/**
+	 * Key binding for control keys.
+	 * 
+	 */
 	public void setCtrlKey(){
 		//Control Keys
 		setAction(KeyEvent.VK_X, ()->app.exitGame.run(), true); //exit
@@ -30,12 +49,19 @@ public class Controller extends KeyStroke {
 		
 	}
 
+	/**
+	 * Key binding for pause and resume key.
+	 * 
+	 */
 	public void setPauseKey(){
-		System.out.println("pause keys set");
 		setAction(KeyEvent.VK_SPACE, app.pauseGame, false); //pause game
 		setAction(KeyEvent.VK_ESCAPE, app.resumeGame, false); //resume paused game
 	}
 
+	/**
+	 * Key binding for moving chap key.
+	 * 
+	 */
 	public void setChapKey(){
 		//Moves chap across the maze
 		setAction(KeyEvent.VK_W, ()->chap.moveUp(), false); 

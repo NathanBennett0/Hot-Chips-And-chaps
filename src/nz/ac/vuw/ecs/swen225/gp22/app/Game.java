@@ -9,24 +9,30 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.*;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+/**
+ * JPanel for when the Game runs. Contains viewport and scoreboard.
+ * 
+ * @author Naomi Parte
+ * 
+ */
 public class Game extends JPanel {
 	private Phase phase;
 	private GamePanel game;
-	
 	
 	JLabel tLeft = new JLabel("00:00");
 	JLabel currLvl = new JLabel();
 	JLabel itemLeft = new JLabel();
 	
-	
 	/**
-	 * JPanel for when the Game runs. Contains viewport and scoreboard.
-	 */
+     * Game constructor.
+     * 
+     * @param p
+     * @param a
+     */
     public Game(Phase p, App a) {
     	this.phase = p;
     	
         sidePanel();
-        
         
         game = new GamePanel(p.maze(), a);
         this.add(game);
@@ -42,11 +48,12 @@ public class Game extends JPanel {
         bgImage.setIcon(icon);
         this.add(bgImage);
         this.setPreferredSize(new Dimension(App.WIDTH,App.HEIGHT));
-        
-        System.out.println("Game.java: Game constructor called.");
-        
     }
     
+    /**
+     * Side Panel GUI display.
+     * 
+     */
     public void sidePanel() {
 		
         JPanel p = new JPanel();
@@ -78,6 +85,11 @@ public class Game extends JPanel {
         p.add(sp);
     }
     
+    /**
+     * Getter for game phase.
+     * 
+     * @return phase
+     */
     public Phase phase() {
     	return phase;
     }

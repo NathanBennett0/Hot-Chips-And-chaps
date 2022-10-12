@@ -85,13 +85,16 @@ public class Filewriter {
             Actor = makeCharTile(Actor, doc, level.getActor());
             Level.appendChild(Actor);
 
+            Element Tilelist = doc.createElement("Tilelist");
+            Level.appendChild(Tilelist);
+
             // iterate through every tile
             for(Tile T : level.getTiles()) {
                 // create tile
                 Element newTile = doc.createElement("Tile");
                 newTile = makeTileElement(newTile, doc, T);
                 // add tile to Level
-                Level.appendChild(newTile);
+                Tilelist.appendChild(newTile);
             }
 
             // iterate through every locked tile
@@ -101,7 +104,7 @@ public class Filewriter {
                 newTile = makeTileElement(newTile, doc, L);
                 newTile = makeLockedTile(newTile, doc, L);
                 // add tile to Level
-                Level.appendChild(newTile);
+                Tilelist.appendChild(newTile);
             }
 
             // iterate through every key tile
@@ -111,14 +114,14 @@ public class Filewriter {
                 newTile = makeTileElement(newTile, doc, K);
                 newTile = makeKeyTile(newTile, doc, K);
                 // add tile to Level
-                Level.appendChild(newTile);
+                Tilelist.appendChild(newTile);
             }
 
             // info tile
             Element infoFieldTile = doc.createElement("InfoTile");
             infoFieldTile = makeTileElement(infoFieldTile, doc, level.getInfoField());
             infoFieldTile = makeInfoFieldTile(infoFieldTile, doc, level.getInfoField());
-            Level.appendChild(infoFieldTile);
+            Tilelist.appendChild(infoFieldTile);
 
             // add everything to new xml file
             TransformerFactory transformerfactory = TransformerFactory.newInstance();

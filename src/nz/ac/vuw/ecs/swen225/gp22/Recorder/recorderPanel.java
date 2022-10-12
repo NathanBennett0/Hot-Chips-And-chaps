@@ -92,15 +92,6 @@ public class recorderPanel extends JPanel {
         setPreferredSize(new Dimension(700, 490));
         setBackground(new Color(51, 153, 255) );
 
-        // anonymous classes to handle button click
-
-        // loadRecord.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // load();
-        // // if steps..
-        // }
-        // });
 
         // set Action Listeners
         loadRecord.addActionListener((e) -> {
@@ -111,6 +102,9 @@ public class recorderPanel extends JPanel {
         });
         setRepSpeed.addActionListener((e) -> {
             setSpeedButton();
+        });
+        mainMenu.addActionListener((e) -> {
+            app.home();
         });
 
         /**
@@ -125,20 +119,6 @@ public class recorderPanel extends JPanel {
          *           });
          */
 
-        // play.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // playRecorder();
-        // }
-        // });
-
-        // setRepSpeed.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // setSpeedButton();
-        // // if steps..
-        // }
-        // });
     }
 
     public void playRecorder() {
@@ -173,6 +153,9 @@ public class recorderPanel extends JPanel {
         return !statusMoving;
     }
 
+    /**
+     * Load a game and execute its moves
+     */
     public void load() {
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user") + "/resources/Recorder");
         fileChooser.setDialogTitle("Select recording to load");
@@ -187,20 +170,15 @@ public class recorderPanel extends JPanel {
 
             // loads levels from app
             if (record.level() == 1) {
-                app.levelOne();
+                app.phaseOne();
             } else if (record.level() == 2) {
-                app.levelTwo();
+                app.phaseTwo();
             }
 
-            /**
-             * 
-             * if(steps != null){
-             * steps.setMaximum(moves.size()-1);
-             * currMove = 0;
-             * steps.setValue(0);
-             * panel.repaint();
-             * }
-             */
+            //execute all of the moves
+            for(Move m: moves){
+                m.move();
+            }
         }
     }
 
