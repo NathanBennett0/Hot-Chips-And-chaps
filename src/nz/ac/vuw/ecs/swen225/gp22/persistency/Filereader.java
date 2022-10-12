@@ -67,6 +67,7 @@ public class Filereader {
         int levelnum = 0;
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
+            if(inputstream == null) { return null; }
 
             // loads the xml file specified then create a document object
             DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
@@ -80,84 +81,100 @@ public class Filereader {
 
             // gathers all of the regular tiles into a list
             NodeList tilelist = doc.getElementsByTagName("Tile");
-            for(int n = 0; n < tilelist.getLength(); n++) {
-                // gets the individual tile
-                Node tile = tilelist.item(n);
-                if(tile.getNodeType() == Node.ELEMENT_NODE) {
-                    // finds attributes and uses them to create a new tile then add to list
-                    Element T = (Element)tile;
-                    alltiles.add(makeTile(T));          
+            if(tilelist != null) { 
+                for(int n = 0; n < tilelist.getLength(); n++) {
+                    // gets the individual tile
+                    Node tile = tilelist.item(n);
+                    if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                        // finds attributes and uses them to create a new tile then add to list
+                        Element T = (Element)tile;
+                        alltiles.add(makeTile(T));          
+                    }
                 }
             }
 
             // locked door tiles
             NodeList lockedtilelist = doc.getElementsByTagName("LockedTile");
-            for(int n = 0; n < lockedtilelist.getLength(); n++) {
-                // gets the individual tile
-                Node tile = lockedtilelist.item(n);
-                if(tile.getNodeType() == Node.ELEMENT_NODE) {
-                    // finds attributes and uses them to create a new tile then add to list
-                    Element T = (Element)tile;
-                    lockedtiles.add(makeLockedTile(T));
+            if(lockedtilelist != null) { 
+                for(int n = 0; n < lockedtilelist.getLength(); n++) {
+                    // gets the individual tile
+                    Node tile = lockedtilelist.item(n);
+                    if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                        // finds attributes and uses them to create a new tile then add to list
+                        Element T = (Element)tile;
+                        lockedtiles.add(makeLockedTile(T));
+                    }
                 }
             }
 
             // key tiles
             NodeList keytilelist = doc.getElementsByTagName("KeyTile");
-            for(int n = 0; n < keytilelist.getLength(); n++) {
-                // gets the individual tile
-                Node tile = keytilelist.item(n);
-                if(tile.getNodeType() == Node.ELEMENT_NODE) {
-                    // finds attributes and uses them to create a new tile then add to list
-                    Element T = (Element)tile;
-                    keytiles.add(makeKeyTile(T));
+            if(keytilelist != null) { 
+                for(int n = 0; n < keytilelist.getLength(); n++) {
+                    // gets the individual tile
+                    Node tile = keytilelist.item(n);
+                    if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                        // finds attributes and uses them to create a new tile then add to list
+                        Element T = (Element)tile;
+                        keytiles.add(makeKeyTile(T));
+                    }
                 }
             }
 
             // reads the chap from file
             NodeList InfoNodes = doc.getElementsByTagName("InfoTile");
-            Node InfoNode = InfoNodes.item(0);
-            Element I = (Element)InfoNode;
-            // creates new chap
-            info = makeInfoFieldTile(I);
+            if(InfoNodes != null) {
+                Node InfoNode = InfoNodes.item(0);
+                Element I = (Element)InfoNode;
+                // creates new chap
+                info = makeInfoFieldTile(I);
+            }
             
             // reads the chap from file
             NodeList ChapNodes = doc.getElementsByTagName("Chap");
-            Node ChapNode = ChapNodes.item(0);
-            Element C = (Element)ChapNode;
-            // creates new chap
-            chap = new Chap(new Location(Integer.parseInt(C.getAttribute("x")),Integer.parseInt(C.getAttribute("y"))), null);
+            if(ChapNodes != null) { 
+                Node ChapNode = ChapNodes.item(0);
+                Element C = (Element)ChapNode;
+                // creates new chap
+                chap = new Chap(new Location(Integer.parseInt(C.getAttribute("x")),Integer.parseInt(C.getAttribute("y"))), null);
+            }
 
             // reads the keys the chap has possession of
             NodeList chapKeyTileList = doc.getElementsByTagName("ChapKeyTile");
-            for(int n = 0; n < chapKeyTileList.getLength(); n++) {
-                // gets the individual tile
-                Node tile = chapKeyTileList.item(n);
-                if(tile.getNodeType() == Node.ELEMENT_NODE) {
-                    Element T = (Element)tile;
-                    // adds tile(key) to chest
-                    chap.addToChest((makeKeyTile(T)));
+            if(chapKeyTileList != null) { 
+                for(int n = 0; n < chapKeyTileList.getLength(); n++) {
+                    // gets the individual tile
+                    Node tile = chapKeyTileList.item(n);
+                    if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                        Element T = (Element)tile;
+                        // adds tile(key) to chest
+                        chap.addToChest((makeKeyTile(T)));
+                    }
                 }
             }
 
             // reads the treasure the chap has possession of
             NodeList chapTreasureTileList = doc.getElementsByTagName("ChapTreasureTile");
-            for(int n = 0; n < chapTreasureTileList.getLength(); n++) {
-                // gets the individual tile
-                Node tile = chapTreasureTileList.item(n);
-                if(tile.getNodeType() == Node.ELEMENT_NODE) {
-                    Element T = (Element)tile;
-                    // adds tile(key) to chest
-                    chap.addToChest((makeTile(T)));
+            if(chapTreasureTileList != null) { 
+                for(int n = 0; n < chapTreasureTileList.getLength(); n++) {
+                    // gets the individual tile
+                    Node tile = chapTreasureTileList.item(n);
+                    if(tile.getNodeType() == Node.ELEMENT_NODE) {
+                        Element T = (Element)tile;
+                        // adds tile(key) to chest
+                        chap.addToChest((makeTile(T)));
+                    }
                 }
             }
 
             // reads the chap from file
             NodeList TimeNodes = doc.getElementsByTagName("Time");
+            if(TimeNodes != null) { 
             Node TimeNode = TimeNodes.item(0);
             Element timeE = (Element)TimeNode;
             // creates new chap
             time = Integer.parseInt(timeE.getAttribute("timeleft"));
+            }
             System.out.println("time read is " + time);
            
         } catch (Exception e) {

@@ -44,7 +44,7 @@ public class Filewriter {
             // root element for Level
             Element Level = doc.createElement("Level");
             Attr levelname = doc.createAttribute("name");
-            levelname.setValue(filename);   
+            levelname.setValue(String.valueOf(level.getLevel()));   
             Level.setAttributeNode(levelname);
             doc.appendChild(Level);
 
