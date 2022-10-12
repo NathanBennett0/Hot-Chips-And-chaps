@@ -9,6 +9,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.App;
+
 
 //create map for move and time at the same time
 //create your own timer in the App so that each time a move is done, you can add that move and time into the map
@@ -45,10 +47,13 @@ public class RecordLoad {
     private Move loadMove(Element e){
         switch(e.getName()){
             case "move" -> {
-                String dir = e.attributeValue("dir");
                 int code = Integer.parseInt(e.attributeValue("moveKeyCode"));
-                return new directionMove(null, dir, code); //need to find a way to get App
+                return new directionMove(code); //need to find a way to get App
             }
+         default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
+        }
+
+            /** 
             case "key" -> {
                 String key = e.attributeValue("keyItem");
                 String color = e.attributeValue("color");
@@ -65,6 +70,7 @@ public class RecordLoad {
             }
             default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
         }
+        */
     }
      /**
      * Gets the level of the file
