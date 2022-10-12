@@ -153,6 +153,9 @@ public class recorderPanel extends JPanel {
         return !statusMoving;
     }
 
+    /**
+     * Load a game and execute its moves
+     */
     public void load() {
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user") + "/resources/Recorder");
         fileChooser.setDialogTitle("Select recording to load");
@@ -164,22 +167,18 @@ public class recorderPanel extends JPanel {
         if (fileChooser.getSelectedFile() != null) {
             RecordLoad record = new RecordLoad(fileChooser.getSelectedFile());
             this.moves = record.getMoves();
+
             // loads levels from app
             if (record.level() == 1) {
-                app.levelOne();
+                app.phaseOne();
             } else if (record.level() == 2) {
-                app.levelTwo();
+                app.phaseTwo();
             }
 
-            /**
-             * 
-             * if(steps != null){
-             * steps.setMaximum(moves.size()-1);
-             * currMove = 0;
-             * steps.setValue(0);
-             * panel.repaint();
-             * }
-             */
+            //execute all of the moves
+            for(Move m: moves){
+                m.move();
+            }
         }
     }
 
