@@ -17,7 +17,7 @@ public class Tests {
     @Test 
     public void testValid1(){
         App app = App.getInstance();
-        app.levelOne();
+        app.phaseOne();
         Controller c = app.getGame().phase().controller();
         c.keyPressed(KeyEvent.VK_D);
         c.keyPressed(KeyEvent.VK_S);
@@ -150,7 +150,7 @@ public class Tests {
     @Test
     public void testValid2() {
         App app = App.getInstance();
-        app.levelOne();
+        app.phaseOne();
         Controller c = app.getGame().phase().controller();
         Maze m = app.getGame().phase().maze();
         m.toString();
