@@ -4,7 +4,8 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 
-public record directionMove(App app, String dir, int keyCode) implements Move{
+public record directionMove(App app, int keyCode) implements Move{
+    //public record directionMove(App app, String dir, int keyCode) implements Move{
 
     /**
      * Saves move as an XML element
@@ -13,7 +14,7 @@ public record directionMove(App app, String dir, int keyCode) implements Move{
      */
     @Override
     public Element saveXML() {
-        return new BaseElement("move").addAttribute("dir", dir).addAttribute("moveKeyCode", String.valueOf(keyCode));
+        return new BaseElement("move").addAttribute("moveKeyCode", String.valueOf(keyCode));
     }
 
     /**
