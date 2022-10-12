@@ -25,12 +25,14 @@ public class recorderPanel extends JPanel {
 
     private JPanel panel;
     private static final int maxSpeed = 4;
+    private JButton mainMenu = new JButton("Home");
+    private JButton play = new JButton("Play Record");
     private JButton loadRecord = new JButton("Load Record");
-    private JButton moveBack = new JButton("Step-by-Step");
-    private JButton autoReplay = new JButton("Auto Replay");
     private JButton setRepSpeed = new JButton("Set Replay Speed");
-    private JButton loadButton = new JButton("Load");
     private JButton pause = new JButton("Pause");
+    // private JButton moveBack = new JButton("Step-by-Step");
+    // private JButton autoReplay = new JButton("Auto Replay");
+    // private JButton loadButton = new JButton("Load");
     // private JSlider steps; //scrubber
     App app;
 
@@ -53,6 +55,7 @@ public class recorderPanel extends JPanel {
     public void recordPanel() {
         System.out.println("Entered panel");
         panel = new JPanel();
+        setSpeedButton();
 
         // loadButton.setSize(new Dimension(70, 20));
         // load();
@@ -62,49 +65,53 @@ public class recorderPanel extends JPanel {
         // steps.setValue(steps.getValue()+1);
         // playing = false;
         // panel.repaint();
-        panel.repaint();
-        JButton mainMenu = new JButton("Recorder Menu");
-        
-        
-        // return back to main menu from App
-        JButton play = new JButton("Play Record");
+        // panel.repaint();
 
-        setSpeedButton();
+    
+        // set button sizes
         play.setSize(70, 20);
-        // moveForward.setSize(70, 20);
         loadRecord.setSize(70, 20);
-      //  moveBack.setSize(70, 20);
-       // autoReplay.setSize(70, 20);
         setRepSpeed.setSize(70, 20);
 
+        // moveForward.setSize(70, 20);
+        // moveBack.setSize(70, 20);
+        // autoReplay.setSize(70, 20);
+
+        // add panels to JPanel
         this.add(panel);
-       // this.add(moveBack);
-        // this.add(steps);
         this.add(mainMenu);
         this.add(play);
-        // this.add(pause); // so a player can pause a reccording. Not compulsory
-        // this.add(moveForward);
         this.add(loadRecord);
         this.add(setRepSpeed);
+        // this.add(moveBack);
+        // this.add(steps);
+        // this.add(pause); // so a player can pause a reccording. Not compulsory
+        // this.add(moveForward);
 
+        // style JPanel
         setPreferredSize(new Dimension(700, 490));
-        Color c = new Color(51, 153, 255);
-        setBackground(c);
+        setBackground(new Color(51, 153, 255) );
 
         // anonymous classes to handle button click
 
         // loadRecord.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         load();
-        //         // if steps..
-        //     }
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // load();
+        // // if steps..
+        // }
         // });
 
-        loadRecord.addActionListener((e)->{load();}); 
-        play.addActionListener((e)->{playRecorder();}); 
-        setRepSpeed.addActionListener((e)->{setSpeedButton();});
-
+        // set Action Listeners
+        loadRecord.addActionListener((e) -> {
+            load();
+        });
+        play.addActionListener((e) -> {
+            playRecorder();
+        });
+        setRepSpeed.addActionListener((e) -> {
+            setSpeedButton();
+        });
 
         /**
          * moveForward.addActionListener(new ActionListener() {
@@ -119,19 +126,18 @@ public class recorderPanel extends JPanel {
          */
 
         // play.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         playRecorder();
-        //     }
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // playRecorder();
+        // }
         // });
-        
 
         // setRepSpeed.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         setSpeedButton();
-        //         // if steps..
-        //     }
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // setSpeedButton();
+        // // if steps..
+        // }
         // });
     }
 
