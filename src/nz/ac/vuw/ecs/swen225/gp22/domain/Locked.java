@@ -18,10 +18,19 @@ public class Locked extends Tile {
 	}
 
 	// getters and setters
+	/*
+	 * Gets color of the door 
+	 * @return Key.Color 
+	 */
 	public Key.Color getColor() {
 		return col;
 	}
 
+	/*
+	 * Checks if chap can walk on this tile 
+	 * @param Chap 
+	 * @return boolean 
+	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		for(Tile t : p.getChest()){
@@ -38,11 +47,19 @@ public class Locked extends Tile {
 		return false;
 	}
 	
+	/*
+	 * gets the color of the key 
+	 * @return Color 
+	 */
 	@Override
 	public Img getImg() {
     	return icon;
     }
 
+	/*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	public String toString(){
 		return "Locked "+this.col;
 	}

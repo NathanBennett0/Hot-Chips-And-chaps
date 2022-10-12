@@ -8,8 +8,8 @@ public interface Entity { // needed?
 
 	/**
 	 * determines if Chap can walk on an entity
-	 * @param p
-	 * @return
+	 * @param Chap 
+	 * @return boolean 
 	 */
 	public boolean CanWalkOn(Chap p);
 }

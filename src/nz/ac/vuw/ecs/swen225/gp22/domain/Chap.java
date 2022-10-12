@@ -24,6 +24,7 @@ public class Chap extends Tile{ // player which is not a core tile
     // getters and setters
     /*
      * returns the image of Chap
+     * @return Img 
      */
     public Img getImg() {
         return icon;
@@ -31,6 +32,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * returns Chaps chest 
+     * @return ArrayList<Tile>
      */
     public ArrayList<Tile> getChest() {
         return chest;
@@ -38,6 +40,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * returns chaps location 
+     * @return Location 
      */
     public Location getLocation() {
         return l;
@@ -45,11 +48,16 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * sets chaps location 
+     * @param Location 
      */
     public void setLocation(Location l) {
         this.l = l;
     }
 
+    /*
+     * removes a key from the chest 
+     * @param Key 
+     */
     public void removeKey(Key k){
         if(chest.contains(k)) {
             chest.remove(k);
@@ -73,6 +81,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * sets chaps knowledge of the maze 
+     * @param Maze 
      */
     public void setMaze(Maze maze) {
         m = maze;
@@ -115,6 +124,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * changes chaps current state 
+     * @param State 
      */
     public void changeState(State newSt){
         this.s = newSt;
@@ -123,6 +133,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * adds an item to chaps chest 
+     * @param Tile 
      */
     public void addToChest(Tile t) throws IOException{
         if(!(t instanceof Treasure)&&!(t instanceof Key)){ 
@@ -143,6 +154,7 @@ public class Chap extends Tile{ // player which is not a core tile
 
     /*
      * Stringifies Chap 
+     * @return String 
      */
     public String toString(){
 		return "Chap";

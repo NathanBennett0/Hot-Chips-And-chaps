@@ -38,6 +38,7 @@ public class Maze {
     
 	/*
 	 * removes a tile on the grid at the given location
+	 * @param Location 
 	 */
     public void removeTile(Location l) throws IOException { //setTile too?
 		if(grid[l.getX()][l.getY()] == null){
@@ -71,6 +72,8 @@ public class Maze {
 
 	/*
 	 * checks if the players next action is allowed
+	 * @param Location 
+	 * @return boolean 
 	 */
 	public boolean allowAction(Location nextLoc) { //dynamic 
 		//get location of the next tile
@@ -81,6 +84,7 @@ public class Maze {
 
 	/*
 	 * Counts the current number of treasures on the grid to allow for exit lock to be unlocked 
+	 * @return int
 	 */
 	public int numOfTreasures() throws IOException { 
 		safeGrid(); //pre 
@@ -98,12 +102,14 @@ public class Maze {
 	//getters and setters
 	/*
 	 * returns grid 
+	 * @return Tile[][]
 	 */
 	public Tile[][] getGrid() {
 		return grid;
 	}
 	/*
 	 * returns the tile at the given location 
+	 * @return Tile 
 	 */
 	public Tile getTile(Location l){
 		return grid[l.getX()][l.getY()];
@@ -121,6 +127,7 @@ public class Maze {
 	
 	/*
 	 * remove old location of chap then makes a new one for him to be in
+	 * @param Location 
 	 */
     public void setChapLoc(Location l) throws IOException {
 		if(!(grid[l.getX()][l.getY()] instanceof Free)){
@@ -133,6 +140,8 @@ public class Maze {
 
 	/*
 	 * sets the actors new location 
+	 * @param Location 
+	 * @param Location 
 	 */
 	public void setActorLocation(Location l, Location old) {
 		grid[old.getX()][old.getY()] = new Free(old);
@@ -141,6 +150,7 @@ public class Maze {
 
 	/*
 	 * returns level the game is in 
+	 * @return 
 	 */
 	public Level getLevel(){
 		return this.lv;
@@ -148,6 +158,7 @@ public class Maze {
 
 	/*
 	 * returns chap 
+	 * @return Chap
 	 */
 	public Chap getChap(){
 		return this.player;
@@ -155,6 +166,7 @@ public class Maze {
 
 	/*
 	 * Shows layout of grid
+	 * @return String 
 	 */
 	@Override
 	public String toString() { 

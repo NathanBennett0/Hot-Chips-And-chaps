@@ -20,9 +20,15 @@ public class Actor extends Tile{
         this.c = c;
         this.l = l;
     }
+    /*
+     * Kills chap 
+     */
     public void eatChap(){
         c.changeState(new DeadState());
     }
+    /*
+     * removes most recent thing in chaps chest 
+     */
     public void robChap(){
         c.removeFromChest(); //removes first index in the chest
     }
@@ -71,11 +77,19 @@ public class Actor extends Tile{
         }
     }
 
+    /*
+	 * gets the color of the key 
+	 * @return Color 
+	 */
     @Override
 	public Img getImg() {
     	return icon;
     }
 
+    /*
+	 * return image of this tile 
+	 * @return Img 
+	 */
     public String toString(){
 		return "Actor"; 
 	}

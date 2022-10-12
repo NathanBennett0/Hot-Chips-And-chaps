@@ -8,6 +8,9 @@ public class Key extends Tile {
 	public Key.Color col;
 	public Img icon;
 
+	/*
+	 * Constants that represent our colors 
+	 */
 	public enum Color{
 		YELLOW {Img getKeyIcon(){return Img.KeyYellow;}
 			Img getLockedIcon() {return Img.LockedDoorYellow;}},
@@ -28,6 +31,11 @@ public class Key extends Tile {
 		// TODO Auto-generated constructor stub
 	}
 
+	/*
+	 * Checks if chap can walk on this tile 
+	 * @param Chap 
+	 * @return boolean 
+	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		try {p.addToChest(this);} catch (IOException e1) {} //add to chaps chest 
@@ -38,15 +46,27 @@ public class Key extends Tile {
 	}
 
 	// getters and setters
+	/*
+	 * gets the color of the key 
+	 * @return Color 
+	 */
 	public Color getColor() {
 		return col;
 	}
 	
+	/*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	@Override
 	public Img getImg() {
     	return icon;
     }
 
+	/*
+	 * String representation of This tile 
+	 * @return String 
+	 */
 	public String toString(){
 		return "Key "+this.col;
 	}

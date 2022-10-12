@@ -12,6 +12,11 @@ public class Treasure extends Tile {
 		super(l);
 	}
 
+	/*
+	 * Checks if chap can walk on this tile 
+	 * @param Chap 
+	 * @return boolean 
+	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		try {p.addToChest(this);} catch (IOException e1) {} //add to chaps chest 
@@ -20,11 +25,19 @@ public class Treasure extends Tile {
 		return true;
 	}
 	
+	/*
+	 * gets the color of the key 
+	 * @return Color 
+	 */
 	@Override
 	public Img getImg() {
     	return icon;
     }
 
+	/*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	public String toString(){
 		return "Treasure";
 	}

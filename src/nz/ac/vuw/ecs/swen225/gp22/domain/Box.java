@@ -12,14 +12,26 @@ public class Box extends Tile { //test if its serializable first
     }
 	
 	@Override
+    /*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	public Img getImg() {
     	return icon;
     }
 
+    /*
+     * Sets the location of the box 
+     * @param Location 
+     */
     public void setLocation(Location l){
         this.l = l;
     }
 
+    /*
+	 * String representation of This tile 
+	 * @return String 
+	 */
     public String toString(){
 		return "Box"; 
 	}

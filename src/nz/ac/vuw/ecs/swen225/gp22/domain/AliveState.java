@@ -12,6 +12,7 @@ public class AliveState implements State{
 
     /*
      * Move up implementation for when chap is alive 
+     * @return Location 
      */
     @Override
     public Location moveUp() {
@@ -40,6 +41,7 @@ public class AliveState implements State{
 
     /*
      * move down implemnentation for when chap is alive 
+     * @return Location 
      */
     @Override
     public Location moveDown() {
@@ -65,6 +67,7 @@ public class AliveState implements State{
 
     /*
      * move right implemnentation for when chap is alive 
+     * @return Location 
      */
     @Override
     public Location moveRight() {
@@ -90,6 +93,7 @@ public class AliveState implements State{
 
     /*
      * move left implemnentation for when chap is alive 
+     * @return Location 
      */
     @Override
     public Location moveLeft() {

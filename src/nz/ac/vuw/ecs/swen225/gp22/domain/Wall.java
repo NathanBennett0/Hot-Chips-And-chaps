@@ -9,16 +9,29 @@ public class Wall extends Tile {
 		super(l);
 	}
 
+	/*
+	 * Checks if chap can walk on this tile 
+	 * @param Chap 
+	 * @return boolean 
+	 */
 	@Override
 	public boolean CanWalkOn(Chap p) { //holy shit 
 		return false; 
 	}
 	
+	/*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	@Override
 	public Img getImg() {
     	return icon;
     }
 
+	/*
+	 * String representation of This tile 
+	 * @return String 
+	 */
 	public String toString(){
 		return "Wall";
 	}

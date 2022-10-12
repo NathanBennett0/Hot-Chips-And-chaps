@@ -16,11 +16,19 @@ public class InfoField extends Tile {
 		return m;
 	}
 	
+	/*
+	 * return image of this tile 
+	 * @return Img 
+	 */
 	@Override
 	public Img getImg() {
     	return icon;
     }
 
+	/*
+	 * String representation of This tile 
+	 * @return String 
+	 */
 	public String toString(){
 		return "InfoField";
 	}
