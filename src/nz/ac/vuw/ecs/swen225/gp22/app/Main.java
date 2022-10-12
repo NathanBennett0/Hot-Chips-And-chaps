@@ -8,7 +8,8 @@ import javax.swing.SwingUtilities;
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Main.java: main() called.");
-		SwingUtilities.invokeLater(App::new);
+		Runnable startGame = ()->{App.getInstance();};
+		SwingUtilities.invokeLater(startGame);
 	}
 
 }

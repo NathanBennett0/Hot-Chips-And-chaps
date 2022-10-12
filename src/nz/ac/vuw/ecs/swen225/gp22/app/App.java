@@ -3,10 +3,12 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.awt.GridLayout;
@@ -24,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -42,7 +45,9 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 import java.awt.Color;
 
 public class App extends JFrame {
-	
+	private static App singleton;
+
+
     //Initializing Constants
 	public final static int WIDTH = 900;
 	public final static int HEIGHT = 680;
@@ -58,20 +63,18 @@ public class App extends JFrame {
     private SoundEffects sound = new SoundEffects();
     private Controller gameController;
     private int status = 0; //0 = menu, -1 = endgame
-    private Color themeColor = new Color(83, 132, 181);
 
     //Menu Items - do these need to stay here? //TODO
     private JMenuBar menuBar=new JMenuBar();
-    private JMenuItem home=new JMenuItem("Home");
     private JMenu start=new JMenu("Start");
     private JMenuItem lvl1=new JMenuItem("Level 1");
     private JMenuItem lvl2=new JMenuItem("Level 2");
     private JMenuItem load=new JMenuItem("Load Game");
-    private JMenuItem resume=new JMenuItem("Resume");
+    private JMenuItem resume=new JMenuItem("Resume Game");
     private JMenuItem pause=new JMenuItem("Pause");
     private JMenuItem save=new JMenuItem("Save");  
     private JMenuItem exit=new JMenuItem("Exit");  
-    private JDialog dialogWindow =  new JDialog(this, "dialog Box");
+    private JDialog dialogWindow =  new JDialog(this, "Menu");
 
     //Boolean variables for fuzz testing
     private boolean fuzzStarted = false;
@@ -80,37 +83,52 @@ public class App extends JFrame {
     private boolean stopTimer = true;
     private boolean pauseTimer = false;
 
-    Runnable restart = ()->{ stopTimer = true;};
+
+    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/");
+    Runnable restart = ()->{ stopTimer = true; pauseTimer = false;};
     Runnable newPanel = ()->{};
 
     //TODO: possibly run panels
     Runnable pauseGame = ()->{ 
         dialogWindow.setVisible(true);
+        dialogWindow.setFocusable(true);
         currentPanel.setFocusable(false);
-        pauseTimer = true; 
-        pause.setText("Resume");
         mainController.clearKeyBind();
         mainController.setPauseKey();
-        changeKeyListener(mainController);
+        dialogWindow.addKeyListener(mainController);
+        dialogWindow.requestFocus();
+        pauseTimer = true; 
+        pause.setText("Resume");
+        changeKeyListener(null);
     };  
     Runnable resumeGame = ()->{ 
         currentPanel.setFocusable(true);
         dialogWindow.setVisible(false);
+        currentPanel.requestFocus();
         pauseTimer = false; 
         pause.setText("Pause");
         gameController.setChapKey();
         changeKeyListener(gameController);
     };
+    Runnable exitGame = ()->{
+        restart.run();
+        System.exit(0);
+    };
 
-    public App(){
+    private App(){
     	System.out.println("App.java: App constructor called.");
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //exit on close
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         initialize();
         this.addWindowListener(new WindowAdapter(){  //check
-            public void windowClosed(WindowEvent e){restart.run(); System.exit(0);}
+            public void windowClosed(WindowEvent e){exitGame.run();}
         });
+    }
+
+    public static App getInstance(){
+        if(singleton == null) singleton = new App();
+        return singleton;
     }
 
     /**
@@ -122,8 +140,7 @@ public class App extends JFrame {
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setVisible(true);
         this.setResizable(false);
-        this.setTitle("GAME TITLE"); //come back
-
+        this.setTitle("Hot Chips and Chaps");
        
         menuItemActions();
         prepareDialogWindow();
@@ -135,7 +152,6 @@ public class App extends JFrame {
     
     public void menuItemActions(){
          //MENU BAR FUNCTIONS
-         JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/");
          pause.addActionListener((e)->{
              if(!fuzzStarted)return;
              if(pauseTimer){resumeGame.run();}
@@ -146,24 +162,45 @@ public class App extends JFrame {
          save.addActionListener((e)->saveGame());
          load.addActionListener((e)->loadSavedGame(loadsave));
          resume.addActionListener((e)->resumeGame());
-         exit.addActionListener((e)->System.exit(0));
+         exit.addActionListener((e)->exitGame.run());
          start.add(lvl1);
          start.add(lvl2);
          menuBar.setBounds(0,0,WIDTH,20);
     }
 
     public void prepareDialogWindow(){
-        dialogWindow.setTitle("Game Paused");
-        dialogWindow.setSize(new Dimension(200,400));
+        dialogWindow.setPreferredSize(new Dimension(240,310));
+		dialogWindow.getContentPane().setBackground(new Color(13, 59, 94)); 
+        //dialogWindow.setLocationRelativeTo(this);
+        dialogWindow.setLocation(WIDTH/2 - 240/2, HEIGHT/2 - 310/2);
+        dialogWindow.setLayout(null);
         dialogWindow.setResizable(false);
-        addAButton("Home", ()->home(), dialogWindow);
-        addAButton("Resume", ()->resumeGame.run(), dialogWindow);
+        dialogWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                resumeGame.run();
+            }
+        });
+
+        JLabel lblNewLabel = new JLabel("Game Paused");
+        lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 25));
+        lblNewLabel.setForeground(new Color(255,255,255));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setBounds(20, 5, 200, 50);
+        dialogWindow.add(lblNewLabel);
+
+        addAButton("Home", ()->home(), 1, dialogWindow);
+        addAButton("Save", ()->saveGame(), 2,  dialogWindow);
+        addAButton("Resume", ()->resumeGame.run(), 3,  dialogWindow);
+        addAButton("Exit", ()->exitGame.run(), 4, dialogWindow);
+
+        dialogWindow.pack();
     }
 
-    public void addAButton(String text, Runnable function, JDialog container){
+    public void addAButton(String text, Runnable function, int i, JDialog container){
         JButton button = new JButton(text);
-        //button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener((e)->function.run());
+        button.addActionListener((e)->{function.run(); container.setVisible(false);});
+        button.setBounds(20, 52*i, 200, 50);
         container.add(button);
     }
     
@@ -238,8 +275,6 @@ public class App extends JFrame {
         newPanel.run();
         restart.run();
         this.setBounds(0,0, App.WIDTH, App.HEIGHT);
-
-		
 
         var p = new JPanel();
         p.setLayout(null);
@@ -400,7 +435,10 @@ public class App extends JFrame {
         fw.saveToXML("lastSaved");
     }
 
+
     public void resumeGame() {
+        //File file = new File("../persistency/lastSaved.xml");
+        
         Level lvl = new Filereader().loadLevel("lastSaved.xml");
         Maze m;
         try {
@@ -419,18 +457,20 @@ public class App extends JFrame {
         if(j == JFileChooser.APPROVE_OPTION) {
             filename = jfc.getSelectedFile().getName();
             System.out.println("loading " + filename);
+        }else{
+            return;
         }
-
         Level lvl = new Filereader().loadLevel(filename);
+        
         Maze m;
-        try {
+   //     try {
             m = new Maze(lvl, 22, 22);
             lvl.getChap().setMaze(m); 
-            status = 1; //TODO: level
+            //status = lvl.getLevel(); //TODO: level
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
             setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
-        } catch (IOException e) { e.printStackTrace();} //TODO: have to change, consult nathan
+  //      } catch (IOException e) { e.printStackTrace();} //TODO: have to change, consult nathan
     }
     
     public Game getGame() {

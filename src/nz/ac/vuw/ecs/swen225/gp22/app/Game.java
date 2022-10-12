@@ -2,23 +2,12 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.*;
-
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
-
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 public class Game extends JPanel {
 	private Phase phase;

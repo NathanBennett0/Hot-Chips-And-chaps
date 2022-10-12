@@ -4,19 +4,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-
-import javax.swing.SwingUtilities;
-
-import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
 public class KeyStroke implements KeyListener {
 	private static Map<Integer,Runnable> onPressed = new HashMap<>();
 	private static Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
-	//private Map<Integer,Runnable> onReleased = new HashMap<>();
 	
+/**
+ * A function for keybinding - Maps a keycode with given action.
+ * @param keyCode
+ * @param action
+ * @param ctrl
+ */
 	public void setAction(int keyCode, Runnable action, boolean ctrl) {
-		System.out.println("KeyStroke.java: setAction() called.");
 		if(ctrl) {
 			onCtrlPressed.put(keyCode, action);
 		}else {
@@ -24,24 +23,23 @@ public class KeyStroke implements KeyListener {
 		}
 	}
 	
+	/**
+	 * Clears the keybinding for chap
+	 */
 	public void clearKeyBind(){
 		onPressed.clear();
 	}
-	
-	@Override
-	public void keyTyped(KeyEvent e) {}
 
+	/**
+	 * Called whenever key is pressed
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.isControlDown()) {
 			onCtrlPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 		}else {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
-
-			// if(onPressed.containsKey(e.getKeyCode())){ //and no pause
-			// 	recorder.history.add(e.getKeyCode());
-			// }
-			
+			System.out.println("size: "+onPressed.size());
 		}
 	}
 
@@ -53,8 +51,9 @@ public class KeyStroke implements KeyListener {
 		onPressed.getOrDefault(keycode,()->{}).run();
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {}
+	@Override
+	public void keyTyped(KeyEvent e) {}
 
 }

@@ -23,15 +23,16 @@ public class Controller extends KeyStroke {
 
 	public void setCtrlKey(){
 		//Control Keys
-		setAction(KeyEvent.VK_X, ()->System.exit(0), true); //exit
+		setAction(KeyEvent.VK_X, ()->app.exitGame.run(), true); //exit
 		setAction(KeyEvent.VK_S, ()->{app.saveGame(); System.exit(0);}, true); //save
-		setAction(KeyEvent.VK_R, null, true); //resume saved game
+		setAction(KeyEvent.VK_R, ()->app.loadSavedGame(app.loadsave), true); //resume saved game
 		setAction(KeyEvent.VK_1, ()->app.levelOne(), true); //start level 1
 		setAction(KeyEvent.VK_2, ()->app.levelTwo(), true); //start level 2
 		
 	}
 
 	public void setPauseKey(){
+		System.out.println("pause keys set");
 		setAction(KeyEvent.VK_SPACE, app.pauseGame, false); //pause game
 		setAction(KeyEvent.VK_ESCAPE, app.resumeGame, false); //resume paused game
 	}
