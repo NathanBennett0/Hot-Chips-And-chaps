@@ -14,8 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import java.awt.Graphics;
-
-
+import java.awt.event.ActionListener;
 
 import  javax.swing.JFrame;
 
@@ -31,8 +30,9 @@ public class recorderPanel extends JPanel {
     private JButton setRepSpeed = new JButton("Set Replay Speed");
     private JButton loadButton = new JButton("Load");
     private JButton pause = new JButton("Pause");
-    private JSlider steps; //scrubber
+  //  private JSlider steps; //scrubber
     App app;
+
     
     private List<Move> moves;
     private int currMove =0;
@@ -43,17 +43,39 @@ public class recorderPanel extends JPanel {
     //button dimensions
     private static final Dimension BUTTON_SIZE = new Dimension(50, 20);
     private static final Dimension SLIDER_SIZE = new Dimension(600, 20);
-
-
+    
     public recorderPanel(App a){
+        System.out.println("Hi");
         app = a;
+        recordPanel();
     }
     public void recordPanel(){
+        System.out.println("Entered panel");
+        panel = new JPanel();
+        
+       loadRecord.setSize(70,20);
+        moveBack.setSize(70,20);
+        autoReplay.setSize(70,20);
+
+       this.add(loadRecord);
+       this.add(moveBack);
+       this.add(autoReplay);
+
+       /** 
+        loadRecord.addActionListener(new ActionListener()){
+
+
+        }
+        panel.setPreferredSize(new Dimension(700, 490));
+        panel.setBackground(Color.CYAN);
+        */
 
             moveBack.setSize(BUTTON_SIZE);
-            steps.setValue(steps.getValue()-1);
+      /**     steps.setValue(steps.getValue()-1);
             this.playing = false;
+            System.out.println("About to repaint panel line 76");
             panel.repaint();
+
 
             steps= moves == null ? new JSlider() : new JSlider(0, moves.size()-1);
             steps.setPreferredSize(SLIDER_SIZE);
@@ -65,6 +87,8 @@ public class recorderPanel extends JPanel {
                 }
             });
             steps.setBackground(Color.CYAN);
+            */
+            /** 
             steps.setUI(new BasicSliderUI(steps){
 
                 
@@ -73,16 +97,22 @@ public class recorderPanel extends JPanel {
                     g.setColor(Color.BLACK);
                 }
             });
+            */
+
+            /** 
            JButton mainMenu = new JButton("Recorder Menu"); //return back to main menu from App
            loadButton.setSize(new Dimension(70,20));
-           load();
-           if(moves != null){steps.setMaximum(moves.size());}
+      //     load();
+          // if(moves != null){steps.setMaximum(moves.size());}
 
            JButton moveStraight = new JButton("Move Straight");
            moveStraight.setSize(70,20);
-           steps.setValue(steps.getValue()+1);
+
+      //     steps.setValue(steps.getValue()+1);
            playing = false;
-           panel.repaint();
+
+         //  panel.repaint();
+         
 
            JButton play = new JButton("Play Record");
            play.setSize(70,20);
@@ -92,20 +122,23 @@ public class recorderPanel extends JPanel {
            JButton setSpeed = new JButton("Set Speed");
            setSpeed.setSize(BUTTON_SIZE.width*2, BUTTON_SIZE.height);
            setSpeedButton();
-            
-           this.setLayout(new BorderLayout());
-           this.add(panel);
-           this.add(moveBack);
-           this.add(steps);
-           this.add(pause);
-           this.add(moveStraight);
-           add(mainMenu);
+            */
+           panel.setLayout(new BorderLayout());
+        /**   panel.add(panel);
+           panel.add(moveBack);
+           panel.add(loadRecord);
+           
+        // panel.add(steps);
+           panel.add(pause);
+         //  panel.add(moveStraight);
+          // add(mainMenu);
+          */
 
            setPreferredSize(new Dimension(700, 490));
-           setBackground(Color.CYAN);
+           Color color = new Color(51,153,255);
+           setBackground(color);
+           
     }
-
-
 
     public void playRecorder(){ 
         playing = true;
@@ -125,7 +158,11 @@ public class recorderPanel extends JPanel {
      */
     public boolean status(boolean statusMoving, int currMoveInt){
         currMove = currMoveInt < moves.size() ? currMoveInt : moves.size() -1;
-        steps.setValue(currMoveInt);
+    
+    
+        //    steps.setValue(currMoveInt);
+    
+    
         try{
             Thread.sleep(1000/speed);
         } catch(InterruptedException e){
@@ -151,12 +188,15 @@ public class recorderPanel extends JPanel {
                 app.levelTwo();
             }
 
+            /** 
+
             if(steps != null){
                 steps.setMaximum(moves.size()-1);
                 currMove = 0;
                 steps.setValue(0);
                 panel.repaint();
             }
+            */
         }
     }
 
