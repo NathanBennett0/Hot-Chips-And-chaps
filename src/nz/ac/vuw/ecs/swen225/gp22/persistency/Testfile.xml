@@ -1,0 +1,12 @@
+<Level name="1">
+    <Tilelist>
+        <Tile type="Wall" x="5" y="3"/>
+        <LockedTile colour="GREEN" type="Locked" x="11" y="12"/>
+        <KeyTile colour="YELLOW" type="Key" x="5" y="7"/>
+    </Tilelist>
+    <Chap x="10" y="10">
+        <ChapTreasureTile type="Treasure" x="12" y="9"/>
+        <ChapKeyTile colour="ORANGE" type="Key" x="12" y="8"/>
+    </Chap>
+    <Time timeleft="90000"/>
+</Level>

@@ -6,6 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Treasure;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.ExitLock;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Exit;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
@@ -65,6 +66,7 @@ public class Filereader {
         InfoField info = new InfoField(new Location(0,0), "");
         int time = 0;
         int levelnum = 0;
+        Actor actor = new Actor(new Location(0,0), null);
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
             if(inputstream == null) { return null; }
@@ -126,7 +128,7 @@ public class Filereader {
             if(InfoNodes != null) {
                 Node InfoNode = InfoNodes.item(0);
                 Element I = (Element)InfoNode;
-                // creates new chap
+                // creates new infotile
                 info = makeInfoFieldTile(I);
             }
             
@@ -172,15 +174,23 @@ public class Filereader {
             if(TimeNodes != null) { 
             Node TimeNode = TimeNodes.item(0);
             Element timeE = (Element)TimeNode;
-            // creates new chap
+            // creates new time
             time = Integer.parseInt(timeE.getAttribute("timeleft"));
             }
-            System.out.println("time read is " + time);
+
+            // reads the chap from file
+            NodeList ActorNodes = doc.getElementsByTagName("InfoTile");
+            if(ActorNodes != null) {
+                Node ActorNode = ActorNodes.item(0);
+                Element A = (Element)ActorNode;
+                // creates new actor
+                actor = new Actor(new Location(Integer.parseInt(A.getAttribute("x")), Integer.parseInt(A.getAttribute("y"))), chap);
+            }
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, lockedtiles, keytiles, chap, info, time, levelnum);
+        return new Level(alltiles, lockedtiles, keytiles, chap, info, time, levelnum, actor);
     }
 
     /**

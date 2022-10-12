@@ -1,4 +1,4 @@
-<Level name="2">
+<Level name="3">
     <Tilelist>
         <Tile type="Wall" x="5" y="3"/>
         <Tile type="Wall" x="6" y="3"/>
@@ -6,60 +6,62 @@
         <Tile type="Wall" x="8" y="3"/>
         <Tile type="Wall" x="9" y="3"/>
         <Tile type="Wall" x="10" y="3"/>
+        <Tile type="Wall" x="11" y="3"/>
+        <Tile type="Wall" x="12" y="3"/>
+        <Tile type="Wall" x="13" y="3"/>
+        <Tile type="Wall" x="14" y="3"/>
+        <Tile type="Wall" x="15" y="3"/>
 
         <Tile type="Wall" x="5" y="4"/>
         <Tile type="Treasure" x="7" y="4"/>
         <Tile type="Wall" x="10" y="4"/>
+        <Tile type="Wall" x="14" y="4"/>
+        <Tile type="Wall" x="15" y="4"/>
 
         <Tile type="Wall" x="5" y="5"/>
         <Tile type="Wall" x="10" y="5"/>
+        <Tile type="Wall" x="11" y="5"/>
+        <Tile type="Wall" x="12" y="5"/>
+        <Tile type="Wall" x="15" y="5"/>
 
         <Tile type="Wall" x="5" y="6"/>
+        <Tile type="Treasure" x="6" y="6"/>
         <Tile type="Wall" x="7" y="6"/>
-        <Tile type="Wall" x="10" y="6"/>
+        <Tile type="Wall" x="8" y="6"/>
+        <KeyTile type="Key" x="10" y="6" colour="BLUE"/>
         <Tile type="Wall" x="11" y="6"/>
         <Tile type="Wall" x="12" y="6"/>
-        <Tile type="Wall" x="13" y="6"/>
         <Tile type="Wall" x="14" y="6"/>
         <Tile type="Wall" x="15" y="6"/>
-        <Tile type="Wall" x="16" y="6"/>
-        <Tile type="Wall" x="17" y="6"/>
-        <Tile type="Wall" x="18" y="6"/>
-        <Tile type="Wall" x="19" y="6"/>
-        <Tile type="Wall" x="20" y="6"/>
 
         <Tile type="Wall" x="3" y="7"/>
         <Tile type="Wall" x="4" y="7"/>
         <Tile type="Wall" x="5" y="7"/>
+        <Tile type="Wall" x="6" y="7"/>
         <Tile type="Wall" x="7" y="7"/>
-            <Tile type="Wall" x="11" y="7"/>
-            <Tile type="Wall" x="12" y="7"/>
-        <Tile type="Treasure" x="19" y="7"/>
-        <Tile type="Wall" x="20" y="7"/>
+        <Tile type="Wall" x="10" y="7"/>
+        <Tile type="Wall" x="11" y="7"/>
+        <Tile type="Treasure" x="14" y="7"/>
+        <Tile type="Wall" x="15" y="7"/>
 
         <Tile type="Wall" x="3" y="8"/>
         <Tile type="Exit" x="4" y="8"/>
         <Tile type="ExitLock" x="5" y="8"/>
         <Tile type="Wall" x="7" y="8"/>
-        <Tile type="Wall" x="8" y="8"/>
-            <Tile type="Wall" x="11" y="8"/>
-            <Tile type="Wall" x="12" y="8"/>
-            <Tile type="Wall" x="14" y="8"/>
-            <Tile type="Wall" x="15" y="8"/>
-        <Tile type="Free" x="16" y="8"/>
-        <Tile type="Chap" x="17" y="8"/>
-        <InfoTile type="InfoField" x="18" y="8" text="play the game"/>
-        <Tile type="Free" x="19" y="8"/>
-        <Tile type="Wall" x="20" y="8"/>
+        <Tile type="Wall" x="9" y="8"/>
+        <LockedTile type="Locked" x="11" y="8" colour="YELLOW"/>
+        <InfoTile type="InfoField" x="13" y="8" text="dont get run over!"/>
+        <Tile type="Wall" x="14" y="8"/>
+        <Tile type="Wall" x="15" y="8"/>
 
         <Tile type="Wall" x="3" y="9"/>
         <Tile type="Wall" x="4" y="9"/>
         <Tile type="Wall" x="5" y="9"/>
         <Tile type="Wall" x="7" y="9"/>
-            <Tile type="Wall" x="11" y="9"/>
-            <Tile type="Wall" x="12" y="9"/>
-        <Tile type="Treasure" x="19" y="9"/>
-        <Tile type="Wall" x="20" y="9"/>
+        <Tile type="Wall" x="11" y="9"/>
+        <Tile type="Wall" x="12" y="9"/>
+        <KeyTile type="Key" x="14" y="9" colour="YELLOW"/>
+        <Tile type="Wall" x="15" y="9"/>
 
         <Tile type="Wall" x="5" y="10"/>
         <Tile type="Wall" x="7" y="10"/>
@@ -69,26 +71,48 @@
         <Tile type="Wall" x="13" y="10"/>
         <Tile type="Wall" x="14" y="10"/>
         <Tile type="Wall" x="15" y="10"/>
-        <Tile type="Wall" x="16" y="10"/>
-        <Tile type="Wall" x="17" y="10"/>
-        <Tile type="Wall" x="18" y="10"/>
-        <Tile type="Wall" x="19" y="10"/>
-        <Tile type="Wall" x="20" y="10"/>
 
         <Tile type="Wall" x="5" y="11"/>
+        <LockedTile type="Locked" x="7" y="11" colour="BLUE"/>
+        <LockedTile type="Locked" x="8" y="11" colour="GREEN"/>
         <Tile type="Wall" x="10" y="11"/>
+        <Tile type="Wall" x="15" y="11"/>
 
         <Tile type="Wall" x="5" y="12"/>
-        <Tile type="Treasure" x="7" y="12"/>
-        <Tile type="Wall" x="10" y="12"/>
+        <Tile type="Wall" x="6" y="12"/>
+        <Tile type="Wall" x="7" y="12"/>
+        <Tile type="Wall" x="12" y="12"/>
+        <Tile type="Wall" x="13" y="12"/>
+        <Tile type="Wall" x="15" y="12"/>
 
         <Tile type="Wall" x="5" y="13"/>
-        <Tile type="Wall" x="6" y="13"/>
-        <Tile type="Wall" x="7" y="13"/>
-        <Tile type="Wall" x="8" y="13"/>
         <Tile type="Wall" x="9" y="13"/>
         <Tile type="Wall" x="10" y="13"/>
+        <Tile type="Wall" x="11" y="13"/>
+        <Tile type="Treasure" x="12" y="13"/>
+        <Tile type="Wall" x="13" y="13"/>
+        <Tile type="Treasure" x="14" y="13"/>
+        <Tile type="Wall" x="15" y="13"/>
+        
+        <Tile type="Wall" x="5" y="14"/>
+        <KeyTile type="Key" x="6" y="14" colour="GREEN"/>
+        <Tile type="Wall" x="7" y="14"/>
+        <Tile type="Wall" x="14" y="14"/>
+        <Tile type="Wall" x="15" y="14"/>
+
+        <Tile type="Wall" x="5" y="15"/>
+        <Tile type="Wall" x="6" y="15"/>
+        <Tile type="Wall" x="7" y="15"/>
+        <Tile type="Wall" x="8" y="15"/>
+        <Tile type="Wall" x="9" y="15"/>
+        <Tile type="Wall" x="10" y="15"/>
+        <Tile type="Wall" x="11" y="15"/>
+        <Tile type="Wall" x="12" y="15"/>
+        <Tile type="Wall" x="13" y="15"/>
+        <Tile type="Wall" x="14" y="15"/>
+        <Tile type="Wall" x="15" y="15"/>
     </Tilelist>
-    <Chap x="17" y="8"/>
-    <Time timeleft="90000"/>
+    <Chap x="11" y="4"/>
+    <Actor x="6" y="4"/>
+    <Time timeleft="180000"/>
 </Level>
