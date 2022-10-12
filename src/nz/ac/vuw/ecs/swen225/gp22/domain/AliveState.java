@@ -1,13 +1,18 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.io.IOException;
+
 public class AliveState implements State{
-    Location l;
-    Maze m;
-    public AliveState(Location l, Maze m){ //should it be chap hmmm
+    public Location l;
+    public Maze m;
+    public AliveState(Location l, Maze m){ 
         this.l = l;
         this.m = m;
     }
 
+    /*
+     * Move up implementation for when chap is alive 
+     */
     @Override
     public Location moveUp() {
         Location next = new Location(l.getX(), l.getY()-1);
@@ -17,19 +22,25 @@ public class AliveState implements State{
             Box b = (Box)t;
             //set location on maze
             Location newl = new Location(next.getX(), next.getY()-1);
-            m.setBoxLocation(newl);
-            b.setLocation(newl);
-            m.removeTile(next); //box moves 
-        }  //do this code here???
+            try {
+                m.setBoxLocation(newl);
+                b.setLocation(newl);
+                m.removeTile(next); 
+            } catch (IOException e) {}
+        }  
+        //do this code here???
         if(!m.allowAction(next)){
             System.out.println("Chap cannot move here!");//pre condition check
             return l; // Return the same position and do not move to next
         }
-        m.setChapLoc(next);
+        try {m.setChapLoc(next);} catch (IOException e) {}
         l = next; // Move the location to the next
         return next; //then chap moves 
     }
 
+    /*
+     * move down implemnentation for when chap is alive 
+     */
     @Override
     public Location moveDown() {
         Location next = new Location(l.getX(), l.getY()+1);
@@ -37,19 +48,24 @@ public class AliveState implements State{
         if(t instanceof Box){  
             Box b = (Box)t;
             Location newl = new Location(next.getX(), next.getY()+1);
-            m.setBoxLocation(newl);
-            b.setLocation(newl);
-            m.removeTile(next); 
+            try {
+                m.setBoxLocation(newl);
+                b.setLocation(newl);
+                m.removeTile(next); 
+            } catch (IOException e) {}
         }
         if(!m.allowAction(next)){
             System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        m.setChapLoc(next);
+        try {m.setChapLoc(next);} catch (IOException e) {}
         l = next;
         return next;
     }
 
+    /*
+     * move right implemnentation for when chap is alive 
+     */
     @Override
     public Location moveRight() {
         Location next = new Location(l.getX()+1, l.getY());
@@ -57,19 +73,24 @@ public class AliveState implements State{
         if(t instanceof Box){  
             Box b = (Box)t;
             Location newl = new Location(next.getX()+1, next.getY()+1);
-            m.setBoxLocation(newl);
-            b.setLocation(newl);
-            m.removeTile(next); 
+            try {
+                m.setBoxLocation(newl);
+                b.setLocation(newl);
+                m.removeTile(next); 
+            } catch (IOException e) {} 
         }
         if(!m.allowAction(next)){
             System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        m.setChapLoc(next);
+        try {m.setChapLoc(next);} catch (IOException e) {}
         l = next;
         return next;
     }
 
+    /*
+     * move left implemnentation for when chap is alive 
+     */
     @Override
     public Location moveLeft() {
         Location next = new Location(l.getX()-1, l.getY());
@@ -77,15 +98,17 @@ public class AliveState implements State{
         if(t instanceof Box){  
             Box b = (Box)t;
             Location newl = new Location(next.getX()-1, next.getY());
-            m.setBoxLocation(newl);
-            b.setLocation(newl);
-            m.removeTile(next); 
+            try {
+                m.setBoxLocation(newl);
+                b.setLocation(newl);
+                m.removeTile(next); 
+            } catch (IOException e) {} 
         }
         if(!m.allowAction(next)){
             System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        m.setChapLoc(next);
+        try {m.setChapLoc(next);} catch (IOException e) {}
         l = next;
         return next;
     }

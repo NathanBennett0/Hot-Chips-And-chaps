@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
-import javax.lang.model.element.Element;
+import org.dom4j.Element;
 
 /**
  * Interface to be implemented for each Move

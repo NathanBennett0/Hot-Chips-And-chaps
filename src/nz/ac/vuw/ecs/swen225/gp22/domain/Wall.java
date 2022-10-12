@@ -7,12 +7,15 @@ public class Wall extends Tile {
 
 	public Wall(Location l) {
 		super(l);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public Img getImg() {
     	return icon;
     }
+
+	public String toString(){
+		return "Wall";
+	}
 
 }

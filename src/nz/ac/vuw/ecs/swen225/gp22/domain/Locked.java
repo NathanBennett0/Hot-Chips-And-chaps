@@ -1,11 +1,15 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.io.IOException;
+
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 
 public class Locked extends Tile {
-	public boolean locked = true;
+	private boolean locked = true;
 	public Key.Color col;
 	public Img icon;
+	private SoundEffects sound = new SoundEffects();
 	
 	public Locked(Location l, Key.Color col) {
 		super(l);
@@ -14,11 +18,18 @@ public class Locked extends Tile {
 		// TODO Auto-generated constructor stub
 	}
 
+	/*
+	 * unlocks the door by changing the field 
+	 */
 	public void unlock() {
-		System.out.println("Door unlocked");
+		//sound.playUnlockMusic();
 		locked = false;
+		System.out.println("Door unlocked");
 	}
 
+	/* 
+	 * returns if the door is locked or not 
+	 */
 	public boolean isLocked() {
 		System.out.println("Door Locked");
 		return locked;
@@ -35,7 +46,7 @@ public class Locked extends Tile {
 			if(t instanceof Key) {
 				Key k = (Key)t;
 				if(k.getColor().equals(this.col)){
-					p.m.removeTile(l);
+					try {p.m.removeTile(l);} catch (IOException e) {}
 					p.removeKey(k);
 					return true;
 				}
@@ -48,4 +59,8 @@ public class Locked extends Tile {
 	public Img getImg() {
     	return icon;
     }
+
+	public String toString(){
+		return "Locked "+this.col;
+	}
 }

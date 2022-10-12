@@ -2,22 +2,13 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.SortedMap;
-import java.io.InputStream;
+import java.util.List;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.OutputStream;
 
 //create map for move and time at the same time
 //create your own timer in the App so that each time a move is done, you can add that move and time into the map
@@ -28,132 +19,58 @@ import java.io.OutputStream;
  */
 
 public class RecordLoad {
-
-    // private final double time;
-    private final static LinkedHashMap<Double, String> recordMap = new LinkedHashMap<Double, String>(); // LinkedHashMap
-                                                                                                        // that stores
-                                                                                                        // the time and
-                                                                                                        // move
-    private static double count = 0; // counts level within program
-
-    /**
-     * Constructor for loadRecord
-     * 
-     * @param time that the move was made
-     * @param move the type of move done
+    Document doc;
+    /** 
+     * Loads XML file into document and store it
      */
-    public RecordLoad(Double time, String move) throws TransformerException, ParserConfigurationException, IOException {
-        recordMap.put(time, move);
-
-        // for testing
-    
-        if (recordMap.containsKey(0.0)) {
-            loadDocRecord();
-        }
-        // find out when button is clicked then...
-        // if(endGame = endofGame){
-        // loadDocRecord();
-        // }
-    }
-
-    public static void main(String[] agrs) {
+    public RecordLoad(File file){
         try{
-        RecordLoad l = new RecordLoad(0.007, "up");
-        RecordLoad x = new RecordLoad(0.001, "down");
-        RecordLoad n = new RecordLoad(0.008, "down");
-        RecordLoad a = new RecordLoad(0.0, "left");
-    }catch(TransformerException , ParserConfigurationException, IOException exception){
-
-    }
-
-    }
-
-    // if constructor shouldn't be used:
-
-    /**
-     * public loadRecord(){
-     * 
-     * }
-     * 
-     * public void setMap(Double time, String move){
-     * sortedMap.put(time,move);
-     * }
-     * @throws IOException
-     */
-    // public void loadDocRecord() throws ParserConfigurationException,
-    // TransformerException {
-    public void loadDocRecord() throws TransformerException, ParserConfigurationException, IOException {
-        // loads the xml file specified then creates a document object
-
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-        // sets root element as the level
-        if (count > 1) {
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("Level Two");
-            doc.appendChild(rootElement);
+            doc = new SAXReader().read(file);
+        } catch(DocumentException dException){
+            throw new IllegalArgumentException("Record of file is unsuccessful");
         }
-        Document doc = docBuilder.newDocument();
-        Element rootElement = doc.createElement("Level One");
-        doc.appendChild(rootElement);
-
-        Element recElems = doc.createElement("record elements"); // the overall element
-        rootElement.appendChild(recElems); // appends it into the new document
-
-        // below code inspired by
-        // https://www.tutorialspoint.com/java_xml/java_dom_create_document.htm
-        // essentially iterates over moves and times (the key and value) in the map and
-        // appends it to the new element
-        for (Map.Entry<Double, String> entry : recordMap.entrySet()) {
-
-            Element recordElements = doc.createElement("Move + Time"); // header for all moves and time in the doc
-
-            Attr attrMove = doc.createAttribute("move"); // create new attribute for the move
-
-            attrMove.setValue(entry.getValue()); // set the move of the attribute
-
-            recordElements.setAttributeNode(attrMove); // add the attribute to the element
-
-            Attr attrTime = doc.createAttribute("time"); // create new attribute for that time
-
-            attrTime.setValue(entry.getKey() + ""); // set the time for that attribute
-
-            recordElements.setAttributeNode(attrTime); // set the new attribute in the element
-
-            recElems.appendChild(recordElements); // add element to the overall "moves" header
-        }
-
-        // if(gameState = endOfGame){
-
-        // write dom document to a file
-        try (FileOutputStream output = new FileOutputStream("C::\\gameRecord.xml")) {
-            writeXml(doc, output);
-        } catch (TransformerException e) {
-            System.out.println("File load failed");
-            e.printStackTrace();
-        }
-        // }
     }
 
     /**
-     * Writes document to the output stream
-     * 
-     * @param d      the document created in loadRecord of the moves and its
-     *               corresponding times
-     * @param output the file OutPutStream
-     * @throws TransformerException
+     * Moves taken from the XML
      */
-    private static void writeXml(Document d, OutputStream output) throws TransformerException {
-        try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(d);
-            StreamResult result = new StreamResult(output);
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            System.out.println("File load failed");
-            e.printStackTrace();
+    public List<Move> getMoves(){
+        List<Element> moves = doc.getRootElement().elements();
+        return moves.stream().map(this::loadMove).toList();
+    }
+
+    /**
+     * Turns XML element into a move
+     */
+    private Move loadMove(Element e){
+        switch(e.getName()){
+            case "move" -> {
+                String dir = e.attributeValue("dir");
+                int code = Integer.parseInt(e.attributeValue("moveKeyCode"));
+                return new directionMove(null, dir, code); //need to find a way to get App
+            }
+            case "key" -> {
+                String key = e.attributeValue("keyItem");
+                String color = e.attributeValue("color");
+                int x = Integer.parseInt(e.attributeValue("x"));
+                int y = Integer.parseInt(e.attributeValue("y"));
+                return new keyMove(key, color, x, y);
+            }
+            case "door" ->{
+                String door = e.attributeValue("doorItem");
+                String color = e.attributeValue("color");
+                int x = Integer.parseInt(e.attributeValue("x"));
+                int y = Integer.parseInt(e.attributeValue("y"));
+                return new doorMove(door, color, x, y);
+            }
+            default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
         }
     }
+     /**
+     * Gets the level of the file
+     */
+    public int level(){
+        return Integer.parseInt(doc.getRootElement().attributeValue("level"));
+    }
+
 }

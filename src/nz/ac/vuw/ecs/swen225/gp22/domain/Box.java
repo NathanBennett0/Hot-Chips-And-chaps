@@ -9,17 +9,19 @@ public class Box extends Tile implements Serializable{ //test if its serializabl
 
     public Box(Location l) { //behaves like a wall tile 
         super(l);
-        //TODO Auto-generated constructor stub
     }
 	
 	@Override
 	public Img getImg() {
     	return icon;
     }
+
     public void setLocation(Location l){
         this.l = l;
     }
 
-
+    public String toString(){
+		return "Box"; 
+	}
 
 }

@@ -64,6 +64,7 @@ public class Filereader {
         Chap chap = new Chap(new Location(0,0), null);
         InfoField info = new InfoField(new Location(0,0), "");
         int time = 0;
+        int levelnum = 0;
         try {
             InputStream inputstream = getClass().getResourceAsStream(filename);
 
@@ -75,6 +76,7 @@ public class Filereader {
             // this is the root node, which is the level in our xml files
             Element root = doc.getDocumentElement();
             root.normalize();
+            levelnum = Integer.valueOf(root.getAttribute("name"));
 
             // gathers all of the regular tiles into a list
             NodeList tilelist = doc.getElementsByTagName("Tile");
@@ -161,7 +163,7 @@ public class Filereader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Level(alltiles, lockedtiles, keytiles, chap, info, time);
+        return new Level(alltiles, lockedtiles, keytiles, chap, info, time, levelnum);
     }
 
     /**

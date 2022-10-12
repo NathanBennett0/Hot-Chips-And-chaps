@@ -357,9 +357,9 @@ public class App extends JFrame {
                 if(!pauseTimer) timeLeft -= 250;
 
 		        game.tLeft.setText(df.format(timeLeft));
-           //     try {
+                try {
                     game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
-             //   } catch (IOException e1) { e1.printStackTrace();}
+                } catch (IOException e1) { e1.printStackTrace();}
 		        game.repaint();
 
 		        if(timeLeft<=0 || stopTimer){
@@ -398,13 +398,13 @@ public class App extends JFrame {
         status = 1;
         Level lvl = new Filereader().loadLevel("level1.xml");
         Maze m;
-     //   try {
+        try {
             m = new Maze(lvl, 22, 22);
             lvl.getChap().setMaze(m); 
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
             setPhase(new Phase(m, gameController, lvl), TIMELIMIT_ONE);
-   //     } catch (IOException e) {  e.printStackTrace(); }
+        } catch (IOException e) {  e.printStackTrace(); }
     }
     
     /**
@@ -416,13 +416,13 @@ public class App extends JFrame {
         status = 2;
         Level lvl = new Filereader().loadLevel("level2.xml");
         Maze m;
-     //   try {
+        try {
             m = new Maze(lvl, 66, 66);
             lvl.getChap().setMaze(m); 
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
             setPhase(new Phase(m, gameController, lvl), TIMELIMIT_TWO);
-   //     } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) { e.printStackTrace(); }
         
     }
 
@@ -440,18 +440,14 @@ public class App extends JFrame {
         //File file = new File("../persistency/lastSaved.xml");
         
         Level lvl = new Filereader().loadLevel("lastSaved.xml");
-        if(lvl == null){
-            JOptionPane.showConfirmDialog(this, "No saved game to load."); 
-            return;
-        } 
         Maze m;
-    //    try {
+        try {
             m = new Maze(lvl, 22, 22);
             lvl.getChap().setMaze(m); 
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
             setPhase(new Phase(m, gameController, lvl), lvl.getTime()); //TODO: undo after pull
-   //     } catch (IOException e) { e.printStackTrace(); } //TODO: have to change, consult nathan
+        } catch (IOException e) { e.printStackTrace(); } //TODO: have to change, consult nathan
     }
 
     public void loadSavedGame(JFileChooser jfc) {
