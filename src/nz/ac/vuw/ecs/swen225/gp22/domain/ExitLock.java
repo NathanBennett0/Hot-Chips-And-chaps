@@ -22,7 +22,7 @@ public class ExitLock extends Tile{
 				return true;
 			} 
 		} catch (IOException e) {}
-		return true; 
+		return false; //nothing to do here 
 	}
 
 	@Override

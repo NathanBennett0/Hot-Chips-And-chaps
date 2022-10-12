@@ -8,6 +8,11 @@ public class Wall extends Tile {
 	public Wall(Location l) {
 		super(l);
 	}
+
+	@Override
+	public boolean CanWalkOn(Chap p) { //holy shit 
+		return false; 
+	}
 	
 	@Override
 	public Img getImg() {
