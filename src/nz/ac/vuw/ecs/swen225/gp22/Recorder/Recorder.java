@@ -41,4 +41,9 @@ public class Recorder {
 			System.out.println("saving file not successful");
 		}
 	}
+
+		public void addMove(Move m){
+			movesList.add(m);
+		}
+	
 }
