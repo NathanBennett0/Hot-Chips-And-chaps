@@ -112,6 +112,9 @@ public class recorderPanel extends JPanel {
         setRepSpeed.addActionListener((e) -> {
             setSpeedButton();
         });
+        mainMenu.addActionListener((e) -> {
+            app.home();
+        });
 
         /**
          * moveForward.addActionListener(new ActionListener() {
@@ -184,7 +187,6 @@ public class recorderPanel extends JPanel {
         if (fileChooser.getSelectedFile() != null) {
             RecordLoad record = new RecordLoad(fileChooser.getSelectedFile());
             this.moves = record.getMoves();
-
             // loads levels from app
             if (record.level() == 1) {
                 app.levelOne();
