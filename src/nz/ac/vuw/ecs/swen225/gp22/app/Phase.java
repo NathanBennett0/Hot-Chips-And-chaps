@@ -7,10 +7,25 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 
+/**
+ * Stores the essential classes needed for the game level.
+ * 
+ * @author Naomi Parte
+ * 
+ */
 public record Phase(Maze maze, Controller controller, Level level) {
+
 	static Recorder recorder;
 	static Runnable next, first;
 	
+	/**
+	 * Creates level one.
+	 * 
+	 * @param n - runs on next level
+	 * @param f - runs when chap dies
+	 * @return Phase
+	 * 
+	 */
 	public static Phase levelOne(Runnable n, Runnable f) {
 		next = n;
 		first = f;
@@ -23,9 +38,17 @@ public record Phase(Maze maze, Controller controller, Level level) {
 			m = new Maze(lvl, 22, 22);
 			lvl.getChap().setMaze(m); 
 		} catch (IOException e) {e.printStackTrace();}
-		return new Phase(m, c, lvl); //change
+		return new Phase(m, c, lvl); 
 	}
 
+	/**
+	 * Creates level two.
+	 * 
+	 * @param n - runs on next level
+	 * @param f - runs when chap dies
+	 * @return Phase
+	 * 
+	 */
 	public static Phase levelTwo(Runnable n, Runnable f){
 		next = n;
 		first = f;
@@ -38,7 +61,7 @@ public record Phase(Maze maze, Controller controller, Level level) {
 			m = new Maze(lvl, 66, 66);
 			lvl.getChap().setMaze(m); 
 		} catch (IOException e) {e.printStackTrace();}
-		return new Phase(m, c, lvl); //change
+		return new Phase(m, c, lvl); 
 	}
 	
 }
