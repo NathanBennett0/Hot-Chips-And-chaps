@@ -4,11 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-
-import javax.swing.SwingUtilities;
-
-import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 
 public class KeyStroke implements KeyListener {
 	private static Map<Integer,Runnable> onPressed = new HashMap<>();
@@ -44,11 +39,7 @@ public class KeyStroke implements KeyListener {
 			onCtrlPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 		}else {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
-
-			// if(onPressed.containsKey(e.getKeyCode())){ //and no pause
-			// 	recorder.history.add(e.getKeyCode());
-			// }
-			
+			System.out.println("size: "+onPressed.size());
 		}
 	}
 
