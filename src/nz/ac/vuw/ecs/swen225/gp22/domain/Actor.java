@@ -2,6 +2,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Random;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
+
 /**
  * Name: Felix Ng
  * Student ID: 300570943
@@ -12,6 +14,7 @@ public class Actor extends Tile{
     //robs: takes things from chaps chest (chest must be public to be robbed)
     public Chap c; 
     public Location l;
+    public Img icon = Img.LawnMowerRight;
     public Actor(Location l, Chap c){
     	super(l);
         this.c = c;
@@ -40,7 +43,8 @@ public class Actor extends Tile{
      * method should be called in every ping
      * uses Math random to pick a random direction in left, right, top, bottom and move there
      */
-    public void moveRandomly() { //adds restrictions 
+    public void moveRandomly() {
+        System.out.println("moving randomly");
         int newDirX = (int) ((Math.random() * (1 - 4)) + 1); //4 directions
         int newDirY = (int) ((Math.random() * (1 - 4)) + 1); //might be able to move diagonally
         int currX = this.l.getX();
@@ -49,11 +53,27 @@ public class Actor extends Tile{
         Random rd = new Random(); 
         boolean bool = rd.nextBoolean();
         if(bool) {
-            this.l = new Location(currX+newDirX, currY+newDirY);
+            if((c.m.getGrid()[currX+newDirX][currY+newDirY] instanceof Free)){
+                Location old = l;
+                this.l = new Location(currX+newDirX, currY+newDirY);
+                c.m.setActorLocation(l, old);
+            } else {
+                moveRandomly();
+            }
         } else {
-            this.l = new Location(currX-newDirX, currY-newDirY);
+            if((c.m.getGrid()[currX-newDirX][currY-newDirY] instanceof Free)){
+                Location old = l;
+                this.l = new Location(currX-newDirX, currY-newDirY);
+                c.m.setActorLocation(l, old);
+            } else {
+                moveRandomly();
+            }
         }
-        //now refresh
+    }
+
+    @Override
+	public Img getImg() {
+    	return icon;
     }
 
     public String toString(){

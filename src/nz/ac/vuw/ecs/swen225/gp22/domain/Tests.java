@@ -232,10 +232,10 @@ public class Tests {
         m.getChap().setWin();
         m.getChap().won();
         m.getChap().changeState(new DeadState());
-        m.getChap().moveDown();
-        m.getChap().moveUp();
-        m.getChap().moveRight();
-        m.getChap().moveLeft();
+        //m.getChap().moveDown();
+        //m.getChap().moveUp();
+        //m.getChap().moveRight();
+        //m.getChap().moveLeft();
         m.getLevel();
         m.getChap().setLocation(loc);
         m.getChap().getImg();
