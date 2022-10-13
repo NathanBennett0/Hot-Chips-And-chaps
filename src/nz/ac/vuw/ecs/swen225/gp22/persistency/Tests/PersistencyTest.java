@@ -52,7 +52,7 @@ public class PersistencyTest {
         assertFalse(level.getActor().c == null);
 
         Filewriter fw = new Filewriter(level, level.getTime());
-        fw.saveToXML("Testfile");
+        fw.saveToXML("Tests/Testfile");
 
     }
 }
