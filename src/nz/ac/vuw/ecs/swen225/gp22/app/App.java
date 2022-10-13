@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.recorderPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
@@ -35,6 +36,7 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.EndPanel;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.GamePanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
@@ -61,6 +63,7 @@ public class App extends JFrame {
 	private Game game;
     private Timer timer;
     private JPanel currentPanel;
+    Recorder recorder;
 
     private int timeLeft;  
     private Controller mainController = new Controller(this);
@@ -118,6 +121,10 @@ public class App extends JFrame {
         System.exit(0);
     };
 
+    /**
+     * App instance constructor.
+     * 
+     */
     private App(){
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
@@ -127,6 +134,11 @@ public class App extends JFrame {
         });
     }
 
+    /**
+     * Returns app singleton instance.
+     * 
+     * @return App
+     */
     public static App getInstance(){
         if(singleton == null) singleton = new App();
         return singleton;
@@ -325,7 +337,7 @@ public class App extends JFrame {
         p.setLayout(null);
 
         var back = new JButton("Back");
-        back.setBounds(20, 580, 100, 30);
+        back.setBounds(40, 580, 100, 30);
 
         JLabel instruction = new JLabel();
         Image scaled = Img.Tutorial.image.getScaledInstance(App.WIDTH,App.HEIGHT-20,Image.SCALE_SMOOTH);
@@ -410,6 +422,35 @@ public class App extends JFrame {
     }
 
     /**
+     * Game panel for recorder.
+     * 
+     */
+    public void recorderGame(){
+        newPanel.run();
+        restart.run();
+
+        Phase phase = Phase.replayPhase(1); //recorder.level()
+        gameController = phase.controller();
+        GamePanel viewport = new GamePanel(phase.maze(), this);
+
+        getContentPane().add(BorderLayout.CENTER, viewport);
+        
+        currentPanel = viewport;
+        changeKeyListener(phase.controller());
+
+        var back = new JButton("Back");
+        back.setBounds(40, 580, 100, 30);
+        back.addActionListener((e)->{ home();});
+        newPanel = ()->{
+            remove(viewport);
+        };
+
+        viewport.add(gameMenu());
+        pack();
+        currentPanel.requestFocus();
+    }
+
+    /**
      * Sets the phase and starts the levels.
      * 
      * @param phase
@@ -448,7 +489,8 @@ public class App extends JFrame {
 
                 // WIN
                 if(phase.maze().getLevel().getChap().won()){
-            //        Phase.recorder.saveMove(); //TODO
+                    recorder.saveMove(); //TODO
+                    runningGame = false;
                     Phase.next.run();
                 }
 
@@ -460,7 +502,7 @@ public class App extends JFrame {
                 if(lost){
                     stopTimer = true;
                     Phase.first.run();
-            //        Phase.recorder.saveMove(); //TODO
+                    recorder.saveMove(); //TODO
                 }
                     
                 if(stopTimer) ((Timer)e.getSource()).stop();

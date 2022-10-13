@@ -2,7 +2,6 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.io.IOException;
 
-import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
@@ -14,8 +13,6 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
  * 
  */
 public record Phase(Maze maze, Controller controller) {
-
-	static Recorder recorder;
 	static Runnable next, first;
 	
 	/**
@@ -30,7 +27,6 @@ public record Phase(Maze maze, Controller controller) {
 		next = n;
 		first = f;
 
-		recorder = new Recorder(1);
 		Level lvl = new Filereader().loadLevel("level1.xml");
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
@@ -53,7 +49,6 @@ public record Phase(Maze maze, Controller controller) {
 		next = n;
 		first = f;
 
-		recorder = new Recorder(2);
 		Level lvl = new Filereader().loadLevel("level2.xml");
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
@@ -62,6 +57,20 @@ public record Phase(Maze maze, Controller controller) {
 			lvl.getChap().setMaze(m); 
 		} catch (IOException e) {e.printStackTrace();}
 		return new Phase(m, c); 
+	}
+
+	public static Phase replayPhase(int level){
+		String filename = level==2?"level2.xml":"level1.xml";
+		int size = level==2?66:22;
+
+		Level lvl = new Filereader().loadLevel(filename);
+		Maze m = null;
+		try {
+			m = new Maze(lvl, size, size);
+			lvl.getChap().setMaze(m); 
+		} catch (IOException e) {e.printStackTrace();}
+		
+		return new Phase(m, null);
 	}
 	
 }
