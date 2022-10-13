@@ -429,7 +429,7 @@ public class App extends JFrame {
         var play = new JButton("New Game");
         play.setBounds(400, 580, 100, 30);
 
-        replay.addActionListener((e)->{recorderGame();}); //replay() TODO
+        replay.addActionListener((e)->{replay();});
         tutorial.addActionListener((e)->{ tutorial();});
         play.addActionListener((e)->{ phaseOne();});
 
