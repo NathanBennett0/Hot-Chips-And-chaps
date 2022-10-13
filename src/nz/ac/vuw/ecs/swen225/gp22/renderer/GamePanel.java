@@ -83,8 +83,8 @@ public class GamePanel extends JPanel implements ActionListener{
 		if(maze.getChap().getOnInfo()) {
 		    g2d.drawImage(Img.InfoPopUp.image, 155, 350, null);
 		    g2d.setColor(Color.WHITE);
-		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 30 ));
-		    g2d.drawString("TEST", 200, 400);
+		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 20 ));
+		    g2d.drawString(maze.getChap().infoMessage, 200, 400);
 		}
 	}
 	
