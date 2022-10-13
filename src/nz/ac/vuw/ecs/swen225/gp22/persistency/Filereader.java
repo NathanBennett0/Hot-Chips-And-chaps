@@ -13,7 +13,10 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Location;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +61,7 @@ public class Filereader {
         int levelnum = 0;
         Actor actor = new Actor(new Location(0,0), null);
         try {
+
             InputStream inputstream = getClass().getResourceAsStream(filename);
             if(inputstream == null) { return null; }
 
