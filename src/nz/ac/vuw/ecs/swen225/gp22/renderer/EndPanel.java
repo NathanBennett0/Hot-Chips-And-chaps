@@ -17,14 +17,17 @@ public class EndPanel extends JLabel implements ActionListener{
     private int y = 450;
     private int textY = 0;
     private int textCounter = 0;
+    private boolean won; 
 
     private Img backgroundImg = Img.EndBackground;
-    private Img text = Img.GameOver;
+    private Img textLoss = Img.GameOver;
+    private Img textWon = Img.Congrats;
     private Img currCat = Img.EndCat1;
     private Img[] catImages = {Img.EndCat1, Img.EndCat2, Img.EndCat3, Img.EndCat4, Img.EndCat5}; 
     Timer timer; 
 
-    public EndPanel() {
+    public EndPanel(boolean b) {
+        this.won = b;
         this.setBounds(0,0, App.WIDTH, App.HEIGHT);
         timer = new Timer(200, this);
         timer.start();
@@ -36,7 +39,11 @@ public class EndPanel extends JLabel implements ActionListener{
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(backgroundImg.image, 0, 0, null); // Background image
-        g2d.drawImage(text.image, 0, textY, null); // Game over text
+        if(won) {
+            g2d.drawImage(textWon.image, 0, textY, null);
+        }else {
+            g2d.drawImage(textLoss.image, 0, textY, null); // Game over text
+        }
         g2d.drawImage(currCat.image, x, y, null); // The chap
     }
 
