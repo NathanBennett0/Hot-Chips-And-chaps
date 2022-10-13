@@ -90,7 +90,7 @@ public class Game extends JPanel {
         p.add(itemLeft);
 
         ScoreBoardPanel sp = new ScoreBoardPanel(phase.maze());
-        sp.setBounds(20,410,155,200);
+        sp.setBounds(25,410,155,200);
         p.add(sp);
     }
     
