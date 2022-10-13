@@ -48,7 +48,7 @@
         <Tile type="Wall" x="3" y="8"/>
         <Tile type="Exit" x="4" y="8"/>
         <Tile type="ExitLock" x="5" y="8"/>
-        <Tile type="Wall" x="7" y="8"/>
+        <Tile type="Water" x="7" y="8"/>
         <Tile type="Wall" x="9" y="8"/>
         <LockedTile type="Locked" x="11" y="8" colour="YELLOW"/>
         <InfoTile type="InfoField" x="13" y="8" text="dont get run over!"/>
@@ -58,14 +58,14 @@
         <Tile type="Wall" x="3" y="9"/>
         <Tile type="Wall" x="4" y="9"/>
         <Tile type="Wall" x="5" y="9"/>
-        <Tile type="Wall" x="7" y="9"/>
+        <Tile type="Water" x="7" y="9"/>
         <Tile type="Wall" x="11" y="9"/>
         <Tile type="Wall" x="12" y="9"/>
         <KeyTile type="Key" x="14" y="9" colour="YELLOW"/>
         <Tile type="Wall" x="15" y="9"/>
 
         <Tile type="Wall" x="5" y="10"/>
-        <Tile type="Wall" x="7" y="10"/>
+        <Tile type="Water" x="7" y="10"/>
         <Tile type="Wall" x="10" y="10"/>
         <Tile type="Wall" x="11" y="10"/>
         <Tile type="Wall" x="12" y="10"/>
