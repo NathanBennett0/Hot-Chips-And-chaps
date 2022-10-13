@@ -111,5 +111,7 @@ public class Recorder {
 			movesList.add(m);
 			//System.out.println(movesList + "");
 		}
+
+		
 	
 }
