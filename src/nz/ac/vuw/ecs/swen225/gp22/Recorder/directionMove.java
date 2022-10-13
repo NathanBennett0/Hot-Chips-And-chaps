@@ -8,50 +8,34 @@ import org.dom4j.tree.BaseElement;
 
 public class directionMove implements Move {
     public int keyCode = 0;
-    App app;
-
-    public directionMove(App a, int code) {
-        keyCode = code;
-        app = a;
-    }
+    App app = App.getInstance();
 
     public directionMove(int code) {
         keyCode = code;
-        // use extra constructor for RecordLoad
-
     }
-    /**
-     * Saves move as an XML element
-     * 
-     * @return an XML element
-     
-    @Override
-    public Element saveXML() {
-        return new BaseElement("move").addAttribute("moveKeyCode", String.valueOf(keyCode)).addAttribute("app",
-                String.valueOf(app));
-    }
-    
-    */
 
     /**
-     * Carries out the move for this move
+     * Executes the move
      */
     @Override
     public void move() {
-        Controller c = app.getGame().phase().controller();
+        Controller c = app.getPhase().controller();
         c.keyPressed(keyCode);
     }
-
-    public int getKeyCode(){
+    
+    /**
+     * Return the key code for this directionMove
+     * 
+     * @return getKeyCode for the move
+     */
+    public int getKeyCode() {
         return keyCode;
     }
 
-    @Override
-    public void undo() {
-        // not yet handled
-
-    }
-
+    /**
+     * Returns app for this directionMove
+     * @return app
+     */
     public App getApp() {
         return this.app;
     }
