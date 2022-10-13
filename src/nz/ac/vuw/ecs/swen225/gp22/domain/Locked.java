@@ -38,7 +38,7 @@ public class Locked extends Tile {
 				Key k = (Key)t;
 				if(k.getColor().equals(this.col)){
 					sound.playUnlockMusic();
-					try {p.m.removeTile(l);} catch (IOException e) {}
+					p.m.removeTile(l);
 					p.removeKey(k);
 					return true;
 				}

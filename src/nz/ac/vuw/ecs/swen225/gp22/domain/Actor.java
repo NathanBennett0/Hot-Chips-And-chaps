@@ -41,7 +41,7 @@ public class Actor extends Tile{
         int x2 = c.getLocation().getX();
         int y2 = c.getLocation().getY();
         double dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //euclidean distance
-        if(dist < 10) {
+        if(dist < 1) {
             eatChap(); //same as killing chap
         }
     }
@@ -50,7 +50,7 @@ public class Actor extends Tile{
      * uses Math random to pick a random direction in left, right, top, bottom and move there
      */
     public void moveRandomly() {
-        System.out.println("moving randomly");
+        explode();
         int newDirX = (int) ((Math.random() * (1 - 4)) + 1); //4 directions
         int newDirY = (int) ((Math.random() * (1 - 4)) + 1); //might be able to move diagonally
         int currX = this.l.getX();

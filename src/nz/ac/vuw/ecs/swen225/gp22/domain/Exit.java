@@ -20,7 +20,7 @@ public class Exit extends Tile {
 	public boolean CanWalkOn(Chap p) {
 		//move to next level 
 		p.setWin();
-		try {p.m.removeTile(l);} catch (IOException e) {}
+		p.m.removeTile(l);
 		return true; 
 	}
 

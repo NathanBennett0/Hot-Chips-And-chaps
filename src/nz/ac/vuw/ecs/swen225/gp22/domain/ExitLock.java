@@ -19,14 +19,12 @@ public class ExitLock extends Tile{
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		//return true;
-		try {
-			if(p.m.numOfTreasures()==0){ //assume that chap has them all 
-				//System.out.println("Exitlock unlocked");
-				//System.out.println(p.getLocation().getX()+" "+p.getLocation().getY());
-				p.m.removeTile(l);
-				return true;
-			} 
-		} catch (IOException e) {}
+		if(p.m.numOfTreasures()==0){ //assume that chap has them all 
+			//System.out.println("Exitlock unlocked");
+			//System.out.println(p.getLocation().getX()+" "+p.getLocation().getY());
+			p.m.removeTile(l);
+			return true;
+		} 
 		return false; //nothing to do here 
 	}
 

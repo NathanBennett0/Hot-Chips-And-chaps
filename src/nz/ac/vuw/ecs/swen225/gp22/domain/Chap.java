@@ -11,6 +11,7 @@ public class Chap extends Tile{ // player which is not a core tile
     public Location l;
     public Maze m;
     public State s;//have state object, check if state object is dead or alive
+    private boolean onInfo = false; 
     public Img icon = Img.Chap;
     private SoundEffects sound = new SoundEffects();
 
@@ -47,11 +48,18 @@ public class Chap extends Tile{ // player which is not a core tile
     }
 
     /*
-     * sets chaps location 
-     * @param Location 
+     * sets if chap is standing on info field 
      */
-    public void setLocation(Location l) {
-        this.l = l;
+    public void setOnInfo(){
+        this.onInfo = true;
+    }
+
+    /*
+     * checks if chap is on info field 
+     * @return boolean
+     */
+    public boolean getOnInfo(){
+        return onInfo;
     }
 
     /*
@@ -135,10 +143,8 @@ public class Chap extends Tile{ // player which is not a core tile
      * adds an item to chaps chest 
      * @param Tile 
      */
-    public void addToChest(Tile t) throws IOException{
-        if(!(t instanceof Treasure)&&!(t instanceof Key)){ 
-            throw new IOException("Chap cannot pick this up"); //pre
-        }
+    public void addToChest(Tile t){
+        assert(!(t instanceof Treasure)&&!(t instanceof Key));
         chest.add(t);
         sound.playCollectMusic();
         assert(chest.contains(t)); //post 

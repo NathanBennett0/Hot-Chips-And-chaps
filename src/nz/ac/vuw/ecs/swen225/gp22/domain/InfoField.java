@@ -15,6 +15,12 @@ public class InfoField extends Tile {
 	public String getMessage() { 
 		return m;
 	}
+
+	@Override
+	public boolean CanWalkOn(Chap p) {
+		p.setOnInfo(); //true 
+		return true;
+	}
 	
 	/*
 	 * return image of this tile 

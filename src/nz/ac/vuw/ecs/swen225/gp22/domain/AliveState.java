@@ -34,7 +34,7 @@ public class AliveState implements State{
             //System.out.println("Chap cannot move here!");//pre condition check
             return l; // Return the same position and do not move to next
         }
-        try {m.setChapLoc(next);} catch (IOException e) {}
+        m.setChapLoc(next);
         l = next; // Move the location to the next
         return next; //then chap moves 
     }
@@ -60,7 +60,7 @@ public class AliveState implements State{
             //System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        try {m.setChapLoc(next);} catch (IOException e) {}
+        m.setChapLoc(next);
         l = next;
         return next;
     }
@@ -86,7 +86,7 @@ public class AliveState implements State{
             //System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        try {m.setChapLoc(next);} catch (IOException e) {}
+        m.setChapLoc(next);
         l = next;
         return next;
     }
@@ -112,7 +112,7 @@ public class AliveState implements State{
             //System.out.println("Chap cannot move here!");//pre condition check
             return l;
         }
-        try {m.setChapLoc(next);} catch (IOException e) {}
+        m.setChapLoc(next);
         l = next;
         return next;
     }
