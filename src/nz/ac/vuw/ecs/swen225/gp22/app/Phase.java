@@ -70,7 +70,7 @@ public record Phase(Maze maze, Controller controller) {
 		String filename = level==2?"level2.xml":"level1.xml";
 		int size = level==2?66:22;
 
-		Level lvl = new Filereader().loadLevel(filename);
+		Level lvl = new Filereader().loadLevel("levels/"+filename);
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
 		try {

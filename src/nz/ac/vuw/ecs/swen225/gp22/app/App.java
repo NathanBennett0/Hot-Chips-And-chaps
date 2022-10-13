@@ -369,12 +369,14 @@ public class App extends JFrame {
      * @param phase 
      * 
      */
-    void endPhase(Runnable phase){
+    void endPhase(Runnable phase, boolean status){
+        if(status) JOptionPane.showConfirmDialog(this, "You Win!", "Congrats", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);   
+
         newPanel.run();
         restart.run();
 
         var p = new JPanel();
-        EndPanel ep = new EndPanel();
+        EndPanel ep = new EndPanel(status);
         ep.setBounds(0,20,WIDTH, HEIGHT-20);
 
         var play = new JButton("Replay");
@@ -491,14 +493,13 @@ public class App extends JFrame {
                 if(!pauseTimer) timeLeft -= 250;
 
                 // CALL ACTOR
-                if(timeLeft % 4 == 0){
+                if(timeLeft % 4 == 0 && !pauseTimer){
                     if(phase.maze().getLevel().getLevel() == 2) phase.maze().getLevel().getActor().moveRandomly();
                     if(phase.maze().getChap().s instanceof DeadState) lost = true;
                 }
 
 		        game.tLeft.setText(df.format(timeLeft));
-                try { game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));} 
-                catch (IOException e1) { e1.printStackTrace();}
+                game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));
 		        game.repaint();
 
                 // WIN
@@ -561,7 +562,7 @@ public class App extends JFrame {
      */
     public void phaseOne() {
         confirmSave();
-        setPhase(Phase.levelOne(()->phaseTwo(), ()->endPhase(()->phaseOne())), TIMELIMIT_ONE); 
+        setPhase(Phase.levelOne(()->phaseTwo(), ()->endPhase(()->phaseOne(), false)), TIMELIMIT_ONE); 
     }
     
     /**
@@ -570,16 +571,7 @@ public class App extends JFrame {
      */
     public void phaseTwo() {
         confirmSave();
-        setPhase(Phase.levelTwo(()->winPhase(), ()->endPhase(()->phaseTwo())), TIMELIMIT_TWO); 
-    }
-
-    /**
-     * Winning phase.
-     * 
-     */
-    public void winPhase(){
-        JOptionPane.showConfirmDialog(this, "You Win!", "Congrats", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-        home();
+        setPhase(Phase.levelTwo(()->endPhase(()->phaseOne(),true), ()->endPhase(()->phaseTwo(), false)), TIMELIMIT_TWO); 
     }
 
     /**
