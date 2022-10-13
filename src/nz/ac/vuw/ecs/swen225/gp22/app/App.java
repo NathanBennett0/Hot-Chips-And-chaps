@@ -85,7 +85,7 @@ public class App extends JFrame {
     // Boolean variables for game
     private boolean stopTimer = true;
     private boolean pauseTimer = false;
-    private boolean runningGame = false;
+    public boolean runningGame = false;
  
 
     JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); 
