@@ -7,13 +7,18 @@ import static org.junit.Assert.*;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
 
+/*
+ * @author Nathan Bennett
+ * bennetnath1
+ * 300580123 
+ */
 public class PersistencyTest {
     
     /**
      * READER
-     * Make new filereader with one of each tile type
-     * Check that the result of the file looks as it should with this test
-     * Call each Element method individually and test they look correct
+     * Makes new filereader with one of each tile type
+     * Checks that the result of the file looks as it should with this test
+     * Calls each Element method individually and tests they look correct
      * 
      * WRITER
      * Saves the loaded file back into the same file, keeping the same state

@@ -25,32 +25,22 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Filereader {
+/*
+ * @author Nathan Bennett
+ * bennetnath1
+ * 300580123 
+ */
 
-    public static void main(String[] agrs) {
-        Filereader fr = new Filereader();
-        Level level1 = fr.loadLevel("level1.xml");
-        Filewriter fw = new Filewriter(level1, 90000);
-        fw.saveToXML("src/nz/ac/vuw/ecs/swen225/gp22/persistency/level1save.xml");
-        for(Tile t : level1.getTiles()) {
-            System.out.println(t);
-        }
-        for(Tile t : level1.getLockedTiles()) {
-            System.out.println(t);
-        }
-        for(Tile t : level1.getKeyTiles()) {
-            System.out.println(t);
-        }
-        System.out.println(level1.getInfoField());
-        System.out.println(level1.getChap());
-        System.out.println("chap " + level1.getChap().getChest());
-    }
+/**
+ * Filereader
+ * Reads a file and uses the data to generate a level object
+ */
+public class Filereader {
 
     /**
      * Filereader
      */
-    public Filereader() { 
-    }
+    public Filereader() {}
 
     /**
      * Reads a given file and returns a level object
@@ -123,7 +113,7 @@ public class Filereader {
                 }
             }
 
-            // reads the chap from file
+            // reads the infotile from file
             NodeList InfoNodes = doc.getElementsByTagName("InfoTile");
             if(InfoNodes != null) {
                 Node InfoNode = InfoNodes.item(0);
@@ -172,10 +162,10 @@ public class Filereader {
             // reads the chap from file
             NodeList TimeNodes = doc.getElementsByTagName("Time");
             if(TimeNodes != null) { 
-            Node TimeNode = TimeNodes.item(0);
-            Element timeE = (Element)TimeNode;
-            // creates new time
-            time = Integer.parseInt(timeE.getAttribute("timeleft"));
+                Node TimeNode = TimeNodes.item(0);
+                Element timeE = (Element)TimeNode;
+                // creates new time
+                time = Integer.parseInt(timeE.getAttribute("timeleft"));
             }
 
             // reads the chap from file

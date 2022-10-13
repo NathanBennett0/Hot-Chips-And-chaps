@@ -1,13 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -16,16 +13,25 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Actor;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
+/*
+ * @author Nathan Bennett
+ * bennetnath1
+ * 300580123 
+ */
+
+/**
+ * Filewriter
+ * Used to write a given level object to file
+ */
 public class Filewriter {
     Level level;
     int time;
+    
     public Filewriter(Level level, int time) {
         this.level = level;
         this.time = time;
@@ -81,10 +87,12 @@ public class Filewriter {
                 
             }
 
+            // actor
             Element Actor = doc.createElement("Actor");
             Actor = makeCharTile(Actor, doc, level.getActor());
             Level.appendChild(Actor);
 
+            // tilelist
             Element Tilelist = doc.createElement("Tilelist");
             Level.appendChild(Tilelist);
 
@@ -129,10 +137,6 @@ public class Filewriter {
             DOMSource domsource = new DOMSource(doc);
             StreamResult streamresult = new StreamResult(new File(filename));
             transformer.transform(domsource, streamresult);
-
-            // testing
-            //StreamResult consoleResult = new StreamResult(System.out);
-            //transformer.transform(domsource, consoleResult);
 
         } catch (Exception e) {
             e.printStackTrace();
