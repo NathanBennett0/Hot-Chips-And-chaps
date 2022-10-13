@@ -54,6 +54,7 @@ public class Recorder {
 	 */
 	public void saveMove(){
 		try{
+			
 		DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docbuilder = docbuilderfactory.newDocumentBuilder();
 		Document doc = docbuilder.newDocument();
@@ -61,11 +62,11 @@ public class Recorder {
 		   // root element for game
 		   Element root = doc.createElement("Game");
 
-			//create moves attribute
-
 			//append levels to this one
-			Element LevelMoves = doc.createElement("Level Moves");
+			Element LevelMoves = doc.createElement("LevelMoves");
 			LevelMoves.setAttribute("Level", String.valueOf(level));
+
+			root.appendChild(LevelMoves);
 
 			for(directionMove m: movesList){
 
@@ -73,6 +74,8 @@ public class Recorder {
 				Element move = doc.createElement("move");
 				Attr moveAttr = doc.createAttribute("moveKeyCode");
 				moveAttr.setValue(String.valueOf(m.getKeyCode()));
+				move.setAttributeNode(moveAttr);
+
 				
 				//save app keycode
 				Attr app = doc.createAttribute("App");
@@ -82,8 +85,9 @@ public class Recorder {
 			}
 
 			//appending the level values
-			root.appendChild(LevelMoves);
+			//root.appendChild(LevelMoves);
 			doc.appendChild(root);
+			
 		   String fileLevel =  "Recorder" + String.valueOf(level);
 		   String fName = "src/nz/ac/vuw/ecs/swen225/gp22/Recorder/" + fileLevel + ".xml";
 
@@ -93,12 +97,9 @@ public class Recorder {
             StreamResult streamresult = new StreamResult(new File(fName));
             transformer.transform(domsource, streamresult);
 
-            // testing
-            //StreamResult consoleResult = new StreamResult(System.out);
-            //transformer.transform(domsource, consoleResult);
-
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("failed save move");
+			e.printStackTrace();
         }
 
 	}
@@ -107,7 +108,9 @@ public class Recorder {
 		}
 
 		public void addMove(directionMove m){
+			
 			movesList.add(m);
+			//System.out.println(movesList + "");
 		}
 	
 }
