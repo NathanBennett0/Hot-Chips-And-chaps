@@ -1,26 +1,16 @@
 package nz.ac.vuw.ecs.swen225.gp22.fuzz;
-import javax.swing.SwingUtilities;
-import java.awt.event.KeyEvent;
+import static org.junit.Assert.fail;
 
-import java.time.Duration;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
-
-import javax.swing.SwingUtilities;
-
 import org.junit.jupiter.api.Test;
-
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
-import nz.ac.vuw.ecs.swen225.gp22.app.Game;
-import nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke;
-import nz.ac.vuw.ecs.swen225.gp22.app.Main;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 
 /**
  * Class that runs the two fuzz tests for the Chips&Chaps game. 
@@ -33,10 +23,12 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
 public class FuzzTest {
 
 	// Private variables for determining the next move 
-	private HashMap<String, Integer>[][] strategy = makeStrategyBoard();
+	private HashMap<String, Integer>[][] strategyL1 = makeStrategyBoardL1();
+	private int[][] strategyL2 = makeStrategyBoardL2();
 	private int currentX, currentY;
 	private int prevX, prevY;
 	private String prevDirection = "";
+	private int currentLevel = 0;
 
 	
 	/**
@@ -46,15 +38,21 @@ public class FuzzTest {
 	public void FuzzTest1() {
 		
 		System.out.println("FuzzTest 1 is called.");
-		makeStrategyBoard();
+		makeStrategyBoardL1();
 		App app = App.getInstance();
+		assert strategyL1 != null;
+		assert app != null;
 		
 		while(!app.initializeDone()) System.out.print(""); // While the main menu is booting, wait
 		System.out.println("Initializing of window done. Timed fuzz test begins now.");
 		
 		long timer = System.currentTimeMillis() + 60 * 1000; // Timer to stop while loop
 		app.phaseOne(); // This will change fuzzStarted to true and load L1
+		currentLevel = 1;
 		assert app.fuzzStarted() == true;
+        
+        currentX = app.updateLocationX();
+        currentY = app.updateLocationY();
 		intelligence(app, timer);
 
 	}
@@ -66,15 +64,21 @@ public class FuzzTest {
 	@Test
 	public void FuzzTest2() { 
 	    System.out.println("FuzzTest 2 is called.");
-        makeStrategyBoard();
+        makeStrategyBoardL2();
         App app = App.getInstance();
+        assert strategyL2 != null;
+        assert app != null;
         
         while(!app.initializeDone()) System.out.print("");
         System.out.println("Initializing of window done. Timed fuzz test begins now.");
         
         long timer = System.currentTimeMillis() + 60 * 1000; 
-        app.phaseTwo(); // This will change fuzzStarted to true and load L3
+        app.phaseTwo(); // This will change fuzzStarted to true and load L2
+        currentLevel = 2;
         assert app.fuzzStarted() == true;
+        
+        currentX = app.updateLocationX();
+        currentY = app.updateLocationY();
         intelligence(app, timer);
 	    
 	}
@@ -89,8 +93,7 @@ public class FuzzTest {
 	 * The hashmap has 4 values, key as a direction, val as number of times explored
 	 * u = up, d = down, l = left, r = right
 	 */
-	public HashMap<String, Integer>[][] makeStrategyBoard() {
-		
+	public HashMap<String, Integer>[][] makeStrategyBoardL1() {
 		HashMap<String,Integer>[][] temp = new HashMap[22][22];
 		for(int i = 0; i < 22; i++) {
 			for(int j = 0; j < 22; j++) {
@@ -105,54 +108,80 @@ public class FuzzTest {
 	}
 	
 	
+	 /**
+     * Make 2D ARRAY strategy board
+     * Each tile represents a tile on the board
+     * Inside the tile has the number of times it has been explored
+     */
+    public int[][] makeStrategyBoardL2() {
+        int[][] temp = new int[22][22];
+        for(int i = 0; i < 22; i++) {
+            for(int j = 0; j < 22; j++) {
+                temp[i][j] = 0;
+            }
+        }
+        return temp;    
+    }
+    
+	
 	/**
-	 * Intelligence used to run the tests
+	 * Intelligence used to run the tests in L1
 	 * @param app
 	 * @param timer
 	 */
 	public void intelligence(App app, long timer) {
+	    
 	    while(app.fuzzStarted()) {
             
-            pause(app,95);
+            pause(app,10);
             Controller c = app.getGame().phase().controller();
             assert c != null;
             
             
-            // Use intelligence to find the next direction
-            int direction = pickDirection();
-            c.keyPressed(direction);
-            
+            // Use intelligence to find the next direction depending on which level
+            if(app.getGame().phase().level().getLevel() == 1) {
+                int direction = pickDirectionL1();
+                c.keyPressed(direction);
+            }
+            else {
+                int direction = pickDirectionL2();
+                c.keyPressed(direction);
+            }
+
             
             // Check the location of the chap
             currentX = app.updateLocationX();
             currentY = app.updateLocationY();
-            System.out.println("Prev Location: " + prevX + "," + prevY);
-            System.out.println("Curr Location: " + currentX + "," + currentY);
             
-            
-            
+           
             // Use intelligence so the wall does not get tried again
             if(prevX == currentX && prevY == currentY) {
-                int wallX = findWallX(prevDirection); // Find x of the next tile over (where we wanted to go)
-                int wallY = findWallY(prevDirection); // Find y of the next tile over (where we wanted to go)
+                int wallX = findAdjX(prevDirection); // Find x of the next tile over (where we wanted to go)
+                int wallY = findAdjY(prevDirection); // Find y of the next tile over (where we wanted to go)
                 
                 if(app.isWall(wallX, wallY)) {
-                    System.out.println("WE JUST HIT A WALL at " + wallX + "," + wallY);
-                    HashMap<String, Integer> position = strategy[currentX][currentY];
-                    position.put(prevDirection, 1000); // So we do not try it again
+                    if(app.getGame().phase().level().getLevel() == 1) {
+                        HashMap<String, Integer> position = strategyL1[currentX][currentY];
+                        position.put(prevDirection, 1000); // So we do not try it again
+                    }
+                    else {
+                        strategyL2[wallX][wallY] = 1000; // So we do not try it again
+                    }
                 }
             }
-            
-            // Checks if the timer has exceeded
-            if(checkTimer(timer)) break;
+            if(currentLevel == 1 && app.getGame().phase().level().getLevel() == 2) {
+                System.out.println("Chap has finished Level One; game ending now.");
+                break;
+            }
+            if(checkTimer(timer)) break; // Checks if the timer has exceeded
         }
 	}
 	
 	
 	/**
-	 * Locates the X coordinate of a wall
+	 * Locates the X coordinate of an adjacent coordinate
 	 */
-	public int findWallX(String dir) {
+	public int findAdjX(String dir) {
 		switch(dir) {
 			case "u": return currentX;
 			case "d": return currentX;
@@ -164,9 +193,9 @@ public class FuzzTest {
 	
 	
 	/**
-	 * Locates the Y coordinate of a wall
+	 * Locates the Y coordinate of an adjacent coordinate
 	 */
-	public int findWallY(String dir) {
+	public int findAdjY(String dir) {
 		switch(dir) {
 			case "u": return currentY - 1;
 			case "d": return currentY + 1;
@@ -201,22 +230,22 @@ public class FuzzTest {
 	* Chap cannot move backwards
 	* Chap also moves in the direction least explored
 	*/
-	public int pickDirection() {
+	public int pickDirectionL1() {
 		
 		// Grab the current position inside the strategy board
-		HashMap<String, Integer> currentPos = strategy[currentX][currentY];
+		HashMap<String, Integer> currentPos = strategyL1[currentX][currentY];
+		assert currentPos != null;
 		
 		
 		// All the directions that I can explore (not backwards)
 		ArrayList<String> directions = possibleDirections();
 		Collections.shuffle(directions); // List of directions is random
-		String direction = directions.get(0); // Grab a random direction
 	
     	
 	    // Otherwise go where we have least explored
 	    // Randomly iterating (Map iterator is still somewhat ordered, so used shuffle instead)
 	    int numExplored = Integer.MAX_VALUE;
-	    String dirExplored = direction;
+	    String dirExplored = directions.get(0);
 	    
 	    for(int i = 0; i < directions.size(); i++) {
 	    	if(currentPos.get(directions.get(i)) <= numExplored) {
@@ -225,15 +254,51 @@ public class FuzzTest {
 	    	}
 	    }
 	    
-	    
 	    // Bump up that direction's exploration and go that direction
 	    currentPos.put(dirExplored, currentPos.get(dirExplored) + 1);
-	    strategy[currentX][currentY] = currentPos;
+	    strategyL1[currentX][currentY] = currentPos;
 		prevX = currentX;
 		prevY = currentY;
 		prevDirection = dirExplored;
 		return generateKeycode(dirExplored);
 	}
+	
+	
+   /**
+    * Picks a direction for the chap to travel in
+    * Chap also moves to the adjacent tile least explpored
+    */
+    public int pickDirectionL2() {
+        System.out.println("pickDirection2");
+        
+        ArrayList<String> adjPos = new ArrayList<>(List.of("u","d","l","r"));
+        Collections.shuffle(adjPos);
+
+        int minExplored = Integer.MAX_VALUE;
+        String dirExplored = "";
+        int newX = 0;
+        int newY = 0;
+        
+        
+        // Find what adjacent tile has been explored the least
+        for(int i = 0; i < adjPos.size(); i++) {
+            newX = findAdjX(adjPos.get(i));
+            newY = findAdjY(adjPos.get(i));
+            System.out.println(adjPos.get(i) + " " + strategyL2[newX][newY]);
+            if(strategyL2[newX][newY] < minExplored) {
+                minExplored = strategyL2[newX][newY];
+                dirExplored = adjPos.get(i);
+            }
+        }
+
+        
+        // Bump up that direction's exploration and go that direction
+        strategyL2[newX][newY] = minExplored + 1;
+        prevX = currentX;
+        prevY = currentY;
+        prevDirection = dirExplored;
+        return generateKeycode(dirExplored);
+    }
 
 		
 	
@@ -247,6 +312,7 @@ public class FuzzTest {
 	        try { 
 	        	a.wait(time); 
 	        } catch (InterruptedException e) { 
+	            System.out.println("Failure to pause");
 	        	e.printStackTrace(); 
 	        }
     	}
@@ -271,8 +337,10 @@ public class FuzzTest {
 	 * Can return either WASD or arrow values
 	 */
 	public int generateKeycode(String dir) {
+	    assert dir.equals("u") || dir.equals("d") || dir.equals("l") || dir.equals("r");
 		Random r = new Random();
 		int random = r.nextInt(2); // Random number 0 or 1
+		assert random == 0 || random == 1;
 		switch(dir) {
 			case "u":
 				if(random == 0) return KeyEvent.VK_W;
@@ -287,8 +355,8 @@ public class FuzzTest {
 		    	if(random == 0) return KeyEvent.VK_D; 
 		    	else return KeyEvent.VK_RIGHT;
 		    default:
-		    	System.out.println("Random number failed");
-		    	return 0; // Should never reach this point
+		    	fail("Direction does not exist");
+		    	return 0;
 		}
 	}
 
