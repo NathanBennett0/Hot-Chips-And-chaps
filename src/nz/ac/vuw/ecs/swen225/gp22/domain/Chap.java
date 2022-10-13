@@ -11,7 +11,7 @@ public class Chap extends Tile{ // player which is not a core tile
     public Location l;
     public Maze m;
     public State s;//have state object, check if state object is dead or alive
-    private boolean onInfo = false; 
+    private boolean onInfo;
     private InfoField info;
     public Img icon = Img.Chap;
     private SoundEffects sound = new SoundEffects();
@@ -74,6 +74,9 @@ public class Chap extends Tile{ // player which is not a core tile
         }
     }
 
+    public InfoField getInfo(){
+        return this.info;
+    }
     /*
      * removes a key from the chest 
      * @param Key 
