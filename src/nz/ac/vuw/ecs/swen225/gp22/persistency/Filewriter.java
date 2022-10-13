@@ -29,9 +29,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
  * Used to write a given level object to file
  */
 public class Filewriter {
-    Level level;
-    int time;
-    
+    private Level level;
+    private int time;
     public Filewriter(Level level, int time) {
         this.level = level;
         this.time = time;
@@ -55,7 +54,7 @@ public class Filewriter {
             Level.setAttributeNode(levelname);
             doc.appendChild(Level);
 
-            filename = "src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + filename + ".xml";
+            filename = "src/nz/ac/vuw/ecs/swen225/gp22/persistency/levels/" + filename + ".xml";
 
             // chap
             Element TimeE = doc.createElement("Time");

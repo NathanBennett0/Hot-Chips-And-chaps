@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp22.persistency;
+package nz.ac.vuw.ecs.swen225.gp22.persistency.Tests;
 
 import org.junit.Test;
 
@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filereader;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Filewriter;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 
 /*
  * @author Nathan Bennett
@@ -27,7 +30,7 @@ public class PersistencyTest {
     @Test
     public void persistencyTest() {
         Filereader fr = new Filereader();
-        Level level = fr.loadLevel("Testfile.xml");   
+        Level level = fr.loadLevel("Tests/Testfile.xml");   
         
         //level variables
         assertEquals(level.getLevel(), 2);
