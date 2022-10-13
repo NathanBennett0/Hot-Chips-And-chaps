@@ -50,20 +50,55 @@ import java.awt.Color;
  */
 public class App extends JFrame {
 
-    // One instance of app
+    /**
+     * A singleton instance for the game.
+     * 
+     */
 	private static App singleton;
 
-    // Initializing Constants
+    /**
+     * Width of the GUI.
+     * 
+     */
 	public final static int WIDTH = 900;
-	public final static int HEIGHT = 680;
-    public final static int TIMELIMIT_ONE = 60000; // 60000 = 1min
-    public final static int TIMELIMIT_TWO = 120000; // 120000 = 2min
 
-    // Game variables
-	private Game game;
+    /**
+     * Height of the GUI.
+     * 
+     */
+	public final static int HEIGHT = 680;
+
+    /**
+     * Time limit for level one. (1 min)
+     * 
+     */
+    public final static int TIMELIMIT_ONE = 60000; 
+
+    /**
+     * Time limit for level two. (2 mins)
+     * 
+     */
+    public final static int TIMELIMIT_TWO = 120000;
+
+    // GAME VARIABLES
+
+    /**
+     * Game panel 
+     * 
+     */
+
+    /**
+     * Stores the phase the current game is in. Changes as the phase levels change.
+     * 
+     */
     private Phase phase;
     private Timer timer;
     private JPanel currentPanel;
+
+    /**
+     * Recorder.
+     * 
+     */
     Recorder recorder;
 
     private int timeLeft;  
@@ -397,8 +432,12 @@ public class App extends JFrame {
         currentPanel = p;
         mainController.clearKeyBind();
         changeKeyListener(mainController);
-        newPanel = ()->{remove(p);};
+        newPanel = ()->{
+            remove(p);
+            sound.stopStart();
+        };
         pack();
+        sound.playStart();
         currentPanel.requestFocus();
     }
 
@@ -455,8 +494,6 @@ public class App extends JFrame {
         currentPanel = panel;
         changeKeyListener(phase.controller());
 
-        
-
         getContentPane().add(panel);
         newPanel = ()->{
             remove(panel);
@@ -477,7 +514,8 @@ public class App extends JFrame {
         stopTimer = false;
         runningGame = true;
         gameController = phase.controller();
-        game = new Game(phase, this);
+        this.phase = phase;
+        Game game = new Game(phase, this);
         recorder = new Recorder(phase.maze().getLevel().getLevel());
         
         game.setFocusable(true);
@@ -580,7 +618,7 @@ public class App extends JFrame {
      */
     public void saveGame() {
         System.out.println("saving game");
-        Filewriter fw = new Filewriter(game.phase().maze().getLevel(), timeLeft);
+        Filewriter fw = new Filewriter(phase.maze().getLevel(), timeLeft);
         fw.saveToXML("levels/lastSaved");
     }
 
@@ -627,15 +665,6 @@ public class App extends JFrame {
         } catch (IOException e) { e.printStackTrace();} 
     }
 
-    /**
-     * Getter for game.
-     * 
-     * @return game 
-     * 
-     */
-    public Game getGame() {
-    	return this.game;
-    }
 
     /**
      * Getter for phase.
@@ -681,7 +710,7 @@ public class App extends JFrame {
      * 
      */
     public int updateLocationX() {
-        Maze m = getGame().phase().maze();
+        Maze m = phase.maze();
         return m.player.l.getX();
     }
 
@@ -692,7 +721,7 @@ public class App extends JFrame {
      * 
      */
     public int updateLocationY() {
-        Maze m = getGame().phase().maze();
+        Maze m = phase.maze();
         return m.player.l.getY();
     }
 
@@ -705,7 +734,7 @@ public class App extends JFrame {
      * 
      */
     public boolean isWall(int wallX, int wallY) {
-        Maze m = getGame().phase().maze();
+        Maze m = phase.maze();
         if(m.getGrid()[wallX][wallY] instanceof Wall) return true;
         return false;
     }
