@@ -58,7 +58,7 @@ public class KeyStroke implements KeyListener {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 			//for recorder
 			if(onPressed.containsKey(e.getKeyCode())){
-				Phase.recorder.addMove(new directionMove(app, e.getKeyCode()));
+				app.recorder.addMove(new directionMove(app, e.getKeyCode()));
 			}
 		}
 
