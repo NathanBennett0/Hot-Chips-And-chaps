@@ -3,8 +3,6 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
-import org.dom4j.Element;
-import org.dom4j.tree.BaseElement;
 
 public class directionMove implements Move {
     public int keyCode = 0;
