@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -428,12 +429,15 @@ public class App extends JFrame {
        
         // Timer Action
         ActionListener countDown = new ActionListener(){
+            
 		    public void actionPerformed(ActionEvent e){
                 SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+                System.out.println("Timer running");
                 if(!pauseTimer) timeLeft -= 250;
 
                 // CALL ACTOR
-                phase.maze().getLevel().getActor().moveRandomly();
+                if(phase.maze().getLevel().getLevel() == 2) phase.maze().getLevel().getActor().moveRandomly();
+                
 
 		        game.tLeft.setText(df.format(timeLeft));
                 try { game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));} 
