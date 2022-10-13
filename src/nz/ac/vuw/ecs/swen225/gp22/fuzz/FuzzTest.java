@@ -130,7 +130,7 @@ public class FuzzTest {
             
             
             // Use intelligence to find the next direction depending on which level
-            if(app.getGame().phase().level().getLevel() == 1) c.keyPressed(pickDirectionL1());
+            if(app.getGame().phase().maze().getLevel().getLevel() == 1) c.keyPressed(pickDirectionL1());
             else c.keyPressed(pickDirectionL2());
 
             
@@ -139,7 +139,7 @@ public class FuzzTest {
             currentY = app.updateLocationY();
             assert currentX < app.getGame().phase().maze().getGrid().length && currentX >= 0;
             assert currentY < app.getGame().phase().maze().getGrid().length && currentY >= 0;
-            // Ensure that the updated X and Y given to us on the map is a valid location of the board *
+            // Ensure that the updated X and Y given to us on the map is a valid location of the board
             
            
             // Use intelligence so the wall does not get tried again
@@ -148,7 +148,7 @@ public class FuzzTest {
                 int wallY = findAdjY(prevDirection); // Find y of the next tile over (where we wanted to go)
                 
                 if(app.isWall(wallX, wallY)) {
-                    if(app.getGame().phase().level().getLevel() == 1) {
+                    if(app.getGame().phase().maze().getLevel().getLevel() == 1) {
                         HashMap<String, Integer> position = strategyL1[currentX][currentY];
                         position.put(prevDirection, 1000); // So we do not try it again
                     }
@@ -278,6 +278,7 @@ public class FuzzTest {
                 dirExplored = adjPos.get(i);
             }
         }
+        assert minExplored != Integer.MAX_VALUE && !(dirExplored.equals(""));
 
         
         // Bump up that direction's exploration and go that direction
