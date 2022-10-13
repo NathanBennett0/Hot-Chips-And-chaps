@@ -16,14 +16,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 public class GamePanel extends JPanel implements ActionListener{
 	final int IMAGE_DIM = 62;
-	final int BOARD_DIM = 558;
-	
+	final int BOARD_DIM = 558; 
 	private int time = 150; 
 	
 	Tile[][] board = new Tile[9][9];
@@ -31,25 +31,29 @@ public class GamePanel extends JPanel implements ActionListener{
 	Maze maze;
 	App app; 
 	Location prevLoc; 
+	Location prevActorLoc; 
 	CatImage currChap = new NormalImage();
+	Img actorImg = Img.LawnmowerLeft;
 
 	public GamePanel(Maze m, App a) {	
 		this.maze = m;
 		this.app = a; 
 		this.prevLoc = maze.player.getLocation();
 		this.currChap = new NormalImage(); 
-    	for(int x = 0; x < 9; x++) {
+		
+    	for(int x = 0; x < 9; x++) { // Copy over the board
     		for(int y = 0; y < 9; y++) {
 				board[x][y] = m.getGrid()[x + 6][y + 5];
+				if(board[x][y] instanceof Actor) { // Set the original actors location
+				    prevActorLoc = board[x][y].getLocation();
+				}
     		}
     	}
     	
     	this.setBounds(62,55,BOARD_DIM,BOARD_DIM);
-    	this.setLayout(new GridLayout(9,9));
+    	//this.setLayout(new GridLayout(9,9));
     	timer = new Timer(time, this); // Timer works in milliseconds
-		timer.start();
-		
-		
+		timer.start();	
 	}
 	
 	/**
@@ -59,21 +63,29 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			if(board[x][y] instanceof Chap) { // For the animation of the chapx
+    			if(board[x][y] instanceof Chap) { // For the animation of the chap
     				if(currChap.done()) {
     					setImgState(board[x][y].getLocation());
     				}
     				Image i = currChap.getCurrImg().image;
     				prevLoc = maze.player.getLocation();
     				g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
-    			}else {
+    			}else if(board[x][y] instanceof Actor) { // For the animation of the actor
+    			    Image i = setActorImg(new Location(x,y));
+    			    g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
+    		    }else { // To draw all of the other tiles
     				Image i = board[x][y].getImg().image;
         			g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
     			}
     		}
     	}
 		
-		
+		if(maze.getChap().getOnInfo()) {
+		    g2d.drawImage(Img.InfoPopUp.image, 155, 350, null);
+		    g2d.setColor(Color.WHITE);
+		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 30 ));
+		    g2d.drawString("TEST", 200, 400);
+		}
 	}
 	
 
@@ -132,6 +144,29 @@ public class GamePanel extends JPanel implements ActionListener{
 		 }else {
 			 currChap = new NormalImage();
 		 }
+	 }
+	 
+	 /**
+	  * Return the appropriate image for the lawn mower
+	  * depending on what direction it is moving in. 
+	  * @param l = current location
+	  * @return the correct image
+	  */
+	 public Image setActorImg(Location l) {
+	     if(prevActorLoc == null) {prevActorLoc = l;}
+	     if(l.getX() < prevActorLoc.getX()) {
+	         prevActorLoc = l;
+	         return Img.LawnmowerLeft.image;
+	     }else if(l.getX() > prevActorLoc.getX()) {
+	         prevActorLoc = l;
+	         return Img.LawnMowerRight.image;
+	     }
+	     prevActorLoc = l;
+	     return Img.LawnmowerDown.image;
+	 }
+	 
+	 public Img displayInfo() {
+	     return null; 
 	 }
 	 
 	 /**
