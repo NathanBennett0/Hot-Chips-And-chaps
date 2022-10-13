@@ -126,22 +126,22 @@ public class FuzzTest {
             
 	        
             pause(app,10);
-            Controller c = app.getGame().phase().controller();
+            Controller c = app.getPhase().controller();
             assert c != null;
             
             
             // Check the location of the chap
             currentX = app.updateLocationX();
             currentY = app.updateLocationY();
-            assert currentX < app.getGame().phase().maze().getGrid().length && currentX >= 0;
-            assert currentY < app.getGame().phase().maze().getGrid().length && currentY >= 0;
+            assert currentX < app.getPhase().maze().getGrid().length && currentX >= 0;
+            assert currentY < app.getPhase().maze().getGrid().length && currentY >= 0;
             System.out.println("Location of the chap: " + currentX + "," + currentY);
             // Ensure that the updated X and Y given to us on the map is a valid location of the board
             
             
             // Use intelligence to find the next direction depending on which level
             if(checkTimer(timer) || !app.runningGame) break; // Checks if the timer has exceeded
-            if(app.getGame().phase().maze().getLevel().getLevel() == 1) c.keyPressed(pickDirectionL1());
+            if(app.getPhase().maze().getLevel().getLevel() == 1) c.keyPressed(pickDirectionL1());
             else c.keyPressed(pickDirectionL2(app));
 
             
@@ -154,7 +154,7 @@ public class FuzzTest {
                 int wallY = findAdjY(prevDirection); // Find y of the next tile over (where we wanted to go)
                 
                 if(app.isWall(wallX, wallY)) {
-                    if(app.getGame().phase().maze().getLevel().getLevel() == 1) {
+                    if(app.getPhase().maze().getLevel().getLevel() == 1) {
                         HashMap<String, Integer> position = strategyL1[currentX][currentY];
                         position.put(prevDirection, 1000); // So we do not try it again
                     }
