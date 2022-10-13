@@ -27,7 +27,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
 public class RecordLoad {
     Document doc;
-    List<directionMove> recordLoadMoves;
+    List<directionMove> recordLoadMoves = new ArrayList<directionMove>();
     Element root;
     /** 
      * Loads XML file into document and store it
@@ -44,27 +44,26 @@ public class RecordLoad {
             Element r = doc.getDocumentElement();
             root = r;
             doc.getDocumentElement().normalize();  
+
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());  
             NodeList nodeList = doc.getElementsByTagName("move"); //nodelist from xml
             
+            //testing what the root element is
+            System.out.println("Root element: " + doc.getNodeName());  
+            System.out.println("nodeList" + nodeList);
+
             //iterates through the nodeList and turns them into moveobjects
             for (int i = 0; i < nodeList.getLength(); i++){  
 
                 Node currMove = nodeList.item(i);
+                System.out.println("currMove in RecordLoad" + currMove);
                 //gets attribute values
                 int code = Integer.parseInt(currMove.getAttributes().getNamedItem("moveKeyCode").getNodeValue());
                 directionMove dirMove = new directionMove(code);
+                //adds moves into the getMoves
+                System.out.println("recordLoadMoves is being added to");
                 recordLoadMoves.add(dirMove);
-                /** 
               
-                if(currMove.getNodeType() == Node.ELEMENT_NODE){
-                    Element E = (Element) currMove;
-                    directionMove moveObj = loadMove(E);
-                    recordLoadMoves.add(moveObj);
-                } 
-                System.out.println("Node type is not a move");
-            }
-            */
         }
      } catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
@@ -74,28 +73,7 @@ public class RecordLoad {
         }  catch(SAXException s){
             System.out.println("failed parsing file");
         }
-       
-       /** 
-        try{
-            doc = new SAXReader().read(file);
-            System.out.println("SAXReader is reached");
-        } catch(DocumentException dException){
-            throw new IllegalArgumentException("Record of file is unsuccessful");
-        }
-        */
-
-
     }
-
-    /**
-     * Moves taken from the XML
-     * original XML
-     
-    public List<directionMove> getMoves(){ 
-        List<Element> moves = doc.getRootElement().elements();
-        return moves.stream().map(this::loadMove).toList();
-    }
-    */
 
     /**
      * Gets list of moves loaded from the XML file
@@ -106,31 +84,12 @@ public class RecordLoad {
      
     }
 
-    /**
-     * Turns XML element into a move
-     
-    private directionMove loadMove(Element e){
-        switch(e.getTagName()){
-            case "move" -> {
-                Attr moveAttr = 
-                int code = Integer.parseInt();
-                //get the attribute value from element
-
-                int code = Integer.parseInt(() e).attributeValue("moveKeyCode"));
-                return new directionMove(code); 
-            }
-         default ->  throw new IllegalArgumentException("Can not load move" + e.getTagName());
-        }
-              
-    }
-    
-
      /** 
       *    Gets the level of the file
     
       */
+
     public int level(){
-            
             root.normalize(); 
             NodeList nodeList = doc.getElementsByTagName("LevelMoves"); //nodelist from xml
             //iterates through the nodeList and turns them into moveobjects
