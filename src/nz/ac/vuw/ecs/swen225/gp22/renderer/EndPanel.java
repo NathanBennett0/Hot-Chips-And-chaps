@@ -40,7 +40,7 @@ public class EndPanel extends JLabel implements ActionListener{
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(backgroundImg.image, 0, 0, null); // Background image
         if(won) {
-            g2d.drawImage(textWon.image, 0, textY, null);
+            g2d.drawImage(textWon.image, 150, textY + 100, null);
         }else {
             g2d.drawImage(textLoss.image, 0, textY, null); // Game over text
         }
