@@ -36,7 +36,7 @@ public class recorderPanel extends JPanel {
     // private JSlider steps; //scrubber
     App app;
 
-    private List<Move> moves;
+    private List<directionMove> moves;
     private int currMove = 0;
 
     private boolean playing = false;
@@ -56,37 +56,18 @@ public class recorderPanel extends JPanel {
         System.out.println("Entered panel");
         panel = new JPanel();
         setSpeedButton();
-
-        // loadButton.setSize(new Dimension(70, 20));
-        // load();
-        // if(moves != null){steps.setMaximum(moves.size());}
-
-        // JButton moveForward = new JButton("Move Forward");
-        // steps.setValue(steps.getValue()+1);
-        // playing = false;
-        // panel.repaint();
-        // panel.repaint();
-
     
         // set button sizes
         play.setSize(70, 20);
         loadRecord.setSize(70, 20);
         setRepSpeed.setSize(70, 20);
 
-        // moveForward.setSize(70, 20);
-        // moveBack.setSize(70, 20);
-        // autoReplay.setSize(70, 20);
-
         // add panels to JPanel
         this.add(panel);
         this.add(mainMenu);
-        this.add(play);
+       // this.add(play);
         this.add(loadRecord);
         this.add(setRepSpeed);
-        // this.add(moveBack);
-        // this.add(steps);
-        // this.add(pause); // so a player can pause a reccording. Not compulsory
-        // this.add(moveForward);
 
         // style JPanel
         setPreferredSize(new Dimension(700, 490));
@@ -106,19 +87,6 @@ public class recorderPanel extends JPanel {
         mainMenu.addActionListener((e) -> {
             app.home();
         });
-
-        /**
-         * moveForward.addActionListener(new ActionListener() {
-         * 
-         * @Override
-         *           public void actionPerformed(ActionEvent e) {
-         *           playing = false;
-         *           panel.repaint();
-         *           // moveStep()
-         *           }
-         *           });
-         */
-
     }
 
     public void playRecorder() {
@@ -165,7 +133,7 @@ public class recorderPanel extends JPanel {
         fileChooser.showOpenDialog(fileChooser);
 
         if (fileChooser.getSelectedFile() != null) {
-            RecordLoad record = new RecordLoad(fileChooser.getSelectedFile());
+            RecordLoad record = new RecordLoad(fileChooser.getSelectedFile()); //creates new recordLoad object
             this.moves = record.getMoves();
 
             // loads levels from app
@@ -181,7 +149,7 @@ public class recorderPanel extends JPanel {
                 //execute all moves
                 for(Move m: moves){
                     m.move();
-                }
+                } 
             } System.out.println("moves not successful");
         }
     }
