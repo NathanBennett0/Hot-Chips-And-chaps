@@ -463,6 +463,7 @@ public class App extends JFrame {
         runningGame = true;
         gameController = phase.controller();
         game = new Game(phase, this);
+        recorder = new Recorder(phase.maze().getLevel().getLevel());
         
         game.setFocusable(true);
         timeLeft = time;
@@ -472,7 +473,7 @@ public class App extends JFrame {
             
 		    public void actionPerformed(ActionEvent e){
                 boolean lost = false;
-
+                
                 SimpleDateFormat df=new SimpleDateFormat("mm:ss");
                 if(!pauseTimer) timeLeft -= 250;
 
