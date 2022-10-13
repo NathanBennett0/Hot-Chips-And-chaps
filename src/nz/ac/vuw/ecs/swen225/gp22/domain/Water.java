@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
 public class Water extends Tile{
-    public Img icon = Img.Free;
+    public Img icon = Img.Water;
 
     public Water(Location l) {
         super(l);
