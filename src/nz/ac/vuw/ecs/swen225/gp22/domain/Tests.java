@@ -237,7 +237,6 @@ public class Tests {
         //m.getChap().moveRight();
         //m.getChap().moveLeft();
         m.getLevel();
-        m.getChap().setLocation(loc);
         m.getChap().getImg();
         //Creating Box and Water
         Box b = new Box(loc);

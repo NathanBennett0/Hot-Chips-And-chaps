@@ -19,8 +19,8 @@ public class Treasure extends Tile {
 	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		try {p.addToChest(this);} catch (IOException e1) {} //add to chaps chest 
-		try {p.m.removeTile(l);} catch (IOException e) {}
+		p.addToChest(this);
+		p.m.removeTile(l);
 		//remove from maze 
 		return true;
 	}

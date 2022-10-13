@@ -34,16 +34,15 @@ public class Maze {
 		}
 		setChapLoc(lv.getChap().getLocation());
 		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
+		grid[lv.getInfoField().getLocation().getX()][lv.getInfoField().getLocation().getY()] = lv.getInfoField();
 	}
     
 	/*
 	 * removes a tile on the grid at the given location
 	 * @param Location 
 	 */
-    public void removeTile(Location l) throws IOException { //setTile too?
-		if(grid[l.getX()][l.getY()] == null){
-			throw new IOException("Cannot remove null tile"); //pre 
-		}
+    public void removeTile(Location l){ //setTile too?
+		assert(grid[l.getX()][l.getY()] != null);
         if(grid[l.getX()][l.getY()] instanceof Key) {
             lv.removeKeyTile((Key)grid[l.getX()][l.getY()]);
         } else if(grid[l.getX()][l.getY()] instanceof Locked) {
@@ -58,14 +57,12 @@ public class Maze {
 	/**
 	 * helper method for post and pre condition checks on the grid to prevent null errors 
 	 */
-	public void safeGrid() throws IOException { //helper
+	public void safeGrid(){ //helper
 		//System.out.println("maze filled out");
 		//check for nulls in 2d array
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[row].length; col++) {
-				if(grid[row][col] == null){
-					throw new IOException("found null"); 
-				}
+				assert(grid[row][col] != null);
 			}
 		}
 	}
@@ -78,7 +75,7 @@ public class Maze {
 	public boolean allowAction(Location nextLoc) { //dynamic 
 		//get location of the next tile
 		Tile next = grid[nextLoc.getX()][nextLoc.getY()];
-		System.out.println("This shitstick: "+next.toString()+", "+next.CanWalkOn(player));
+		//System.out.println("This shitstick: "+next.toString()+", "+next.CanWalkOn(player));
 		return next.CanWalkOn(player);
 	}
 
@@ -86,7 +83,7 @@ public class Maze {
 	 * Counts the current number of treasures on the grid to allow for exit lock to be unlocked 
 	 * @return int
 	 */
-	public int numOfTreasures() throws IOException { 
+	public int numOfTreasures() { 
 		safeGrid(); //pre 
 		int count = 0;
 		for (int row = 0; row < grid.length; row++) {
@@ -129,10 +126,8 @@ public class Maze {
 	 * remove old location of chap then makes a new one for him to be in
 	 * @param Location 
 	 */
-    public void setChapLoc(Location l) throws IOException {
-		if(!(grid[l.getX()][l.getY()] instanceof Free)){
-			throw new IOException("Chap cannot be relocated"); //pre
-		}
+    public void setChapLoc(Location l) {
+		assert(!(grid[l.getX()][l.getY()] instanceof Free));
         grid[player.getLocation().getX()][player.getLocation().getY()] = new Free(player.getLocation()); 
         grid[l.getX()][l.getY()] = player;
 		//assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
