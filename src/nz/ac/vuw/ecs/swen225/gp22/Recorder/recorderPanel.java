@@ -26,69 +26,102 @@ public class recorderPanel extends JPanel {
     private JPanel panel;
     private static final int maxSpeed = 4;
     private JButton mainMenu = new JButton("Home");
-    private JButton play = new JButton("Play Record");
-    private JButton loadRecord = new JButton("Load Record");
+    private JButton loadRecord = new JButton("Auto Play");
     private JButton setRepSpeed = new JButton("Set Replay Speed");
     private JButton pause = new JButton("Pause");
-    // private JButton moveBack = new JButton("Step-by-Step");
-    // private JButton autoReplay = new JButton("Auto Replay");
-    // private JButton loadButton = new JButton("Load");
-    // private JSlider steps; //scrubber
+    //private JButton play = new JButton("Play Record");
+    
     App app;
 
     private List<directionMove> moves;
-    private int currMove = 0;
-
-    private boolean playing = false;
     private int speed = 1;
 
-    // button dimensions
-    private static final Dimension BUTTON_SIZE = new Dimension(50, 20);
-    private static final Dimension SLIDER_SIZE = new Dimension(600, 20);
-
+    /**
+     * Constructor for the panel
+     * @param a app
+     */
     public recorderPanel(App a) {
         System.out.println("Testing for entering constructor");
         app = a;
         recordPanel();
     }
 
+    /**
+     * Creating the JPanel for the recorder
+     */
     public void recordPanel() {
         System.out.println("Entered panel");
         panel = new JPanel();
         setSpeedButton();
-    
+
         // set button sizes
-        play.setSize(70, 20);
         loadRecord.setSize(70, 20);
         setRepSpeed.setSize(70, 20);
+        //play.setSize(70, 20);
 
         // add panels to JPanel
         this.add(panel);
         this.add(mainMenu);
-       // this.add(play);
         this.add(loadRecord);
         this.add(setRepSpeed);
 
         // style JPanel
         setPreferredSize(new Dimension(700, 490));
-        setBackground(new Color(51, 153, 255) );
-
+        setBackground(new Color(51, 153, 255));
 
         // set Action Listeners
         loadRecord.addActionListener((e) -> {
             load();
         });
-        play.addActionListener((e) -> {
-            playRecorder();
-        });
+        
         setRepSpeed.addActionListener((e) -> {
             setSpeedButton();
         });
         mainMenu.addActionListener((e) -> {
             app.home();
         });
+
+        //play.addActionListener((e) -> {playRecorder();});
+
     }
 
+     /**
+     * Loads a game from RecordLoad and execute its moves
+     */
+    public void load() {
+        JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/");
+        fileChooser.setDialogTitle("Select recording to load");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("load file (xml)", "xml");
+        fileChooser.setFileFilter(fileFilter);
+        fileChooser.showOpenDialog(fileChooser);
+
+        if (fileChooser.getSelectedFile() != null) {
+
+            RecordLoad record = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
+            this.moves = record.getMoves();
+            System.out.println("moves have been printed");
+
+            // load new panel
+            app.recorderGame();
+            for (directionMove m : moves) {
+                System.out.println("print moves");
+                m.move();
+            }
+
+        }
+    }
+
+    public void setSpeedButton() {
+        System.out.println("in set speed record");
+        speed = speed == maxSpeed ? 1 : speed + 1;
+        System.out.println(speed);
+        setRepSpeed.setText("Set Replay Speed");
+    }
+
+    /**
+     * For the play record.
+     *
     public void playRecorder() {
         System.out.println("in play record");
         playing = true;
@@ -106,89 +139,6 @@ public class recorderPanel extends JPanel {
             pause.setText("Play");
         }).start();
     }
+    */
 
-    /**
-     * status
-     */
-    public boolean status(boolean statusMoving, int currMoveInt) {
-        currMove = currMoveInt < moves.size() ? currMoveInt : moves.size() - 1;
-        // steps.setValue(currMoveInt);
-        try {
-            Thread.sleep(1000 / speed);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return !statusMoving;
-    }
-
-    /**
-     * Load a game from RecordLoad and execute its moves
-     */
-    public void load() {
-        JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/"); 
-        fileChooser.setDialogTitle("Select recording to load");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("load file (xml)", "xml");
-        fileChooser.setFileFilter(fileFilter);
-        fileChooser.showOpenDialog(fileChooser);
-
-        if (fileChooser.getSelectedFile() != null) {
-            RecordLoad record = new RecordLoad(fileChooser.getSelectedFile()); //creates new recordLoad object
-            this.moves = record.getMoves();
-
-            // loads levels from app
-            if (record.level() == 1) {
-                app.phaseOne();
-                //executes all moves
-                for(Move m: moves){
-                    m.move();
-                }
-            } else if (record.level() == 2) {
-                app.phaseTwo();
-
-                //execute all moves
-                for(Move m: moves){
-                    m.move();
-                } 
-            } System.out.println("moves not successful");
-        }
-    }
-
-    public void setSpeedButton() {
-        System.out.println("in set speed record");
-        speed = speed == maxSpeed ? 1 : speed + 1;
-        System.out.println(speed);
-        setRepSpeed.setText("Set Replay Speed");
-    }
-
-    /**
-     * 
-     * moveAction
-     * 
-     * @param pos place that is being moved to
-     */
-    private void movesStep(int pos) {
-        if (moves == null) {
-            return;
-        }
-        if (pos > currMove) {
-            // moves forward
-            for (int i = currMove; i < pos; i++) {
-                moves.get(i).move();
-                panel.repaint();
-            }
-        } else if (pos < currMove) {
-            // moves back
-            for (int i = currMove; i > pos; i--) {
-                Move prevMove = moves.get(i - 1);
-                if (prevMove instanceof Move m) {
-                    m.move();
-                }
-                moves.get(i).undo();
-                panel.repaint();
-            }
-        }
-        currMove = pos < moves.size() ? pos : moves.size() - 1;
-
-    }
 }
