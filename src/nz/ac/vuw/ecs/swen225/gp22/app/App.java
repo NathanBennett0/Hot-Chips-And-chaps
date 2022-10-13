@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -81,13 +82,12 @@ public class App extends JFrame {
     private boolean stopTimer = true;
     private boolean pauseTimer = false;
     private boolean runningGame = false;
-    private boolean replayMode = false; // for recorder
  
 
     JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); //TODO check the thing
 
     // Runnable variables 
-    Runnable restart = ()->{ stopTimer = true; pauseTimer = false; replayMode=false; runningGame = false;};
+    Runnable restart = ()->{ stopTimer = true; pauseTimer = false; runningGame = false;};
     Runnable newPanel = ()->{};
 
     Runnable pauseGame = ()->{ 
@@ -428,12 +428,18 @@ public class App extends JFrame {
        
         // Timer Action
         ActionListener countDown = new ActionListener(){
+            
 		    public void actionPerformed(ActionEvent e){
+                boolean lost = false;
+
                 SimpleDateFormat df=new SimpleDateFormat("mm:ss");
                 if(!pauseTimer) timeLeft -= 250;
 
                 // CALL ACTOR
-                phase.maze().getLevel().getActor().moveRandomly();
+                if(timeLeft % 4 == 0){
+                    if(phase.maze().getLevel().getLevel() == 2) phase.maze().getLevel().getActor().moveRandomly();
+                    if(phase.maze().getChap().s instanceof DeadState) lost = true;
+                }
 
 		        game.tLeft.setText(df.format(timeLeft));
                 try { game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));} 
@@ -449,10 +455,14 @@ public class App extends JFrame {
                 // LOSE
 		        if(timeLeft<=0){
                     phase.maze().getLevel().getChap().changeState(new DeadState()); // dead chap
+                    lost = true;
+		        }
+                if(lost){
                     stopTimer = true;
                     Phase.first.run();
             //        Phase.recorder.saveMove(); //TODO
-		        }
+                }
+                    
                 if(stopTimer) ((Timer)e.getSource()).stop();
                 
 		    }
@@ -512,7 +522,7 @@ public class App extends JFrame {
      * 
      */
     public void winPhase(){
-        JOptionPane.showConfirmDialog(this, "You Win!", "Congrats", JOptionPane.DEFAULT_OPTION);
+        JOptionPane.showConfirmDialog(this, "You Win!", "Congrats", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
         home();
     }
 
