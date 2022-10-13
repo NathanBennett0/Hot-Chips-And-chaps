@@ -9,6 +9,11 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
  * @author	Naomi Parte
  */
 public class Controller extends KeyStroke {
+
+	/**
+	 * Controller stores chap.
+	 * 
+	 */
 	Chap chap;
 
 	/**

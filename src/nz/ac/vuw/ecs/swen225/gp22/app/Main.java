@@ -9,8 +9,12 @@ import javax.swing.SwingUtilities;
  * 
  */
 public class Main {
+	/**
+	 * Main method. Runs the game.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		System.out.println("Main.java: main() called.");
 		Runnable startGame = ()->{App.getInstance();};
 		SwingUtilities.invokeLater(startGame);
 	}

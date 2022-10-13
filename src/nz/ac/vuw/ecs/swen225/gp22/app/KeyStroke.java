@@ -14,10 +14,29 @@ import nz.ac.vuw.ecs.swen225.gp22.Recorder.directionMove;
  * 
  */
 public class KeyStroke implements KeyListener {
+	/**
+	 * Stores normal keybinding.
+	 * 
+	 */
 	private static Map<Integer,Runnable> onPressed = new HashMap<>();
+
+	/**
+	 * Stores keybinding for control actions.
+	 * 
+	 */
 	private static Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
+
+	/**
+	 * Stores the app.
+	 * 
+	 */
 	protected App app;
 
+	/**
+	 * Constructor for the keystroke.
+	 * 
+	 * @param app
+	 */
 	KeyStroke(App app){
 		this.app = app;
 	}
@@ -75,8 +94,17 @@ public class KeyStroke implements KeyListener {
 		onPressed.getOrDefault(keycode,()->{}).run();
 	}
 
+	/**
+	 * Called when keys are released.
+	 * 
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {}
+
+	/**
+	 * Called when keys are typed.
+	 * 
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 

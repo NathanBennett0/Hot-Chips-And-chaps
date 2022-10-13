@@ -13,6 +13,10 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
  * 
  */
 public record Phase(Maze maze, Controller controller) {
+	/**
+	 * Runnables to change the phase when player dies, or when player finished a level.
+	 * 
+	 */
 	static Runnable next, first;
 	
 	/**

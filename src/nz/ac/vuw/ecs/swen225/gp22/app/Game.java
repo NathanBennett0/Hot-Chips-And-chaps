@@ -16,7 +16,16 @@ import javax.swing.SwingConstants;
  * 
  */
 public class Game extends JPanel {
+    /**
+     * Stores game phase.
+     * 
+     */
 	private Phase phase;
+
+    /**
+     * The game panel from renderer. Viewport for the game.
+     * 
+     */
 	private GamePanel game;
 	
 	JLabel tLeft = new JLabel("00:00");

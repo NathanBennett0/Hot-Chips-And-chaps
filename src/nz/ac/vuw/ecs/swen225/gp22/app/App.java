@@ -80,19 +80,22 @@ public class App extends JFrame {
      */
     public final static int TIMELIMIT_TWO = 120000;
 
-    // GAME VARIABLES
-
-    /**
-     * Game panel 
-     * 
-     */
-
     /**
      * Stores the phase the current game is in. Changes as the phase levels change.
      * 
      */
     private Phase phase;
+
+    /**
+     * Timer for the game.
+     * 
+     */
     private Timer timer;
+
+    /**
+     * Keeps track of the current active panel.
+     * 
+     */
     private JPanel currentPanel;
 
     /**
@@ -101,47 +104,135 @@ public class App extends JFrame {
      */
     Recorder recorder;
 
+    /**
+     * Keeps track of time left
+     * 
+     */
     private int timeLeft;  
+
+    /**
+     * Normal controller with game functionalities.
+     * 
+     */
     private Controller mainController = new Controller(this);
+
+    /**
+     * Game controller that moves chap.
+     * 
+     */
     private Controller gameController;
+
+    /**
+     * Sound effect for the game.
+     * 
+     */
     private SoundEffects sound = new SoundEffects();
+
+    /**
+     * Stores themecolor.
+     * 
+     */
     private Color themeColor = new Color(13, 59, 94);
 
-    // MenuBar variables
+    /**
+     * Menubar for the game.
+     * 
+     */
     private JMenuBar menuBar=new JMenuBar();
+
+    /**
+     * Start menu, stores level menu items.
+     * 
+     */
     private JMenu start=new JMenu("Start");
+
+    /**
+     * Menu Item variables.
+     * 
+     */
     private JMenuItem lvl1, lvl2, load, resume, pause, save, exit;
+
+    /**
+     * Dialog window for when the game is paused.
+     * 
+     */
     private JDialog dialogWindow =  new JDialog(this, "Menu");
 
-    // Boolean variables for fuzz testing
+    /**
+     * Boolean for fuzz testing.
+     * 
+     */
     private boolean fuzzStarted = false;
+
+    /**
+     * Initialization for fuzz testing.
+     * 
+     */
     private boolean initializeDone = false;
 
-    // Boolean variables for game
+    /**
+     * Keeps track of when to stop timer. Only turns on when the game play begins.
+     * 
+     */
     private boolean stopTimer = true;
+
+    /**
+     * Keeps track of game pause and resume.
+     * 
+     */
     private boolean pauseTimer = false;
+
+    /**
+     * Keeps track of whether the gameplay is running or not.
+     * 
+     */
     public boolean runningGame = false;
  
-
+    /**
+     * JFileChooser with existing path to where xml files are stored.
+     * 
+     */
     JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); 
 
-    // Runnable variables 
+    /**
+     * Initialzes boolean variables.
+     * 
+     */
     Runnable restart = ()->{ stopTimer = true; pauseTimer = false; runningGame = false;};
+
+    /**
+     * Sets of codes to run everytime we go to a new panel.
+     * 
+     */
     Runnable newPanel = ()->{};
 
+    /**
+     * Stores actions needed for when the game is paused.
+     * 
+     */
     Runnable pauseGame = ()->{ 
+        // showing dialog window
         dialogWindow.setVisible(true);
         dialogWindow.setFocusable(true);
         currentPanel.setFocusable(false);
+
+        // changing controller
         mainController.clearKeyBind();
         mainController.setPauseKey();
         dialogWindow.addKeyListener(mainController);
         dialogWindow.requestFocus();
+
         pauseTimer = true; 
         pause.setText("Resume");
-        changeKeyListener(null);
+
+        //sets current panel's controller to null so that chap can't be controlled while game is paused
+        changeKeyListener(null); 
     };  
 
+    /**
+     * Stores actoins needed for resuming the game.
+     * 
+     */
     Runnable resumeGame = ()->{ 
         currentPanel.setFocusable(true);
         dialogWindow.setVisible(false);
@@ -152,6 +243,10 @@ public class App extends JFrame {
         changeKeyListener(gameController);
     };
 
+    /**
+     * Stores actions for exiting game.
+     * 
+     */
     Runnable exitGame = ()->{
         restart.run();
         System.exit(0);
