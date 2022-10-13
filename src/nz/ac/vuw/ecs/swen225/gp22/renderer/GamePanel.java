@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
     	
     	this.setBounds(62,55,BOARD_DIM,BOARD_DIM);
-    	this.setLayout(new GridLayout(9,9));
+    	//this.setLayout(new GridLayout(9,9));
     	timer = new Timer(time, this); // Timer works in milliseconds
 		timer.start();	
 	}
@@ -63,25 +63,29 @@ public class GamePanel extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		for(int x = 0; x < 9; x++) {
     		for(int y = 0; y < 9; y++) {
-    			if(board[x][y] instanceof Chap) { // For the animation of the chapx
+    			if(board[x][y] instanceof Chap) { // For the animation of the chap
     				if(currChap.done()) {
     					setImgState(board[x][y].getLocation());
     				}
     				Image i = currChap.getCurrImg().image;
     				prevLoc = maze.player.getLocation();
     				g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
-    			}else if(board[x][y] instanceof Actor) {
+    			}else if(board[x][y] instanceof Actor) { // For the animation of the actor
     			    Image i = setActorImg(new Location(x,y));
-    			
     			    g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
-    		    }else {
+    		    }else { // To draw all of the other tiles
     				Image i = board[x][y].getImg().image;
         			g2d.drawImage(i, x * IMAGE_DIM, y * IMAGE_DIM, null);
     			}
     		}
     	}
 		
-		
+		if(maze.getChap().getOnInfo()) {
+		    g2d.drawImage(Img.InfoPopUp.image, 155, 350, null);
+		    g2d.setColor(Color.WHITE);
+		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 30 ));
+		    g2d.drawString("TEST", 200, 400);
+		}
 	}
 	
 
@@ -159,6 +163,10 @@ public class GamePanel extends JPanel implements ActionListener{
 	     }
 	     prevActorLoc = l;
 	     return Img.LawnmowerDown.image;
+	 }
+	 
+	 public Img displayInfo() {
+	     return null; 
 	 }
 	 
 	 /**
