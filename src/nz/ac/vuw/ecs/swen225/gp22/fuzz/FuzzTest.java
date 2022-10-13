@@ -28,7 +28,6 @@ public class FuzzTest {
 	private int currentX, currentY;
 	private int prevX, prevY;
 	private String prevDirection = "";
-	private int currentLevel = 0;
 
 	
 	/**
@@ -38,21 +37,18 @@ public class FuzzTest {
 	public void FuzzTest1() {
 		
 		System.out.println("FuzzTest 1 is called.");
-		makeStrategyBoardL1();
+		
+		// App is a singleton class so ensure that it is not null
+        // Ensure that after initialisation that the strategy board is not null
 		App app = App.getInstance();
-		assert strategyL1 != null;
-		assert app != null;
+		assert strategyL1 != null && app != null;
 		
-		while(!app.initializeDone()) System.out.print(""); // While the main menu is booting, wait
+		
+		while(!app.initializeDone()) pause(app,200); // While the main menu is booting, wait
 		System.out.println("Initializing of window done. Timed fuzz test begins now.");
-		
 		long timer = System.currentTimeMillis() + 60 * 1000; // Timer to stop while loop
-		app.phaseOne(); // This will change fuzzStarted to true and load L1
-		currentLevel = 1;
+		app.phaseOne(); // This automatically loads L1 inside the app GUI
 		assert app.fuzzStarted() == true;
-        
-        currentX = app.updateLocationX();
-        currentY = app.updateLocationY();
 		intelligence(app, timer);
 
 	}
@@ -63,22 +59,17 @@ public class FuzzTest {
 	 */
 	@Test
 	public void FuzzTest2() { 
+	    
 	    System.out.println("FuzzTest 2 is called.");
-        makeStrategyBoardL2();
         App app = App.getInstance();
-        assert strategyL2 != null;
-        assert app != null;
+        assert strategyL2 != null && app != null;
         
-        while(!app.initializeDone()) System.out.print("");
+        
+        while(!app.initializeDone()) pause(app,200);
         System.out.println("Initializing of window done. Timed fuzz test begins now.");
-        
         long timer = System.currentTimeMillis() + 60 * 1000; 
-        app.phaseTwo(); // This will change fuzzStarted to true and load L2
-        currentLevel = 2;
+        app.phaseTwo(); // This automatically loads L2
         assert app.fuzzStarted() == true;
-        
-        currentX = app.updateLocationX();
-        currentY = app.updateLocationY();
         intelligence(app, timer);
 	    
 	}
@@ -139,19 +130,16 @@ public class FuzzTest {
             
             
             // Use intelligence to find the next direction depending on which level
-            if(app.getGame().phase().level().getLevel() == 1) {
-                int direction = pickDirectionL1();
-                c.keyPressed(direction);
-            }
-            else {
-                int direction = pickDirectionL2();
-                c.keyPressed(direction);
-            }
+            if(app.getGame().phase().level().getLevel() == 1) c.keyPressed(pickDirectionL1());
+            else c.keyPressed(pickDirectionL2());
 
             
             // Check the location of the chap
             currentX = app.updateLocationX();
             currentY = app.updateLocationY();
+            assert currentX < app.getGame().phase().maze().getGrid().length && currentX >= 0;
+            assert currentY < app.getGame().phase().maze().getGrid().length && currentY >= 0;
+            // Ensure that the updated X and Y given to us on the map is a valid location of the board *
             
            
             // Use intelligence so the wall does not get tried again
@@ -164,15 +152,11 @@ public class FuzzTest {
                         HashMap<String, Integer> position = strategyL1[currentX][currentY];
                         position.put(prevDirection, 1000); // So we do not try it again
                     }
-                    else {
-                        strategyL2[wallX][wallY] = 1000; // So we do not try it again
-                    }
+                    else strategyL2[wallX][wallY] = 1000; // So we do not try it again
                 }
             }
-            if(currentLevel == 1 && app.getGame().phase().level().getLevel() == 2) {
-                System.out.println("Chap has finished Level One; game ending now.");
-                break;
-            }
+            
+            if(Math.abs(System.currentTimeMillis() - timer) < 1 * 1000) app.saveGame();
             if(checkTimer(timer)) break; // Checks if the timer has exceeded
         }
 	}
@@ -180,6 +164,8 @@ public class FuzzTest {
 	
 	/**
 	 * Locates the X coordinate of an adjacent coordinate
+	 * @param dir the direction we are moving in
+	 * @return the new X coordinate of the adjacent tile
 	 */
 	public int findAdjX(String dir) {
 		switch(dir) {
@@ -192,9 +178,11 @@ public class FuzzTest {
 	}
 	
 	
-	/**
-	 * Locates the Y coordinate of an adjacent coordinate
-	 */
+    /**
+     * Locates the Y coordinate of an adjacent coordinate
+     * @param dir the direction we are moving in
+     * @return the new Y coordinate of the adjacent tile
+     */
 	public int findAdjY(String dir) {
 		switch(dir) {
 			case "u": return currentY - 1;
@@ -266,7 +254,7 @@ public class FuzzTest {
 	
    /**
     * Picks a direction for the chap to travel in
-    * Chap also moves to the adjacent tile least explpored
+    * Chap also moves to the adjacent tile least explored
     */
     public int pickDirectionL2() {
         System.out.println("pickDirection2");
