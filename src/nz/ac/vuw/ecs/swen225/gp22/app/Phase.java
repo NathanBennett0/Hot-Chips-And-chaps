@@ -27,7 +27,7 @@ public record Phase(Maze maze, Controller controller) {
 		next = n;
 		first = f;
 
-		Level lvl = new Filereader().loadLevel("level1.xml");
+		Level lvl = new Filereader().loadLevel("levels/level1.xml");
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
 		try {
@@ -49,7 +49,7 @@ public record Phase(Maze maze, Controller controller) {
 		next = n;
 		first = f;
 
-		Level lvl = new Filereader().loadLevel("level2.xml");
+		Level lvl = new Filereader().loadLevel("levels/level2.xml");
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
 		try {
@@ -59,18 +59,25 @@ public record Phase(Maze maze, Controller controller) {
 		return new Phase(m, c); 
 	}
 
+
+	/**
+	 * Creates phase for recorder replay.
+	 * 
+	 * @param level
+	 * @return
+	 */
 	public static Phase replayPhase(int level){
 		String filename = level==2?"level2.xml":"level1.xml";
 		int size = level==2?66:22;
 
 		Level lvl = new Filereader().loadLevel(filename);
+		Controller c = new Controller(App.getInstance(), lvl.getChap());
 		Maze m = null;
 		try {
 			m = new Maze(lvl, size, size);
 			lvl.getChap().setMaze(m); 
 		} catch (IOException e) {e.printStackTrace();}
 		
-		return new Phase(m, null);
+		return new Phase(m, c);
 	}
-	
 }

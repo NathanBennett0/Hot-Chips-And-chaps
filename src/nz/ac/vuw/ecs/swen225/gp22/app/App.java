@@ -61,6 +61,7 @@ public class App extends JFrame {
 
     // Game variables
 	private Game game;
+    private Phase phase;
     private Timer timer;
     private JPanel currentPanel;
     Recorder recorder;
@@ -87,7 +88,7 @@ public class App extends JFrame {
     private boolean runningGame = false;
  
 
-    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); //TODO check the thing
+    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); 
 
     // Runnable variables 
     Runnable restart = ()->{ stopTimer = true; pauseTimer = false; runningGame = false;};
@@ -299,7 +300,7 @@ public class App extends JFrame {
         var play = new JButton("New Game");
         play.setBounds(400, 580, 100, 30);
 
-        replay.addActionListener((e)->{replay();});
+        replay.addActionListener((e)->{recorderGame();}); //replay() TODO
         tutorial.addActionListener((e)->{ tutorial();});
         play.addActionListener((e)->{ phaseOne();});
 
@@ -429,23 +430,35 @@ public class App extends JFrame {
         newPanel.run();
         restart.run();
 
-        Phase phase = Phase.replayPhase(1); //recorder.level()
-        gameController = phase.controller();
-        GamePanel viewport = new GamePanel(phase.maze(), this);
+        recorderPanel rp = new recorderPanel(this);
 
-        getContentPane().add(BorderLayout.CENTER, viewport);
+        Phase phase = Phase.replayPhase(1); //recorder.level()
+        this.phase = phase;
+        gameController = phase.controller();
+
+        var panel = new JPanel();
+        panel.setBackground(themeColor);
+        panel.setLayout(null);
+        var back = new JButton("Home");
+        back.setBounds(400, 600, 100, 30);
+        back.addActionListener((e)->{ home();});
+
+        GamePanel viewport = new GamePanel(phase.maze(), this);
+        viewport.setBounds(170,30,558,558);
         
-        currentPanel = viewport;
+        panel.add(viewport);
+        panel.add(back);
+        panel.add(mainMenu());
+
+        currentPanel = panel;
         changeKeyListener(phase.controller());
 
-        var back = new JButton("Back");
-        back.setBounds(40, 580, 100, 30);
-        back.addActionListener((e)->{ home();});
-        newPanel = ()->{
-            remove(viewport);
-        };
+        
 
-        viewport.add(gameMenu());
+        getContentPane().add(panel);
+        newPanel = ()->{
+            remove(panel);
+        };
         pack();
         currentPanel.requestFocus();
     }
@@ -490,7 +503,7 @@ public class App extends JFrame {
 
                 // WIN
                 if(phase.maze().getLevel().getChap().won()){
-                    recorder.saveMove(); //TODO
+                    recorder.saveMove(); 
                     runningGame = false;
                     Phase.next.run();
                 }
@@ -503,7 +516,7 @@ public class App extends JFrame {
                 if(lost){
                     stopTimer = true;
                     Phase.first.run();
-                    recorder.saveMove(); //TODO
+                    recorder.saveMove(); 
                 }
                     
                 if(stopTimer) ((Timer)e.getSource()).stop();
@@ -576,7 +589,7 @@ public class App extends JFrame {
     public void saveGame() {
         System.out.println("saving game");
         Filewriter fw = new Filewriter(game.phase().maze().getLevel(), timeLeft);
-        fw.saveToXML("lastSaved");
+        fw.saveToXML("levels/lastSaved");
     }
 
     /**
@@ -584,7 +597,7 @@ public class App extends JFrame {
      * 
      */
     public void resumeGame() {
-        Level lvl = new Filereader().loadLevel("lastSaved.xml");
+        Level lvl = new Filereader().loadLevel("levels/lastSaved.xml");
         if(lvl == null) return;
         Maze m;
         try {
@@ -610,7 +623,7 @@ public class App extends JFrame {
         }else{
             return;
         }
-        Level lvl = new Filereader().loadLevel(filename);
+        Level lvl = new Filereader().loadLevel("levels/" + filename);
         Maze m;
         try {
             int size = lvl.getLevel()>=2?66:22;
@@ -630,6 +643,15 @@ public class App extends JFrame {
      */
     public Game getGame() {
     	return this.game;
+    }
+
+    /**
+     * Getter for phase.
+     * 
+     * @return phase
+     */
+    public Phase getPhase(){
+        return this.phase;
     }
 
     /**
