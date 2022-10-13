@@ -246,8 +246,6 @@ public class App extends JFrame {
         return menuBar;
     }
 
-
-
     /**
      * GUI - MenuBar for when the game is running.
      * 
