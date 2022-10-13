@@ -11,12 +11,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-// import org.dom4j.Document;
-// import org.dom4j.DocumentHelper;
-// import org.dom4j.Element;
-// import org.dom4j.io.OutputFormat;
-// import org.dom4j.io.XMLWriter;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +33,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 public class Recorder {
 	private final List<directionMove> movesList;
-	private final int level;
+	private int level = 0;
 	
 	/**
 	 * Constructing a new recorder
@@ -48,6 +42,10 @@ public class Recorder {
 		level = L;
 		movesList = new ArrayList<>();
 	}
+	public Recorder(){
+		movesList = new ArrayList<>();
+	}
+
 
 	/**
 	 * Save a move to an XML file format
@@ -62,7 +60,7 @@ public class Recorder {
 		   // root element for game
 		   Element root = doc.createElement("Game");
 
-			//append levels to this one
+			//sets a level element
 			Element LevelMoves = doc.createElement("LevelMoves");
 			LevelMoves.setAttribute("Level", String.valueOf(level));
 
