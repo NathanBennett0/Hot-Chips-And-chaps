@@ -4,6 +4,10 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
 
+/**
+* @author Christine Jayme
+ * Student ID: 300580764
+ */
 public class directionMove implements Move {
     /**
      * keyCode for the move.

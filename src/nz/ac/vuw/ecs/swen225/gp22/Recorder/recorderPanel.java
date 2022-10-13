@@ -11,6 +11,10 @@ import java.util.List;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
+/**
+*@author Christine Jayme
+ * Student ID: 300580764
+ */
 public class recorderPanel extends JPanel {
 
     /**

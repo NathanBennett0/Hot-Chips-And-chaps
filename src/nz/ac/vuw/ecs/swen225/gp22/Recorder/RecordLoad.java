@@ -16,7 +16,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * TO DO: Find how to store the levels as well.
+ *@author Christine Jayme
+ * Student ID: 300580764
  */
 
 public class RecordLoad {

@@ -16,6 +16,10 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+* @author Christine Jayme
+ * Student ID: 300580764
+ */
 public class Recorder {
 
 	/**
