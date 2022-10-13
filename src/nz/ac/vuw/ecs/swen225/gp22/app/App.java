@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
-import javax.sound.sampled.SourceDataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -806,6 +805,7 @@ public class App extends JFrame {
      */
     public int updateLocationX() {
         Maze m = phase.maze();
+        if(m.player.l == null) return -1;
         return m.player.l.getX();
     }
 
@@ -817,6 +817,7 @@ public class App extends JFrame {
      */
     public int updateLocationY() {
         Maze m = phase.maze();
+        if(m.player.l == null) return -1;
         return m.player.l.getY();
     }
 
