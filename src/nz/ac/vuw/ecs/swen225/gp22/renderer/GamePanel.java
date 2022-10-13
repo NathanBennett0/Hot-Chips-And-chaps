@@ -84,7 +84,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		    g2d.drawImage(Img.InfoPopUp.image, 155, 350, null);
 		    g2d.setColor(Color.WHITE);
 		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 20 ));
-		    g2d.drawString(maze.getChap().infoMessage, 200, 400);
+		    g2d.drawString(maze.getChap().info.getMessage(), 200, 400);
 		}
 	}
 	
@@ -94,8 +94,8 @@ public class GamePanel extends JPanel implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(app.getGame() == null) {return;}
-		Tile[][] temp = app.getGame().phase().maze().getGrid();
+		if(app.getPhase() == null) {return;}
+		Tile[][] temp = app.getPhase().maze().getGrid();
 		for(int x = 0; x < temp.length; x++) {
     		for(int y = 0; y < temp.length; y++) {
     			if(temp[x][y] instanceof Chap) {
