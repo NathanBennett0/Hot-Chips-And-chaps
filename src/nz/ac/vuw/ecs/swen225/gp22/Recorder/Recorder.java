@@ -11,6 +11,12 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+// import org.dom4j.Document;
+// import org.dom4j.DocumentHelper;
+// import org.dom4j.Element;
+// import org.dom4j.io.OutputFormat;
+// import org.dom4j.io.XMLWriter;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,82 +40,87 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 public class Recorder {
 	private final List<directionMove> movesList;
 	private int level = 0;
-	
+
 	/**
 	 * Constructing a new recorder
+	 * 
+	 * @param L level
 	 */
-	public Recorder(int L){
+	public Recorder(int L) {
 		level = L;
 		movesList = new ArrayList<>();
 	}
-	public Recorder(){
+
+	/**
+	 * Constructor for App
+	 */
+	public Recorder() {
 		movesList = new ArrayList<>();
 	}
-
 
 	/**
 	 * Save a move to an XML file format
 	 */
-	public void saveMove(){
-		try{
-			
-		DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docbuilder = docbuilderfactory.newDocumentBuilder();
-		Document doc = docbuilder.newDocument();
+	public void saveMove() {
+		try {
 
-		   // root element for game
-		   Element root = doc.createElement("Game");
+			DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docbuilder = docbuilderfactory.newDocumentBuilder();
+			Document doc = docbuilder.newDocument();
 
-			//sets a level element
+			// root element for game
+			Element root = doc.createElement("Game");
+
+			// sets a level element
 			Element LevelMoves = doc.createElement("LevelMoves");
 			LevelMoves.setAttribute("Level", String.valueOf(level));
 
 			root.appendChild(LevelMoves);
 
-			for(directionMove m: movesList){
+			for (directionMove m : movesList) {
 
-				//save move keyCode
+				// save the move keyCode
 				Element move = doc.createElement("move");
 				Attr moveAttr = doc.createAttribute("moveKeyCode");
 				moveAttr.setValue(String.valueOf(m.getKeyCode()));
 				move.setAttributeNode(moveAttr);
-				
-				//save app keycode
+
+				// saving the app to the XML
 				Attr app = doc.createAttribute("App");
 				app.setValue(String.valueOf(m.getApp()));
 
 				LevelMoves.appendChild(move);
 			}
 
-			//appending the level values
-			//root.appendChild(LevelMoves);
+			// appending the all elements the document
 			doc.appendChild(root);
 
-		   String fileLevel =  "Recorder" + String.valueOf(level);
-		   String fName = "src/nz/ac/vuw/ecs/swen225/gp22/Recorder/" + fileLevel + ".xml";
+			//creating the XML file
+			String fileLevel = "Recorder" + String.valueOf(level);
+			String fName = "src/nz/ac/vuw/ecs/swen225/gp22/Recorder/" + fileLevel + ".xml";
 
-		    TransformerFactory transformerfactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerfactory.newTransformer();
-            DOMSource domsource = new DOMSource(doc);
-            StreamResult streamresult = new StreamResult(new File(fName));
-            transformer.transform(domsource, streamresult);
+			TransformerFactory transformerfactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerfactory.newTransformer();
+			DOMSource domsource = new DOMSource(doc);
+			StreamResult streamresult = new StreamResult(new File(fName));
+			transformer.transform(domsource, streamresult);
 
-        } catch (Exception e) {
-            System.out.println("failed save move");
+		} catch (Exception e) {
+			System.out.println("failed save move");
 			e.printStackTrace();
-        }
+		}
 
 	}
-		public List<directionMove> getMove(){
-			return movesList;
-		}
 
-		public void addMove(directionMove m){
-			
-			movesList.add(m);
-			//System.out.println(movesList + "");
-		}
+	/**
+	 * Adds move to the arrayList
+	 * @param m
+	 */
+	public void addMove(directionMove m) {movesList.add(m);}
 
-		
-	
+	/**
+	 * Gets the list of moves
+	 * @return movesList
+	 */
+	public List<directionMove> getMove() {return movesList;}
 }
