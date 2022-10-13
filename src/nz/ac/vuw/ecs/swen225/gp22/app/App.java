@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -59,10 +60,12 @@ public class App extends JFrame {
 	private Game game;
     private Timer timer;
     private JPanel currentPanel;
+
     private int timeLeft;  
     private Controller mainController = new Controller(this);
     private Controller gameController;
     private SoundEffects sound = new SoundEffects();
+    private Color themeColor = new Color(13, 59, 94);
 
     // MenuBar variables
     private JMenuBar menuBar=new JMenuBar();
@@ -77,13 +80,14 @@ public class App extends JFrame {
     // Boolean variables for game
     private boolean stopTimer = true;
     private boolean pauseTimer = false;
+    private boolean runningGame = false;
     private boolean replayMode = false; // for recorder
  
 
     JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/"); //TODO check the thing
 
     // Runnable variables 
-    Runnable restart = ()->{ stopTimer = true; pauseTimer = false; replayMode=false; };
+    Runnable restart = ()->{ stopTimer = true; pauseTimer = false; replayMode=false; runningGame = false;};
     Runnable newPanel = ()->{};
 
     Runnable pauseGame = ()->{ 
@@ -150,7 +154,7 @@ public class App extends JFrame {
      */
     public void prepareDialogWindow(){
         dialogWindow.setPreferredSize(new Dimension(240,310));
-		dialogWindow.getContentPane().setBackground(new Color(13, 59, 94));
+		dialogWindow.getContentPane().setBackground(themeColor);
         dialogWindow.setLocation(WIDTH/2 - 240/2, HEIGHT/2 - 310/2);
         dialogWindow.setLayout(null);
         dialogWindow.setResizable(false);
@@ -276,11 +280,11 @@ public class App extends JFrame {
         sp.setBounds(0,20,WIDTH, HEIGHT-20);
         
         pause.setText("Pause");
-        var replay = new JButton("Replay");
+        var replay = new JButton("Recorder");
         replay.setBounds(400, 520, 100, 30);
         var tutorial = new JButton("Tutorial");
         tutorial.setBounds(400, 550, 100, 30);
-        var play = new JButton("Play!");
+        var play = new JButton("New Game");
         play.setBounds(400, 580, 100, 30);
 
         replay.addActionListener((e)->{replay();});
@@ -321,7 +325,7 @@ public class App extends JFrame {
         p.setLayout(null);
 
         var back = new JButton("Back");
-        back.setBounds(400, 580, 100, 30);
+        back.setBounds(20, 580, 100, 30);
 
         JLabel instruction = new JLabel();
         Image scaled = Img.Tutorial.image.getScaledInstance(App.WIDTH,App.HEIGHT-20,Image.SCALE_SMOOTH);
@@ -415,6 +419,7 @@ public class App extends JFrame {
     public void setPhase(Phase phase, int time){
         newPanel.run();
         stopTimer = false;
+        runningGame = true;
         gameController = phase.controller();
         game = new Game(phase, this);
         
@@ -427,23 +432,29 @@ public class App extends JFrame {
                 SimpleDateFormat df=new SimpleDateFormat("mm:ss");
                 if(!pauseTimer) timeLeft -= 250;
 
+                // CALL ACTOR
+                phase.maze().getLevel().getActor().moveRandomly();
+
 		        game.tLeft.setText(df.format(timeLeft));
                 try { game.itemLeft.setText(Integer.toString(phase.maze().numOfTreasures()));} 
                 catch (IOException e1) { e1.printStackTrace();}
 		        game.repaint();
 
-                // Win
-                if(phase.level().getChap().won()){
-                    Phase.recorder.saveMove();
+                // WIN
+                if(phase.maze().getLevel().getChap().won()){
+            //        Phase.recorder.saveMove(); //TODO
                     Phase.next.run();
                 }
-                // Lose
-		        if(timeLeft<=0 || stopTimer){
-                    phase.level().getChap().changeState(new DeadState()); // dead chap
+
+                // LOSE
+		        if(timeLeft<=0){
+                    phase.maze().getLevel().getChap().changeState(new DeadState()); // dead chap
+                    stopTimer = true;
                     Phase.first.run();
-                    Phase.recorder.saveMove();
-                    ((Timer)e.getSource()).stop();
+            //        Phase.recorder.saveMove(); //TODO
 		        }
+                if(stopTimer) ((Timer)e.getSource()).stop();
+                
 		    }
 		};
 		
@@ -457,6 +468,7 @@ public class App extends JFrame {
             remove(game);
             timer.stop();
             sound.stopGameMusic();
+            runningGame = false;
         };
 
         game.add(gameMenu());
@@ -468,10 +480,21 @@ public class App extends JFrame {
     }
 
     /**
+     * Helper method - asks the user if they want to save the game.
+     * 
+     */
+    public void confirmSave(){
+        if(!runningGame) return;
+        int result = JOptionPane.showConfirmDialog(this, "Do you want to save the current game?", "Notice", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(result == JOptionPane.YES_OPTION) saveGame();
+    }
+
+    /**
      * Setting phase one/ level 1 of the game.
      * 
      */
     public void phaseOne() {
+        confirmSave();
         setPhase(Phase.levelOne(()->phaseTwo(), ()->endPhase(()->phaseOne())), TIMELIMIT_ONE); 
     }
     
@@ -480,6 +503,7 @@ public class App extends JFrame {
      * 
      */
     public void phaseTwo() {
+        confirmSave();
         setPhase(Phase.levelTwo(()->winPhase(), ()->endPhase(()->phaseTwo())), TIMELIMIT_TWO); 
     }
 
@@ -488,7 +512,7 @@ public class App extends JFrame {
      * 
      */
     public void winPhase(){
-        System.out.println("YOU WIN!");
+        JOptionPane.showConfirmDialog(this, "You Win!", "Congrats", JOptionPane.DEFAULT_OPTION);
         home();
     }
 
@@ -514,7 +538,7 @@ public class App extends JFrame {
             int size = lvl.getLevel()>=2?66:22;
             m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m); 
-            setPhase(new Phase(m, new Controller(this, lvl.getChap()), lvl), lvl.getTime());
+            setPhase(new Phase(m, new Controller(this, lvl.getChap())), lvl.getTime());
         } catch (IOException e) { e.printStackTrace(); } 
     }
 
@@ -530,7 +554,6 @@ public class App extends JFrame {
         String filename = "";
         if(j == JFileChooser.APPROVE_OPTION) {
             filename = jfc.getSelectedFile().getName();
-            System.out.println("loading " + filename);
         }else{
             return;
         }
@@ -542,7 +565,7 @@ public class App extends JFrame {
             lvl.getChap().setMaze(m); 
             // now have the maze object
             gameController = new Controller(this, lvl.getChap());
-            setPhase(new Phase(m, gameController, lvl), lvl.getTime());
+            setPhase(new Phase(m, gameController), lvl.getTime());
         } catch (IOException e) { e.printStackTrace();} 
     }
 

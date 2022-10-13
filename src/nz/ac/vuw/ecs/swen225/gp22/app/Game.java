@@ -64,7 +64,7 @@ public class Game extends JPanel {
         
         this.add(p);
         
-        currLvl.setText(Integer.toString(phase.level().getLevel())); 
+        currLvl.setText(Integer.toString(phase.maze().getLevel().getLevel())); 
         currLvl.setHorizontalAlignment(SwingConstants.CENTER);
         currLvl.setFont(new Font("Arial Black", Font.BOLD, 30));
         currLvl.setBounds(16, 71, 155, 54);
