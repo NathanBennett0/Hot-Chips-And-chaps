@@ -41,7 +41,7 @@ public class Actor extends Tile{
         int x2 = c.getLocation().getX();
         int y2 = c.getLocation().getY();
         double dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)); //euclidean distance
-        if(dist < 1) {
+        if(dist == 1) {
             eatChap(); //same as killing chap
         }
     }
