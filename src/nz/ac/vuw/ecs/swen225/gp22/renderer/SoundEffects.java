@@ -66,7 +66,7 @@ public class SoundEffects {
      * Start playing the background music for the game
      */
     public void playGameMusic() {
-    	completeLevel.setMicrosecondPosition(0);
+    	backgroundMusic.setMicrosecondPosition(0);
     	backgroundMusic.start();
     }
     

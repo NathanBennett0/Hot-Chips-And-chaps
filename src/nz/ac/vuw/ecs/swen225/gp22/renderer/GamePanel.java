@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements ActionListener{
 	final int IMAGE_DIM = 62;
 	final int BOARD_DIM = 558;
 	
+	private int time = 150; 
+	
 	Tile[][] board = new Tile[9][9];
 	Timer timer; 
 	Maze maze;
@@ -44,8 +46,9 @@ public class GamePanel extends JPanel implements ActionListener{
     	
     	this.setBounds(62,55,BOARD_DIM,BOARD_DIM);
     	this.setLayout(new GridLayout(9,9));
-    	timer = new Timer(150, this); // Timer works in milliseconds
+    	timer = new Timer(time, this); // Timer works in milliseconds
 		timer.start();
+		
 		
 	}
 	
@@ -69,6 +72,7 @@ public class GamePanel extends JPanel implements ActionListener{
     			}
     		}
     	}
+		
 		
 	}
 	
@@ -128,6 +132,17 @@ public class GamePanel extends JPanel implements ActionListener{
 		 }else {
 			 currChap = new NormalImage();
 		 }
+	 }
+	 
+	 /**
+	  * For the Recorder to set the time so it can
+	  * go faster
+	  * @param x = new time in microseconds
+	  */
+	 public void setTimer(int x) {
+	     this.time = x;
+	     timer = new Timer(time, this);
+	     timer.start();
 	 }
 
 	  
