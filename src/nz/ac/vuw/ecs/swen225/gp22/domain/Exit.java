@@ -9,6 +9,7 @@ public class Exit extends Tile {
 
 	public Exit(Location l) {
 		super(l);
+		System.out.println(this.toString() + " constructor called");
 	}
 
 	/*

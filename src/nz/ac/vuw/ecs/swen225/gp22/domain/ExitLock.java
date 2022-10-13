@@ -9,6 +9,7 @@ public class ExitLock extends Tile{
 	
 	public ExitLock(Location l) {
 		super(l);
+		System.out.println(this.toString() + " constructor called");
 	}
 
 	/*

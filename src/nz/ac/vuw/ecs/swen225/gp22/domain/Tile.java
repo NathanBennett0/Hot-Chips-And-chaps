@@ -12,9 +12,6 @@ public class Tile implements Entity{
         this.l = l;
     }
     
-    public Tile(Location l, Maze m) {
-    	this.l = l;
-    }
     
     /*
      * get Location of the tile 

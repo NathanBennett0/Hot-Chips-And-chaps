@@ -7,6 +7,7 @@ public class Free extends Tile {
 
 	public Free(Location l) {
 		super(l);
+		this.toString();
 	} // empty tile
 
 	/*

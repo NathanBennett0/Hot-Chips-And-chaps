@@ -21,6 +21,7 @@ public class Chap extends Tile{ // player which is not a core tile
         this.l = l;
         this.chest = new ArrayList<Tile>();
         this.s = new AliveState(l, m);
+        System.out.println(this.toString() + " constructor called");
     }
 
     // getters and setters
@@ -118,7 +119,6 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveUp() {
         l = s.moveUp();
-        //System.out.println("c.keyPressed(KeyEvent.VK_W);"+" "+l.toString()+", State: "+s.toString());
     }
 
     /*
@@ -126,7 +126,6 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveDown() {
         l = s.moveDown();
-        //System.out.println("c.keyPressed(KeyEvent.VK_S);"+" "+l.toString()+", State: "+s.toString());
     }
 
     /*
@@ -134,7 +133,6 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveRight() {
         l = s.moveRight();
-        //System.out.println("c.keyPressed(KeyEvent.VK_D);"+" "+l.toString()+", State: "+s.toString());
     }
 
     /*
@@ -142,7 +140,6 @@ public class Chap extends Tile{ // player which is not a core tile
      */
     public void moveLeft() {
         l = s.moveLeft();
-        //System.out.println("c.keyPressed(KeyEvent.VK_A);"+" "+l.toString()+", State: "+s.toString());
     }
 
     /*

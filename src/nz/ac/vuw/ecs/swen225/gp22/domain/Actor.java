@@ -19,6 +19,7 @@ public class Actor extends Tile{
     	super(l);
         this.c = c;
         this.l = l;
+        System.out.println(this.toString() + " constructor called");
     }
     /*
      * Kills chap 
