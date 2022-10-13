@@ -8,8 +8,10 @@ import org.dom4j.Element;
 public interface Move {
     /**
       * Save the move in an XML format
-      */
+      
     Element saveXML();
+
+    */
       
     /**
      * Performs the move.
