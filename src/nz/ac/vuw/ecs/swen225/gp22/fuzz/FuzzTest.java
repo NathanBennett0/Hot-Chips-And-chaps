@@ -142,7 +142,7 @@ public class FuzzTest {
             // Use intelligence to find the next direction depending on which level
             if(checkTimer(timer) || !app.runningGame) break; // Checks if the timer has exceeded
             if(app.getPhase().maze().getLevel().getLevel() == 1) c.keyPressed(pickDirectionL1());
-            else c.keyPressed(pickDirectionL2(app));
+            else c.keyPressed(pickDirectionL2());
 
             
 
