@@ -79,7 +79,6 @@ public class recorderPanel extends JPanel {
         // play.setSize(70, 20);
 
         // add panels to JPanel
-        this.add(panel);
         this.add(mainMenu);
         this.add(loadRecord);
         this.add(setRepSpeed);
