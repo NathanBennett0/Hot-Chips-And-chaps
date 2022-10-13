@@ -2,42 +2,61 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicSliderUI;
-import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
 public class recorderPanel extends JPanel {
 
+    /**
+     * Jpanel for the recorder
+     */
     private JPanel panel;
+
+    /**
+     * Maximum speed user can set to
+     */
     private static final int maxSpeed = 4;
+
+    /**
+     * Button for home/the main menu
+     */
     private JButton mainMenu = new JButton("Home");
+
+    /**
+     * Button to load a record
+     */
     private JButton loadRecord = new JButton("Auto Play");
+
+    /**
+     * Button to set the replat speed
+     */
     private JButton setRepSpeed = new JButton("Set Replay Speed");
-    private JButton pause = new JButton("Pause");
-    //private JButton play = new JButton("Play Record");
-    
+    // private JButton play = new JButton("Play Record");
+
+    /**
+     * App
+     */
     App app;
 
-    private List<directionMove> moves; //list of moves
+    /**
+     * List of moves
+     */
+    private List<directionMove> moves;
+
+    /**
+     * Speed for replay
+     */
     private int speed = 1;
 
     /**
      * Constructor for the panel
+     * 
      * @param a app
      */
     public recorderPanel(App a) {
@@ -57,7 +76,7 @@ public class recorderPanel extends JPanel {
         // set button sizes
         loadRecord.setSize(70, 20);
         setRepSpeed.setSize(70, 20);
-        //play.setSize(70, 20);
+        // play.setSize(70, 20);
 
         // add panels to JPanel
         this.add(panel);
@@ -73,7 +92,7 @@ public class recorderPanel extends JPanel {
         loadRecord.addActionListener((e) -> {
             load();
         });
-        
+
         setRepSpeed.addActionListener((e) -> {
             setSpeedButton();
         });
@@ -81,11 +100,11 @@ public class recorderPanel extends JPanel {
             app.home();
         });
 
-        //play.addActionListener((e) -> {playRecorder();});
+        // play.addActionListener((e) -> {playRecorder();});
 
     }
 
-     /**
+    /**
      * Loads a game from RecordLoad and execute its moves
      */
     public void load() {
@@ -122,23 +141,23 @@ public class recorderPanel extends JPanel {
     /**
      * For the play record.
      *
-    public void playRecorder() {
-        System.out.println("in play record");
-        playing = true;
-        new Thread(() -> {
-            for (int i = currMove; i < moves.size(); i++) {
-                if (!playing) {
-                    break;
-                }
-                moves.get(i).move();
-                if (status(playing, i)) {
-                    break;
-                }
-            }
-            playing = false;
-            pause.setText("Play");
-        }).start();
-    }
-    */
+     * public void playRecorder() {
+     * System.out.println("in play record");
+     * playing = true;
+     * new Thread(() -> {
+     * for (int i = currMove; i < moves.size(); i++) {
+     * if (!playing) {
+     * break;
+     * }
+     * moves.get(i).move();
+     * if (status(playing, i)) {
+     * break;
+     * }
+     * }
+     * playing = false;
+     * pause.setText("Play");
+     * }).start();
+     * }
+     */
 
 }

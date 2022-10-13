@@ -1,27 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-// import org.dom4j.Document;
-// import org.dom4j.DocumentHelper;
-// import org.dom4j.Element;
-// import org.dom4j.io.OutputFormat;
-// import org.dom4j.io.XMLWriter;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -30,15 +16,16 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Actor;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
-import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Key;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Locked;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
-
 public class Recorder {
+
+	/**
+	 * List of moves
+	 */
 	private final List<directionMove> movesList;
+
+	/**
+	 * Keeps track of the level
+	 */
 	private int level = 0;
 
 	/**
@@ -95,7 +82,7 @@ public class Recorder {
 			// appending the all elements the document
 			doc.appendChild(root);
 
-			//creating the XML file
+			// creating the XML file
 			String fileLevel = "Recorder" + String.valueOf(level);
 			String fName = "src/nz/ac/vuw/ecs/swen225/gp22/Recorder/" + fileLevel + ".xml";
 
@@ -114,13 +101,19 @@ public class Recorder {
 
 	/**
 	 * Adds move to the arrayList
+	 * 
 	 * @param m
 	 */
-	public void addMove(directionMove m) {movesList.add(m);}
+	public void addMove(directionMove m) {
+		movesList.add(m);
+	}
 
 	/**
 	 * Gets the list of moves
+	 * 
 	 * @return movesList
 	 */
-	public List<directionMove> getMove() {return movesList;}
+	public List<directionMove> getMove() {
+		return movesList;
+	}
 }
