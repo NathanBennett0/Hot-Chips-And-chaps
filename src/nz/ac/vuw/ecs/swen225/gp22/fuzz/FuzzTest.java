@@ -263,7 +263,7 @@ public class FuzzTest {
     * Picks a direction for the chap to travel in
     * Chap also moves to the adjacent tile least explored
     */
-    public int pickDirectionL2(App app) {
+    public int pickDirectionL2() {
         System.out.println("pickDirection2");
         
         ArrayList<String> adjPos = new ArrayList<>(List.of("u","d","l","r"));
@@ -280,7 +280,6 @@ public class FuzzTest {
             newX = findAdjX(adjPos.get(i));
             newY = findAdjY(adjPos.get(i));
             System.out.println(newX + " " + newY);
-            //System.out.println(adjPos.get(i) + " " + strategyL2[newX][newY]);
             if(strategyL2[newX][newY] < minExplored) {
                 minExplored = strategyL2[newX][newY];
                 dirExplored = adjPos.get(i);
