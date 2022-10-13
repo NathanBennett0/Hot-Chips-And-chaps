@@ -75,7 +75,6 @@ public class Recorder {
 				Attr moveAttr = doc.createAttribute("moveKeyCode");
 				moveAttr.setValue(String.valueOf(m.getKeyCode()));
 				move.setAttributeNode(moveAttr);
-
 				
 				//save app keycode
 				Attr app = doc.createAttribute("App");
@@ -87,7 +86,7 @@ public class Recorder {
 			//appending the level values
 			//root.appendChild(LevelMoves);
 			doc.appendChild(root);
-			
+
 		   String fileLevel =  "Recorder" + String.valueOf(level);
 		   String fName = "src/nz/ac/vuw/ecs/swen225/gp22/Recorder/" + fileLevel + ".xml";
 
