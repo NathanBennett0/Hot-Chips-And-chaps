@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.persistency;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Free;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Water;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Treasure;
 import nz.ac.vuw.ecs.swen225.gp22.domain.InfoField;
 import nz.ac.vuw.ecs.swen225.gp22.domain.ExitLock;
@@ -257,6 +258,8 @@ public class Filereader {
                 return new ExitLock(new Location(x,y));
             case "Exit":
                 return new Exit(new Location(x,y));
+            case "Water":
+                return new Water(new Location(x,y));
         }
         return new Tile(new Location(0,0));
     }

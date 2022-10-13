@@ -54,7 +54,7 @@ public class Filewriter {
             Level.setAttributeNode(levelname);
             doc.appendChild(Level);
 
-            filename = "src/nz/ac/vuw/ecs/swen225/gp22/persistency/levels/" + filename + ".xml";
+            filename = "src/nz/ac/vuw/ecs/swen225/gp22/persistency/" + filename + ".xml";
 
             // chap
             Element TimeE = doc.createElement("Time");
