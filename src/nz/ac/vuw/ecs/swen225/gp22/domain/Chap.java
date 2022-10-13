@@ -12,7 +12,7 @@ public class Chap extends Tile{ // player which is not a core tile
     public Maze m;
     public State s;//have state object, check if state object is dead or alive
     private boolean onInfo = false; 
-    public String infoMessage = "";
+    private InfoField info;
     public Img icon = Img.Chap;
     private SoundEffects sound = new SoundEffects();
 
@@ -51,10 +51,14 @@ public class Chap extends Tile{ // player which is not a core tile
     /*
      * sets if chap is standing on info field 
      */
-    public void setOnInfo(String s){
-        this.infoMessage = s;
+    public void setOnInfo(InfoField info){
+        this.info = info;
         this.onInfo = true;
-        //wait
+    }
+    /*
+     * sets chap is off infofield 
+     */
+    public void setOffInfo(){
         this.onInfo = false;
     }
 
@@ -63,7 +67,11 @@ public class Chap extends Tile{ // player which is not a core tile
      * @return boolean
      */
     public boolean getOnInfo(){
-        return onInfo;
+        if(this.getLocation().equals(info)){
+            return true;
+        } else {
+            return false; 
+        }
     }
 
     /*

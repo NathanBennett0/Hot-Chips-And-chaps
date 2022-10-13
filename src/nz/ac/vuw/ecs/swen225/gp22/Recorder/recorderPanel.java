@@ -33,7 +33,7 @@ public class recorderPanel extends JPanel {
     
     App app;
 
-    private List<directionMove> moves;
+    private List<directionMove> moves; //list of moves
     private int speed = 1;
 
     /**
