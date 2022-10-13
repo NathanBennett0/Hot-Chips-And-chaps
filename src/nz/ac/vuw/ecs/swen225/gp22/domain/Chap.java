@@ -54,7 +54,7 @@ public class Chap extends Tile{ // player which is not a core tile
     public void setOnInfo(String s){
         this.infoMessage = s;
         this.onInfo = true;
-        try {Thread.sleep(3000);} catch (InterruptedException e) {}
+        //wait
         this.onInfo = false;
     }
 
@@ -148,7 +148,7 @@ public class Chap extends Tile{ // player which is not a core tile
      * @param Tile 
      */
     public void addToChest(Tile t){
-        assert((t instanceof Treasure)&&(t instanceof Key));
+        assert((t instanceof Treasure)||(t instanceof Key));
         chest.add(t);
         sound.playCollectMusic();
         assert(chest.contains(t)); //post 
