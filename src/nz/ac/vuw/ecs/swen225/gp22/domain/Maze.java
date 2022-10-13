@@ -127,7 +127,7 @@ public class Maze {
 	 * @param Location 
 	 */
     public void setChapLoc(Location l) {
-		assert(!(grid[l.getX()][l.getY()] instanceof Free));
+		assert((grid[l.getX()][l.getY()] instanceof Free) || (grid[l.getX()][l.getY()] instanceof InfoField));
         grid[player.getLocation().getX()][player.getLocation().getY()] = new Free(player.getLocation()); 
         grid[l.getX()][l.getY()] = player;
 		//assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
