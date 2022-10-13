@@ -1,5 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
+/**
+* 300558005
+*/
 public class DownImage implements CatImage{
 	public Img currImg = Img.CatDown1;
 	public Img[] animation = {Img.CatDown1, Img.CatDown2, Img.CatDown3, Img.CatDown4};
