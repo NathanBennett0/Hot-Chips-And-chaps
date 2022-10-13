@@ -12,10 +12,17 @@ public class InfoField extends Tile {
 	}
 
 	// getters and setters
+	/*
+	 * returns the message 
+	 * @return String 
+	 */
 	public String getMessage() { 
 		return m;
 	}
 
+	/*
+	 * checks if chap can walk on this infofield 
+	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
 		p.setOnInfo(this.m); //true 
