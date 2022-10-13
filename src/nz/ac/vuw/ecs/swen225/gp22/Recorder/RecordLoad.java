@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
@@ -22,61 +27,120 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
 public class RecordLoad {
     Document doc;
+    List<directionMove> recordLoadMoves;
+    Element root;
     /** 
      * Loads XML file into document and store it
      */
     public RecordLoad(File file){
+
+        try {
+            //loading xml file and parsing it
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();    //an instance of builder to parse the specified xml file   
+            DocumentBuilder db = dbf.newDocumentBuilder();  
+            doc = db.parse(file);  
+
+            //getting root node which is "Game"
+            Element r = doc.getDocumentElement();
+            root = r;
+            doc.getDocumentElement().normalize();  
+            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());  
+            NodeList nodeList = doc.getElementsByTagName("move"); //nodelist from xml
+            
+            //iterates through the nodeList and turns them into moveobjects
+            for (int i = 0; i < nodeList.getLength(); i++){  
+
+                Node currMove = nodeList.item(i);
+                //gets attribute values
+                int code = Integer.parseInt(currMove.getAttributes().getNamedItem("moveKeyCode").getNodeValue());
+                directionMove dirMove = new directionMove(code);
+                recordLoadMoves.add(dirMove);
+                /** 
+              
+                if(currMove.getNodeType() == Node.ELEMENT_NODE){
+                    Element E = (Element) currMove;
+                    directionMove moveObj = loadMove(E);
+                    recordLoadMoves.add(moveObj);
+                } 
+                System.out.println("Node type is not a move");
+            }
+            */
+        }
+     } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch(IOException e){
+            System.out.println("failed parsing file");
+        }  catch(SAXException s){
+            System.out.println("failed parsing file");
+        }
+       
+       /** 
         try{
             doc = new SAXReader().read(file);
+            System.out.println("SAXReader is reached");
         } catch(DocumentException dException){
             throw new IllegalArgumentException("Record of file is unsuccessful");
         }
+        */
+
+
     }
 
     /**
      * Moves taken from the XML
-     */
-    public List<Move> getMoves(){
+     * original XML
+     
+    public List<directionMove> getMoves(){ 
         List<Element> moves = doc.getRootElement().elements();
         return moves.stream().map(this::loadMove).toList();
+    }
+    */
+
+    /**
+     * Gets list of moves loaded from the XML file
+     * @return list of directionMoves
+     */
+    public List<directionMove> getMoves(){ 
+        return recordLoadMoves;
+     
     }
 
     /**
      * Turns XML element into a move
-     */
-    private Move loadMove(Element e){
-        switch(e.getName()){
+     
+    private directionMove loadMove(Element e){
+        switch(e.getTagName()){
             case "move" -> {
-                int code = Integer.parseInt(e.attributeValue("moveKeyCode"));
-                return new directionMove(code); //need to find a way to get App
-            }
-         default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
-        }
+                Attr moveAttr = 
+                int code = Integer.parseInt();
+                //get the attribute value from element
 
-            /** 
-            case "key" -> {
-                String key = e.attributeValue("keyItem");
-                String color = e.attributeValue("color");
-                int x = Integer.parseInt(e.attributeValue("x"));
-                int y = Integer.parseInt(e.attributeValue("y"));
-                return new keyMove(key, color, x, y);
+                int code = Integer.parseInt(() e).attributeValue("moveKeyCode"));
+                return new directionMove(code); 
             }
-            case "door" ->{
-                String door = e.attributeValue("doorItem");
-                String color = e.attributeValue("color");
-                int x = Integer.parseInt(e.attributeValue("x"));
-                int y = Integer.parseInt(e.attributeValue("y"));
-                return new doorMove(door, color, x, y);
-            }
-            default ->  throw new IllegalArgumentException("Can not load move" + e.getName());
+         default ->  throw new IllegalArgumentException("Can not load move" + e.getTagName());
         }
-        */
+              
     }
-     /**
-     * Gets the level of the file
-     */
+    
+
+     /** 
+      *    Gets the level of the file
+    
+      */
     public int level(){
-        return Integer.parseInt(doc.getRootElement().attributeValue("level"));
+            
+            root.normalize(); 
+            NodeList nodeList = doc.getElementsByTagName("LevelMoves"); //nodelist from xml
+            //iterates through the nodeList and turns them into moveobjects
+            int level =0;
+            for (int i = 0; i < nodeList.getLength(); i++){  
+                Node currMove = nodeList.item(i);
+                //gets attribute values
+                level = Integer.parseInt(currMove.getAttributes().getNamedItem("Level").getNodeValue());
+        }
+        return level;
     }
 
 }
