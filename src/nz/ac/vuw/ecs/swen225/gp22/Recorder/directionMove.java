@@ -24,12 +24,14 @@ public class directionMove implements Move {
      * Saves move as an XML element
      * 
      * @return an XML element
-     */
+     
     @Override
     public Element saveXML() {
         return new BaseElement("move").addAttribute("moveKeyCode", String.valueOf(keyCode)).addAttribute("app",
                 String.valueOf(app));
     }
+    
+    */
 
     /**
      * Carries out the move for this move
@@ -38,6 +40,10 @@ public class directionMove implements Move {
     public void move() {
         Controller c = app.getGame().phase().controller();
         c.keyPressed(keyCode);
+    }
+
+    public int getKeyCode(){
+        return keyCode;
     }
 
     @Override
