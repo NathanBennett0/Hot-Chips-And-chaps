@@ -6,6 +6,7 @@ public class DeadState implements State{
      */
     @Override
     public Location moveUp() {
+        System.out.println(this.toString() + ". Can't move");
         return null;
     }
 
@@ -14,6 +15,7 @@ public class DeadState implements State{
      */
     @Override
     public Location moveDown() {
+        System.out.println(this.toString() + ". Can't move");
         return null;
     }
 
@@ -22,6 +24,7 @@ public class DeadState implements State{
      */
     @Override
     public Location moveRight() {
+        System.out.println(this.toString() + ". Can't move");
         return null;
     }
 
@@ -30,6 +33,7 @@ public class DeadState implements State{
      */
     @Override
     public Location moveLeft() {
+        System.out.println(this.toString() + ". Can't move");
         return null;
     }
 

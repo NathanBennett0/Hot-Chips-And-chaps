@@ -17,18 +17,6 @@ public class AliveState implements State{
     @Override
     public Location moveUp() {
         Location next = new Location(l.getX(), l.getY()-1);
-        //move box 
-//        Tile t = m.getTile(next);
-//        if(t instanceof Box){ //if the next location is a box 
-//            Box b = (Box)t;
-//            //set location on maze
-//            Location newl = new Location(next.getX(), next.getY()-1);
-//            try {
-//                m.setBoxLocation(newl);
-//                b.setLocation(newl);
-//                m.removeTile(next); 
-//            } catch (IOException e) {}
-//        }  
         //do this code here???
         if(!m.allowAction(next)){
             //System.out.println("Chap cannot move here!");//pre condition check
@@ -46,16 +34,6 @@ public class AliveState implements State{
     @Override
     public Location moveDown() {
         Location next = new Location(l.getX(), l.getY()+1);
-//        Tile t = m.getTile(next);
-//        if(t instanceof Box){  
-//            Box b = (Box)t;
-//            Location newl = new Location(next.getX(), next.getY()+1);
-//            try {
-//                m.setBoxLocation(newl);
-//                b.setLocation(newl);
-//                m.removeTile(next); 
-//            } catch (IOException e) {}
-//        }
         if(!m.allowAction(next)){
             //System.out.println("Chap cannot move here!");//pre condition check
             return l;
@@ -98,16 +76,6 @@ public class AliveState implements State{
     @Override
     public Location moveLeft() {
         Location next = new Location(l.getX()-1, l.getY());
-//        Tile t = m.getTile(next);
-//        if(t instanceof Box){  
-//            Box b = (Box)t;
-//            Location newl = new Location(next.getX()-1, next.getY());
-//            try {
-//                m.setBoxLocation(newl);
-//                b.setLocation(newl);
-//                m.removeTile(next); 
-//            } catch (IOException e) {} 
-//        }
         if(!m.allowAction(next)){
             //System.out.println("Chap cannot move here!");//pre condition check
             return l;

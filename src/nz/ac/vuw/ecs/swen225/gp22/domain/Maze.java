@@ -104,23 +104,6 @@ public class Maze {
 	public Tile[][] getGrid() {
 		return grid;
 	}
-	/*
-	 * returns the tile at the given location 
-	 * @return Tile 
-	 */
-	public Tile getTile(Location l){
-		return grid[l.getX()][l.getY()];
-	}
-	/*
-	 * set new location for a box when chap moves it 
-	 */
-//	public void setBoxLocation(Location l) throws IOException{
-//		if(!(grid[l.getX()][l.getY()] instanceof Free)){
-//			throw new IOException("Box cannot be Moved"); //pre
-//		}
-//		grid[l.getX()][l.getX()] = new Box(l);
-//		assert(grid[l.getX()][l.getX()] instanceof Box);
-//	}
 	
 	/*
 	 * remove old location of chap then makes a new one for him to be in
@@ -162,27 +145,6 @@ public class Maze {
 		return this.player;
 	}
 
-	/*
-	 * Shows layout of grid
-	 * @return String 
-	 */
-	@Override
-	public String toString() { 
-	    String r = "";
-	    for (int row = 0; row < grid.length; row++) {
-	        r += row + "|";
-            for (int col = 0; col < grid[row].length; col++) {
-                Tile t = grid[row][col];
-                if(t != null) {
-                    r += t + "|";
-                } else {
-                    r += "_|";
-                }
-            }
-            r += "\n";
-	    }
-	    return r + "  a b c d e f g h";
-	}
 
 }
 

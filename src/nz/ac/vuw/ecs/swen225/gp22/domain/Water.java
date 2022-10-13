@@ -12,6 +12,7 @@ public class Water extends Tile{
     @Override
 	public boolean CanWalkOn(Chap p) {
 		p.changeState(new DeadState()); //kills chap 
+        System.out.println(this.toString() + " has killed Chap");
         return true; 
 	}
 

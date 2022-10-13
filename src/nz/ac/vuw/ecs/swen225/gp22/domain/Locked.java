@@ -40,6 +40,7 @@ public class Locked extends Tile {
 					sound.playUnlockMusic();
 					p.m.removeTile(l);
 					p.removeKey(k);
+					System.out.println("Collected: " + this.toString());
 					return true;
 				}
 			}

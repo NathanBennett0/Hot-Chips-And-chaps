@@ -7,6 +7,7 @@ public class Wall extends Tile {
 
 	public Wall(Location l) {
 		super(l);
+		this.toString();
 	}
 
 	/*

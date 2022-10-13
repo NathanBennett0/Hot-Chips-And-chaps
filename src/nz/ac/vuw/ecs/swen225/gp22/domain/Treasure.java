@@ -21,6 +21,7 @@ public class Treasure extends Tile {
 	public boolean CanWalkOn(Chap p) {
 		p.addToChest(this);
 		p.m.removeTile(l);
+		System.out.println(this.toString() + " collected");
 		//remove from maze 
 		return true;
 	}
