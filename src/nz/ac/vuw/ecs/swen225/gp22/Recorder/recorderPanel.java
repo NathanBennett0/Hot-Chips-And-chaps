@@ -154,15 +154,15 @@ public class recorderPanel extends JPanel {
     }
 
     /**
-     * Load a game and execute its moves
+     * Load a game from RecordLoad and execute its moves
      */
     public void load() {
-        JFileChooser fileChooser = new JFileChooser(System.getProperty("user") + "/resources/Recorder");
+        JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/"); 
         fileChooser.setDialogTitle("Select recording to load");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("load file (xml)", "xml");
         fileChooser.setFileFilter(fileFilter);
-        fileChooser.showOpenDialog(fileChooser); // COME BACK TO THIS
+        fileChooser.showOpenDialog(fileChooser);
 
         if (fileChooser.getSelectedFile() != null) {
             RecordLoad record = new RecordLoad(fileChooser.getSelectedFile());
@@ -171,14 +171,18 @@ public class recorderPanel extends JPanel {
             // loads levels from app
             if (record.level() == 1) {
                 app.phaseOne();
+                //executes all moves
+                for(Move m: moves){
+                    m.move();
+                }
             } else if (record.level() == 2) {
                 app.phaseTwo();
-            }
 
-            //execute all of the moves
-            for(Move m: moves){
-                m.move();
-            }
+                //execute all moves
+                for(Move m: moves){
+                    m.move();
+                }
+            } System.out.println("moves not successful");
         }
     }
 
