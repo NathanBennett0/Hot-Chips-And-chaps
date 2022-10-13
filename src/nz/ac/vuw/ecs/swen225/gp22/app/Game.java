@@ -28,8 +28,22 @@ public class Game extends JPanel {
      */
 	private GamePanel game;
 	
+    /**
+     * Label for time left - updated from App.
+     * 
+     */
 	JLabel tLeft = new JLabel("00:00");
+
+    /**
+     * Label fo current level - updated from App.
+     * 
+     */
 	JLabel currLvl = new JLabel();
+
+    /**
+     * Label fo current treasures left - updated from App.
+     * 
+     */
 	JLabel itemLeft = new JLabel();
 	
 	/**
@@ -92,15 +106,6 @@ public class Game extends JPanel {
         ScoreBoardPanel sp = new ScoreBoardPanel(phase.maze());
         sp.setBounds(25,410,155,200);
         p.add(sp);
-    }
-    
-    /**
-     * Getter for game phase.
-     * 
-     * @return phase
-     */
-    public Phase phase() {
-    	return phase;
     }
     
 }
