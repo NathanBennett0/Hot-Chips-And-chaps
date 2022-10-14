@@ -27,6 +27,12 @@ public class KeyStroke implements KeyListener {
 	private static final Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
 
 	/**
+	 * Stores normal keybinding for chap - only used for automations in fuzz and recorder.
+	 *
+	 */
+	private static final Map<Integer,Runnable> autoControl = new HashMap<>();
+
+	/**
 	 * Stores the app.
 	 * 
 	 */
@@ -54,6 +60,7 @@ public class KeyStroke implements KeyListener {
 			onCtrlPressed.put(keyCode, action);
 		}else {
 			onPressed.put(keyCode, action);
+			autoControl.put(keyCode, action);
 		}
 	}
 
@@ -76,7 +83,7 @@ public class KeyStroke implements KeyListener {
 		}else {
 			onPressed.getOrDefault(e.getKeyCode(),()->{}).run();
 			//for recorder
-			if(onPressed.containsKey(e.getKeyCode())){
+			if(autoControl.containsKey(e.getKeyCode())){
 				if(app.recorder != null) app.recorder.addMove(new directionMove(e.getKeyCode()));
 			}
 		}
@@ -91,7 +98,7 @@ public class KeyStroke implements KeyListener {
 	 * 
 	 */
 	public void keyPressed(int keycode) {
-		onPressed.getOrDefault(keycode,()->{}).run();
+		autoControl.getOrDefault(keycode,()->{}).run();
 	}
 
 	/**

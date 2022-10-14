@@ -33,7 +33,7 @@ public record Phase(Maze maze, Controller controller) {
 		first = f;
 
 		Level lvl = new Filereader().loadLevel("levels/level1.xml");
-		Controller c = new Controller(App.getInstance(), lvl.getChap());
+		Controller c = new Controller(App.getInstance(), lvl.getChap(), false);
 		Maze m = null;
 		try {
 			m = new Maze(lvl, 22, 22);
@@ -55,7 +55,7 @@ public record Phase(Maze maze, Controller controller) {
 		first = f;
 
 		Level lvl = new Filereader().loadLevel("levels/level2.xml");
-		Controller c = new Controller(App.getInstance(), lvl.getChap());
+		Controller c = new Controller(App.getInstance(), lvl.getChap(), false);
 		Maze m = null;
 		try {
 			m = new Maze(lvl, 66, 66);
@@ -77,7 +77,7 @@ public record Phase(Maze maze, Controller controller) {
 		int size = level==2?66:22;
 
 		Level lvl = new Filereader().loadLevel("levels/"+filename);
-		Controller c = new Controller(App.getInstance(), lvl.getChap());
+		Controller c = new Controller(App.getInstance(), lvl.getChap(), true);
 		c.clearKeyBind();
 		Maze m = null;
 		try {

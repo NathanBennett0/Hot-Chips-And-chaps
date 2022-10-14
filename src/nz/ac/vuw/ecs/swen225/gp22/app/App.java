@@ -419,7 +419,7 @@ public class App extends JFrame {
         var play = new JButton("New Game");
         play.setBounds(400, 580, 100, 30);
 
-        replay.addActionListener((e) -> recorderGame());
+        replay.addActionListener((e) -> loadRecording());
         tutorial.addActionListener((e) -> tutorial());
         play.addActionListener((e) -> phaseOne());
 
@@ -562,19 +562,14 @@ public class App extends JFrame {
 
         var load = new JButton("Load Recording");
         load.setBounds(430, 600, 130, 30);
-        load.addActionListener((e) -> load());
+        load.addActionListener((e) -> loadRecording());
 
-        JPanel viewport = new JPanel();
-        if(recordLoad != null){
-            Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
-            this.phase = phase;
-            viewport = new GamePanel(phase.maze(), this);
-            changeKeyListener(phase.controller());
-        }else{
-            viewport.setBackground(new Color(0,0,0));
-            viewport.add(new JLabel("Please load a saved recording."));
-        }
+        Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
+        this.phase = phase;
+
+        JPanel viewport = new GamePanel(phase.maze(), this);
         viewport.setBounds(170, 30, 558, 558);
+        changeKeyListener(phase.controller());
 
         panel.add(viewport);
         panel.add(back);
@@ -584,9 +579,10 @@ public class App extends JFrame {
         getContentPane().add(panel);
         newPanel = () -> remove(panel);
         pack();
+        playRecording();
     }
 
-    public void load() {
+    public void loadRecording() {
         JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/");
         fileChooser.setDialogTitle("Select recording to load");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -595,18 +591,19 @@ public class App extends JFrame {
         fileChooser.showOpenDialog(fileChooser);
 
         if (fileChooser.getSelectedFile() != null) {
-
             recordLoad = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
-            List<directionMove> moves = recordLoad.getMoves();
-            System.out.println("moves have been printed");
+        }
+        recorderGame();
+    }
 
-            // load new panel
-            recorderGame();
-            for (directionMove m : moves) {
-                System.out.println("print moves");
-                m.move();
+    public void playRecording(){
+        int i = 0;
+        int delay = 10000000;
+        for(int t = 0; t < recordLoad.getMoves().size()*delay; t++){
+            if(t%delay == 0){
+                recordLoad.getMoves().get(i).move();
+                i++;
             }
-
         }
     }
 
@@ -733,7 +730,7 @@ public class App extends JFrame {
             int size = lvl.getLevel() >= 2 ? 66 : 22;
             m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m);
-            setPhase(new Phase(m, new Controller(this, lvl.getChap())), lvl.getTime());
+            setPhase(new Phase(m, new Controller(this, lvl.getChap(), false)), lvl.getTime());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -760,7 +757,7 @@ public class App extends JFrame {
             m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m);
             // now have the maze object
-            gameController = new Controller(this, lvl.getChap());
+            gameController = new Controller(this, lvl.getChap(), false);
             setPhase(new Phase(m, gameController), lvl.getTime());
         } catch (IOException e) {
             e.printStackTrace();
