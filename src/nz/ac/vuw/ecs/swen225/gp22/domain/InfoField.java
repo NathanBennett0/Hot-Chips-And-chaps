@@ -9,7 +9,7 @@ public class InfoField extends Tile {
 	public InfoField(Location l, String m) {
 		super(l);
 		this.m = m;
-		System.out.println(this.toString() + " constructor called");
+		//System.out.println(this.toString() + " constructor called");
 	}
 
 	// getters and setters
@@ -26,8 +26,6 @@ public class InfoField extends Tile {
 	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		p.setInfo(this);
-		p.getOnInfo();
 		return true;
 	}
 	

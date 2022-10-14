@@ -13,6 +13,7 @@ public class Maze {
 	public Level lv; 
 	public Chap player;
 	public int numItems;
+	public InfoField info;
 	
 	public Maze(Level lv, int xx, int yy) throws IOException{
 		if(lv == null || xx <= 0 || yy <= 0){
@@ -27,13 +28,12 @@ public class Maze {
     			grid[x][y] = new Free(new Location(x,y));
     		}
     	}
-		//for(Tile t : lv.getAllTiles()) {
 		lv.getAllTiles().stream().forEach(t -> {
 			int x = t.getLocation().getX();
 			int y = t.getLocation().getY();
 			grid[x][y] = t;
 		});
-		//}
+		lv.getInfoField();
 		setChapLoc(lv.getChap().getLocation());
 		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
 		grid[lv.getInfoField().getLocation().getX()][lv.getInfoField().getLocation().getY()] = lv.getInfoField();
@@ -147,6 +147,13 @@ public class Maze {
 		return this.player;
 	}
 
+	/*
+	 * returns the infofield of the maze
+	 * return InfoField 
+	 */
+	public InfoField getInfoField(){
+        return this.info;
+    }
 
 }
 
