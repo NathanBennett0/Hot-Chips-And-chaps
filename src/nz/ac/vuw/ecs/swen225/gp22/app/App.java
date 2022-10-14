@@ -11,19 +11,7 @@ import java.text.SimpleDateFormat;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.RecordLoad;
@@ -41,6 +29,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 
 import java.awt.Color;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -568,17 +557,19 @@ public class App extends JFrame {
         panel.setLayout(null);
 
         var back = new JButton("Back");
-        back.setBounds(320, 600, 100, 30);
+        back.setBounds(200, 600, 100, 30);
         back.addActionListener((e) -> home());
 
-        var load = new JButton("Load Recording");
-        load.setBounds(430, 600, 130, 30);
-        load.addActionListener((e) -> loadRecording());
-
-        AtomicInteger i = new AtomicInteger();
-        var move = new JButton("Next");
-        move.setBounds(700, 300, 100, 30);
-        move.addActionListener((e) -> recordLoad.getMoves().get(i.getAndIncrement()).move());
+        var slider = new JSlider();
+        slider.setMajorTickSpacing(10);
+        slider.setMinimum(1);
+        slider.setMaximum(10);
+        slider.setValue(2);
+        slider.setBounds(350, 600, 200, 30);
+        slider.addChangeListener(e->{
+            recordingDelay = 1500 - 100*slider.getValue();
+            System.out.println(recordingDelay);
+        });
 
         Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
         this.phase = phase;
@@ -588,9 +579,8 @@ public class App extends JFrame {
         changeKeyListener(phase.controller());
 
         panel.add(viewport);
-        panel.add(move);
         panel.add(back);
-        panel.add(load);
+        panel.add(slider);
         panel.add(mainMenu());
 
         playRecording();
@@ -620,12 +610,13 @@ public class App extends JFrame {
      * Plays recordings - triggers moves.
      */
     public void playRecording(){
-        recordingDelay = 100;
+       // recordingDelay = 100;
         recordTimer = true;
         Timer t = new Timer(recordingDelay, e ->{
             AtomicInteger val = new AtomicInteger(0);
-            if(val.get()%recordingDelay == 0){
-                recordLoad.getMoves().get(val.getAndIncrement()).move();
+            if(recordingDelay == 0) return;
+            if(val.getAndIncrement()%recordingDelay == 0){
+                Objects.requireNonNull(recordLoad.getMoves().poll()).move();
                 System.out.println("triggering move");
             }
             if(recordLoad.getMoves().size() == 0 || !recordTimer) ((Timer) e.getSource()).stop();
@@ -836,13 +827,22 @@ public class App extends JFrame {
         currentPanel.setFocusable(true);
     }
 
-    // GETTERS AND SETTERS FOR FUZZ BOOLEANS
+    /**
+     * Keeps track of whether the testing should start or not for fuzz.
+     *
+     * @return boolean
+     */
     public boolean fuzzStarted() {
         return fuzzStarted;
     }
 
+    /**
+     * Keeps track of initialization for fuzz.
+     *
+     * @return boolean
+     */
     public boolean initializeDone() {
-        return !initializeDone;
+        return initializeDone;
     }
 
     /**
