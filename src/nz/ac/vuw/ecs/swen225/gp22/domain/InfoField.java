@@ -26,7 +26,8 @@ public class InfoField extends Tile {
 	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		p.setOnInfo(this); //true 
+		p.setInfo(this);
+		p.getOnInfo();
 		return true;
 	}
 	

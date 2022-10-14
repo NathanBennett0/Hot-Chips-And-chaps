@@ -27,11 +27,13 @@ public class Maze {
     			grid[x][y] = new Free(new Location(x,y));
     		}
     	}
-		for(Tile t : lv.getAllTiles()) {
+		//for(Tile t : lv.getAllTiles()) {
+		lv.getAllTiles().stream().forEach(t -> {
 			int x = t.getLocation().getX();
 			int y = t.getLocation().getY();
 			grid[x][y] = t;
-		}
+		});
+		//}
 		setChapLoc(lv.getChap().getLocation());
 		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
 		grid[lv.getInfoField().getLocation().getX()][lv.getInfoField().getLocation().getY()] = lv.getInfoField();

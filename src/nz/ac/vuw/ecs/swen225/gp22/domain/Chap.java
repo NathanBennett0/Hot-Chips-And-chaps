@@ -52,23 +52,16 @@ public class Chap extends Tile{ // player which is not a core tile
     /*
      * sets if chap is standing on info field 
      */
-    public void setOnInfo(InfoField info){
+    public void setInfo(InfoField info){ //call this method for infinity
         this.info = info;
-        this.onInfo = true;
     }
-    /*
-     * sets chap is off infofield 
-     */
-    public void setOffInfo(){
-        this.onInfo = false;
-    }
-
     /*
      * checks if chap is on info field 
      * @return boolean
      */
-    public boolean getOnInfo(){
-        if(this.getLocation().equals(info)){
+    public boolean getOnInfo(){ //call method infinitley 
+        if(this.getLocation().equals(info.getLocation())){
+            System.out.println("Standing on Info Field");
             return true;
         } else {
             return false; 
