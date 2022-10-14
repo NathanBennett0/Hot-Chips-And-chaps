@@ -6,7 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Chap;
 /**
  * Controller class for key binding with the app and chap.
  * 
- * @author	Naomi Parte
+ * @author	Naomi Parte 300562058
  */
 public class Controller extends KeyStroke {
 
@@ -18,7 +18,9 @@ public class Controller extends KeyStroke {
 
 	/**
 	 * Main game controller constructor.
-	 * @param app
+	 *
+	 * @param app App
+	 *
 	 */
 	Controller(App app){
 		super(app);
@@ -26,19 +28,20 @@ public class Controller extends KeyStroke {
 	}
 
 	/**
-	 * Chap controller constructor.
+	 * Chap controller constructor for when phases run.
 	 * 
-	 * @param app
-	 * @param chap
+	 * @param app App
+	 * @param chap Chap player
+	 *
 	 */
-	Controller(App app, Chap chap){
+	Controller(App app, Chap chap, boolean recorder){
 		super(app);
 		this.chap = chap;
+		if(!recorder) setPauseKey();
 		setCtrlKey();
-		setPauseKey();
 		setChapKey();
-		
 	}
+
 
 	/**
 	 * Key binding for control keys.
