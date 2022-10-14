@@ -24,7 +24,7 @@ public enum Img {
      * @param name
      * @return
      */
-        private BufferedImage loadImage(String name) {
+        static private BufferedImage loadImage(String name) {
         URL imagePath = Img.class.getResource("Images/" + name + ".png");
         try {
             return ImageIO.read(imagePath);
