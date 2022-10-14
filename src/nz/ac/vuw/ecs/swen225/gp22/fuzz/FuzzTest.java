@@ -10,7 +10,6 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 
 /**
  * Class that runs the two fuzz tests for the Chips&Chaps game. 
@@ -28,6 +27,7 @@ public class FuzzTest {
 	private int currentX, currentY;
 	private int prevX, prevY;
 	private String prevDirection = "";
+	private Random r = new Random();
 
 	
 	/**
@@ -144,9 +144,7 @@ public class FuzzTest {
             if(app.getPhase().maze().getLevel().getLevel() == 1) c.keyPressed(pickDirectionL1());
             else c.keyPressed(pickDirectionL2());
 
-            
-
-            
+ 
            
             // Use intelligence so the wall does not get tried again
             if(prevX == currentX && prevY == currentY) {
@@ -334,7 +332,6 @@ public class FuzzTest {
 	 */
 	public int generateKeycode(String dir) {
 	    assert dir.equals("u") || dir.equals("d") || dir.equals("l") || dir.equals("r");
-		Random r = new Random();
 		int random = r.nextInt(2); // Random number 0 or 1
 		assert random == 0 || random == 1;
 		switch(dir) {
