@@ -28,8 +28,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.RecordLoad;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
-import nz.ac.vuw.ecs.swen225.gp22.Recorder.directionMove;
-import nz.ac.vuw.ecs.swen225.gp22.Recorder.recorderPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
@@ -43,7 +41,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 
 import java.awt.Color;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The main GUI for Chap's Challenge.
@@ -108,6 +106,11 @@ public class App extends JFrame {
     private int timeLeft;
 
     /**
+     * Stores the delay/ speed for recordings.
+     */
+    private int recordingDelay;
+
+    /**
      * Normal controller with game functionalities.
      */
     private final Controller mainController = new Controller(this);
@@ -137,11 +140,34 @@ public class App extends JFrame {
      */
     private final JMenu start = new JMenu("Start");
 
+    /**
+     * Level 2 menu item.
+     */
     private JMenuItem lvl2;
+
+    /**
+     * Menu item to load an existing game.
+     */
     private JMenuItem load;
+
+    /**
+     * Menu item to resume a game.
+     */
     private JMenuItem resume;
+
+    /**
+     * Menu item to pause a game.
+     */
     private JMenuItem pause;
+
+    /**
+     * Menu item to save a game.
+     */
     private JMenuItem save;
+
+    /**
+     * Menu item to exit a game.
+     */
     private JMenuItem exit;
 
     /**
@@ -169,10 +195,13 @@ public class App extends JFrame {
      */
     private boolean pauseTimer = false;
 
+    private boolean recordTimer = false;
+
     /**
      * Keeps track of whether the gameplay is running or not.
      */
     public boolean runningGame = false;
+
 
     /**
      * JFileChooser with existing path to where xml files are stored.
@@ -186,6 +215,7 @@ public class App extends JFrame {
         stopTimer = true;
         pauseTimer = false;
         runningGame = false;
+        recordTimer = false;
     };
 
     /**
@@ -412,7 +442,7 @@ public class App extends JFrame {
         sp.setBounds(0, 20, WIDTH, HEIGHT - 20);
 
         pause.setText("Pause");
-        var replay = new JButton("Recorder");
+        var replay = new JButton("Recording");
         replay.setBounds(400, 520, 100, 30);
         var tutorial = new JButton("Tutorial");
         tutorial.setBounds(400, 550, 100, 30);
@@ -525,26 +555,7 @@ public class App extends JFrame {
     }
 
     /**
-     * GUI - Recorder Panel.
-     */
-    public void replay() {
-        newPanel.run();
-        restart.run();
-        this.setBounds(0, 0, App.WIDTH, App.HEIGHT);
-
-        recorderPanel rp = new recorderPanel(this);
-        getContentPane().add(BorderLayout.CENTER, rp);
-
-        rp.setVisible(true);
-        pack();
-        newPanel = () -> remove(rp);
-        currentPanel = rp;
-        pack();
-        rp.requestFocus();
-    }
-
-    /**
-     * Game panel for recorder.
+     * GUI - Game panel for recorder.
      */
     public void recorderGame() {
         newPanel.run();
@@ -564,6 +575,11 @@ public class App extends JFrame {
         load.setBounds(430, 600, 130, 30);
         load.addActionListener((e) -> loadRecording());
 
+        AtomicInteger i = new AtomicInteger();
+        var move = new JButton("Next");
+        move.setBounds(700, 300, 100, 30);
+        move.addActionListener((e) -> recordLoad.getMoves().get(i.getAndIncrement()).move());
+
         Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
         this.phase = phase;
 
@@ -572,14 +588,15 @@ public class App extends JFrame {
         changeKeyListener(phase.controller());
 
         panel.add(viewport);
+        panel.add(move);
         panel.add(back);
         panel.add(load);
         panel.add(mainMenu());
 
+        playRecording();
         getContentPane().add(panel);
         newPanel = () -> remove(panel);
         pack();
-        playRecording();
     }
 
     public void loadRecording() {
@@ -592,19 +609,24 @@ public class App extends JFrame {
 
         if (fileChooser.getSelectedFile() != null) {
             recordLoad = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
+        }else{
+            return; //TODO
         }
         recorderGame();
     }
 
     public void playRecording(){
-        int i = 0;
-        int delay = 10000000;
-        for(int t = 0; t < recordLoad.getMoves().size()*delay; t++){
-            if(t%delay == 0){
-                recordLoad.getMoves().get(i).move();
-                i++;
+        recordingDelay = 100;
+        recordTimer = true;
+        Timer t = new Timer(recordingDelay, e ->{
+            AtomicInteger val = new AtomicInteger(0);
+            if(val.get()%recordingDelay == 0){
+                recordLoad.getMoves().get(val.getAndIncrement()).move();
+                System.out.println("triggering move");
             }
-        }
+            if(recordLoad.getMoves().size() == 0 || !recordTimer) ((Timer) e.getSource()).stop();
+        });
+        t.start();
     }
 
     /**
@@ -730,7 +752,11 @@ public class App extends JFrame {
             int size = lvl.getLevel() >= 2 ? 66 : 22;
             m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m);
-            setPhase(new Phase(m, new Controller(this, lvl.getChap(), false)), lvl.getTime());
+            gameController = new Controller(this, lvl.getChap(), false);
+            Phase p = new Phase(m, gameController);
+            this.phase = p;
+            setPhaseRunnable(lvl.getLevel());
+            setPhase(p, lvl.getTime());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -756,14 +782,31 @@ public class App extends JFrame {
             int size = lvl.getLevel() >= 2 ? 66 : 22;
             m = new Maze(lvl, size, size);
             lvl.getChap().setMaze(m);
+
             // now have the maze object
             gameController = new Controller(this, lvl.getChap(), false);
-            setPhase(new Phase(m, gameController), lvl.getTime());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            Phase p = new Phase(m, gameController);
+            this.phase = p;
+
+            setPhaseRunnable(lvl.getLevel());
+            setPhase(p, lvl.getTime());
+        } catch (IOException e) { e.printStackTrace();}
     }
 
+    /**
+     * Helper methods for resume and save game. It sets the first and next runnable for the phase.
+     *
+     * @param lvl stores the level the current phase is at
+     */
+    public void setPhaseRunnable(int lvl){
+        if (lvl == 2) {
+            Phase.next = () -> endPhase(this::phaseOne, true);
+            Phase.first = () -> endPhase(this::phaseTwo, false);
+        } else {
+            Phase.next = this::phaseTwo;
+            Phase.first = () -> endPhase(this::phaseOne, false);
+        }
+    }
 
     /**
      * Getter for phase.
