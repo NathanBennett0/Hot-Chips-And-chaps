@@ -17,7 +17,8 @@ public record Phase(Maze maze, Controller controller) {
 	 * Runnables to change the phase when player dies, or when player finished a level.
 	 * 
 	 */
-	static Runnable next, first;
+	static Runnable next;
+	static Runnable first;
 	
 	/**
 	 * Creates level one.
@@ -71,11 +72,13 @@ public record Phase(Maze maze, Controller controller) {
 	 * @return Phase
 	 */
 	public static Phase replayPhase(int level){
+
 		String filename = level==2?"level2.xml":"level1.xml";
 		int size = level==2?66:22;
 
 		Level lvl = new Filereader().loadLevel("levels/"+filename);
 		Controller c = new Controller(App.getInstance(), lvl.getChap());
+		c.clearKeyBind();
 		Maze m = null;
 		try {
 			m = new Maze(lvl, size, size);

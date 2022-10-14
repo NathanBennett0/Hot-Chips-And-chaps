@@ -24,8 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import nz.ac.vuw.ecs.swen225.gp22.Recorder.RecordLoad;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
+import nz.ac.vuw.ecs.swen225.gp22.Recorder.directionMove;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.recorderPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
@@ -40,6 +43,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.StartPanel;
 
 import java.awt.Color;
+import java.util.List;
 
 /**
  * The main GUI for Chap's Challenge.
@@ -92,6 +96,11 @@ public class App extends JFrame {
      * Recorder.
      */
     Recorder recorder;
+
+    /**
+     * RecordLoad instance to load recordings.
+     */
+    RecordLoad recordLoad;
 
     /**
      * Keeps track of time left
@@ -410,7 +419,7 @@ public class App extends JFrame {
         var play = new JButton("New Game");
         play.setBounds(400, 580, 100, 30);
 
-        replay.addActionListener((e) -> replay());
+        replay.addActionListener((e) -> recorderGame());
         tutorial.addActionListener((e) -> tutorial());
         play.addActionListener((e) -> phaseOne());
 
@@ -541,31 +550,64 @@ public class App extends JFrame {
         newPanel.run();
         restart.run();
 
-        Phase phase = Phase.replayPhase(1); //recorder.level()
-        this.phase = phase;
-        gameController = phase.controller();
-
         var panel = new JPanel();
+        currentPanel = panel;
+
         panel.setBackground(themeColor);
         panel.setLayout(null);
-        var back = new JButton("Home");
-        back.setBounds(400, 600, 100, 30);
+
+        var back = new JButton("Back");
+        back.setBounds(320, 600, 100, 30);
         back.addActionListener((e) -> home());
 
-        GamePanel viewport = new GamePanel(phase.maze(), this);
+        var load = new JButton("Load Recording");
+        load.setBounds(430, 600, 130, 30);
+        load.addActionListener((e) -> load());
+
+        JPanel viewport = new JPanel();
+        if(recordLoad != null){
+            Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
+            this.phase = phase;
+            viewport = new GamePanel(phase.maze(), this);
+            changeKeyListener(phase.controller());
+        }else{
+            viewport.setBackground(new Color(0,0,0));
+            viewport.add(new JLabel("Please load a saved recording."));
+        }
         viewport.setBounds(170, 30, 558, 558);
 
         panel.add(viewport);
         panel.add(back);
+        panel.add(load);
         panel.add(mainMenu());
-
-        currentPanel = panel;
-        changeKeyListener(phase.controller());
 
         getContentPane().add(panel);
         newPanel = () -> remove(panel);
         pack();
-        currentPanel.requestFocus();
+    }
+
+    public void load() {
+        JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/");
+        fileChooser.setDialogTitle("Select recording to load");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("load file (xml)", "xml");
+        fileChooser.setFileFilter(fileFilter);
+        fileChooser.showOpenDialog(fileChooser);
+
+        if (fileChooser.getSelectedFile() != null) {
+
+            recordLoad = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
+            List<directionMove> moves = recordLoad.getMoves();
+            System.out.println("moves have been printed");
+
+            // load new panel
+            recorderGame();
+            for (directionMove m : moves) {
+                System.out.println("print moves");
+                m.move();
+            }
+
+        }
     }
 
     /**
@@ -745,6 +787,7 @@ public class App extends JFrame {
             currentPanel.removeKeyListener(currentPanel.getKeyListeners()[0]);
         }
         currentPanel.addKeyListener(keyListener);
+        System.out.println("Key Listeners"+ currentPanel.getKeyListeners().length);
         currentPanel.setFocusable(true);
     }
 
