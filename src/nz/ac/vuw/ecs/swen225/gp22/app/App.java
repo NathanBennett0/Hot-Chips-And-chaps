@@ -599,6 +599,9 @@ public class App extends JFrame {
         pack();
     }
 
+    /**
+     * Loads recording files into the program.
+     */
     public void loadRecording() {
         JFileChooser fileChooser = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/Recorder/");
         fileChooser.setDialogTitle("Select recording to load");
@@ -615,6 +618,9 @@ public class App extends JFrame {
         recorderGame();
     }
 
+    /**
+     * Plays recordings - triggers moves.
+     */
     public void playRecording(){
         recordingDelay = 100;
         recordTimer = true;
@@ -628,6 +634,7 @@ public class App extends JFrame {
         });
         t.start();
     }
+
 
     /**
      * Sets the phase and starts the levels.

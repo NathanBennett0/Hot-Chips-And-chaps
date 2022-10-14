@@ -50,7 +50,7 @@ public record Phase(Maze maze, Controller controller) {
 	 * @return Phase
 	 * 
 	 */
-	public static Phase levelTwo(Runnable n, Runnable f){
+	public static Phase levelTwo(Runnable n, Runnable f) {
 		next = n;
 		first = f;
 
@@ -59,9 +59,11 @@ public record Phase(Maze maze, Controller controller) {
 		Maze m = null;
 		try {
 			m = new Maze(lvl, 66, 66);
-			lvl.getChap().setMaze(m); 
-		} catch (IOException e) {e.printStackTrace();}
-		return new Phase(m, c); 
+			lvl.getChap().setMaze(m);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new Phase(m, c);
 	}
 
 
