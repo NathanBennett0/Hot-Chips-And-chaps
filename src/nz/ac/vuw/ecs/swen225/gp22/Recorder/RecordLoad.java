@@ -4,6 +4,8 @@ import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,8 +18,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *@author Christine Jayme
- * Student ID: 300580764
+ * @author Christine Jayme
+ *         Student ID: 300580764
  */
 
 public class RecordLoad {
@@ -29,7 +31,7 @@ public class RecordLoad {
     /**
      * List of moves inside RecordLoad class
      */
-    List<directionMove> recordLoadMoves = new ArrayList<directionMove>();
+    PriorityQueue<directionMove> recordLoadMoves = new PriorityQueue<directionMove>();
 
     /**
      * The root of the XML file
@@ -43,7 +45,8 @@ public class RecordLoad {
 
         try {
             // loading xml file and parsing it
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // an instance of builder to parse the
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // an instance of document builder to
+                                                                               // parse the
                                                                                // specified xml file
             DocumentBuilder db = dbf.newDocumentBuilder();
             doc = db.parse(file);
@@ -52,29 +55,20 @@ public class RecordLoad {
             Element r = doc.getDocumentElement();
             root = r;
             doc.getDocumentElement().normalize();
-
-            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName("move"); // nodelist from xml
-
-            // testing what the root element is
-            System.out.println("Root element: " + doc.getNodeName());
-            System.out.println("nodeList" + nodeList);
 
             // iterates through the nodeList and turns them into moveobjects
             for (int i = 0; i < nodeList.getLength(); i++) {
 
                 Node currMove = nodeList.item(i);
-                System.out.println("currMove in RecordLoad" + currMove);
                 // gets attribute values
                 int code = Integer.parseInt(currMove.getAttributes().getNamedItem("moveKeyCode").getNodeValue());
                 directionMove dirMove = new directionMove(code);
                 // adds moves into the getMoves
-                System.out.println("recordLoadMoves is being added to");
                 recordLoadMoves.add(dirMove);
 
             }
         } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("failed parsing file");
@@ -88,15 +82,13 @@ public class RecordLoad {
      * 
      * @return list of directionMoves
      */
-    public List<directionMove> getMoves() {
+    public PriorityQueue<directionMove> getMoves() {
         return recordLoadMoves;
-
     }
 
     /**
-     * Gets the level of the file
+     * Gets the level loaded from the XML file
      */
-
     public int level() {
         root.normalize();
         NodeList nodeList = doc.getElementsByTagName("LevelMoves"); // nodelist from xml
@@ -109,5 +101,4 @@ public class RecordLoad {
         }
         return level;
     }
-
 }

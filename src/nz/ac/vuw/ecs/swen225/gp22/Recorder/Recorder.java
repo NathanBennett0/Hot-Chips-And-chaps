@@ -1,8 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.PriorityQueue;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,15 +16,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
-* @author Christine Jayme
- * Student ID: 300580764
+ * @author Christine Jayme
+ *         Student ID: 300580764
  */
 public class Recorder {
 
 	/**
 	 * List of moves
 	 */
-	private final List<directionMove> movesList;
+
+	public PriorityQueue<directionMove> movesQueue;
 
 	/**
 	 * Keeps track of the level
@@ -39,14 +39,14 @@ public class Recorder {
 	 */
 	public Recorder(int L) {
 		level = L;
-		movesList = new ArrayList<>();
+		movesQueue = new PriorityQueue<directionMove>();
 	}
 
 	/**
 	 * Constructor for App
 	 */
 	public Recorder() {
-		movesList = new ArrayList<>();
+		movesQueue = new PriorityQueue<directionMove>();
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class Recorder {
 
 			root.appendChild(LevelMoves);
 
-			for (directionMove m : movesList) {
+			for (directionMove m : movesQueue) {
 
 				// save the move keyCode
 				Element move = doc.createElement("move");
@@ -100,16 +100,18 @@ public class Recorder {
 			System.out.println("failed save move");
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
-	 * Adds move to the arrayList
+	 * Adds move to the queue
 	 * 
 	 * @param m
 	 */
 	public void addMove(directionMove m) {
-		movesList.add(m);
+		System.out.println(m.toString());
+		if (m != null) {
+			movesQueue.add(m);
+		}  
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class Recorder {
 	 * 
 	 * @return movesList
 	 */
-	public List<directionMove> getMove() {
-		return movesList;
+	public PriorityQueue<directionMove> getMove() {
+		return movesQueue;
 	}
 }

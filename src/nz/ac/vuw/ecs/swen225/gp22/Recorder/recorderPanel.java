@@ -7,13 +7,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.List;
-
+import java.util.PriorityQueue;
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
 /**
-*@author Christine Jayme
- * Student ID: 300580764
+ * @author Christine Jayme
+ *         Student ID: 300580764
  */
 public class recorderPanel extends JPanel {
 
@@ -51,8 +50,7 @@ public class recorderPanel extends JPanel {
     /**
      * List of moves
      */
-    private List<directionMove> moves;
-
+    public PriorityQueue<directionMove> recorderPanelMoves;
     /**
      * Speed for replay
      */
@@ -64,8 +62,8 @@ public class recorderPanel extends JPanel {
      * @param a app
      */
     public recorderPanel(App a) {
-        System.out.println("Testing for entering constructor");
         app = a;
+        recorderPanelMoves = new PriorityQueue<directionMove>();
         recordPanel();
     }
 
@@ -73,7 +71,7 @@ public class recorderPanel extends JPanel {
      * Creating the JPanel for the recorder
      */
     public void recordPanel() {
-        System.out.println("Entered panel");
+        //System.out.println("Entered panel");
         panel = new JPanel();
         setSpeedButton();
 
@@ -121,16 +119,15 @@ public class recorderPanel extends JPanel {
         if (fileChooser.getSelectedFile() != null) {
 
             RecordLoad record = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
-            this.moves = record.getMoves();
-            System.out.println("moves have been printed");
-
-            // load new panel
+            this.recorderPanelMoves = record.getMoves();
+            // loads new recorder panel
             app.recorderGame();
-            for (directionMove m : moves) {
-                System.out.println("print moves");
+
+            System.out.println(recorderPanelMoves);
+            for (directionMove m : recorderPanelMoves) {
+                System.out.println("move in recorderPanel" + m.getKeyCode()); // print the key code
                 m.move();
             }
-
         }
     }
 
@@ -140,6 +137,9 @@ public class recorderPanel extends JPanel {
         System.out.println(speed);
         setRepSpeed.setText("Set Replay Speed");
     }
+
+    /**
+     */
 
     /**
      * For the play record.
