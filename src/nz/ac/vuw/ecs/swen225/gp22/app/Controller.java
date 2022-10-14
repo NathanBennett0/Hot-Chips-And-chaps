@@ -28,20 +28,20 @@ public class Controller extends KeyStroke {
 	}
 
 	/**
-	 * Chap controller constructor.
+	 * Chap controller constructor for when phases run.
 	 * 
 	 * @param app App
 	 * @param chap Chap player
 	 *
 	 */
-	Controller(App app, Chap chap){
+	Controller(App app, Chap chap, boolean recorder){
 		super(app);
 		this.chap = chap;
+		if(!recorder) setPauseKey();
 		setCtrlKey();
-		setPauseKey();
 		setChapKey();
-		
 	}
+
 
 	/**
 	 * Key binding for control keys.
