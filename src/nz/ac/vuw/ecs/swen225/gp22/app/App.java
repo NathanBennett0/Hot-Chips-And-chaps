@@ -612,10 +612,8 @@ public class App extends JFrame {
 
         if (fileChooser.getSelectedFile() != null) {
             recordLoad = new RecordLoad(fileChooser.getSelectedFile()); // creates new recordLoad object
-        }else{
-            return; //TODO
+            recorderGame();
         }
-        recorderGame();
     }
 
     /**
