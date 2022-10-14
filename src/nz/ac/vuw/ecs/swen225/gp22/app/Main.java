@@ -5,18 +5,16 @@ import javax.swing.SwingUtilities;
 /**
  * Main class for Chap's Challenge
  * 
- * @author Naomi Parte
+ * @author Naomi Parte 300562058
  * 
  */
 public class Main {
 	/**
 	 * Main method. Runs the game.
-	 * 
-	 * @param args
+	 *
 	 */
 	public static void main(String[] args) {
-		Runnable startGame = ()->{App.getInstance();};
-		SwingUtilities.invokeLater(startGame);
+		SwingUtilities.invokeLater(App::getInstance);
 	}
 
 }

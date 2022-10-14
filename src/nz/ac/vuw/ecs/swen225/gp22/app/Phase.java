@@ -9,7 +9,7 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Level;
 /**
  * Stores the essential classes needed for the game level.
  * 
- * @author Naomi Parte
+ * @author Naomi Parte 300562058
  * 
  */
 public record Phase(Maze maze, Controller controller) {
@@ -22,8 +22,8 @@ public record Phase(Maze maze, Controller controller) {
 	/**
 	 * Creates level one.
 	 * 
-	 * @param n - runs on next level
-	 * @param f - runs when chap dies
+	 * @param n runs on next level
+	 * @param f runs when chap dies
 	 * @return Phase
 	 * 
 	 */
@@ -44,8 +44,8 @@ public record Phase(Maze maze, Controller controller) {
 	/**
 	 * Creates level two.
 	 * 
-	 * @param n - runs on next level
-	 * @param f - runs when chap dies
+	 * @param n runs on next level
+	 * @param f runs when chap dies
 	 * @return Phase
 	 * 
 	 */
@@ -67,8 +67,8 @@ public record Phase(Maze maze, Controller controller) {
 	/**
 	 * Creates phase for recorder replay.
 	 * 
-	 * @param level
-	 * @return
+	 * @param level level number
+	 * @return Phase
 	 */
 	public static Phase replayPhase(int level){
 		String filename = level==2?"level2.xml":"level1.xml";

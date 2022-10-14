@@ -10,7 +10,7 @@ import nz.ac.vuw.ecs.swen225.gp22.Recorder.directionMove;
 /**
  * Custom keyListener class for the game.
  * 
- * @author Naomi Parte
+ * @author Naomi Parte 300562058
  * 
  */
 public class KeyStroke implements KeyListener {
@@ -18,13 +18,13 @@ public class KeyStroke implements KeyListener {
 	 * Stores normal keybinding.
 	 * 
 	 */
-	private static Map<Integer,Runnable> onPressed = new HashMap<>();
+	private static final Map<Integer,Runnable> onPressed = new HashMap<>();
 
 	/**
 	 * Stores keybinding for control actions.
 	 * 
 	 */
-	private static Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
+	private static final Map<Integer,Runnable> onCtrlPressed = new HashMap<>();
 
 	/**
 	 * Stores the app.
@@ -35,7 +35,7 @@ public class KeyStroke implements KeyListener {
 	/**
 	 * Constructor for the keystroke.
 	 * 
-	 * @param app
+	 * @param app App
 	 */
 	KeyStroke(App app){
 		this.app = app;
@@ -44,9 +44,9 @@ public class KeyStroke implements KeyListener {
 	/**
 	 * A function for keybinding - Maps a keycode with given action.
 	 * 
-	 * @param keyCode
-	 * @param action
-	 * @param ctrl
+	 * @param keyCode Key code number
+	 * @param action Key action
+	 * @param ctrl Is a control key
 	 * 
 	 */
 	public void setAction(int keyCode, Runnable action, boolean ctrl) {
@@ -81,7 +81,7 @@ public class KeyStroke implements KeyListener {
 			}
 		}
 
-		System.out.println("size: "+onPressed.size());
+		//System.out.println("size: "+onPressed.size());
 	}
 
 	/**

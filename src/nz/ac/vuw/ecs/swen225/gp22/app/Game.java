@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 /**
  * JPanel for when the Game runs. Contains viewport and scoreboard.
  * 
- * @author Naomi Parte
+ * @author Naomi Parte 300562058
  * 
  */
 public class Game extends JPanel {
@@ -20,13 +20,7 @@ public class Game extends JPanel {
      * Stores game phase.
      * 
      */
-	private Phase phase;
-
-    /**
-     * The game panel from renderer. Viewport for the game.
-     * 
-     */
-	private GamePanel game;
+	private final Phase phase;
 	
     /**
      * Label for time left - updated from App.
@@ -35,13 +29,13 @@ public class Game extends JPanel {
 	JLabel tLeft = new JLabel("00:00");
 
     /**
-     * Label fo current level - updated from App.
+     * Label for current level - updated from App.
      * 
      */
 	JLabel currLvl = new JLabel();
 
     /**
-     * Label fo current treasures left - updated from App.
+     * Label for current treasures left - updated from App.
      * 
      */
 	JLabel itemLeft = new JLabel();
@@ -49,16 +43,15 @@ public class Game extends JPanel {
 	/**
      * Game constructor.
      * 
-     * @param p
-     * @param a
+     * @param p phase
+     * @param a app
      */
     public Game(Phase p, App a) {
     	this.phase = p;
     	
         sidePanel();
-        
-        game = new GamePanel(p.maze(), a);
-        this.add(game);
+
+        this.add(new GamePanel(p.maze(), a));
         
     	//Setting Background Image
         var bgImage = new JLabel();
