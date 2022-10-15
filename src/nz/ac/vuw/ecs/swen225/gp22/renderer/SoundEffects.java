@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 import javax.sound.sampled.*;
 
+/**
+* Wipateella
+* 300558005
+*
+* This class will load and hold all of the sound effects for the game
+*/ 
 public class SoundEffects {
     Clip startMusic;
     Clip backgroundMusic; 

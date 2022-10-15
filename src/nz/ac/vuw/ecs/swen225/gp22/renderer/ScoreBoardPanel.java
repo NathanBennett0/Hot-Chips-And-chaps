@@ -25,6 +25,13 @@ import java.awt.Color;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
+/**
+* Wipateella
+* 300558005
+* 
+* This class represents the scoreboard panel and will display the chaps 
+* inventory
+*/
 public class ScoreBoardPanel extends JPanel implements ActionListener{
     final int BIG_IMG_DIM = 62;
     final int SMALL_IMG_DIM = 45; 

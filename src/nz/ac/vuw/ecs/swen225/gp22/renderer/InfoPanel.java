@@ -11,6 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+/**
+* Wipateella
+* 300558005
+* 
+* This class represents the Info pop up panel
+* when the chap stands on the info tile
+*/
 public class InfoPanel extends JPanel implements ActionListener{
     private String message;
     private Img background = Img.InfoPopUp;

@@ -12,6 +12,12 @@ import javax.swing.Timer;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
+/**
+* 300558005
+* Wipateella
+*
+* This class represents the start/opening screen for the game
+*/
 public class StartPanel extends JLabel implements ActionListener {
 	private int counter = 0; 
 	private Img currImg = Img.StartOne;

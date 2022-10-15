@@ -1,5 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
+/**
+* Wipateella
+* 300558005
+*
+* This class represents the left animation for the chap 
+*/ 
 public class LeftImage implements CatImage{
 	public Img currImg = Img.CatLeft1; // Default fields are normal chap
 	public Img[] animation = {Img.CatLeft1, Img.CatLeft2, Img.CatLeft3, Img.CatLeft4};

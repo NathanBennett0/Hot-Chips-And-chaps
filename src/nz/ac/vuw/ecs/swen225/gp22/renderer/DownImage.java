@@ -1,7 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
 /**
+* Wipateella
 * 300558005
+*
+* The down image animations for the Chap
 */
 public class DownImage implements CatImage{
 	public Img currImg = Img.CatDown1;
