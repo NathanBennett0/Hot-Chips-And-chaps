@@ -12,8 +12,8 @@ import nz.ac.vuw.ecs.swen225.gp22.app.App;
 import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
 
 /**
- * Class that runs the two fuzz tests for the Chips&Chaps game. 
- * Generates random inputs.
+ * Class that runs the two 1 minute fuzz tests for the Chips and Chaps game. 
+ * Generates random inputs/keystrokes which moves the chaps.
  * Logs any crashes onto git.
  * 
  * @author anniecho 300575457
@@ -78,12 +78,13 @@ public class FuzzTest {
 	/*----- HELPER METHODS ------------------------------------------------------------- */
 	
 	
-	/**
-	 * Make HASHMAP strategy board
-	 * Each tile represents a tile on the board
-	 * The hashmap has 4 values, key as a direction, val as number of times explored
-	 * u = up, d = down, l = left, r = right
-	 */
+    /**
+     * Make HASHMAP strategy board
+     * Each tile represents a tile on the board
+     * The hashmap has 4 values, key as a direction, val as number of times explored
+     * u = up, d = down, l = left, r = right
+     * @return HashMap of board
+     */
 	public HashMap<String, Integer>[][] makeStrategyBoardL1() {
 		HashMap<String,Integer>[][] temp = new HashMap[22][22];
 		for(int i = 0; i < 22; i++) {
@@ -103,6 +104,7 @@ public class FuzzTest {
      * Make 2D ARRAY strategy board
      * Each tile represents a tile on the board
      * Inside the tile has the number of times it has been explored
+     * @return 2D int array of board
      */
     public int[][] makeStrategyBoardL2() {
         int[][] temp = new int[22][22];
@@ -117,8 +119,8 @@ public class FuzzTest {
 	
 	/**
 	 * Intelligence used to run the tests in L1
-	 * @param app
-	 * @param timer
+	 * @param app App object
+	 * @param timer When the fuzz test ends
 	 */
 	public void intelligence(App app, long timer) {
 	    
@@ -219,9 +221,11 @@ public class FuzzTest {
 	
 	
 	/**
+	* LEVEL ONE INTELLIGENCE
 	* Picks a direction for the chap to travel in
 	* Chap cannot move backwards
 	* Chap also moves in the direction least explored
+	* @return Keycode of which direction to move in
 	*/
 	public int pickDirectionL1() {
 		
@@ -258,8 +262,10 @@ public class FuzzTest {
 	
 	
    /**
+    * LEVEL TWO INTELLIGENCE
     * Picks a direction for the chap to travel in
     * Chap also moves to the adjacent tile least explored
+    * @return Keycode of which direction to move in
     */
     public int pickDirectionL2() {
         System.out.println("pickDirection2");
@@ -326,9 +332,9 @@ public class FuzzTest {
 	
 	/**
 	 * Method that generates the keycode based on the index of an Arraylist
-	 * @return Keystroke constant, each representing a direction
 	 * 0 = up, 1 = down, 2 = left, 3 = right
 	 * Can return either WASD or arrow values
+	 * @return Keystroke constant, each representing a direction
 	 */
 	public int generateKeycode(String dir) {
 	    assert dir.equals("u") || dir.equals("d") || dir.equals("l") || dir.equals("r");
