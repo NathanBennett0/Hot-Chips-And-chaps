@@ -33,7 +33,7 @@ public class Maze {
 			int y = t.getLocation().getY();
 			grid[x][y] = t;
 		});
-		lv.getInfoField();
+		this.info = lv.getInfoField();
 		setChapLoc(lv.getChap().getLocation());
 		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
 		grid[lv.getInfoField().getLocation().getX()][lv.getInfoField().getLocation().getY()] = lv.getInfoField();
@@ -51,7 +51,9 @@ public class Maze {
             lv.removeLockedTile((Locked)grid[l.getX()][l.getY()]);
         } else if(grid[l.getX()][l.getY()] instanceof Treasure) {
             lv.removeTreasureTile((Treasure)grid[l.getX()][l.getY()]);
-        }
+        } else if(grid[l.getX()][l.getY()] instanceof InfoField){
+			grid[l.getX()][l.getY()] = info;
+		}
         grid[l.getX()][l.getY()] = new Free(l);
 		safeGrid(); //post 
     } 
