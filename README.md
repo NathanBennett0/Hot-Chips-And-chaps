@@ -58,6 +58,9 @@ Some breakpoints to highlight where the dependencies are:
 **App**
 
 **Recorder**
+- Line 29, directionMove.java - Makes an instance of App
+- Line 44, directionMove.java - Makes a Controller from App's instance
+- Line 65, directionMove.java - returns the class' instance of App
 
 **Domain**
 
