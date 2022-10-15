@@ -90,10 +90,34 @@ public class GamePanel extends JPanel implements ActionListener{
     	}
 		
 		if(maze.getChap().getOnInfo()) {
+		    String message = maze.getInfoField().getMessage();
 		    g2d.drawImage(Img.InfoPopUp.image, 155, 350, null);
-		    g2d.setColor(Color.WHITE);
-		    g2d.setFont(new Font( "SansSerif", Font.BOLD, 20 ));
-		    g2d.drawString(maze.getInfoField().getMessage(), 200, 400);
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(new Font( "SansSerif", Font.BOLD, 15 ));
+            
+		    if(message.length() > 67) { // Message for level one
+		        String first = message.substring(0,21);
+	            String second = message.substring(21, 44);
+	            String third = message.substring(44, 67);
+	            String fourth = message.substring(67);
+	            
+	            g2d.drawString(first, 180, 400);
+	            g2d.drawString(second, 180, 420);
+	            g2d.drawString(third, 180, 440);
+	            g2d.drawString(fourth, 180, 460);
+		    }else { // Message for level two
+		        String first = message.substring(0,22);
+		        String second = message.substring(22, 36);
+		        String third = message.substring(36);
+		        
+		        g2d.drawString(first, 180, 400);
+		        g2d.drawString(second, 180, 420);
+		        g2d.drawString(third, 180, 440);
+		    }
+		    
+		    
+		   
+		    
 		}
 	}
 	
