@@ -8,7 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.SoundEffects;
 public class Locked extends Tile {
 	private Key.Color col;
 	public Img icon;
-	private SoundEffects sound = new SoundEffects();
+	private static SoundEffects sound = new SoundEffects();
 	
 	public Locked(Location l, Key.Color col) {
 		super(l);
