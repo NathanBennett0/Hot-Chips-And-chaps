@@ -51,7 +51,7 @@
         <Tile type="Water" x="7" y="8"/>
         <Tile type="Wall" x="9" y="8"/>
         <LockedTile type="Locked" x="11" y="8" colour="YELLOW"/>
-        <InfoTile type="InfoField" x="13" y="8" text="dont get run over!"/>
+        <InfoTile type="InfoField" x="13" y="8" text="Stay out of the water and avoid the lawnmower!"/>
         <Tile type="Wall" x="14" y="8"/>
         <Tile type="Wall" x="15" y="8"/>
 
