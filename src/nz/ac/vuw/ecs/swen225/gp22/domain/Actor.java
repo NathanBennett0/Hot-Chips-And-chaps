@@ -14,7 +14,7 @@ public class Actor extends Tile{
     //robs: takes things from chaps chest (chest must be public to be robbed)
     public Chap c; 
     public Location l;
-    public Img icon = Img.LawnMowerRight;
+    public Img icon = Img.LawnmowerRight;
     public Actor(Location l, Chap c){
     	super(l);
         this.c = c;
