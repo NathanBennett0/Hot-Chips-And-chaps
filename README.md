@@ -4,6 +4,7 @@
 2. [Game Info](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#game-info)
 3. [Warnings](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#warnings)
 4. [Gource](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#gource-video)
+5. [Dependencies](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#dependencies)
 
 ## Game Setup
 The program has been tested to run on the ECS machine. We recommend using Eclipse as the classpaths have already been configured. However, it can also run on VSC smoothly, and on IntelliJ if we import it through the "Import Project from Existing Sources".
@@ -49,3 +50,22 @@ When replaying the recorder at a fast speed just after you've finished a game, y
 
 ## Gource Video
 Gource.io video can be found [here](https://youtu.be/guo5vPugr4g). This doesn't include a few of the finishing-touch commits made during the grace period.
+
+## Dependencies
+Some breakpoints to highlight where the dependencies are:
+**App**
+
+**Recorder**
+
+**Domain**
+
+**Fuzz**
+
+**Persistency**
+- Line 43 & 64, FuzzTest.java - Makes an instance of App
+
+**Renderer**
+- Line 38, EndPanel.java - Used App.Width and App.Height
+- Line 47, GamePanel.java - Instance of App is passed in
+- Line 43, ScoreBoardPanel.java - Instance of Maze is passed in
+- Line 27, StartPanel.java - Used App.Width and App.Height
