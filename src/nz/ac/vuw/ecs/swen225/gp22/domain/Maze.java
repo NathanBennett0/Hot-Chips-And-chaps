@@ -14,6 +14,7 @@ public class Maze {
 	public Chap player;
 	public int numItems;
 	public InfoField info;
+	public Location infoLoc;
 	
 	public Maze(Level lv, int xx, int yy) throws IOException{
 		if(lv == null || xx <= 0 || yy <= 0){
@@ -34,6 +35,7 @@ public class Maze {
 			grid[x][y] = t;
 		});
 		this.info = lv.getInfoField();
+		this.infoLoc = info.getLocation();
 		setChapLoc(lv.getChap().getLocation());
 		setActorLocation(lv.getActor().getLocation(), new Location(0,0));
 		grid[lv.getInfoField().getLocation().getX()][lv.getInfoField().getLocation().getY()] = lv.getInfoField();
@@ -119,6 +121,9 @@ public class Maze {
             this.player.changeState(new DeadState());
         }
         grid[player.getLocation().getX()][player.getLocation().getY()] = new Free(player.getLocation()); 
+		if(player.getLocation().getX() == infoLoc.getX() && player.getLocation().getY() == infoLoc.getY()) {
+            grid[infoLoc.getX()][infoLoc.getY()] = info;
+        }
         grid[l.getX()][l.getY()] = player;
 		//assert((grid[player.getLocation().getX()][player.getLocation().getY()] instanceof Free)&&(grid[l.getX()][l.getY()]  instanceof Chap)); //post
     }
