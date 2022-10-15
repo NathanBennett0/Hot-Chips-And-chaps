@@ -6,10 +6,10 @@ public class InfoField extends Tile {
 	private String m;
 	public Img icon = Img.Info;
 
-	public InfoField(Location l, String m) {
+	public InfoField(Location l, String m) { //update
 		super(l);
 		this.m = m;
-		System.out.println(this.toString() + " constructor called");
+		//System.out.println(this.toString() + " constructor called");
 	}
 
 	// getters and setters
@@ -26,7 +26,6 @@ public class InfoField extends Tile {
 	 */
 	@Override
 	public boolean CanWalkOn(Chap p) {
-		p.setOnInfo(this); //true 
 		return true;
 	}
 	

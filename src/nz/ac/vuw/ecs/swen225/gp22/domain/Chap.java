@@ -48,35 +48,15 @@ public class Chap extends Tile{ // player which is not a core tile
     public Location getLocation() {
         return l;
     }
-
-    /*
-     * sets if chap is standing on info field 
-     */
-    public void setOnInfo(InfoField info){
-        this.info = info;
-        this.onInfo = true;
-    }
-    /*
-     * sets chap is off infofield 
-     */
-    public void setOffInfo(){
-        this.onInfo = false;
-    }
-
     /*
      * checks if chap is on info field 
      * @return boolean
      */
-    public boolean getOnInfo(){
-        if(this.getLocation().equals(info)){
-            return true;
-        } else {
-            return false; 
-        }
-    }
-
-    public InfoField getInfo(){
-        return this.info;
+    public boolean getOnInfo(){ //call method infinitley 
+        boolean x = m.getInfoField().getLocation().getX() == this.getLocation().getX();
+        boolean y = m.getInfoField().getLocation().getY() == this.getLocation().getY();
+        return x && y;
+        //return this.getLocation().equals(info.getLocation());
     }
     /*
      * removes a key from the chest 
