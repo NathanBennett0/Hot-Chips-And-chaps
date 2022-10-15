@@ -159,7 +159,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	         return Img.LawnmowerLeft.image;
 	     }else if(l.getX() > prevActorLoc.getX()) {
 	         prevActorLoc = l;
-	         return Img.LawnMowerRight.image;
+	         return Img.LawnmowerRight.image;
 	     }
 	     prevActorLoc = l;
 	     return Img.LawnmowerDown.image;
