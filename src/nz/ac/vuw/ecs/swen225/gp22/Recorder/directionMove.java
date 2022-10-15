@@ -8,16 +8,23 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
  * @author Christine Jayme
  *         Student ID: 300580764
  */
-public class directionMove implements Move {
+
+/**
+ * directionMove class creates a move object for each move carried out in the
+ * game. Also can execute the move.
+ */
+public class directionMove {
+
     /**
-     * KeyCode for the move. keyCode is required in order to use the keyPressed
-     * method inside
-     * KeyStroke.java.
+     * KeyCode for the move. The KeyCode is required in order to use the keyPressed
+     * method inside KeyStroke.java.
+     * 
      */
     public int keyCode = 0;
 
     /**
-     * Gets the app from app class.
+     * Gets the app from app class. This app will get the controller in order to
+     * control the moves of the chap.
      */
     App app = App.getInstance();
 
@@ -33,11 +40,10 @@ public class directionMove implements Move {
     /**
      * Executes the move
      */
-    @Override
     public void move() {
-        Controller c =App.getInstance().getPhase().controller();
+        Controller c = App.getInstance().getPhase().controller();
         c.keyPressed(keyCode);
-        System.out.println("Move being carried out. Key code: " + keyCode);
+        // For testing: System.out.println("Move being carried out. Key code: " +  keyCode);
 
     }
 

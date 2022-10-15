@@ -2,11 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import java.io.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,7 +19,11 @@ import org.xml.sax.SAXException;
  *         Student ID: 300580764
  */
 
-public class RecordLoad{
+/**
+ * RecordLoad class reads and parses an XML file
+ */
+public class RecordLoad {
+
     /**
      * The XML document's Document
      */

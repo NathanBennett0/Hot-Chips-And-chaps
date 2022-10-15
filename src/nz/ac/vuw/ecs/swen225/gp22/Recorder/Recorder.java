@@ -2,7 +2,6 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,6 +19,11 @@ import org.w3c.dom.Element;
  * @author Christine Jayme
  *         Student ID: 300580764
  */
+
+/**
+ * Recorder class primarily adds all the moves made in the game and saves
+ * all the moves inside an XML file once the game is over.
+ */
 public class Recorder {
 
 	/**
@@ -34,7 +38,7 @@ public class Recorder {
 	private int level = 0;
 
 	/**
-	 * Constructing a new recorder
+	 * Constructor for a new recorder
 	 * 
 	 * @param L level
 	 */
@@ -44,16 +48,17 @@ public class Recorder {
 	}
 
 	/**
-	 * Constructor for App
+	 * Constructor for a new recording - to be used by App
 	 */
 	public Recorder() {
 		RecorderList = new ArrayList<directionMove>();
 	}
 
 	/**
-	 * Save a move to an XML file format
+	 * Saves all moves to an XML file format
 	 */
 	public void saveMove() {
+
 		try {
 
 			DocumentBuilderFactory docbuilderfactory = DocumentBuilderFactory.newInstance();
@@ -63,33 +68,23 @@ public class Recorder {
 			// root element for game
 			Element root = doc.createElement("Game");
 
-			// sets a level element
+			// sets a level as the next element
 			Element LevelMoves = doc.createElement("LevelMoves");
 			LevelMoves.setAttribute("Level", String.valueOf(level));
-
 			root.appendChild(LevelMoves);
 
-			/**
-			 * reverse order of list
-			 */
-			//for (int i = RecorderList.size()-1; i>=0; i--) {
-			for (int i = 0; i< RecorderList.size(); i++) {
+			// adding all moves from the arrayList into the XML file
+			for (int i = 0; i < RecorderList.size(); i++) {
 				// save the move keyCode
 				Element move = doc.createElement("move");
 				Attr moveAttr = doc.createAttribute("moveKeyCode");
 				moveAttr.setValue(String.valueOf(RecorderList.get(i).getKeyCode()));
-				//System.out.println("Recorder.java saving the move: " + RecorderList.get(i).getKeyCode());
-
 				move.setAttributeNode(moveAttr);
-
-				// saving the app to the XML
-				Attr app = doc.createAttribute("App");
-				app.setValue(String.valueOf(RecorderList.get(i).getApp()));
 
 				LevelMoves.appendChild(move);
 			}
 
-			// appending the all elements the document
+			// appending the all elements to the document
 			doc.appendChild(root);
 
 			// creating the XML file
@@ -109,21 +104,21 @@ public class Recorder {
 	}
 
 	/**
-	 * Adds move to the list
+	 * Adds move to the ArrayList
 	 * 
 	 * @param m
 	 */
 	public void addMove(directionMove m) {
-		//for testing: System.out.println(m.getKeyCode());
+		// For testing: System.out.println(m.getKeyCode());
 		if (m != null) {
 			RecorderList.add(m);
-		}  
+		}
 	}
 
 	/**
-	 * Gets the list of moves
+	 * Gets the list of moves being saved to the XML file
 	 * 
-	 * @return movesList
+	 * @return RecorderList
 	 */
 	public ArrayList<directionMove> getMove() {
 		return RecorderList;
