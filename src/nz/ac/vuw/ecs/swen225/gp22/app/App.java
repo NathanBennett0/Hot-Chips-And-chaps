@@ -195,7 +195,7 @@ public class App extends JFrame {
     /**
      * JFileChooser with existing path to where xml files are stored.
      */
-    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/");
+    JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/levels/");
 
     /**
      * Initializes boolean variables.
