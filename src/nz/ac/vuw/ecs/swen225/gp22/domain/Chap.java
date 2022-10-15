@@ -14,7 +14,7 @@ public class Chap extends Tile{ // player which is not a core tile
     private boolean onInfo;
     private InfoField info;
     public Img icon = Img.Chap;
-    private SoundEffects sound = new SoundEffects();
+    private static SoundEffects sound = new SoundEffects();
 
     public Chap(Location l, Maze m) {
         super(l);
