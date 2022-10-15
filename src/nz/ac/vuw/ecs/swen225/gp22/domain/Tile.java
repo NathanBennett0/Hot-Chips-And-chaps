@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Img;
 
-public abstract class Tile implements Entity{
+public class Tile implements Entity{
     public Location l;
     private Img icon = Img.Free; // default tile is free
 
