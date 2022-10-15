@@ -22,6 +22,7 @@ The program has been tested to run on the ECS machine. We recommend using Eclips
 4. Choose the JRE file that you've just downloaded and click `Finish`
 
 **Running the Main**
+
 Go to the `nz.ac.vuw.ecs.swen225.gp22.app` package then run the `Main.java` file as a Java Application.
 
 ## Game Info
@@ -53,6 +54,7 @@ Gource.io video can be found [here](https://youtu.be/guo5vPugr4g). This doesn't 
 
 ## Dependencies
 Some breakpoints to highlight where the dependencies are:
+
 **App**
 
 **Recorder**
