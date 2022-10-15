@@ -75,7 +75,7 @@
         <Tile type="Wall" x="7" y="8"/>
         <KeyTile type="Key" x="8" y="8" colour="BLUE"/>
         <Tile type="Free" x="9" y="8"/>
-        <InfoTile type="InfoField" x="10" y="8" text="play the game"/>
+        <InfoTile type="InfoField" x="10" y="8" text="Pick up scissors and unlock bushes. Collect all of the butterflies to unlock the exit"/>
         <Tile type="Free" x="11" y="8"/>
         <KeyTile type="Key" x="12" y="8" colour="ORANGE"/>
         <Tile type="Wall" x="13" y="8"/>
