@@ -48,4 +48,4 @@ Our game has a very nice background music. However, it is also very loud so be w
 When replaying the recorder at a fast speed just after you've finished a game, you may get an error saying the sound files are too big. The recommended testing is to exit the game first and test the recording again.
 
 ## Gource Video
-Gource.io video can be found [here](YT-Link). This doesn't include a few of the finishing-touch commits made during the grace period.
+Gource.io video can be found [here](https://youtu.be/guo5vPugr4g). This doesn't include a few of the finishing-touch commits made during the grace period.
