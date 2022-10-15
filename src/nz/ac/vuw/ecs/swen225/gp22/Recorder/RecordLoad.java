@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -22,7 +23,7 @@ import org.xml.sax.SAXException;
  *         Student ID: 300580764
  */
 
-public class RecordLoad {
+public class RecordLoad{
     /**
      * The XML document's Document
      */
@@ -31,7 +32,7 @@ public class RecordLoad {
     /**
      * List of moves inside RecordLoad class
      */
-    PriorityQueue<directionMove> recordLoadMoves = new PriorityQueue<directionMove>();
+    public LinkedList<directionMove> loadMoves = new LinkedList<directionMove>();
 
     /**
      * The root of the XML file
@@ -65,7 +66,7 @@ public class RecordLoad {
                 int code = Integer.parseInt(currMove.getAttributes().getNamedItem("moveKeyCode").getNodeValue());
                 directionMove dirMove = new directionMove(code);
                 // adds moves into the getMoves
-                recordLoadMoves.add(dirMove);
+                loadMoves.add(dirMove);
 
             }
         } catch (ParserConfigurationException e) {
@@ -82,8 +83,8 @@ public class RecordLoad {
      * 
      * @return list of directionMoves
      */
-    public PriorityQueue<directionMove> getMoves() {
-        return recordLoadMoves;
+    public LinkedList<directionMove> getMoves() {
+        return loadMoves;
     }
 
     /**

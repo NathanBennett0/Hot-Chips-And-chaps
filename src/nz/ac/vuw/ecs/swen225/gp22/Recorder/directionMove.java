@@ -8,7 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Controller;
  * @author Christine Jayme
  *         Student ID: 300580764
  */
-public class directionMove implements Move, Comparable<directionMove> {
+public class directionMove implements Move {
     /**
      * KeyCode for the move. keyCode is required in order to use the keyPressed
      * method inside
@@ -35,7 +35,7 @@ public class directionMove implements Move, Comparable<directionMove> {
      */
     @Override
     public void move() {
-        Controller c = new Controller(app);
+        Controller c =App.getInstance().getPhase().controller();
         c.keyPressed(keyCode);
         System.out.println("Move being carried out. Key code: " + keyCode);
 
@@ -57,14 +57,6 @@ public class directionMove implements Move, Comparable<directionMove> {
      */
     public App getApp() {
         return this.app;
-    }
-
-    /**
-     * compareTo method from comparable
-     */
-    @Override
-    public int compareTo(directionMove o) {
-        return 0;
     }
 
 }

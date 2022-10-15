@@ -1,7 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.Recorder;
 
 import java.io.File;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,7 +26,7 @@ public class Recorder {
 	 * List of moves
 	 */
 
-	public PriorityQueue<directionMove> movesQueue;
+	public ArrayList<directionMove> RecorderList;
 
 	/**
 	 * Keeps track of the level
@@ -39,14 +40,14 @@ public class Recorder {
 	 */
 	public Recorder(int L) {
 		level = L;
-		movesQueue = new PriorityQueue<directionMove>();
+		RecorderList = new ArrayList<directionMove>();
 	}
 
 	/**
 	 * Constructor for App
 	 */
 	public Recorder() {
-		movesQueue = new PriorityQueue<directionMove>();
+		RecorderList = new ArrayList<directionMove>();
 	}
 
 	/**
@@ -68,17 +69,22 @@ public class Recorder {
 
 			root.appendChild(LevelMoves);
 
-			for (directionMove m : movesQueue) {
-
+			/**
+			 * reverse order of list
+			 */
+			//for (int i = RecorderList.size()-1; i>=0; i--) {
+			for (int i = 0; i< RecorderList.size(); i++) {
 				// save the move keyCode
 				Element move = doc.createElement("move");
 				Attr moveAttr = doc.createAttribute("moveKeyCode");
-				moveAttr.setValue(String.valueOf(m.getKeyCode()));
+				moveAttr.setValue(String.valueOf(RecorderList.get(i).getKeyCode()));
+				//System.out.println("Recorder.java saving the move: " + RecorderList.get(i).getKeyCode());
+
 				move.setAttributeNode(moveAttr);
 
 				// saving the app to the XML
 				Attr app = doc.createAttribute("App");
-				app.setValue(String.valueOf(m.getApp()));
+				app.setValue(String.valueOf(RecorderList.get(i).getApp()));
 
 				LevelMoves.appendChild(move);
 			}
@@ -103,14 +109,14 @@ public class Recorder {
 	}
 
 	/**
-	 * Adds move to the queue
+	 * Adds move to the list
 	 * 
 	 * @param m
 	 */
 	public void addMove(directionMove m) {
-		System.out.println(m.toString());
+		//for testing: System.out.println(m.getKeyCode());
 		if (m != null) {
-			movesQueue.add(m);
+			RecorderList.add(m);
 		}  
 	}
 
@@ -119,7 +125,7 @@ public class Recorder {
 	 * 
 	 * @return movesList
 	 */
-	public PriorityQueue<directionMove> getMove() {
-		return movesQueue;
+	public ArrayList<directionMove> getMove() {
+		return RecorderList;
 	}
 }
