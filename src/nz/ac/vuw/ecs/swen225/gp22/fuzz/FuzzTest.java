@@ -34,7 +34,7 @@ public class FuzzTest {
      * Test for level one
      */
     @Test
-    public void FuzzTest1() {
+    public void fuzzTest1() {
         
         System.out.println("FuzzTest 1 is called.");
         
@@ -58,7 +58,7 @@ public class FuzzTest {
      * Test for level two
      */
     @Test
-    public void FuzzTest2() { 
+    public void fuzzTest2() { 
         
         System.out.println("FuzzTest 2 is called.");
         App app = App.getInstance();
