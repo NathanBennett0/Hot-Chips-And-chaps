@@ -1,5 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
-
+/**
+* 300558005
+* Wipateella
+*
+* This class represents the up animation for the chap
+*/
 public class UpImage implements CatImage{
 	public Img currImg = Img.CatUp1; // Default fields are normal chap
 	public Img[] animation = {Img.CatUp1, Img.CatUp2, Img.CatUp3, Img.CatUp4};

@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 /**
+* Wipateella
 * 300558005
 *
 * Interface to represent the chaps animation

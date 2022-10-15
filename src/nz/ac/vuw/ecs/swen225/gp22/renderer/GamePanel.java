@@ -21,6 +21,15 @@ import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
+/**
+* Wipateella
+* 300558005
+*
+* The main game panel/Graphics
+* This class will grab the maze and draw it onto the screen
+* It is also in control of the animations for the chap and actor
+* Will redraw every 150 milliseconds
+*/
 public class GamePanel extends JPanel implements ActionListener{
 	final int IMAGE_DIM = 62;
 	final int BOARD_DIM = 558; 

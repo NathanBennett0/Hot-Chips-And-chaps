@@ -12,6 +12,13 @@ import javax.swing.Timer;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.App;
 
+/**
+* Wipateella
+* 300558005
+*
+* The end panel animation for the game.
+* Can either display 'Game Over' or 'Congrats'
+*/
 public class EndPanel extends JLabel implements ActionListener{
     private int x = 900;
     private int y = 450;
