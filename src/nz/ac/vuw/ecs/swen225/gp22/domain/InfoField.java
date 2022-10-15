@@ -6,7 +6,7 @@ public class InfoField extends Tile {
 	private String m;
 	public Img icon = Img.Info;
 
-	public InfoField(Location l, String m) {
+	public InfoField(Location l, String m) { //update
 		super(l);
 		this.m = m;
 		//System.out.println(this.toString() + " constructor called");
