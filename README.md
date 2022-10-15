@@ -34,7 +34,7 @@ The game can be saved at any point. Saved games can be resumed by either loading
 
 Recordings are made whenever a level is won or lost, then it can be replayed through the 'Recording' button in the Home panel.
 
-Fuzz generates random input (enhanced with intelligence) for one minute to move the chap in the map. FuzzTest1() is used to test Level One and FuzzTest2() tests Level Two. The test ends after one minute, or if the chap dies. Upon reaching the end of the one minute, the test can be saved using the recorder.
+Fuzz generates random input (enhanced with intelligence) for one minute to move the chap in the map. FuzzTest1() is used to test Level One and FuzzTest2() tests Level Two. The test ends after one minute, or if the chap dies. The chap often dies before reaching the minute timer in Level Two due to the random input walking it into water. 
 
 ## Warnings
 When saving a game, persistency overrides the existing file and have the newest information in the xml file. However, the file itself doesn't automically refresh. Thus,  when trying to resume the saved game, it may not load the newest saved game.
