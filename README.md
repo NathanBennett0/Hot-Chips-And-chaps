@@ -4,7 +4,8 @@
 2. [Game Info](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#game-info)
 3. [Warnings](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#warnings)
 4. [Gource](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#gource-video)
-5. [Dependencies](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#dependencies)
+5. [JavaDoc and UML](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#javadoc-and-uml)
+6. [Dependencies](https://gitlab.ecs.vuw.ac.nz/course-work/swen225/2022/project1/t9/hot-chips-and-chaps#dependencies)
 
 ## Game Setup
 The program has been tested to run on the ECS machine. We recommend using Eclipse as the classpaths have already been configured. However, it can also run on VSC smoothly, and on IntelliJ if we import it through the "Import Project from Existing Sources".
@@ -51,6 +52,9 @@ When replaying the recorder at a fast speed just after you've finished a game, y
 
 ## Gource Video
 Gource.io video can be found [here](https://youtu.be/guo5vPugr4g). This doesn't include a few of the finishing-touch commits made during the grace period.
+
+## JavaDoc and UML
+UML diagram is embedded into our JavaDoc. After you've downloaded the repo, go to docs folder and locate index.html to see the UML diagram and Javadoc home for the project.
 
 ## Dependencies
 Some breakpoints to highlight where the dependencies are:
