@@ -64,7 +64,7 @@ public class Level {
 
     /**
      * Returns all of the tiles exluding locked and keys
-     * @return List<Tile>
+     * @return List
      */
     public List<Tile> getTiles() {
         return Collections.unmodifiableList(tiles);
@@ -72,7 +72,7 @@ public class Level {
 
     /**
      * Returns all of the locked tiles
-     * @return List<Locked>
+     * @return List
      */
     public List<Locked> getLockedTiles() {
         return Collections.unmodifiableList(lockedtiles);
@@ -80,7 +80,7 @@ public class Level {
 
     /**
      * Returns all of the key tiles
-     * @return List<Key>
+     * @return List
      */
     public List<Key> getKeyTiles() {
         return Collections.unmodifiableList(keytiles);
@@ -88,7 +88,7 @@ public class Level {
 
     /**
      * Returns a list of all the tiles that make up the board
-     * @return
+     * @return List
      */
     public List<Tile> getAllTiles() {
         List<Tile> allTiles = new ArrayList<Tile>();
