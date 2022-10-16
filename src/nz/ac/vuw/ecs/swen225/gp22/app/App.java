@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.RecordLoad;
 import nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder;
+import nz.ac.vuw.ecs.swen225.gp22.Recorder.RecorderPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DeadState;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Maze;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Wall;
@@ -175,7 +176,7 @@ public class App extends JFrame {
      */
     private boolean pauseTimer = false;
 
-    private boolean recordTimer = false;
+    public boolean recordTimer = false;
 
     /**
      * Keeps track of whether the gameplay is running or not.
@@ -201,12 +202,6 @@ public class App extends JFrame {
         pauseTimer = false;
         runningGame = false;
         recordTimer = false;
-    };
-
-    /**
-     * Stores actions to make buttons/ JComponents inactive.
-     */
-    Runnable setInactive = () -> {
     };
 
     /**
@@ -555,71 +550,38 @@ public class App extends JFrame {
 
         var panel = new JPanel();
         currentPanel = panel;
+        panel.setBackground(themeColor);
 
         JLabel bg = new JLabel();
-        Image scaled = Img.Replay.image.getScaledInstance(WIDTH - 10, HEIGHT - 40, Image.SCALE_SMOOTH);
+        Image scaled = Img.Replay.image.getScaledInstance(WIDTH, HEIGHT - 40, Image.SCALE_SMOOTH);
         ImageIcon bgImg = new ImageIcon(scaled);
 
         bg.setIcon(bgImg);
-        bg.setBounds(0, -20, WIDTH, HEIGHT);
-
-        panel.setBackground(themeColor);
+        bg.setBounds(0, -10, WIDTH, HEIGHT);
         panel.setLayout(null);
 
-        //BUTTONS
-        JButton back = new JButton("Back");
-        back.setBounds(120, 600, 100, 30);
-        back.addActionListener((e) -> home());
-
-        JButton stepByStep = new JButton("Step-By-Step");
-        stepByStep.setBounds(424, 600, 200, 30);
-
-        JButton autoReplay = new JButton("Auto-Replay");
-        autoReplay.setBounds(222, 600, 200, 30);
-
-        JSlider setSpeed = new JSlider(1, 5);
-        setSpeed.setMinorTickSpacing(1);
-        setSpeed.setBounds(626, 600, 150, 30);
-
-        JLabel displaySpeed = new JLabel(setSpeed.getValue() + "x");
-        displaySpeed.setBounds(780, 600, 30, 30);
-        displaySpeed.setForeground(new Color(255, 255, 255));
-
-        //ACTION LISTENERS
-        autoReplay.addActionListener((e) -> playRecording(setSpeed.getValue()));
-        stepByStep.addActionListener((e) -> {
-            if (recordLoad.getMoves().isEmpty()) {
-                JOptionPane.showConfirmDialog(currentPanel, "Go back to Main to load another recording.", "Notice", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-                home();
-            }
-            Objects.requireNonNull(recordLoad.getMoves().poll()).move();
-        });
-        setSpeed.addChangeListener((e) -> displaySpeed.setText(setSpeed.getValue() + "x"));
+        //GETTING THE BUTTONS AND METHODS FROM RECORDER
+        RecorderPanel rp = new RecorderPanel(this, recordLoad);
+        rp.setBounds(0,0, panel.getWidth(), panel.getHeight());
 
         //CREATING REPLAY PHASE
-        Phase phase = Phase.replayPhase(recordLoad.level()); // recorder.level()
+        Phase phase = Phase.replayPhase(recordLoad.level());
         this.phase = phase;
 
         //CREATING THE VIEWPORT FOR THE GAME
         JPanel viewport = new GamePanel(phase.maze(), this);
-        viewport.setBounds(170, 30, 558, 558);
+        viewport.setBounds(175, 35, 558, 558);
         changeKeyListener(phase.controller());
 
         //ADDING GUI ELEMENTS
         panel.add(viewport);
-        panel.add(back);
-        panel.add(autoReplay);
-        panel.add(stepByStep);
-        panel.add(setSpeed);
-        panel.add(displaySpeed);
+        panel.add(rp.back);
+        panel.add(rp.autoReplay);
+        panel.add(rp.stepByStep);
+        panel.add(rp.setSpeed);
+        panel.add(rp.displaySpeed);
         panel.add(mainMenu());
         panel.add(bg);
-
-        setInactive = () -> {
-            setSpeed.setEnabled(false);
-            stepByStep.setEnabled(false);
-            autoReplay.setEnabled(false);
-        };
 
         changeKeyListener(mainController);
         getContentPane().add(panel);
@@ -644,34 +606,6 @@ public class App extends JFrame {
             recorderGame();
         }
     }
-
-    /**
-     * Plays recordings - triggers moves.
-     */
-    public void playRecording(int value) {
-        if (recordLoad.getMoves().isEmpty()) return;
-        changeKeyListener(mainController);
-        int delay = 550 - 100 * value;
-        recordTimer = true;
-        setInactive.run(); //making the buttons inactive while recording is being played
-        Timer t = new Timer(delay, e -> {
-            AtomicInteger val = new AtomicInteger(0);
-            if (delay == 0) return;
-
-            // Decides how often the following code runs
-            if (val.getAndIncrement() % delay == 0) {
-                Objects.requireNonNull(recordLoad.getMoves().poll(), "No more moves left.").move();
-            }
-            if (recordLoad.getMoves().size() == 0) {
-                recordTimer = false;
-                JOptionPane.showConfirmDialog(currentPanel, "Go back to Main to load another recording.", "Notice", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-                home();
-            }
-            if (!recordTimer) ((Timer) e.getSource()).stop();
-        });
-        t.start();
-    }
-
 
     /**
      * Sets the phase and starts the levels.
