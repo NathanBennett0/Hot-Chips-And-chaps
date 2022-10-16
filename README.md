@@ -65,9 +65,17 @@ Some breakpoints to highlight where the dependencies are:
 **Domain**
 
 **Fuzz**
+- Line 43 & 64, FuzzTest.java - Makes an instance of App
 
 **Persistency**
-- Line 43 & 64, FuzzTest.java - Makes an instance of App
+- Lines 56-63 Filereader.java - Initialized fields/arrays of the data types Tile, Locked, Key, Chap, InfoField, and Actor
+- Line 215 Filereader.java - Creates instance of Key
+- Line 223 Filereader.java - Creates instance of Locked
+- Line 239 Filereader.java - Creates instance of InfoField
+- Line 249 Filereader.java - Creates instance of tile
+- Line 71 Filewriter.java - Used Chap.getChest()
+- Lines 46-54 Level.java - Instances of Tile, Locked, Key, Chap, and Actor are passed in
+
 
 **Renderer**
 - Line 38, EndPanel.java - Used App.Width and App.Height
