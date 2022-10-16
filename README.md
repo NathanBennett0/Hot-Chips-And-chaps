@@ -63,6 +63,7 @@ Some breakpoints to highlight where the dependencies are:
 - Line 65, directionMove.java - returns the class' instance of App
 
 **Domain**
+- Line 13, Maze.java - Makes a new Level object from Persistency's package
 
 **Fuzz**
 - Line 43 & 64, FuzzTest.java - Makes an instance of App
