@@ -95,11 +95,6 @@ public class App extends JFrame {
     private int timeLeft;
 
     /**
-     * Stores the delay/ speed for recordings.
-     */
-    private int recordingDelay;
-
-    /**
      * Normal controller with game functionalities.
      */
     private final Controller mainController = new Controller(this);
@@ -159,10 +154,6 @@ public class App extends JFrame {
      */
     private JMenuItem exit;
 
-    /**
-     * Dialog window for when the game is paused.
-     */
-    private final JDialog dialogWindow = new JDialog(this, "Menu");
 
     /**
      * Boolean for fuzz testing.
@@ -191,11 +182,16 @@ public class App extends JFrame {
      */
     public boolean runningGame = false;
 
-
     /**
      * JFileChooser with existing path to where xml files are stored.
      */
     JFileChooser loadsave = new JFileChooser("src/nz/ac/vuw/ecs/swen225/gp22/persistency/levels/");
+
+
+    /**
+     * Dialog window for when the game is paused.
+     */
+    private final JDialog dialogWindow = new JDialog(this, "Menu");
 
     /**
      * Initializes boolean variables.
@@ -208,10 +204,14 @@ public class App extends JFrame {
     };
 
     /**
+     * Stores actions to make buttons/ JComponents inactive.
+     */
+    Runnable setInactive = () -> {};
+
+    /**
      * Sets of codes to run everytime we go to a new panel.
      */
-    Runnable newPanel = () -> {
-    };
+    Runnable newPanel = () -> {};
 
     /**
      * Stores actions needed for when the game is paused.
@@ -547,46 +547,82 @@ public class App extends JFrame {
      * GUI - Game panel for recorder.
      */
     public void recorderGame() {
+        //INITIALIZATION
         newPanel.run();
         restart.run();
 
         var panel = new JPanel();
         currentPanel = panel;
 
+        JLabel bg = new JLabel();
+        Image scaled = Img.Replay.image.getScaledInstance(WIDTH-10, HEIGHT-40, Image.SCALE_SMOOTH);
+        ImageIcon bgImg = new ImageIcon(scaled);
+
+        bg.setIcon(bgImg);
+        bg.setBounds(0, -20, WIDTH, HEIGHT);
+
         panel.setBackground(themeColor);
         panel.setLayout(null);
 
-        var back = new JButton("Back");
-        back.setBounds(200, 600, 100, 30);
+        //BUTTONS
+        JButton back = new JButton("Back");
+        back.setBounds(120, 600, 100, 30);
         back.addActionListener((e) -> home());
 
-        var slider = new JSlider();
-        slider.setMajorTickSpacing(10);
-        slider.setMinimum(1);
-        slider.setMaximum(10);
-        slider.setValue(2);
-        slider.setBounds(350, 600, 200, 30);
-        slider.addChangeListener(e->{
-            recordingDelay = 1500 - 100*slider.getValue();
-            System.out.println(recordingDelay);
-        });
+        JButton stepByStep = new JButton("Step-By-Step");
+        stepByStep.setBounds(424, 600, 200, 30);
 
-        Phase phase = Phase.replayPhase(recordLoad.level()); //recorder.level()
+        JButton autoReplay = new JButton("Auto-Replay");
+        autoReplay.setBounds(222, 600, 200, 30);
+
+        JSlider setSpeed = new JSlider(1, 5);
+        setSpeed.setMinorTickSpacing(1);
+        setSpeed.setBounds(626, 600, 150, 30);
+
+        JLabel displaySpeed = new JLabel(setSpeed.getValue() +"x");
+        displaySpeed.setBounds(780, 600, 30, 30);
+        displaySpeed.setForeground(new Color(255,255,255));
+
+        //ACTION LISTENERS
+        autoReplay.addActionListener((e) -> playRecording(setSpeed.getValue()));
+        stepByStep.addActionListener((e) -> {
+            if(recordLoad.getMoves().isEmpty()){
+                JOptionPane.showConfirmDialog(currentPanel, "Go back to Main to load another recording.", "Notice", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                home();
+            }
+            Objects.requireNonNull(recordLoad.getMoves().poll()).move();});
+        setSpeed.addChangeListener((e) -> displaySpeed.setText(setSpeed.getValue() +"x"));
+
+        //CREATING REPLAY PHASE
+        Phase phase = Phase.replayPhase(recordLoad.level()); // recorder.level()
         this.phase = phase;
 
+        //CREATING THE VIEWPORT FOR THE GAME
         JPanel viewport = new GamePanel(phase.maze(), this);
         viewport.setBounds(170, 30, 558, 558);
         changeKeyListener(phase.controller());
 
+        //ADDING GUI ELEMENTS
         panel.add(viewport);
         panel.add(back);
-        panel.add(slider);
+        panel.add(autoReplay);
+        panel.add(stepByStep);
+        panel.add(setSpeed);
+        panel.add(displaySpeed);
         panel.add(mainMenu());
+        panel.add(bg);
 
-        playRecording();
+        setInactive = ()->{
+            setSpeed.setEnabled(false);
+            stepByStep.setEnabled(false);
+            autoReplay.setEnabled(false);
+        };
+
+        changeKeyListener(mainController);
         getContentPane().add(panel);
         newPanel = () -> remove(panel);
         pack();
+        currentPanel.requestFocus();
     }
 
     /**
@@ -609,17 +645,24 @@ public class App extends JFrame {
     /**
      * Plays recordings - triggers moves.
      */
-    public void playRecording(){
-       // recordingDelay = 100;
+    public void playRecording(int value){
+        if(recordLoad.getMoves().isEmpty()) return;
+        changeKeyListener(mainController);
+        int delay = 550 - 100 * value;
         recordTimer = true;
-        Timer t = new Timer(recordingDelay, e ->{
+        setInactive.run();
+        Timer t = new Timer(delay, e ->{
             AtomicInteger val = new AtomicInteger(0);
-            if(recordingDelay == 0) return;
-            if(val.getAndIncrement()%recordingDelay == 0){
-                Objects.requireNonNull(recordLoad.getMoves().poll()).move();
-                System.out.println("triggering move");
+            if(delay == 0) return;
+            if(val.get()%delay == 0){
+                Objects.requireNonNull(recordLoad.getMoves().poll(),"No more moves left.").move();
             }
-            if(recordLoad.getMoves().size() == 0 || !recordTimer) ((Timer) e.getSource()).stop();
+            if(recordLoad.getMoves().size() == 0){
+                recordTimer = false;
+                JOptionPane.showConfirmDialog(currentPanel, "Go back to Main to load another recording.", "Notice", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                home();
+            }
+            if(!recordTimer) ((Timer) e.getSource()).stop();
         });
         t.start();
     }
@@ -823,7 +866,6 @@ public class App extends JFrame {
             currentPanel.removeKeyListener(currentPanel.getKeyListeners()[0]);
         }
         currentPanel.addKeyListener(keyListener);
-        System.out.println("Key Listeners"+ currentPanel.getKeyListeners().length);
         currentPanel.setFocusable(true);
     }
 
