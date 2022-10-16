@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="186px" preserveAspectRatio="none" style="width:319px;height:186px;background:#FFFFFF;" version="1.1" viewBox="0 0 319 186" width="319px" zoomAndPan="magnify"><defs/><g><!--MD5=[a3214b065a24035d78762390b7674218]
+class nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder--><a href="Recorder.html" target="_top" title="Recorder.html" xlink:actuate="onRequest" xlink:href="Recorder.html" xlink:show="new" xlink:title="Recorder.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder"><rect codeLine="5" fill="#F1F1F1" height="153.1953" id="nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="298" x="7" y="7"/><ellipse cx="58.75" cy="26.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M61.2231,32.2759 Q60.6421,32.5747 60.0029,32.7241 Q59.3638,32.8735 58.6582,32.8735 Q56.1514,32.8735 54.8315,31.2217 Q53.5117,29.5698 53.5117,26.4487 Q53.5117,23.3193 54.8315,21.6675 Q56.1514,20.0156 58.6582,20.0156 Q59.3638,20.0156 60.0112,20.165 Q60.6587,20.3145 61.2231,20.6133 L61.2231,23.3359 Q60.5923,22.7549 59.9988,22.4851 Q59.4053,22.2153 58.7744,22.2153 Q57.4297,22.2153 56.7449,23.282 Q56.0601,24.3486 56.0601,26.4487 Q56.0601,28.5405 56.7449,29.6072 Q57.4297,30.6738 58.7744,30.6738 Q59.4053,30.6738 59.9988,30.4041 Q60.5923,30.1343 61.2231,29.5532 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62" x="141.25" y="25.5352">Recorder</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="186" x="79.25" y="38.1563">nz.ac.vuw.ecs.swen225.gp22.Recorder</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="304" y1="45.2656" y2="45.2656"/><ellipse cx="18" cy="59.0098" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272" x="27" y="62.8008">RecorderList: ArrayList&lt;directionMove&gt;</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="304" y1="69.7539" y2="69.7539"/><ellipse cx="18" cy="83.498" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="27" y="87.2891">Recorder(int)</text><ellipse cx="18" cy="99.9863" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="27" y="103.7773">Recorder()</text><ellipse cx="18" cy="116.4746" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="27" y="120.2656">saveMove(): void</text><ellipse cx="18" cy="132.9629" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="206" x="27" y="136.7539">addMove(directionMove): void</text><ellipse cx="18" cy="149.4512" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="255" x="27" y="153.2422">getMove(): ArrayList&lt;directionMove&gt;</text></g></a><rect fill="none" height="11.7773" style="stroke:none;stroke-width:1.0;" width="182" x="64.5" y="167.1953"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="64.5" y="176.8633">UMLDoclet 2.0.19, PlantUML 1.2022.8</text><!--MD5=[20e73b34989795b7c9912eed800ca398]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>Recorder\n<size:10>nz.ac.vuw.ecs.swen225.gp22.Recorder" as nz.ac.vuw.ecs.swen225.gp22.Recorder.Recorder [[Recorder.html]] {
+        +RecorderList: ArrayList<directionMove>
+        +Recorder(int)
+        +Recorder()
+        +saveMove(): void
+        +addMove(directionMove): void
+        +getMove(): ArrayList<directionMove>
+    }
+
+    center footer UMLDoclet 2.0.19, PlantUML 1.2022.8
+@enduml
+
+PlantUML version 1.2022.8(Sun Sep 25 22:00:33 NZDT 2022)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

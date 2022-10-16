@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="358px" preserveAspectRatio="none" style="width:308px;height:358px;background:#FFFFFF;" version="1.1" viewBox="0 0 308 358" width="308px" zoomAndPan="magnify"><defs/><g><!--MD5=[ca93240e9cc5af109d49ef8be679bab9]
+class nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke--><a href="KeyStroke.html" target="_top" title="KeyStroke.html" xlink:actuate="onRequest" xlink:href="KeyStroke.html" xlink:show="new" xlink:title="KeyStroke.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke"><rect codeLine="5" fill="#F1F1F1" height="169.6836" id="nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="292" x="9" y="163"/><ellipse cx="70.25" cy="182.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M72.7231,188.2759 Q72.1421,188.5747 71.5029,188.7241 Q70.8638,188.8735 70.1582,188.8735 Q67.6514,188.8735 66.3315,187.2217 Q65.0117,185.5698 65.0117,182.4487 Q65.0117,179.3193 66.3315,177.6675 Q67.6514,176.0156 70.1582,176.0156 Q70.8638,176.0156 71.5112,176.165 Q72.1587,176.3145 72.7231,176.6133 L72.7231,179.3359 Q72.0923,178.7549 71.4988,178.4851 Q70.9053,178.2153 70.2744,178.2153 Q68.9297,178.2153 68.2449,179.282 Q67.5601,180.3486 67.5601,182.4487 Q67.5601,184.5405 68.2449,185.6072 Q68.9297,186.6738 70.2744,186.6738 Q70.9053,186.6738 71.4988,186.4041 Q72.0923,186.1343 72.7231,185.5532 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="137.25" y="181.5352">KeyStroke</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="161" x="90.75" y="194.1563">nz.ac.vuw.ecs.swen225.gp22.app</text><line style="stroke:#181818;stroke-width:0.5;" x1="10" x2="300" y1="201.2656" y2="201.2656"/><polygon fill="none" points="20,210.0098,24,214.0098,20,218.0098,16,214.0098" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62" x="29" y="218.8008">app: App</text><line style="stroke:#181818;stroke-width:0.5;" x1="10" x2="300" y1="225.7539" y2="225.7539"/><ellipse cx="20" cy="239.498" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="266" x="29" y="243.2891">setAction(int, Runnable, boolean): void</text><ellipse cx="20" cy="255.9863" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="29" y="259.7773">clearKeyBind(): void</text><ellipse cx="20" cy="272.4746" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="29" y="276.2656">keyPressed(KeyEvent): void</text><ellipse cx="20" cy="288.9629" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="29" y="292.7539">keyPressed(int): void</text><ellipse cx="20" cy="305.4512" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="192" x="29" y="309.2422">keyReleased(KeyEvent): void</text><ellipse cx="20" cy="321.9395" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="173" x="29" y="325.7305">keyTyped(KeyEvent): void</text></g></a><!--MD5=[3eb55d915ce4c988cc6fe2a782a0fcdf]
+class java.awt.event.KeyListener--><g id="elem_java.awt.event.KeyListener"><rect codeLine="15" fill="#F1F1F1" height="95.7305" id="java.awt.event.KeyListener" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="218" x="46" y="7"/><ellipse cx="111.75" cy="26.1328" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M108.1777,22.3979 L108.1777,20.2397 L115.5571,20.2397 L115.5571,22.3979 L113.0918,22.3979 L113.0918,30.4746 L115.5571,30.4746 L115.5571,32.6328 L108.1777,32.6328 L108.1777,30.4746 L110.6431,30.4746 L110.6431,22.3979 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="78" x="132.25" y="25.5352">KeyListener</text><text fill="#000000" font-family="sans-serif" font-size="10" font-style="italic" lengthAdjust="spacing" textLength="71" x="135.75" y="38.1563">java.awt.event</text><line style="stroke:#181818;stroke-width:0.5;" x1="47" x2="263" y1="45.2656" y2="45.2656"/><ellipse cx="57" cy="59.0098" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="173" x="66" y="62.8008">keyTyped(KeyEvent): void</text><ellipse cx="57" cy="75.498" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="184" x="66" y="79.2891">keyPressed(KeyEvent): void</text><ellipse cx="57" cy="91.9863" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="192" x="66" y="95.7773">keyReleased(KeyEvent): void</text></g><!--MD5=[2b075f5707dbf95c32121f26b8d6d041]
+reverse link java.awt.event.KeyListener to nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke--><g id="link_java.awt.event.KeyListener_nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke"><path codeLine="21" d="M155,123.65 C155,136.31 155,149.67 155,162.75 " fill="none" id="java.awt.event.KeyListener-backto-nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="148,123.21,155,103.21,162,123.21,148,123.21" style="stroke:#181818;stroke-width:1.0;"/></g><rect fill="none" height="11.7773" style="stroke:none;stroke-width:1.0;" width="182" x="56" y="338.6836"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="56" y="348.3516">UMLDoclet 2.0.19, PlantUML 1.2022.8</text><!--MD5=[711f70dbaa7896f1f2dee9a8eb3429a4]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>KeyStroke\n<size:10>nz.ac.vuw.ecs.swen225.gp22.app" as nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke [[KeyStroke.html]] {
+        #app: App
+        +setAction(int, Runnable, boolean): void
+        +clearKeyBind(): void
+        +keyPressed(KeyEvent): void
+        +keyPressed(int): void
+        +keyReleased(KeyEvent): void
+        +keyTyped(KeyEvent): void
+    }
+
+    interface "<size:14>KeyListener\n<size:10>java.awt.event" as java.awt.event.KeyListener {
+        {abstract} +keyTyped(KeyEvent): void
+        {abstract} +keyPressed(KeyEvent): void
+        {abstract} +keyReleased(KeyEvent): void
+    }
+
+    java.awt.event.KeyListener <|.. nz.ac.vuw.ecs.swen225.gp22.app.KeyStroke
+
+    center footer UMLDoclet 2.0.19, PlantUML 1.2022.8
+@enduml
+
+PlantUML version 1.2022.8(Sun Sep 25 22:00:33 NZDT 2022)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

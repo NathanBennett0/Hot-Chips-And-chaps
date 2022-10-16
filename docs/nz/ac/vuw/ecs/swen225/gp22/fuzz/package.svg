@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="344px" preserveAspectRatio="none" style="width:431px;height:344px;background:#FFFFFF;" version="1.1" viewBox="0 0 431 344" width="431px" zoomAndPan="magnify"><defs/><g><!--MD5=[8c3ea7dc6fb14a8bdad798da18573ab7]
+cluster nz.ac.vuw.ecs.swen225.gp22.fuzz--><g id="cluster_nz.ac.vuw.ecs.swen225.gp22.fuzz"><path d="M8.5,6 L242.5,6 A3.75,3.75 0 0 1 245,8.5 L252,28.4883 L421.5,28.4883 A2.5,2.5 0 0 1 424,30.9883 L424,316.5 A2.5,2.5 0 0 1 421.5,319 L8.5,319 A2.5,2.5 0 0 1 6,316.5 L6,8.5 A2.5,2.5 0 0 1 8.5,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="6" x2="252" y1="28.4883" y2="28.4883"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="233" x="10" y="21.5352">nz.ac.vuw.ecs.swen225.gp22.fuzz</text></g><!--MD5=[d7d310a737464954c340fc8126000c28]
+class nz.ac.vuw.ecs.swen225.gp22.fuzz.FuzzTest--><a href="FuzzTest.html" target="_top" title="FuzzTest.html" xlink:actuate="onRequest" xlink:href="FuzzTest.html" xlink:show="new" xlink:title="FuzzTest.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.fuzz.FuzzTest"><rect codeLine="3" fill="#F1F1F1" height="262.3477" id="nz.ac.vuw.ecs.swen225.gp22.fuzz.FuzzTest" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="386" x="22" y="41"/><ellipse cx="179.75" cy="57" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M182.2231,63.1431 Q181.6421,63.4419 181.0029,63.5913 Q180.3638,63.7407 179.6582,63.7407 Q177.1514,63.7407 175.8315,62.0889 Q174.5117,60.437 174.5117,57.3159 Q174.5117,54.1865 175.8315,52.5347 Q177.1514,50.8828 179.6582,50.8828 Q180.3638,50.8828 181.0112,51.0322 Q181.6587,51.1816 182.2231,51.4805 L182.2231,54.2031 Q181.5923,53.6221 180.9988,53.3523 Q180.4053,53.0825 179.7744,53.0825 Q178.4297,53.0825 177.7449,54.1492 Q177.0601,55.2158 177.0601,57.3159 Q177.0601,59.4077 177.7449,60.4744 Q178.4297,61.541 179.7744,61.541 Q180.4053,61.541 180.9988,61.2712 Q181.5923,61.0015 182.2231,60.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62" x="200.25" y="62.291">FuzzTest</text><line style="stroke:#181818;stroke-width:0.5;" x1="23" x2="407" y1="73" y2="73"/><line style="stroke:#181818;stroke-width:0.5;" x1="23" x2="407" y1="81" y2="81"/><ellipse cx="33" cy="94.7441" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="42" y="98.5352">fuzzTest1(): void</text><ellipse cx="33" cy="111.2324" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="42" y="115.0234">fuzzTest2(): void</text><ellipse cx="33" cy="127.7207" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="360" x="42" y="131.5117">makeStrategyBoardL1(): HashMap&lt;String, Integer&gt;[]</text><ellipse cx="33" cy="144.209" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="195" x="42" y="148">makeStrategyBoardL2(): int[]</text><ellipse cx="33" cy="160.6973" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="42" y="164.4883">intelligence(App, long): void</text><ellipse cx="33" cy="177.1855" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="42" y="180.9766">findAdjX(String): int</text><ellipse cx="33" cy="193.6738" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="42" y="197.4648">findAdjY(String): int</text><ellipse cx="33" cy="210.1621" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="267" x="42" y="213.9531">possibleDirections(): ArrayList&lt;String&gt;</text><ellipse cx="33" cy="226.6504" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="42" y="230.4414">pickDirectionL1(): int</text><ellipse cx="33" cy="243.1387" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="42" y="246.9297">pickDirectionL2(): int</text><ellipse cx="33" cy="259.627" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="42" y="263.418">pause(App, int): void</text><ellipse cx="33" cy="276.1152" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="42" y="279.9063">checkTimer(long): boolean</text><ellipse cx="33" cy="292.6035" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="195" x="42" y="296.3945">generateKeycode(String): int</text></g></a><rect fill="none" height="11.7773" style="stroke:none;stroke-width:1.0;" width="182" x="117.5" y="325"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="117.5" y="334.668">UMLDoclet 2.0.19, PlantUML 1.2022.8</text><!--MD5=[e70cbd3b4fbfcf3d9da3c219962990e1]
+@startuml
+    namespace nz.ac.vuw.ecs.swen225.gp22.fuzz {
+
+        class FuzzTest [[FuzzTest.html]] {
+            +fuzzTest1(): void
+            +fuzzTest2(): void
+            +makeStrategyBoardL1(): HashMap<String, Integer>[]
+            +makeStrategyBoardL2(): int[]
+            +intelligence(App, long): void
+            +findAdjX(String): int
+            +findAdjY(String): int
+            +possibleDirections(): ArrayList<String>
+            +pickDirectionL1(): int
+            +pickDirectionL2(): int
+            +pause(App, int): void
+            +checkTimer(long): boolean
+            +generateKeycode(String): int
+        }
+
+    }
+
+    center footer UMLDoclet 2.0.19, PlantUML 1.2022.8
+@enduml
+
+PlantUML version 1.2022.8(Sun Sep 25 22:00:33 NZDT 2022)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="308px" preserveAspectRatio="none" style="width:231px;height:308px;background:#FFFFFF;" version="1.1" viewBox="0 0 231 308" width="231px" zoomAndPan="magnify"><defs/><g><!--MD5=[d0ad81a3dea9d51ead3389aad595cc7c]
+class nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage--><a href="UpImage.html" target="_top" title="UpImage.html" xlink:actuate="onRequest" xlink:href="UpImage.html" xlink:show="new" xlink:title="UpImage.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage"><rect codeLine="5" fill="#F1F1F1" height="136.707" id="nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="217" x="7" y="146"/><ellipse cx="22" cy="165.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M24.4731,171.2759 Q23.8921,171.5747 23.2529,171.7241 Q22.6138,171.8735 21.9082,171.8735 Q19.4014,171.8735 18.0815,170.2217 Q16.7617,168.5698 16.7617,165.4487 Q16.7617,162.3193 18.0815,160.6675 Q19.4014,159.0156 21.9082,159.0156 Q22.6138,159.0156 23.2612,159.165 Q23.9087,159.3145 24.4731,159.6133 L24.4731,162.3359 Q23.8423,161.7549 23.2488,161.4851 Q22.6553,161.2153 22.0244,161.2153 Q20.6797,161.2153 19.9949,162.282 Q19.3101,163.3486 19.3101,165.4487 Q19.3101,167.5405 19.9949,168.6072 Q20.6797,169.6738 22.0244,169.6738 Q22.6553,169.6738 23.2488,169.4041 Q23.8423,169.1343 24.4731,168.5532 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="98" y="164.5352">UpImage</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="185" x="36" y="177.1563">nz.ac.vuw.ecs.swen225.gp22.renderer</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="223" y1="184.2656" y2="184.2656"/><ellipse cx="18" cy="198.0098" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88" x="27" y="201.8008">currImg: Img</text><ellipse cx="18" cy="214.498" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="27" y="218.2891">animation: Img[]</text><ellipse cx="18" cy="230.9863" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="27" y="234.7773">done: boolean</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="223" y1="241.7305" y2="241.7305"/><ellipse cx="18" cy="255.4746" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="27" y="259.2656">getCurrImg(): Img</text><ellipse cx="18" cy="271.9629" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="27" y="275.7539">done(): boolean</text></g></a><!--MD5=[f6b6c8366a4cbbaea24b6b1615cf9f7b]
+class nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage--><a href="CatImage.html" target="_top" title="CatImage.html" xlink:actuate="onRequest" xlink:href="CatImage.html" xlink:show="new" xlink:title="CatImage.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage"><rect codeLine="13" fill="#F1F1F1" height="79.2422" id="nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="217" x="7" y="7"/><ellipse cx="22" cy="26.1328" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M18.4277,22.3979 L18.4277,20.2397 L25.8071,20.2397 L25.8071,22.3979 L23.3418,22.3979 L23.3418,30.4746 L25.8071,30.4746 L25.8071,32.6328 L18.4277,32.6328 L18.4277,30.4746 L20.8931,30.4746 L20.8931,22.3979 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="65" x="96" y="25.5352">CatImage</text><text fill="#000000" font-family="sans-serif" font-size="10" font-style="italic" lengthAdjust="spacing" textLength="185" x="36" y="38.1563">nz.ac.vuw.ecs.swen225.gp22.renderer</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="223" y1="45.2656" y2="45.2656"/><ellipse cx="18" cy="59.0098" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="123" x="27" y="62.8008">getCurrImg(): Img</text><ellipse cx="18" cy="75.498" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="109" x="27" y="79.2891">done(): boolean</text></g></a><!--MD5=[f77f77170ee6cb80e7a7ae3a643392ab]
+reverse link nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage to nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage--><g id="link_nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage_nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage"><path codeLine="18" d="M115.5,106 C115.5,118.91 115.5,132.69 115.5,145.92 " fill="none" id="nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage-backto-nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="108.5,106,115.5,86,122.5,106,108.5,106" style="stroke:#181818;stroke-width:1.0;"/></g><rect fill="none" height="11.7773" style="stroke:none;stroke-width:1.0;" width="182" x="17.5" y="288.707"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="17.5" y="298.375">UMLDoclet 2.0.19, PlantUML 1.2022.8</text><!--MD5=[d922cdde4fd98310b3c9c88a85ae6256]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>UpImage\n<size:10>nz.ac.vuw.ecs.swen225.gp22.renderer" as nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage [[UpImage.html]] {
+        +currImg: Img
+        +animation: Img[]
+        +done: boolean
+        +getCurrImg(): Img
+        +done(): boolean
+    }
+
+    interface "<size:14>CatImage\n<size:10>nz.ac.vuw.ecs.swen225.gp22.renderer" as nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage [[CatImage.html]] {
+        {abstract} +getCurrImg(): Img
+        {abstract} +done(): boolean
+    }
+
+    nz.ac.vuw.ecs.swen225.gp22.renderer.CatImage <|.. nz.ac.vuw.ecs.swen225.gp22.renderer.UpImage
+
+    center footer UMLDoclet 2.0.19, PlantUML 1.2022.8
+@enduml
+
+PlantUML version 1.2022.8(Sun Sep 25 22:00:33 NZDT 2022)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="242px" preserveAspectRatio="none" style="width:225px;height:242px;background:#FFFFFF;" version="1.1" viewBox="0 0 225 242" width="225px" zoomAndPan="magnify"><defs/><g><!--MD5=[5c50e8bf741917662dd8f1b2885660f3]
+class nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color--><a href="Key.Color.html" target="_top" title="Key.Color.html" xlink:actuate="onRequest" xlink:href="Key.Color.html" xlink:show="new" xlink:title="Key.Color.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color"><rect codeLine="5" fill="#F1F1F1" height="112.2188" id="nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="211" x="7" y="105"/><ellipse cx="22" cy="124.1328" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M25.6143,130.6328 L17.8945,130.6328 L17.8945,118.2397 L25.6143,118.2397 L25.6143,120.3979 L20.3433,120.3979 L20.3433,123.0708 L25.1162,123.0708 L25.1162,125.229 L20.3433,125.229 L20.3433,128.4746 L25.6143,128.4746 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="92.5" y="123.5352">Key.Color</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="179" x="36" y="136.1563">nz.ac.vuw.ecs.swen225.gp22.domain</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="217" y1="143.2656" y2="143.2656"/><ellipse cx="18" cy="157.0098" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="54" x="27" y="160.8008">YELLOW</text><ellipse cx="18" cy="173.498" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="58" x="27" y="177.2891">ORANGE</text><ellipse cx="18" cy="189.9863" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="45" x="27" y="193.7773">GREEN</text><ellipse cx="18" cy="206.4746" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" text-decoration="underline" textLength="33" x="27" y="210.2656">BLUE</text></g></a><!--MD5=[b81c54c39d376dd6e1078b70c951983d]
+class nz.ac.vuw.ecs.swen225.gp22.domain.Key--><a href="Key.html" target="_top" title="Key.html" xlink:actuate="onRequest" xlink:href="Key.html" xlink:show="new" xlink:title="Key.html" xlink:type="simple"><g id="elem_nz.ac.vuw.ecs.swen225.gp22.domain.Key"><rect codeLine="12" fill="#F1F1F1" height="38.2656" id="nz.ac.vuw.ecs.swen225.gp22.domain.Key" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="211" x="7" y="7"/><ellipse cx="22" cy="26.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M24.4731,32.2759 Q23.8921,32.5747 23.2529,32.7241 Q22.6138,32.8735 21.9082,32.8735 Q19.4014,32.8735 18.0815,31.2217 Q16.7617,29.5698 16.7617,26.4487 Q16.7617,23.3193 18.0815,21.6675 Q19.4014,20.0156 21.9082,20.0156 Q22.6138,20.0156 23.2612,20.165 Q23.9087,20.3145 24.4731,20.6133 L24.4731,23.3359 Q23.8423,22.7549 23.2488,22.4851 Q22.6553,22.2153 22.0244,22.2153 Q20.6797,22.2153 19.9949,23.282 Q19.3101,24.3486 19.3101,26.4487 Q19.3101,28.5405 19.9949,29.6072 Q20.6797,30.6738 22.0244,30.6738 Q22.6553,30.6738 23.2488,30.4041 Q23.8423,30.1343 24.4731,29.5532 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="24" x="113.5" y="25.5352">Key</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="179" x="36" y="38.1563">nz.ac.vuw.ecs.swen225.gp22.domain</text></g></a><!--MD5=[237d001ebe759326445c15fe6b0678ea]
+reverse link nz.ac.vuw.ecs.swen225.gp22.domain.Key to nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color--><g id="link_nz.ac.vuw.ecs.swen225.gp22.domain.Key_nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color"><path codeLine="14" d="M112.5,60.27 C112.5,73.8 112.5,89.79 112.5,104.97 " fill="none" id="nz.ac.vuw.ecs.swen225.gp22.domain.Key-backto-nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color" style="stroke:#181818;stroke-width:1.0;"/><ellipse cx="112.5" cy="53.21" fill="#FFFFFF" rx="8" ry="8" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="112.5" x2="112.5" y1="61.21" y2="45.21"/><line style="stroke:#181818;stroke-width:1.0;" x1="104.5" x2="120.5" y1="53.21" y2="53.21"/></g><rect fill="none" height="11.7773" style="stroke:none;stroke-width:1.0;" width="182" x="14.5" y="223.2188"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="14.5" y="232.8867">UMLDoclet 2.0.19, PlantUML 1.2022.8</text><!--MD5=[f8323953f198e3501d526f5a0423c19e]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    enum "<size:14>Key.Color\n<size:10>nz.ac.vuw.ecs.swen225.gp22.domain" as nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color [[Key.Color.html]] {
+        {static} +YELLOW
+        {static} +ORANGE
+        {static} +GREEN
+        {static} +BLUE
+    }
+
+    class "<size:14>Key\n<size:10>nz.ac.vuw.ecs.swen225.gp22.domain" as nz.ac.vuw.ecs.swen225.gp22.domain.Key [[Key.html]]
+
+    nz.ac.vuw.ecs.swen225.gp22.domain.Key +- - nz.ac.vuw.ecs.swen225.gp22.domain.Key.Color
+
+    center footer UMLDoclet 2.0.19, PlantUML 1.2022.8
+@enduml
+
+PlantUML version 1.2022.8(Sun Sep 25 22:00:33 NZDT 2022)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: AU
+--></g></svg>
