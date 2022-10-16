@@ -56,6 +56,12 @@ Gource.io video can be found [here](https://youtu.be/guo5vPugr4g). This doesn't 
 Some breakpoints to highlight where the dependencies are:
 
 **App**
+- Line 687, App.java - Creates an instance of Recorder from Recorder module
+- Line 643, App.java - Creates an instance of RecordLoad from Recorder module
+- Line 792, App.java - Creates a Level object through Filereader from Persistency module
+- Line 797, App.java - Creates an instance of Maze from Domain module
+- Line 110, App.java - Creates an instance of SoundEffects from Renderer module
+- Line 51, Game.java - Creates an instanceof GamePanel from Renderer module
 
 **Recorder**
 - Line 29, directionMove.java - Makes an instance of App
